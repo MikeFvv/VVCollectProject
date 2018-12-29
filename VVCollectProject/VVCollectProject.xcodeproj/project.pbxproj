@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0D4244C21D78ACE0085986A /* CodeSnippetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4244B21D78ACE0085986A /* CodeSnippetVC.m */; };
 		EFC110B0B81416073819BC15 /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 753826E51B094305F06669E0 /* libPods-VVCollectProject.a */; };
 		F3960D7521D27CCB00348FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3960D7421D27CCB00348FAE /* AppDelegate.m */; };
 		F3960D7821D27CCB00348FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3960D7721D27CCB00348FAE /* ViewController.m */; };
@@ -37,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		753826E51B094305F06669E0 /* libPods-VVCollectProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VVCollectProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0D4244A21D78ACE0085986A /* CodeSnippetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeSnippetVC.h; sourceTree = "<group>"; };
+		A0D4244B21D78ACE0085986A /* CodeSnippetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeSnippetVC.m; sourceTree = "<group>"; };
 		C168B52CD0E387FD1B3F9833 /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		F3960D7021D27CCB00348FAE /* VVCollectProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVCollectProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3960D7321D27CCB00348FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,7 +92,6 @@
 				C168B52CD0E387FD1B3F9833 /* Pods-VVCollectProject.debug.xcconfig */,
 				FBE44D88D8C0BFAEC7D9A1E9 /* Pods-VVCollectProject.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -130,6 +132,8 @@
 				F3960D7421D27CCB00348FAE /* AppDelegate.m */,
 				F3960D7621D27CCB00348FAE /* ViewController.h */,
 				F3960D7721D27CCB00348FAE /* ViewController.m */,
+				A0D4244A21D78ACE0085986A /* CodeSnippetVC.h */,
+				A0D4244B21D78ACE0085986A /* CodeSnippetVC.m */,
 				F3960D7921D27CCB00348FAE /* Main.storyboard */,
 				F3960D7C21D27CCE00348FAE /* Assets.xcassets */,
 				F3960D7E21D27CCE00348FAE /* LaunchScreen.storyboard */,
@@ -314,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3960D7821D27CCB00348FAE /* ViewController.m in Sources */,
+				A0D4244C21D78ACE0085986A /* CodeSnippetVC.m in Sources */,
 				F3960D8321D27CCE00348FAE /* main.m in Sources */,
 				F3960D7521D27CCB00348FAE /* AppDelegate.m in Sources */,
 			);
