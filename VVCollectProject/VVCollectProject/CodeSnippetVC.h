@@ -2,7 +2,7 @@
 //  CodeSnippetVC.h
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2018/12/29.
+//  Created by Mike on 2018/12/29.
 //  Copyright © 2018 Mike. All rights reserved.
 //
 

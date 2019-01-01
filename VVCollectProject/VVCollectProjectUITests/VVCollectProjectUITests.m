@@ -2,7 +2,7 @@
 //  VVCollectProjectUITests.m
 //  VVCollectProjectUITests
 //
-//  Created by fangyuan on 2018/12/25.
+//  Created by Mike on 2018/12/25.
 //  Copyright © 2018 Mike. All rights reserved.
 //
 
