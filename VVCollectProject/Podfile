@@ -6,10 +6,13 @@ inhibit_all_warnings!
 # pod update --verbose --no-repo-update
 
 target 'VVCollectProject' do
-
-	pod 'AFNetworking'
-    pod 'YYCache'
-    pod 'BANetManager'
-
+  
+  pod 'AFNetworking'
+  pod 'Masonry'
+  pod 'MJRefresh'
+  pod 'YYModel'
+  pod 'YYCache'
+  pod 'BANetManager'
+  
 end
 
