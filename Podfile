@@ -12,6 +12,7 @@ target 'VVCollectProject' do
   pod 'MJRefresh'
   pod 'YYModel'
   pod 'YYCache'
+  pod 'WRNavigationBar'
 #  pod 'BANetManager'
 
 end
