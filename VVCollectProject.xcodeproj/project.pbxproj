@@ -38,6 +38,7 @@
 		A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5148E21EE2EB800E2F89D /* JSPatchCode.m */; };
 		A0C5150421EE310900E2F89D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C5150321EE310900E2F89D /* JavaScriptCore.framework */; };
 		A0C5150621EE46CB00E2F89D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150521EE46CB00E2F89D /* main.js */; };
+		A0C5150821EE491600E2F89D /* DemoJS.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150721EE491600E2F89D /* DemoJS.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		A0C5148E21EE2EB800E2F89D /* JSPatchCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSPatchCode.m; sourceTree = "<group>"; };
 		A0C5150321EE310900E2F89D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		A0C5150521EE46CB00E2F89D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		A0C5150721EE491600E2F89D /* DemoJS.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DemoJS.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +276,7 @@
 		A0130DFD21ECDC28007E845B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A0C5150721EE491600E2F89D /* DemoJS.js */,
 				A0C5150521EE46CB00E2F89D /* main.js */,
 			);
 			path = Resource;
@@ -508,6 +511,7 @@
 			files = (
 				A0C5150621EE46CB00E2F89D /* main.js in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
+				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
