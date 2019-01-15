@@ -11,6 +11,8 @@
 #import "BaseNavigationController.h"
 #import "UIImage+GradientColor.h"
 #import "ViewController.h"
+#import "JSPatchCode.h"
+
 
 @interface AppDelegate ()
 
@@ -20,6 +22,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //热更新加载
+    [JSPatchCode asyncUpdate:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

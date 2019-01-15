@@ -20,17 +20,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // https://www.jianshu.com/p/011fe3c2df66
-    // 导航栏 背景颜色 UI直接切图 实现
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"msg3"] forBarMetrics:UIBarMetricsDefault];
-    
-    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
-    [self navigationBackColor];
-    
+    [self initUI];
+   
+//    [self navigationBar];
+//    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
+//    [self navigationBackColor];
     
     // 定时器
 //    [self pressStart];
+    [self bulidView];
+}
+
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//    // Do any additional setup after loading the view, typically from a nib.
+//
+//}
+
+-(void)bulidView{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.bounds = CGRectMake(0, 0, 80, 40);
+    btn.center = self.view.center;
+    [btn setTitle:@"yyyy下发js脚本" forState:UIControlStateNormal];
     
+    [btn addTarget:self action:@selector(jsScriptRun:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+-(void)jsScriptRun:(id)sender{
+    
+}
+
+- (void)initUI {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    label.text = @"测试";
+    label.backgroundColor = [UIColor redColor];
+    [self.view addSubview:label];
+}
+
+- (void)initUI2 {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    label.text = @"测试下载更新";
+    label.backgroundColor = [UIColor redColor];
+    [self.view addSubview:label];
+}
+
+- (void)navigationBar {
+    // https://www.jianshu.com/p/011fe3c2df66
+    // 导航栏 背景颜色 UI直接切图 实现
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"msg3"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)navigationBackColor {
