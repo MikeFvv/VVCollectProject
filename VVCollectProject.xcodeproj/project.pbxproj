@@ -19,10 +19,6 @@
 		A0130DE621ECB78D007E845B /* CodeSnippetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DDD21ECB78D007E845B /* CodeSnippetVC.m */; };
 		A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DE921ECC92A007E845B /* BaseNavigationController.m */; };
 		A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */; };
-		A0130E0321ECDC65007E845B /* ExampleApp.html in Resources */ = {isa = PBXBuildFile; fileRef = A0130DFF21ECDC64007E845B /* ExampleApp.html */; };
-		A0130E0421ECDC65007E845B /* demo.js in Resources */ = {isa = PBXBuildFile; fileRef = A0130E0021ECDC64007E845B /* demo.js */; };
-		A0130E0521ECDC65007E845B /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = A0130E0121ECDC65007E845B /* test.html */; };
-		A0130E0621ECDC65007E845B /* test1.html in Resources */ = {isa = PBXBuildFile; fileRef = A0130E0221ECDC65007E845B /* test1.html */; };
 		A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */; };
 		A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC30721E8BA6D00CEA8ED /* ViewController.m */; };
 		A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BCC30921E8BA6D00CEA8ED /* Main.storyboard */; };
@@ -41,6 +37,7 @@
 		A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5148421EE2E4F00E2F89D /* JPLoader.m */; };
 		A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5148E21EE2EB800E2F89D /* JSPatchCode.m */; };
 		A0C5150421EE310900E2F89D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C5150321EE310900E2F89D /* JavaScriptCore.framework */; };
+		A0C5150621EE46CB00E2F89D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150521EE46CB00E2F89D /* main.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,10 +87,6 @@
 		A0130DE921ECC92A007E845B /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GradientColor.h"; sourceTree = "<group>"; };
 		A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GradientColor.m"; sourceTree = "<group>"; };
-		A0130DFF21ECDC64007E845B /* ExampleApp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ExampleApp.html; sourceTree = "<group>"; };
-		A0130E0021ECDC64007E845B /* demo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = demo.js; sourceTree = "<group>"; };
-		A0130E0121ECDC65007E845B /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
-		A0130E0221ECDC65007E845B /* test1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test1.html; sourceTree = "<group>"; };
 		A0BCC30021E8BA6D00CEA8ED /* VVCollectProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVCollectProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0BCC30321E8BA6D00CEA8ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -130,6 +123,7 @@
 		A0C5148D21EE2EB800E2F89D /* JSPatchCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSPatchCode.h; sourceTree = "<group>"; };
 		A0C5148E21EE2EB800E2F89D /* JSPatchCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSPatchCode.m; sourceTree = "<group>"; };
 		A0C5150321EE310900E2F89D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		A0C5150521EE46CB00E2F89D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,20 +274,9 @@
 		A0130DFD21ECDC28007E845B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				A0130DFE21ECDC64007E845B /* JsHtmlCss */,
+				A0C5150521EE46CB00E2F89D /* main.js */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		A0130DFE21ECDC64007E845B /* JsHtmlCss */ = {
-			isa = PBXGroup;
-			children = (
-				A0130DFF21ECDC64007E845B /* ExampleApp.html */,
-				A0130E0021ECDC64007E845B /* demo.js */,
-				A0130E0121ECDC65007E845B /* test.html */,
-				A0130E0221ECDC65007E845B /* test1.html */,
-			);
-			path = JsHtmlCss;
 			sourceTree = "<group>";
 		};
 		A0BCC2F721E8BA6D00CEA8ED = {
@@ -523,14 +506,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0130E0421ECDC65007E845B /* demo.js in Resources */,
+				A0C5150621EE46CB00E2F89D /* main.js in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
-				A0130E0521ECDC65007E845B /* test.html in Resources */,
-				A0130E0621ECDC65007E845B /* test1.html in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
-				A0130E0321ECDC65007E845B /* ExampleApp.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

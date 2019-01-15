@@ -23,9 +23,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+#if TARGET_IPHONE_SIMULATOR
+    [JPEngine startEngine];
+    NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"main" ofType:@"js"];
+    NSString *script = [NSString stringWithContentsOfFile:sourcePath encoding:NSUTF8StringEncoding error:nil];
+    [JPEngine evaluateScript:script];
+#elif TARGET_OS_IPHONE
     //热更新加载
     [JSPatchCode asyncUpdate:YES];
-    
+#endif
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
