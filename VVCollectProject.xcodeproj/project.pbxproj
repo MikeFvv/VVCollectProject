@@ -19,6 +19,7 @@
 		A0130DE621ECB78D007E845B /* CodeSnippetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DDD21ECB78D007E845B /* CodeSnippetVC.m */; };
 		A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DE921ECC92A007E845B /* BaseNavigationController.m */; };
 		A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */; };
+		A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0821DD421EF3B4700429C20 /* HomeViewController.m */; };
 		A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */; };
 		A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC30721E8BA6D00CEA8ED /* ViewController.m */; };
 		A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BCC30921E8BA6D00CEA8ED /* Main.storyboard */; };
@@ -88,6 +89,8 @@
 		A0130DE921ECC92A007E845B /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GradientColor.h"; sourceTree = "<group>"; };
 		A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GradientColor.m"; sourceTree = "<group>"; };
+		A0821DD321EF3B4700429C20 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		A0821DD421EF3B4700429C20 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		A0BCC30021E8BA6D00CEA8ED /* VVCollectProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVCollectProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0BCC30321E8BA6D00CEA8ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -257,6 +260,7 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
 				A0130DDC21ECB78D007E845B /* CodeSnippetVC.h */,
 				A0130DDD21ECB78D007E845B /* CodeSnippetVC.m */,
@@ -280,6 +284,15 @@
 				A0C5150521EE46CB00E2F89D /* main.js */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		A0821DD221EF3B2600429C20 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A0821DD321EF3B4700429C20 /* HomeViewController.h */,
+				A0821DD421EF3B4700429C20 /* HomeViewController.m */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A0BCC2F721E8BA6D00CEA8ED = {
@@ -597,6 +610,7 @@
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
+				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,

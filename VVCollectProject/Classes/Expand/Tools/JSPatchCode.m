@@ -23,6 +23,14 @@
 
 @implementation JSPatchCode
 static BOOL _async;
+
+
+
+/**
+ 同步加载还是异步加载补丁更新
+
+ @param async YES 异步  NO 同步
+ */
 +(void)asyncUpdate:(BOOL)async{
     //
     [JPLoader run];
@@ -53,7 +61,7 @@ static BOOL _async;
     */
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleNameKey];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *requestUrl = @"https://raw.githubusercontent.com/MikeFvv/VVTestJSPatch/master/patchVersion";
+    NSString *requestUrl = @"https://www.shiji68.com/iOSPatch/patchVersion.js";
     [JSPatchCode patchVersionCheck:requestUrl];
     
 }
@@ -90,7 +98,7 @@ static dispatch_semaphore_t semaphore;
             NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:[dicString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
             //版本管理
             [JSPatchCode mangerJSPatchVersion:resultDic];
-        }else{
+        } else {
             //如果失败执行本地脚本
             //获取补丁文件名
             NSString *patchFileName = [JSPatchCode currentJSFileName];
@@ -145,6 +153,12 @@ static dispatch_semaphore_t semaphore;
     
 }
 
+
+/**
+ jspatch 加载
+
+ @param dict 网络获取的版本信息等
+ */
 +(void)jsPatchLoading:(NSDictionary*)dict{
     NSString *urlString = dict[@"js_url"];
     if (!urlString || [urlString rangeOfString:@"http"].location == NSNotFound) {
@@ -194,6 +208,14 @@ static dispatch_semaphore_t semaphore;
 }
 
 #pragma mark -- 数据管理
+
+
+/**
+ 将JS补丁保存到本地
+
+ @param script js内容
+ @param filename 文件名称
+ */
 +(void)saveJSPatchToLocal:(NSString*)script fileName:(NSString*)filename{
     // script directory
     NSString *scriptDirectory = [self fetchScriptDirectory];
@@ -224,6 +246,13 @@ static dispatch_semaphore_t semaphore;
     
     
 }
+
+
+/**
+ 通过文件名称获取JS补丁
+
+ @param fileName 文件名称
+ */
 +(void)getJSPatchWithFileName:(NSString*)fileName{
     NSString *scriptDirectory = [self fetchScriptDirectory];
     NSString *scriptPath = [scriptDirectory stringByAppendingPathComponent:fileName];
@@ -232,6 +261,11 @@ static dispatch_semaphore_t semaphore;
         [JPEngine evaluateScriptWithPath:scriptPath];
     }
 }
+
+
+/**
+ 删除本地JS补丁
+ */
 +(void)removeLocalJSPatch{
     NSString *libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
     NSString *scriptDirectory = [libraryDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"JSPatch/"]];
@@ -243,6 +277,12 @@ static dispatch_semaphore_t semaphore;
     
 }
 
+
+/**
+ 获取脚本目录
+
+ @return 返回目录
+ */
 + (NSString *)fetchScriptDirectory
 {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -251,12 +291,24 @@ static dispatch_semaphore_t semaphore;
     return scriptDirectory;
 }
 
+
+/**
+ 当前App版本
+
+ @return <#return value description#>
+ */
 + (NSInteger)currentJSVersion
 {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSInteger jsV = [[NSUserDefaults standardUserDefaults] integerForKey:kJSPatchVersion(appVersion)];
     return jsV;
 }
+
+/**
+ 保存最新版本
+
+ @param version 版本号
+ */
 +(void)saveLatestJSVersion:(NSInteger)version{
     if (!version) {
         return;
@@ -265,6 +317,12 @@ static dispatch_semaphore_t semaphore;
     [[NSUserDefaults standardUserDefaults] setInteger:version forKey:kJSPatchVersion(appVersion)];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+/**
+ 当前的JS文件名
+
+ @return <#return value description#>
+ */
 + (NSString*)currentJSFileName
 {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -272,6 +330,13 @@ static dispatch_semaphore_t semaphore;
     NSString *jsFileNam = [[NSUserDefaults standardUserDefaults] valueForKey:filekey];
     return jsFileNam;
 }
+
+
+/**
+ 保存最新的JS文件名
+
+ @param fileName <#fileName description#>
+ */
 +(void)saveLatestJSFileName:(NSString*)fileName{
     if (!fileName) {
         return;

@@ -27,7 +27,12 @@ typedef NS_ENUM(NSInteger, ZJComparisonResult)
  自定义修改JPLoader的 updateToVersion方法
  */
 
-// 同步加载还是异步加载补丁更新
+
+/**
+ 同步加载还是异步加载补丁更新
+
+ @param async YES 异步  NO 同步
+ */
 +(void)asyncUpdate:(BOOL)async;
 
 /*

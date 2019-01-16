@@ -1,34 +1,34 @@
 //
-//  ViewController.m
+//  HomeViewController.m
 //  VVCollectProject
 //
-//  Created by Mike on 2018/12/25.
-//  Copyright © 2018 Mike. All rights reserved.
+//  Created by 罗耀生 on 2019/1/16.
+//  Copyright © 2019 Mike. All rights reserved.
 //
 
+#import "HomeViewController.h"
 #import "ViewController.h"
 
-
-@interface ViewController ()
+@interface HomeViewController ()
 
 // 定时器
 @property (nonatomic,strong) NSTimer *timerView;
 
 @end
 
-@implementation ViewController
+@implementation HomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initUI];
-   
-//    [self navigationBar];
-//    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
-//    [self navigationBackColor];
+    
+    //    [self navigationBar];
+    //    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
+    //    [self navigationBackColor];
     
     // 定时器
-//    [self pressStart];
+    //    [self pressStart];
     [self bulidView];
 }
 
@@ -50,6 +50,8 @@
 
 -(void)jsScriptRun:(id)sender{
     
+    ViewController *vc = [[ViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)initUI {
@@ -159,3 +161,4 @@
 
 
 @end
+
