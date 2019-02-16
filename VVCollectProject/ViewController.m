@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
+#import "Person.h"
+#import <objc/runtime.h>
 
 @interface ViewController ()
 
@@ -21,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initUI];
+//    [self initUI];
    
 //    [self navigationBar];
 //    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
@@ -29,7 +30,116 @@
     
     // 定时器
 //    [self pressStart];
-    [self bulidView];
+//    [self bulidView];
+    
+    
+//    Person *p = [[Person alloc] init];
+//    Class c1 = [p class];
+//    Class c2 = [Person class];
+//    //输出 1
+//    NSLog(@"%d", c1 == c2);
+    
+    
+    Person *p = [[Person alloc] init];
+    //输出1
+    NSLog(@"%d", [p class] == object_getClass(p));
+    //输出0
+    NSLog(@"%d", class_isMetaClass(object_getClass(p)));
+    //输出1
+    NSLog(@"%d", class_isMetaClass(object_getClass([Person class])));
+    //输出0
+    NSLog(@"%d", object_getClass(p) == object_getClass([Person class]));
+    
+    
+    
+    // runtime:遍历模型中所有成员属性,去字典中查找
+    // 属性定义在哪,定义在类,类里面有个属性列表(数组)
+    // 遍历模型所有成员属性
+    // ivar:成员属性
+    // class_copyIvarList:把成员属性列表复制一份给你
+    // Ivar *:指向Ivar指针
+    // Ivar *:指向一个成员变量数组
+    // class:获取哪个类的成员属性列表
+    // count:成员属性总数
+    unsigned int count = 0;
+    Ivar *ivarList = class_copyIvarList([Person class], &count);
+    for (int i = 0 ; i < count; i++) {
+        // 获取成员属性
+        Ivar ivar = ivarList[i];
+        // 获取成员名
+        NSString *propertyName = [NSString stringWithUTF8String:ivar_getName(ivar)];
+        ;
+        // 成员属性类型
+        NSString *propertyType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivar)];
+        
+        NSLog(@"!111");
+    }
+    
+    
+    NSString *className = NSStringFromClass([UIView class]);
+    
+    
+    const char *cClassName = [className UTF8String];
+    
+    id theClass = objc_getClass(cClassName);
+    
+    unsigned int outCount;
+    
+    
+    Method *m =  class_copyMethodList(theClass,&outCount);
+    
+    NSLog(@"%d",outCount);
+    for (int i = 0; i<outCount; i++) {
+        SEL a = method_getName(*(m+i));
+        NSString *sn = NSStringFromSelector(a);
+        NSLog(@"%@",sn);
+    }
+ 
+    NSInteger a = 10;
+    NSInteger b = 20;
+    
+//    aa = aa + bb;
+//    bb = aa - bb;
+//    aa = aa - bb;
+    
+//    a = a^b;
+//
+//    b = a^b;
+//
+//    a = a^b;
+    
+     NSLog(@"%d-%d", a , b);
+    
+    
+    //第三种方法，使用指针
+    
+    int *pa = &a;
+    
+    int *pb = &b;
+    
+    *pa = b;
+    
+    *pb = a;
+    
+    NSLog(@"after,a = %d",a);
+    
+    NSLog(@"after,b = %d",b);
+    
+   
+    
+//    class_getName
+////    Returns the name of a class.
+//
+//    const char * class_getName(Class cls)
+//    Parameters
+//    cls
+//    A class object.
+//    Return Value
+//    The name of the class, or the empty string if cls is Nil.
+//
+//        Declared In
+//        runtime.h
+    
 }
 
 //- (void)viewDidLoad {
@@ -155,7 +265,22 @@
 }
 
 
-#pragma mark -  无
 
+#pragma mark - 错误Log打印
+// NSLog  错误方法打印
+// NSLog(@"🔴类名与方法名：%@（在第%@行），描述：%@", @(__PRETTY_FUNCTION__), @(__LINE__), exception);
+//@try {
+//    [mineViewController testPush];
+//} @catch (NSException *exception) {
+//    NSLog(@"🔴类名与方法名：%@（在第%@行），描述：%@", @(__PRETTY_FUNCTION__), @(__LINE__), exception.reason);
+//}
+
+
+#pragma mark -  NSMutableDictionary初始化
+- (void)test {
+    NSMutableDictionary *dic2 = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary: dic2];
+}
+#pragma mark -  无
 
 @end

@@ -217,7 +217,32 @@ defineClass('JPTableViewController : UITableViewController <UIAlertViewDelegate>
 
 
 
+/**************************已使用验证过**************************************/
 
-
-
+defineClass('ChatViewController',['leftBtn'], {   // 动态添加属性
+            
+            viewDidLoad: function() {
+            self.super().viewDidLoad();
+            self.view().setBackgroundColor(UIColor.whiteColor());
+            self.initSubviews();
+            self.initLayout();
+//            _enveModel = EnvelopeNet.shareInstance();   错误  // 不能使用下划线的属性
+            self.setEnveModel(EnvelopeNet.shareInstance());  // 正确写法
+            self.setEnableUnreadMessageIcon(YES);
+            self.setEnableNewComingMessageIcon(YES);
+            self.unreadMessage();
+            self.setLeftBtn(self.navigationItem().leftBarButtonItem());
+            },
+            
+            notifyUpdateUnreadMessageCount: function() {
+            if (self.allowsMessageCellSelection()) {
+            self.super().notifyUpdateUnreadMessageCount();
+            return;
+            }
+            self.navigationItem().setLeftBarButtonItem(self.leftBtn());
+            },
+            
+            
+            
+            });
 

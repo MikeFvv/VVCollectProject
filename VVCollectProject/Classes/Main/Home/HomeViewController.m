@@ -2,17 +2,19 @@
 //  HomeViewController.m
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/1/16.
+//  Created by Mike on 2019/1/16.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
 #import "HomeViewController.h"
-#import "ViewController.h"
+//#import "ViewController.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 // 定时器
 @property (nonatomic,strong) NSTimer *timerView;
+// <#strong注释#>
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -21,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initUI];
+    //    [self initUI];
     
     //    [self navigationBar];
     //    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
@@ -29,7 +31,10 @@
     
     // 定时器
     //    [self pressStart];
-    [self bulidView];
+    //    [self bulidView];
+    
+    
+    [self.view addSubview:self.tableView];
 }
 
 //- (void)viewDidLoad {
@@ -50,8 +55,8 @@
 
 -(void)jsScriptRun:(id)sender{
     
-    ViewController *vc = [[ViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    //    ViewController *vc = [[ViewController alloc] init];
+    //    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)initUI {
@@ -159,6 +164,46 @@
 
 #pragma mark -  无
 
+
+
+
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
+        //        _tableView.backgroundColor = [UIColor greenColor];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+    }
+    
+    return _tableView;
+}
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 50;
+}
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    return cell;
+}
+
+
+#pragma mark -  UITableViewDelegate
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"1111");
+}
 
 @end
 

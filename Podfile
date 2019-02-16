@@ -10,8 +10,16 @@ target 'VVCollectProject' do
   pod 'AFNetworking'
   pod 'Masonry'
   pod 'MJRefresh'
+  
+  # YYKit
+  #pod 'YYKit'
   pod 'YYModel'
   pod 'YYCache'
+#  pod 'YYImage'
+  pod 'YYText'
+#  pod 'YYAsyncLayer'
+  pod 'YYCategories'
+  
   pod 'WRNavigationBar'
   pod 'JSPatch'
 #  pod 'BANetManager'

@@ -95,6 +95,9 @@ static dispatch_semaphore_t semaphore;
             }
             
             NSString *dicString = [string substringFromIndex:range.location];
+            if (dicString == nil) {
+                return;
+            }
             NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:[dicString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
             //版本管理
             [JSPatchCode mangerJSPatchVersion:resultDic];

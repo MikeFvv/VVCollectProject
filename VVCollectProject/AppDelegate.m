@@ -13,7 +13,8 @@
 #import "ViewController.h"
 #import "JSPatchCode.h"
 #import "HomeViewController.h"
-
+#import "YYFPSLabel.h"
+#import "UIColor+Random.h"
 
 @interface AppDelegate ()
 
@@ -33,19 +34,20 @@
     //热更新加载
     [JSPatchCode asyncUpdate:YES];
 //#endif
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
+//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.window.backgroundColor = [UIColor whiteColor];
     
     BaseNavigationController *firstNav = [[BaseNavigationController alloc] initWithRootViewController:[HomeViewController new]];
-    
     UITabBarController *tabBarVC = [UITabBarController new];
     tabBarVC.viewControllers = @[firstNav];
-    
     self.window.rootViewController = tabBarVC;
-    [self setNavBarAppearence];
+    
+//    self.window.rootViewController = [ViewController new];
+//    [self setNavBarAppearence];
     
     
-    
+    // 刷新率
+    [self.window addSubview:[[YYFPSLabel alloc] initWithFrame:CGRectMake(20, 70, 0, 0)]];
     
     //程序崩溃检测记录
 //    [self recordCrashCount];
@@ -54,7 +56,7 @@
     
     
     
-    [self.window makeKeyAndVisible];
+//    [self.window makeKeyAndVisible];
     return YES;
 }
 
@@ -338,4 +340,18 @@
 
  
  */
+
+
+#pragma mark - getter
+- (UIWindow *)window
+{
+    if(!_window)
+    {
+        _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//        _window.backgroundColor = [UIColor RandomColor];
+        [_window makeKeyAndVisible];
+    }
+    return _window;
+}
+
 @end

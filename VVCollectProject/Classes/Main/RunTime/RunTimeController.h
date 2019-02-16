@@ -1,8 +1,8 @@
 //
-//  HomeViewController.h
+//  RunTimeController.h
 //  VVCollectProject
 //
-//  Created by Mike on 2019/1/16.
+//  Created by Mike on 2019/2/8.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeViewController : UIViewController
+@interface RunTimeController : UIViewController
 
 @end
 
