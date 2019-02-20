@@ -7,7 +7,8 @@
 //
 
 #import "HomeViewController.h"
-//#import "ViewController.h"
+#import "ViewController.h"
+#import "BaccaratController.h"
 
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -37,11 +38,6 @@
     [self.view addSubview:self.tableView];
 }
 
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    // Do any additional setup after loading the view, typically from a nib.
-//
-//}
 
 -(void)bulidView{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -55,11 +51,13 @@
 
 -(void)jsScriptRun:(id)sender{
     
-    //    ViewController *vc = [[ViewController alloc] init];
-    //    [self.navigationController pushViewController:vc animated:YES];
+        ViewController *vc = [[ViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)initUI {
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     label.text = @"测试";
     label.backgroundColor = [UIColor redColor];
@@ -198,12 +196,37 @@
 
 #pragma mark -  UITableViewDelegate
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 100;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"1111");
+    
+    if (indexPath.row == 0) {
+        BaccaratController *vc = [[BaccaratController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        [self doPush];
+    }
+    
 }
+
+// 防止多次push   RepeatPush 文件夹类
+- (void)doPush {
+    ViewController *vc = [[ViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    vc = [[ViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    vc = [[ViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+//    vc = [[ViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//    vc = [[ViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//    vc = [[ViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 @end
 
