@@ -2,7 +2,7 @@
 //  BaccaratController.h
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/2/20.
+//  Created by Mike on 2019/2/20.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
