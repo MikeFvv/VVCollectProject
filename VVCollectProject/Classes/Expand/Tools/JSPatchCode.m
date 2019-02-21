@@ -92,7 +92,7 @@ static dispatch_semaphore_t semaphore;
             if (range.location == NSNotFound) {
                 NSLog(@"error: network get data not a Dictionary or other error");
                 return;
-            }
+            } 
             
             NSString *dicString = [string substringFromIndex:range.location];
             if (dicString == nil) {
