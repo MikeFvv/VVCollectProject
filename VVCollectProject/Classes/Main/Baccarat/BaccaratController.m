@@ -15,8 +15,8 @@
 @property (nonatomic,strong) NSMutableArray *dataArray;
 // 牌副数
 @property (nonatomic,assign) NSInteger pokerNum;
-// 牌总张数
-@property (nonatomic,assign) NSInteger pokerTotal;
+// 牌的总张数
+@property (nonatomic,assign) NSInteger pokerTotalNum;
 // 发牌局数
 @property (nonatomic,assign) NSInteger pokerCount;
 
@@ -158,8 +158,8 @@
 }
 
 - (void)onStartOneButton {
-    if (self.pokerTotal < 6) {
-        NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局剩余 %ld张牌闲赢%ld庄赢%ld闲对%ld 平均%ld庄对%ld 平均%ld幸运6%ld 平均%ld和局共%ld 平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
+    if (self.pokerTotalNum < 6) {
+        NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局剩余 %ld张牌闲赢%ld庄赢%ld闲对%ld 平均%ld庄对%ld 平均%ld幸运6%ld 平均%ld和局共%ld 平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
         
         self.viewLabel.text = stringBB;
         
@@ -261,19 +261,19 @@
 - (void)opening {
     [self initData];
     // 发牌局数
-    for (NSInteger i = 1; i <= (self.pokerNum * 52 * 4); i++) {
-        if (self.pokerTotal < 6) {
+    for (NSInteger i = 1; i <= (self.pokerNum * 52 / 4); i++) {
+        if (self.pokerTotalNum < 6) {
             break;
         }
         self.pokerCount++;
         [self oncePoker];
     }
     
-    NSString *stringAA =  [NSString stringWithFormat:@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
+    NSString *stringAA =  [NSString stringWithFormat:@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
     
-    NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局-剩余 %ld张牌-闲赢%ld-庄赢%ld-闲对%ld-平均%ld-庄对%ld -平均%ld-幸运Six%ld -平均%ld-和局共%ld -平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
+    NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局-剩余 %ld张牌-闲赢%ld-庄赢%ld-闲对%ld-平均%ld-庄对%ld -平均%ld-幸运Six%ld -平均%ld-和局共%ld -平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
     
-    //    NSLog(@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount);
+    //    NSLog(@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount);
     
     //    NSLog(string);
     //    string;
@@ -294,7 +294,16 @@
         [self.dataArray addObjectsFromArray:pokerArray];
     }
     
-    self.pokerTotal = self.dataArray.count;
+    self.pokerTotalNum = self.dataArray.count;
+    
+    // 洗牌
+    for (NSInteger index = 1; index <= self.pokerTotalNum; index++) {
+        int pokerIndexA = (arc4random() % self.pokerTotalNum) + 0;
+        int pokerIndexB = (arc4random() % self.pokerTotalNum) + 0;
+        
+        [self.dataArray exchangeObjectAtIndex:pokerIndexA withObjectAtIndex:pokerIndexB];
+    }
+    
     self.pokerCount = 0;
     self.playerCount = 0;
     self.bankerCount = 0;
@@ -321,12 +330,14 @@
     
     for (NSInteger i = 1; i <= 6; i++) {
         
-        int pokerPoints = (arc4random() % self.pokerTotal) + 0;
-        self.pokerTotal--;
-        
-        NSNumber *num = (NSNumber *)self.dataArray[pokerPoints];
-        [self.dataArray removeObjectAtIndex:pokerPoints];
+        //        int pokerIndex = (arc4random() % self.pokerTotalNum) + 0;
+        //        NSNumber *num = (NSNumber *)self.dataArray[pokerPoints];
+        //        [self.dataArray removeObjectAtIndex:pokerPoints];
         //        NSLog(@"🔴= %@", num.stringValue);
+        
+        NSNumber *num = (NSNumber *)self.dataArray.firstObject;
+        [self.dataArray removeObjectAtIndex:0];
+        self.pokerTotalNum--;
         
         if (i == 1) {
             player1 = num.integerValue;
