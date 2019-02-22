@@ -122,7 +122,7 @@
     [self.view addSubview:clearButton];
     
     
-    UIView *trendView = [[UIView alloc] initWithFrame:CGRectMake(20, 150, [UIScreen mainScreen].bounds.size.width - 20*2, 150)];
+    UIView *trendView = [[UIView alloc] initWithFrame:CGRectMake(20, 150, [UIScreen mainScreen].bounds.size.width - 20*2, 138)];
     trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor greenColor].CGColor;
     [self.view addSubview:trendView];
@@ -130,7 +130,7 @@
     
     
     UILabel *viewLabel = [[UILabel alloc] init];
-    viewLabel.font = [UIFont systemFontOfSize:18];
+    viewLabel.font = [UIFont systemFontOfSize:15];
     //    viewLabel.layer.borderWidth = 1;
     //    viewLabel.layer.borderColor = [UIColor blueColor].CGColor;
     viewLabel.numberOfLines = 0;
@@ -142,7 +142,7 @@
     [viewLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(trendView.mas_left);
         make.right.mas_equalTo(trendView.mas_right);
-        make.top.mas_equalTo(trendView.mas_bottom).offset(15);
+        make.top.mas_equalTo(trendView.mas_bottom).offset(5);
     }];
     
 }
@@ -271,7 +271,7 @@
     
     NSString *stringAA =  [NSString stringWithFormat:@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
     
-    NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局剩余 %ld张牌闲赢%ld庄赢%ld闲对%ld 平均%ld庄对%ld 平均%ld幸运6%ld 平均%ld和局共%ld 平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
+    NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局-剩余 %ld张牌-闲赢%ld-庄赢%ld-闲对%ld-平均%ld-庄对%ld -平均%ld-幸运Six%ld -平均%ld-和局共%ld -平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
     
     //    NSLog(@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotal, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount);
     
@@ -445,7 +445,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 300 + 100, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (300 +100)) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 300 + 66, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (300 +100)) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
