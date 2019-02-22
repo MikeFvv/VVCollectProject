@@ -160,32 +160,23 @@
 }
 
 
-#pragma mark -  无
-
-
-
-
-
+#pragma mark -  UITableView 初始化
 - (UITableView *)tableView {
     if (!_tableView) {
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
-        //        _tableView.backgroundColor = [UIColor greenColor];
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.rowHeight=100;   //设置每一行的高度
     }
     
     return _tableView;
 }
 
 
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 50;
-}
-
-
+#pragma mark -  UITableViewDataSource方法
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -198,6 +189,14 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 100;
 }
+
+#pragma mark -  UITableViewDelegate方法
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 50;
+}
+
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"1111");

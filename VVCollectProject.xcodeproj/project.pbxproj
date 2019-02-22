@@ -43,6 +43,9 @@
 		A0C5150421EE310900E2F89D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C5150321EE310900E2F89D /* JavaScriptCore.framework */; };
 		A0C5150621EE46CB00E2F89D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150521EE46CB00E2F89D /* main.js */; };
 		A0C5150821EE491600E2F89D /* DemoJS.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150721EE491600E2F89D /* DemoJS.js */; };
+		A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD60222033DE00E7E21F /* VVUITableViewController.m */; };
+		A0CBDD642220340600E7E21F /* TestVVUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD632220340600E7E21F /* TestVVUITableViewController.m */; };
+		A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD6622204AA700E7E21F /* BaccaratCell.m */; };
 		A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E25221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m */; };
 		A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E27221D98CA00D7E3B0 /* UINavigationController+HKExts.m */; };
 		A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */; };
@@ -126,10 +129,10 @@
 		A0C5147421EE2E4F00E2F89D /* JPLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPLoader.h; sourceTree = "<group>"; };
 		A0C5147621EE2E4F00E2F89D /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		A0C5147721EE2E4F00E2F89D /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSA.m; sourceTree = "<group>"; };
-		A0C5147921EE2E4F00E2F89D /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		A0C5147A21EE2E4F00E2F89D /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		A0C5147B21EE2E4F00E2F89D /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		A0C5147C21EE2E4F00E2F89D /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		A0C5147921EE2E4F00E2F89D /* unzip.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = unzip.c; sourceTree = "<group>"; };
+		A0C5147A21EE2E4F00E2F89D /* zip.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = zip.c; sourceTree = "<group>"; };
+		A0C5147B21EE2E4F00E2F89D /* ioapi.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ioapi.c; sourceTree = "<group>"; };
+		A0C5147C21EE2E4F00E2F89D /* mztools.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = mztools.c; sourceTree = "<group>"; };
 		A0C5147D21EE2E4F00E2F89D /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		A0C5147E21EE2E4F00E2F89D /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		A0C5147F21EE2E4F00E2F89D /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
@@ -143,6 +146,12 @@
 		A0C5150321EE310900E2F89D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		A0C5150521EE46CB00E2F89D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		A0C5150721EE491600E2F89D /* DemoJS.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DemoJS.js; sourceTree = "<group>"; };
+		A0CBDD5F222033DE00E7E21F /* VVUITableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VVUITableViewController.h; sourceTree = "<group>"; };
+		A0CBDD60222033DE00E7E21F /* VVUITableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VVUITableViewController.m; sourceTree = "<group>"; };
+		A0CBDD622220340600E7E21F /* TestVVUITableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVVUITableViewController.h; sourceTree = "<group>"; };
+		A0CBDD632220340600E7E21F /* TestVVUITableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVVUITableViewController.m; sourceTree = "<group>"; };
+		A0CBDD6522204AA700E7E21F /* BaccaratCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCell.h; sourceTree = "<group>"; };
+		A0CBDD6622204AA700E7E21F /* BaccaratCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCell.m; sourceTree = "<group>"; };
 		A0D55E24221D98CA00D7E3B0 /* UIViewController+HKSafeExts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HKSafeExts.h"; sourceTree = "<group>"; };
 		A0D55E25221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HKSafeExts.m"; sourceTree = "<group>"; };
 		A0D55E26221D98CA00D7E3B0 /* UINavigationController+HKExts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+HKExts.h"; sourceTree = "<group>"; };
@@ -289,6 +298,7 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A0CBDD5E222033A500E7E21F /* ClassMethodUse */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
 				A0373A02221A9F3400E112A6 /* Test */,
 				A0F3E628220D859400755DBB /* RunTime */,
@@ -451,6 +461,17 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
+		A0CBDD5E222033A500E7E21F /* ClassMethodUse */ = {
+			isa = PBXGroup;
+			children = (
+				A0CBDD5F222033DE00E7E21F /* VVUITableViewController.h */,
+				A0CBDD60222033DE00E7E21F /* VVUITableViewController.m */,
+				A0CBDD622220340600E7E21F /* TestVVUITableViewController.h */,
+				A0CBDD632220340600E7E21F /* TestVVUITableViewController.m */,
+			);
+			path = ClassMethodUse;
+			sourceTree = "<group>";
+		};
 		A0D55E2A221D9B0300D7E3B0 /* RepeatPush */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +488,8 @@
 			children = (
 				A0D55E2C221DAFB500D7E3B0 /* BaccaratController.h */,
 				A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */,
+				A0CBDD6522204AA700E7E21F /* BaccaratCell.h */,
+				A0CBDD6622204AA700E7E21F /* BaccaratCell.m */,
 			);
 			path = Baccarat;
 			sourceTree = "<group>";
@@ -673,11 +696,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
 				A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
+				A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
@@ -694,6 +719,7 @@
 				A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
+				A0CBDD642220340600E7E21F /* TestVVUITableViewController.m in Sources */,
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */,
