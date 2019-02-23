@@ -9,13 +9,20 @@
 #import "HomeViewController.h"
 #import "ViewController.h"
 #import "BaccaratController.h"
+#import "Application.h"
+#import "UIColor+Hexadecimal.h"
 
-@interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
+@property (nonatomic, strong) NSArray *applications;
 // 定时器
 @property (nonatomic,strong) NSTimer *timerView;
 // <#strong注释#>
 @property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic,strong) UISearchBar *searchBar;
+
 
 @end
 
@@ -34,9 +41,50 @@
     //    [self pressStart];
     //    [self bulidView];
     
+    self.title = @"Applications";
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:NULL];
+    
+    self.tableView.tableFooterView = [UIView new];
+    
+    //    self.searchDisplayController.searchResultsTableView.emptyDataSetSource = self;
+    //    self.searchDisplayController.searchResultsTableView.emptyDataSetDelegate = self;
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [UIView new];
+    [self.searchDisplayController setValue:@"" forKey:@"noResultsMessage"];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"applications" ofType:@"json"];
+    self.applications = [Application applicationsFromJSONAtPath:path];
     
     [self.view addSubview:self.tableView];
+//    [self searchBarInit];
 }
+
+
+- (void)searchBarInit {
+    //    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)];// 初始化
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];// 初始化
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+    [self.searchBar setShowsCancelButton:YES];// 是否显示取消按钮
+    [self.searchBar setPlaceholder:@"Search"];// 搜索框的占位符
+    [self.searchBar setBarStyle:UIBarMetricsDefault];
+    [self.searchBar setTranslucent:YES];// 设置是否透明
+    
+    [self.searchBar setBarStyle:UIBarMetricsDefault];// 搜索框样式
+    self.searchBar.delegate = self;// 设置代理
+    [self.tableView addSubview:self.searchBar];
+    [self.searchBar sizeToFit];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Resets styling
+    self.navigationController.navigationBar.titleTextAttributes = nil;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"f8f8f8"];;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+}
+
 
 
 -(void)bulidView{
@@ -51,8 +99,8 @@
 
 -(void)jsScriptRun:(id)sender{
     
-        ViewController *vc = [[ViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+    ViewController *vc = [[ViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)initUI {
@@ -76,6 +124,23 @@
     // 导航栏 背景颜色 UI直接切图 实现
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"msg3"] forBarMetrics:UIBarMetricsDefault];
 }
+
+
+#pragma mark - Getters
+
+- (NSArray *)filteredApps
+{
+    UISearchBar *searchBar = self.searchDisplayController.searchBar;
+    
+    if ([searchBar isFirstResponder] && searchBar.text.length > 0)
+    {
+        NSPredicate *precidate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@", searchBar.text];
+        return [self.applications filteredArrayUsingPredicate:precidate];
+    }
+    return self.applications;
+}
+
+
 
 - (void)navigationBackColor {
     CGRect frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 64);
@@ -165,8 +230,8 @@
     if (!_tableView) {
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //        _tableView.backgroundColor = [UIColor whiteColor];
+        //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight=100;   //设置每一行的高度
@@ -176,30 +241,51 @@
 }
 
 
-#pragma mark -  UITableViewDataSource方法
+#pragma mark - UITableViewDataSource Methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    static NSString *cellIdentifier = @"app_cell_identifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    }
+    
+    Application *app = [[self filteredApps] objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = app.displayName;
+    cell.detailTextLabel.text = app.developerName;
+    
+    UIImage *image = [UIImage imageNamed:app.iconName];
+    cell.imageView.image = image;
+    
+    cell.imageView.layer.cornerRadius = image.size.width*0.2;
+    cell.imageView.layer.masksToBounds = YES;
+    cell.imageView.layer.borderColor = [UIColor colorWithWhite:0.0 alpha:0.2].CGColor;
+    cell.imageView.layer.borderWidth = 0.5;
+    cell.imageView.layer.shouldRasterize = YES;
+    cell.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;  // 右箭头
+    
     return cell;
 }
 
-
-#pragma mark -  UITableViewDelegate
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 100;
+    
+    NSInteger rowCount = [self filteredApps].count;
+    return rowCount;
 }
 
-#pragma mark -  UITableViewDelegate方法
+#pragma mark - UITableViewDelegate Methods
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 50;
+    return 70.0;
 }
 
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"1111");
     
     if (indexPath.row == 0) {
         BaccaratController *vc = [[BaccaratController alloc] init];
@@ -208,7 +294,20 @@
         [self doPush];
     }
     
+    //    Application *app = [[self filteredApps] objectAtIndex:indexPath.row];
+    //    DetailViewController *controller = [[DetailViewController alloc] initWithApplication:app];
+    //    controller.applications = self.applications;
+    //    controller.allowShuffling = YES;
+    //
+    //    if ([controller preferredStatusBarStyle] == UIStatusBarStyleLightContent) {
+    //        self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    //    }
+    //
+    //    [self.navigationController pushViewController:controller animated:YES];
+    
 }
+
+
 
 // 防止多次push   RepeatPush 文件夹类
 - (void)doPush {
@@ -218,12 +317,74 @@
     [self.navigationController pushViewController:vc animated:YES];
     vc = [[ViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-//    vc = [[ViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
-//    vc = [[ViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
-//    vc = [[ViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
+    //    vc = [[ViewController alloc] init];
+    //    [self.navigationController pushViewController:vc animated:YES];
+    //    vc = [[ViewController alloc] init];
+    //    [self.navigationController pushViewController:vc animated:YES];
+    //    vc = [[ViewController alloc] init];
+    //    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+
+#pragma mark - UISearchBarDelegate Methods
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    return YES;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    // Do something
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    // Do something
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    // Do something
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    // Do something
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    // Do something
+}
+
+
+#pragma mark - UISearchDisplayDelegate Methods
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller
+{
+    // Do something
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    // Do something
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
+{
+    // Do something
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
+{
+    // Do something
 }
 
 

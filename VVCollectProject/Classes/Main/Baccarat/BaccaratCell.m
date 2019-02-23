@@ -64,7 +64,7 @@
     _playerLabel.textColor = [UIColor blueColor];
     
     [_playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(40);
+        make.left.equalTo(self.mas_left).offset(36);
         make.right.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY);
     }];

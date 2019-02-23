@@ -30,6 +30,14 @@
 		A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC31221E8BA6F00CEA8ED /* main.m */; };
 		A0BCC31D21E8BA6F00CEA8ED /* VVCollectProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC31C21E8BA6F00CEA8ED /* VVCollectProjectTests.m */; };
 		A0BCC32821E8BA6F00CEA8ED /* VVCollectProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC32721E8BA6F00CEA8ED /* VVCollectProjectUITests.m */; };
+		A0BCD7A322216D9100BB3A9C /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7A222216D9100BB3A9C /* Application.m */; };
+		A0BCD7A522216E3200BB3A9C /* applications.json in Resources */ = {isa = PBXBuildFile; fileRef = A0BCD7A422216E3200BB3A9C /* applications.json */; };
+		A0BCD7A822217C4300BB3A9C /* UIColor+Hexadecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7A722217C4300BB3A9C /* UIColor+Hexadecimal.m */; };
+		A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */; };
+		A0BCD7B322218B8400BB3A9C /* colors.json in Resources */ = {isa = PBXBuildFile; fileRef = A0BCD7AC22218B8300BB3A9C /* colors.json */; };
+		A0BCD7B422218B8400BB3A9C /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7AE22218B8300BB3A9C /* UIColor+Hex.m */; };
+		A0BCD7B522218B8400BB3A9C /* Palette.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7AF22218B8300BB3A9C /* Palette.m */; };
+		A0BCD7B622218B8400BB3A9C /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B022218B8300BB3A9C /* Color.m */; };
 		A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */; };
 		A0C5148521EE2E4F00E2F89D /* packer.php in Resources */ = {isa = PBXBuildFile; fileRef = A0C5147321EE2E4F00E2F89D /* packer.php */; };
 		A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5147721EE2E4F00E2F89D /* RSA.m */; };
@@ -123,6 +131,20 @@
 		A0BCC32721E8BA6F00CEA8ED /* VVCollectProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VVCollectProjectUITests.m; sourceTree = "<group>"; };
 		A0BCC32921E8BA6F00CEA8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0BCC4B621E8BB2A00CEA8ED /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		A0BCD7A122216D9100BB3A9C /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
+		A0BCD7A222216D9100BB3A9C /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Application.m; sourceTree = "<group>"; };
+		A0BCD7A422216E3200BB3A9C /* applications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = applications.json; sourceTree = "<group>"; };
+		A0BCD7A622217C4300BB3A9C /* UIColor+Hexadecimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hexadecimal.h"; sourceTree = "<group>"; };
+		A0BCD7A722217C4300BB3A9C /* UIColor+Hexadecimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hexadecimal.m"; sourceTree = "<group>"; };
+		A0BCD7A922218B0D00BB3A9C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		A0BCD7AC22218B8300BB3A9C /* colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = colors.json; sourceTree = "<group>"; };
+		A0BCD7AD22218B8300BB3A9C /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		A0BCD7AE22218B8300BB3A9C /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		A0BCD7AF22218B8300BB3A9C /* Palette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Palette.m; sourceTree = "<group>"; };
+		A0BCD7B022218B8300BB3A9C /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
+		A0BCD7B122218B8300BB3A9C /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		A0BCD7B222218B8300BB3A9C /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Palette.h; sourceTree = "<group>"; };
 		A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LMJNjHuFrame.m"; sourceTree = "<group>"; };
 		A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LMJNjHuFrame.h"; sourceTree = "<group>"; };
 		A0C5147321EE2E4F00E2F89D /* packer.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = packer.php; sourceTree = "<group>"; };
@@ -223,6 +245,8 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A0BCD7A122216D9100BB3A9C /* Application.h */,
+				A0BCD7A222216D9100BB3A9C /* Application.m */,
 				A0D55E2A221D9B0300D7E3B0 /* RepeatPush */,
 				A034FDA92216DEA800081EE2 /* YYFPSLabel.h */,
 				A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */,
@@ -268,6 +292,15 @@
 		A0130DCE21ECB78D007E845B /* UIColor */ = {
 			isa = PBXGroup;
 			children = (
+				A0BCD7AC22218B8300BB3A9C /* colors.json */,
+				A0BCD7AD22218B8300BB3A9C /* Color.h */,
+				A0BCD7B022218B8300BB3A9C /* Color.m */,
+				A0BCD7B222218B8300BB3A9C /* Palette.h */,
+				A0BCD7AF22218B8300BB3A9C /* Palette.m */,
+				A0BCD7B122218B8300BB3A9C /* UIColor+Hex.h */,
+				A0BCD7AE22218B8300BB3A9C /* UIColor+Hex.m */,
+				A0BCD7A622217C4300BB3A9C /* UIColor+Hexadecimal.h */,
+				A0BCD7A722217C4300BB3A9C /* UIColor+Hexadecimal.m */,
 				A0130DCF21ECB78D007E845B /* UIColor+Random.m */,
 				A0130DD021ECB78D007E845B /* UIColor+Random.h */,
 			);
@@ -322,6 +355,7 @@
 		A0130DFD21ECDC28007E845B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A0BCD7A422216E3200BB3A9C /* applications.json */,
 				A0C5150721EE491600E2F89D /* DemoJS.js */,
 				A0C5150521EE46CB00E2F89D /* main.js */,
 			);
@@ -342,6 +376,8 @@
 			children = (
 				A0821DD321EF3B4700429C20 /* HomeViewController.h */,
 				A0821DD421EF3B4700429C20 /* HomeViewController.m */,
+				A0BCD7A922218B0D00BB3A9C /* SearchViewController.h */,
+				A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -622,6 +658,8 @@
 				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
+				A0BCD7B322218B8400BB3A9C /* colors.json in Resources */,
+				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,6 +735,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
+				A0BCD7B422218B8400BB3A9C /* UIColor+Hex.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
@@ -709,7 +748,10 @@
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */,
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
+				A0BCD7A822217C4300BB3A9C /* UIColor+Hexadecimal.m in Sources */,
+				A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
+				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
@@ -719,12 +761,14 @@
 				A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
+				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
 				A0CBDD642220340600E7E21F /* TestVVUITableViewController.m in Sources */,
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
 				A0130DE121ECB78D007E845B /* BADataEntity.m in Sources */,
+				A0BCD7B522218B8400BB3A9C /* Palette.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
 				A0130DE621ECB78D007E845B /* CodeSnippetVC.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
