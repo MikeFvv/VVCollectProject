@@ -38,6 +38,7 @@
 		A0BCD7B422218B8400BB3A9C /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7AE22218B8300BB3A9C /* UIColor+Hex.m */; };
 		A0BCD7B522218B8400BB3A9C /* Palette.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7AF22218B8300BB3A9C /* Palette.m */; };
 		A0BCD7B622218B8400BB3A9C /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B022218B8300BB3A9C /* Color.m */; };
+		A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */; };
 		A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */; };
 		A0C5148521EE2E4F00E2F89D /* packer.php in Resources */ = {isa = PBXBuildFile; fileRef = A0C5147321EE2E4F00E2F89D /* packer.php */; };
 		A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5147721EE2E4F00E2F89D /* RSA.m */; };
@@ -145,6 +146,8 @@
 		A0BCD7B022218B8300BB3A9C /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		A0BCD7B122218B8300BB3A9C /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		A0BCD7B222218B8300BB3A9C /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Palette.h; sourceTree = "<group>"; };
+		A0BCD7B72221ACF800BB3A9C /* BaccaratCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCollectionView.h; sourceTree = "<group>"; };
+		A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCollectionView.m; sourceTree = "<group>"; };
 		A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LMJNjHuFrame.m"; sourceTree = "<group>"; };
 		A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LMJNjHuFrame.h"; sourceTree = "<group>"; };
 		A0C5147321EE2E4F00E2F89D /* packer.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = packer.php; sourceTree = "<group>"; };
@@ -526,6 +529,8 @@
 				A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */,
 				A0CBDD6522204AA700E7E21F /* BaccaratCell.h */,
 				A0CBDD6622204AA700E7E21F /* BaccaratCell.m */,
+				A0BCD7B72221ACF800BB3A9C /* BaccaratCollectionView.h */,
+				A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */,
 			);
 			path = Baccarat;
 			sourceTree = "<group>";
@@ -741,6 +746,7 @@
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
 				A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
+				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
 				A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,

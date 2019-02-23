@@ -8,6 +8,7 @@
 
 #import "BaccaratController.h"
 #import "BaccaratCell.h"
+#import "BaccaratCollectionView.h"
 
 #define kBtnHeight 30
 #define kBtnFontSize 16
@@ -45,7 +46,9 @@
 
 @property (nonatomic, strong) UITextField *pokerNumTextField;
 
-@property (nonatomic, strong) UIView *trendView;
+//@property (nonatomic, strong) UIView *trendView;
+@property (nonatomic, strong) BaccaratCollectionView *trendView;
+
 
 // 结果数据
 @property (nonatomic, strong) NSMutableArray *resultDataArray;
@@ -155,9 +158,16 @@
     [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:clearButton];
     
-    UIView *trendView = [[UIView alloc] initWithFrame:CGRectMake(20, kMarginHeight + 30 +5, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
-    trendView.layer.borderWidth = 1;
-    trendView.layer.borderColor = [UIColor greenColor].CGColor;
+//    UIView *trendView = [[UIView alloc] initWithFrame:CGRectMake(20, kMarginHeight + 30 +5, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
+//    trendView.layer.borderWidth = 1;
+//    trendView.layer.borderColor = [UIColor greenColor].CGColor;
+//    [self.view addSubview:trendView];
+//    _trendView = trendView;
+//     baccCollectionView
+    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(20, kMarginHeight + 30 +5, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
+//    trendView.backgroundColor = [UIColor redColor];
+    trendView.layer.borderWidth = 2;
+    trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.view addSubview:trendView];
     _trendView = trendView;
     
@@ -279,9 +289,11 @@
     
     self.pokerCount++;
     [self oncePoker];
-    [self resultView];
+//    [self resultView];
     
+    self.trendView.model = self.resultDataArray;
     [self resultText];
+    [self.tableView reloadData];
 }
 
 #pragma mark -  全盘
@@ -291,15 +303,18 @@
 - (void)onStartButton {
     self.pokerNum = self.pokerNumTextField.text.integerValue;
     [self opening];
-    [self resultView];
+//    [self resultView];
+    self.trendView.model = self.resultDataArray;
     [self resultText];
+    [self.tableView reloadData];
+    
     
     //    NSString *stringAA =  [NSString stringWithFormat:@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
     //
     //    NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局-剩余 %ld张牌-闲赢%ld-庄赢%ld-闲对%ld-平均%ld-庄对%ld -平均%ld-幸运Six%ld -平均%ld-和局共%ld -平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
 }
 
-#pragma mark -  开局
+#pragma mark -  开始
 - (void)opening {
     [self initData];
     // 发牌局数
@@ -581,7 +596,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (300 +100)) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +64)) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor yellowColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
