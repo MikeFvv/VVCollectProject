@@ -103,15 +103,49 @@
     
 }
 
+- (NSString *)pokerCharacter:(NSInteger)num {
+    switch (num) {
+        case 1:
+            return @"A";
+            break;
+        case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+        case 10:
+            return [NSString stringWithFormat:@"%ld", num];
+        case 11:
+            return @"L";
+            break;
+        case 12:
+            return @"Q";
+            break;
+        case 13:
+            return @"K";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+
 - (void)setModel:(id)model {
     NSDictionary *dict = (NSDictionary *)model;
     NSString *player3 = [dict objectForKey:@"player3"];
     NSString *banker3 = [dict objectForKey:@"banker3"];
     
-    _indexLabel.text =  [dict objectForKey:@"index"];
-    NSString *playerStr = [NSString stringWithFormat:@"Player: %@点 %@  %@  %@", [dict objectForKey:@"playerPointsNum"], [dict objectForKey:@"player1"], [dict objectForKey:@"player2"], player3.length > 0 ? player3 : @""];
     
-    NSString *bankerStr = [NSString stringWithFormat:@"Banker: %@点 %@  %@  %@", [dict objectForKey:@"bankerPointsNum"], [dict objectForKey:@"banker1"], [dict objectForKey:@"banker2"], banker3.length > 0 ? banker3 : @""];
+    
+    _indexLabel.text =  [dict objectForKey:@"pokerCount"];
+    NSString *playerStr = [NSString stringWithFormat:@"Player: %@点 %@  %@  %@", [dict objectForKey:@"playerPointsNum"],  [self pokerCharacter: [[dict objectForKey:@"player1"] integerValue]], [self pokerCharacter: [[dict objectForKey:@"player2"] integerValue]], player3.length > 0 ? [self pokerCharacter: [player3 integerValue]] : @""];
+    
+    
+    NSString *bankerStr = [NSString stringWithFormat:@"Banker: %@点 %@  %@  %@", [dict objectForKey:@"bankerPointsNum"], [self pokerCharacter: [[dict objectForKey:@"banker1"] integerValue]], [self pokerCharacter: [[dict objectForKey:@"banker2"] integerValue]], banker3.length > 0 ? [self pokerCharacter: [banker3 integerValue]] : @""];
     
     self.playerLabel.text = playerStr;
     self.bankerLabel.text = bankerStr;

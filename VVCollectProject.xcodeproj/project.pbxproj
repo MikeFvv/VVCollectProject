@@ -22,6 +22,7 @@
 		A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */; };
 		A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0373A04221A9F5800E112A6 /* TestViewController.m */; };
 		A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0821DD421EF3B4700429C20 /* HomeViewController.m */; };
+		A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */; };
 		A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */; };
 		A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC30721E8BA6D00CEA8ED /* ViewController.m */; };
 		A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BCC30921E8BA6D00CEA8ED /* Main.storyboard */; };
@@ -115,6 +116,8 @@
 		A0373A04221A9F5800E112A6 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		A0821DD321EF3B4700429C20 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		A0821DD421EF3B4700429C20 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		A0A093C82223FB4B00262344 /* BaccaratCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCollectionViewCell.h; sourceTree = "<group>"; };
+		A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCollectionViewCell.m; sourceTree = "<group>"; };
 		A0BCC30021E8BA6D00CEA8ED /* VVCollectProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVCollectProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0BCC30321E8BA6D00CEA8ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -531,6 +534,8 @@
 				A0CBDD6622204AA700E7E21F /* BaccaratCell.m */,
 				A0BCD7B72221ACF800BB3A9C /* BaccaratCollectionView.h */,
 				A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */,
+				A0A093C82223FB4B00262344 /* BaccaratCollectionViewCell.h */,
+				A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */,
 			);
 			path = Baccarat;
 			sourceTree = "<group>";
@@ -760,6 +765,7 @@
 				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
+				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,

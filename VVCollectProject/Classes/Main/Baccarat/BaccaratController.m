@@ -39,7 +39,7 @@
 @property (nonatomic,assign) NSInteger playerPairCount;
 // 庄对局数
 @property (nonatomic,assign) NSInteger bankerPairCount;
-// 幸运6
+// Super6
 @property (nonatomic,assign) NSInteger superSixCount;
 // 和局
 @property (nonatomic,assign) NSInteger tieCount;
@@ -48,6 +48,9 @@
 
 //@property (nonatomic, strong) UIView *trendView;
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
+
+// 下注金额
+@property (nonatomic,assign) NSInteger betMoney;
 
 
 // 结果数据
@@ -76,11 +79,10 @@
     //    spade  黑桃
     //    heart  红桃（红心）
     //    club  梅花
-    //   diamond 方块
+    //    diamond 方块
     //    joker  大王 小王（小丑意思）
     //    PokerColor  花色
     
-    //     ♡♢♤♧♣♦♥♠
     //    ♡♢♤♧♣♦♥♠
     
     //    🔵 💚
@@ -91,6 +93,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.pokerNum = 8;
+    self.betMoney = 2000;
     [self initData];
     [self initUI];
     [self.view addSubview:self.tableView];
@@ -166,45 +169,30 @@
 //     baccCollectionView
     BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(20, kMarginHeight + 30 +5, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
 //    trendView.backgroundColor = [UIColor redColor];
-    trendView.layer.borderWidth = 2;
+    trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.view addSubview:trendView];
     _trendView = trendView;
     
     
-    UILabel *pokerCountLabel = [[UILabel alloc] init];
-    pokerCountLabel.font = [UIFont systemFontOfSize:14];
-    //    pokerCountLabel.layer.borderWidth = 1;
-    //    pokerCountLabel.layer.borderColor = [UIColor blueColor].CGColor;
-    pokerCountLabel.numberOfLines = 0;
-    pokerCountLabel.text = @"结果";
-    pokerCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:pokerCountLabel];
-    _pokerCountLabel = pokerCountLabel;
-    
-    [pokerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(trendView.mas_left);
-        make.right.mas_equalTo(trendView.mas_right);
-        make.top.mas_equalTo(trendView.mas_bottom).offset(5);
-    }];
-    
     UILabel *bankerCountLabel = [[UILabel alloc] init];
     bankerCountLabel.font = [UIFont systemFontOfSize:14];
     bankerCountLabel.numberOfLines = 0;
-    bankerCountLabel.text = @"庄赢";
+//    bankerCountLabel.text = @"庄赢";
     bankerCountLabel.textColor = [UIColor darkGrayColor];
     [self.view addSubview:bankerCountLabel];
     _bankerCountLabel = bankerCountLabel;
     
     [bankerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(trendView.mas_left);
-        make.top.mas_equalTo(pokerCountLabel.mas_bottom);
+        make.right.mas_equalTo(trendView.mas_right);
+        make.top.mas_equalTo(trendView.mas_bottom).offset(5);
     }];
     
     UILabel *playerCountLabel = [[UILabel alloc] init];
     playerCountLabel.font = [UIFont systemFontOfSize:14];
     playerCountLabel.numberOfLines = 0;
-    playerCountLabel.text = @"闲赢";
+//    playerCountLabel.text = @"闲赢";
     playerCountLabel.textColor = [UIColor darkGrayColor];
     [self.view addSubview:playerCountLabel];
     _playerCountLabel = playerCountLabel;
@@ -217,7 +205,7 @@
     UILabel *tieCountLabel = [[UILabel alloc] init];
     tieCountLabel.font = [UIFont systemFontOfSize:14];
     tieCountLabel.numberOfLines = 0;
-    tieCountLabel.text = @"和";
+//    tieCountLabel.text = @"和";
     tieCountLabel.textColor = [UIColor darkGrayColor];
     [self.view addSubview:tieCountLabel];
     _tieCountLabel = tieCountLabel;
@@ -230,7 +218,7 @@
     UILabel *bankerPairCountLabel = [[UILabel alloc] init];
     bankerPairCountLabel.font = [UIFont systemFontOfSize:14];
     bankerPairCountLabel.numberOfLines = 0;
-    bankerPairCountLabel.text = @"庄对";
+//    bankerPairCountLabel.text = @"庄对";
     bankerPairCountLabel.textColor = [UIColor darkGrayColor];
     [self.view addSubview:bankerPairCountLabel];
     _bankerPairCountLabel = bankerPairCountLabel;
@@ -243,7 +231,7 @@
     UILabel *playerPairCountLabel = [[UILabel alloc] init];
     playerPairCountLabel.font = [UIFont systemFontOfSize:14];
     playerPairCountLabel.numberOfLines = 0;
-    playerPairCountLabel.text = @"闲对";
+//    playerPairCountLabel.text = @"闲对";
     playerPairCountLabel.textColor = [UIColor darkGrayColor];
     [self.view addSubview:playerPairCountLabel];
     _playerPairCountLabel = playerPairCountLabel;
@@ -256,7 +244,7 @@
     UILabel *superSixCountLabel = [[UILabel alloc] init];
     superSixCountLabel.font = [UIFont systemFontOfSize:14];
     superSixCountLabel.numberOfLines = 0;
-    superSixCountLabel.text = @"superSix";
+//    superSixCountLabel.text = @"SuperSix";
     superSixCountLabel.textColor = [UIColor darkGrayColor];
     [self.view addSubview:superSixCountLabel];
     _superSixCountLabel = superSixCountLabel;
@@ -266,17 +254,29 @@
         make.top.mas_equalTo(playerPairCountLabel.mas_bottom);
     }];
     
+    UILabel *pokerCountLabel = [[UILabel alloc] init];
+    pokerCountLabel.font = [UIFont systemFontOfSize:14];
+    //    pokerCountLabel.layer.borderWidth = 1;
+    //    pokerCountLabel.layer.borderColor = [UIColor blueColor].CGColor;
+    pokerCountLabel.numberOfLines = 0;
+//    pokerCountLabel.text = @"结果";S
+    pokerCountLabel.textColor = [UIColor darkGrayColor];
+    [self.view addSubview:pokerCountLabel];
+    _pokerCountLabel = pokerCountLabel;
     
+    [pokerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(trendView.mas_left);
+        make.top.mas_equalTo(superSixCountLabel.mas_bottom);
+    }];
 }
 
 #pragma mark -  清除
 - (void)onClearButton {
-    self.trendView = nil;
+
     [self initData];
-    [self.view layoutIfNeeded];
-    [self.view layoutSubviews];
+    self.trendView.model = self.resultDataArray;
+    [self resultStatisticsText];
     [self.tableView reloadData];
-    
 }
 
 #pragma mark -  开始一局
@@ -289,10 +289,9 @@
     
     self.pokerCount++;
     [self oncePoker];
-//    [self resultView];
     
     self.trendView.model = self.resultDataArray;
-    [self resultText];
+    [self resultStatisticsText];
     [self.tableView reloadData];
 }
 
@@ -303,15 +302,10 @@
 - (void)onStartButton {
     self.pokerNum = self.pokerNumTextField.text.integerValue;
     [self opening];
-//    [self resultView];
     self.trendView.model = self.resultDataArray;
-    [self resultText];
+    [self resultStatisticsText];
     [self.tableView reloadData];
-    
-    
-    //    NSString *stringAA =  [NSString stringWithFormat:@"\n发了%ld局\n剩余 %ld张牌\n闲赢%ld\n庄赢%ld\n闲对%ld 平均%ld\n庄对%ld 平均%ld\n幸运6%ld 平均%ld\n和局共%ld 平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
-    //
-    //    NSString *stringBB =  [NSString stringWithFormat:@"发了%ld局-剩余 %ld张牌-闲赢%ld-庄赢%ld-闲对%ld-平均%ld-庄对%ld -平均%ld-幸运Six%ld -平均%ld-和局共%ld -平均%ld", self.pokerCount, self.pokerTotalNum, self.playerCount, self.bankerCount, self.playerPairCount, self.pokerCount/self.playerPairCount, self.bankerPairCount,self.pokerCount/self.bankerPairCount, self.superSixCount,self.pokerCount/self.superSixCount, self.tieCount, self.pokerCount/self.tieCount];
+
 }
 
 #pragma mark -  开始
@@ -330,93 +324,18 @@
     }
 }
 
-- (void)resultText {
-    self.pokerCountLabel.text = [NSString stringWithFormat:@"发了%ld局 剩余%ld张牌", self.pokerCount, self.pokerTotalNum];
-    self.bankerCountLabel.text = [NSString stringWithFormat:@"庄赢%ld", self.bankerCount];
-    self.playerCountLabel.text = [NSString stringWithFormat:@"闲赢%ld", self.playerCount];
-    self.tieCountLabel.text = [NSString stringWithFormat:@"和局共%ld 平均%ld", self.tieCount, self.tieCount ? self.pokerCount/self.tieCount : 0];
-    self.bankerPairCountLabel.text = [NSString stringWithFormat:@"庄对%ld 平均%ld", self.bankerPairCount, self.bankerPairCount ? self.pokerCount/self.bankerPairCount : 0];
-    self.playerPairCountLabel.text = [NSString stringWithFormat:@"闲对%ld 平均%ld", self.playerPairCount, self.playerPairCount ? self.pokerCount/self.playerPairCount : 0];
-    self.superSixCountLabel.text = [NSString stringWithFormat:@"幸运Six%ld 平均%ld", self.superSixCount, self.superSixCount ? self.pokerCount/self.superSixCount : 0];
-}
-
-#pragma mark -  结果视图
-- (void)resultView {
-    for (NSInteger index = 0; index < self.pokerCount; index++) {
-        
-        NSMutableDictionary *dict = (NSMutableDictionary *)self.resultDataArray[index];
-        NSInteger row = index / 6;  // 计算列号 决定y
-        NSInteger col = index % 6;  // 计算行号 决定x
-        
-        CGFloat xxWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 15*2) / (90/6+2);
-        
-        UIView *playerBankerView = [[UIView alloc] init];
-        playerBankerView.layer.cornerRadius = xxWidth/2;
-        playerBankerView.frame = CGRectMake(row * (xxWidth +2), col * (xxWidth + 2), xxWidth, xxWidth);
-        [self.trendView addSubview:playerBankerView];
-        
-        UILabel *num = [[UILabel alloc] init];
-        num.textAlignment = NSTextAlignmentCenter;
-        num.font = [UIFont systemFontOfSize:12];
-        num.text = [NSString stringWithFormat:@"%ld", index+1];
-        [playerBankerView addSubview:num];
-        
-        [num mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(playerBankerView.mas_centerX);
-            make.centerY.mas_equalTo(playerBankerView.mas_centerY);
-        }];
-        
-        
-        if ([[dict objectForKey:@"WinType"] integerValue] == 0) {
-            playerBankerView.backgroundColor = [UIColor redColor];
-        } else if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
-            playerBankerView.backgroundColor = [UIColor blueColor];
-        } else {
-            playerBankerView.backgroundColor = [UIColor greenColor];
-        }
-        
-        if ([[dict objectForKey:@"isSuperSix"] boolValue]) {
-            UIView *superSix = [[UIView alloc] init];
-            superSix.layer.cornerRadius = 8/2;
-            superSix.backgroundColor = [UIColor yellowColor];
-            [playerBankerView addSubview:superSix];
-            num.text = @"6";
-            [superSix mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(playerBankerView.mas_left);
-                make.bottom.mas_equalTo(playerBankerView.mas_bottom);
-                make.size.mas_equalTo(CGSizeMake(8, 8));
-            }];
-        }
-        
-        if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
-            UIView *playerPairView = [[UIView alloc] init];
-            playerPairView.layer.cornerRadius = 8/2;
-            playerPairView.backgroundColor = [UIColor blueColor];
-            [playerBankerView addSubview:playerPairView];
-            [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(playerBankerView.mas_left);
-                make.top.mas_equalTo(playerBankerView.mas_top);
-                make.size.mas_equalTo(CGSizeMake(8, 8));
-            }];
-        }
-        
-        if ([[dict objectForKey:@"isBankerPair"] boolValue]) {
-            UIView *bankerPairView = [[UIView alloc] init];
-            bankerPairView.layer.cornerRadius = 8/2;
-            bankerPairView.backgroundColor = [UIColor redColor];
-            [playerBankerView addSubview:bankerPairView];
-            [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.mas_equalTo(playerBankerView.mas_right);
-                make.bottom.mas_equalTo(playerBankerView.mas_bottom);
-                make.size.mas_equalTo(CGSizeMake(8, 8));
-            }];
-        }
-        
-    }
+#pragma mark - 结果统计数据分析
+// 结果统计
+- (void)resultStatisticsText {
     
-    [self.tableView reloadData];
+    self.bankerCountLabel.text = [NSString stringWithFormat:@"BANKER %ld  Win  %ld", self.bankerCount, (self.bankerCount - self.playerCount) * self.betMoney - self.superSixCount * self.betMoney/2];
+    self.playerCountLabel.text = [NSString stringWithFormat:@"PLAYER  %ld  Win  %ld", self.playerCount, (self.playerCount-self.bankerCount) * self.betMoney];
+    self.tieCountLabel.text = [NSString stringWithFormat:@"TIE          %ld  平均 %ld", self.tieCount, self.tieCount ? self.pokerCount/self.tieCount : 0];
+    self.bankerPairCountLabel.text = [NSString stringWithFormat:@"BANKER PAIR %ld  平均 %ld", self.bankerPairCount, self.bankerPairCount ? self.pokerCount/self.bankerPairCount : 0];
+    self.playerPairCountLabel.text = [NSString stringWithFormat:@"PLAYER PAIR  %ld  平均 %ld", self.playerPairCount, self.playerPairCount ? self.pokerCount/self.playerPairCount : 0];
+    self.superSixCountLabel.text = [NSString stringWithFormat:@"SUPER6          %ld  平均 %ld", self.superSixCount, self.superSixCount ? self.pokerCount/self.superSixCount : 0];
+    self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
 }
-
 
 
 #pragma mark -  数据初始化
@@ -543,7 +462,7 @@
     // 判断庄闲 输赢
     NSString *win;
     if (playerPointsNum < bankerPointsNum) {
-        if (bankerPointsNum == 6) {  // super 6 幸运6
+        if (bankerPointsNum == 6) {  // Super6
             win = @"🔴🔸";
             self.superSixCount++;
             [dict setObject:@(YES) forKey:@"isSuperSix"];
@@ -583,7 +502,7 @@
     [dict setObject: banker3  == nil ? @"" : banker3 forKey:@"banker3"];
     [dict setObject: [NSString stringWithFormat:@"%ld", playerPointsNum] forKey:@"playerPointsNum"];
     [dict setObject: [NSString stringWithFormat:@"%ld", bankerPointsNum] forKey:@"bankerPointsNum"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", self.pokerCount] forKey:@"index"];
+    [dict setObject: [NSString stringWithFormat:@"%ld", self.pokerCount] forKey:@"pokerCount"];
     
     
     [self.resultDataArray addObject:dict];

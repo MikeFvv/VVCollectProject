@@ -7,8 +7,10 @@
 //
 
 #import "BaccaratCollectionView.h"
+#import "BaccaratCollectionViewCell.h"
 
-static NSString * const CellBaccaratID = @"CellBaccaratID";
+
+static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
 
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
 @interface BaccaratCollectionView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -137,7 +139,7 @@ static NSString * const CellBaccaratID = @"CellBaccaratID";
      用自定义的cell类,防止内容重叠
      注册时填写的重用标识符 是给整个类添加的 所以类里有的所有属性都有重用标识符
      */
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CellBaccaratID];
+    [_collectionView registerClass:[BaccaratCollectionViewCell class] forCellWithReuseIdentifier:kCellBaccaratCollectionViewId];
     
     //注册头部(初始化头部)
     //[_collectionView registerClass:<#(nullable Class)#> forSupplementaryViewOfKind:<#(nonnull NSString *)#> withReuseIdentifier:<#(nonnull NSString *)#>];
@@ -186,59 +188,9 @@ static NSString * const CellBaccaratID = @"CellBaccaratID";
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString * CellIdentifier = @"BaccaratCollectionView";
-    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellBaccaratID forIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor colorWithRed:((10 * indexPath.row) / 255.0) green:((20 * indexPath.row)/255.0) blue:((30 * indexPath.row)/255.0) alpha:1.0f];
-    CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 10*2) / (90/6+1);
-    cell.layer.cornerRadius = itemWidth/2;
-    cell.layer.masksToBounds = YES;
+    BaccaratCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellBaccaratCollectionViewId forIndexPath:indexPath];
     NSDictionary *dict = (NSDictionary *)self.resultDataArray[indexPath.row];
-    
-    if ([[dict objectForKey:@"WinType"] integerValue] == 0) {
-        cell.backgroundColor = [UIColor redColor];
-    } else if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
-        cell.backgroundColor = [UIColor blueColor];
-    } else {
-        cell.backgroundColor = [UIColor greenColor];
-    }
-    
-//    if ([[dict objectForKey:@"isSuperSix"] boolValue]) {
-//        UIView *superSix = [[UIView alloc] init];
-//        superSix.layer.cornerRadius = 8/2;
-//        superSix.backgroundColor = [UIColor yellowColor];
-//        [playerBankerView addSubview:superSix];
-//        num.text = @"6";
-//        [superSix mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(playerBankerView.mas_left);
-//            make.bottom.mas_equalTo(playerBankerView.mas_bottom);
-//            make.size.mas_equalTo(CGSizeMake(8, 8));
-//        }];
-//    }
-//
-//    if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
-//        UIView *playerPairView = [[UIView alloc] init];
-//        playerPairView.layer.cornerRadius = 8/2;
-//        playerPairView.backgroundColor = [UIColor blueColor];
-//        [playerBankerView addSubview:playerPairView];
-//        [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(playerBankerView.mas_left);
-//            make.top.mas_equalTo(playerBankerView.mas_top);
-//            make.size.mas_equalTo(CGSizeMake(8, 8));
-//        }];
-//    }
-//
-//    if ([[dict objectForKey:@"isBankerPair"] boolValue]) {
-//        UIView *bankerPairView = [[UIView alloc] init];
-//        bankerPairView.layer.cornerRadius = 8/2;
-//        bankerPairView.backgroundColor = [UIColor redColor];
-//        [playerBankerView addSubview:bankerPairView];
-//        [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.mas_equalTo(playerBankerView.mas_right);
-//            make.bottom.mas_equalTo(playerBankerView.mas_bottom);
-//            make.size.mas_equalTo(CGSizeMake(8, 8));
-//        }];
-//    }
-    
+    cell.model = dict;
     return cell;
 }
 
