@@ -9,6 +9,8 @@
 #import "BaccaratController.h"
 #import "BaccaratCell.h"
 #import "BaccaratCollectionView.h"
+#include <stdlib.h>
+
 
 #define kBtnHeight 30
 #define kBtnFontSize 16
@@ -66,6 +68,22 @@
 @property (nonatomic,strong) UILabel *bankerPairCountLabel;
 @property (nonatomic,strong) UILabel *playerPairCountLabel;
 @property (nonatomic,strong) UILabel *superSixCountLabel;
+
+@property (nonatomic,strong) UILabel *aaaa;
+@property (nonatomic,strong) UILabel *bbbb;
+
+// ************************ 统计字段 ************************
+// 跳转的
+@property (nonatomic,assign) NSInteger jumpsCount;
+@property (nonatomic,assign) NSInteger continuous2;
+@property (nonatomic,assign) NSInteger continuous3;
+@property (nonatomic,assign) NSInteger continuous4;
+@property (nonatomic,assign) NSInteger continuous5;
+@property (nonatomic,assign) NSInteger continuous6;
+@property (nonatomic,assign) NSInteger continuous7;
+@property (nonatomic,assign) NSInteger continuous8;
+// 单跳
+@property (nonatomic,assign) NSInteger singleJumpCount;
 
 
 @end
@@ -185,7 +203,6 @@
     
     [bankerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(trendView.mas_left);
-        make.right.mas_equalTo(trendView.mas_right);
         make.top.mas_equalTo(trendView.mas_bottom).offset(5);
     }];
     
@@ -266,7 +283,42 @@
     
     [pokerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(trendView.mas_left);
+        make.right.mas_equalTo(trendView.mas_centerX);
         make.top.mas_equalTo(superSixCountLabel.mas_bottom);
+    }];
+    
+    
+    UILabel *aaaa = [[UILabel alloc] init];
+    aaaa.font = [UIFont systemFontOfSize:14];
+    //    pokerCountLabel.layer.borderWidth = 1;
+    //    pokerCountLabel.layer.borderColor = [UIColor blueColor].CGColor;
+    aaaa.numberOfLines = 0;
+    //    pokerCountLabel.text = @"结果";S
+    aaaa.textColor = [UIColor darkGrayColor];
+    [self.view addSubview:aaaa];
+    _aaaa = aaaa;
+    
+    [aaaa mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.trendView.mas_bottom).offset(5);
+        make.left.mas_equalTo(self.view.mas_centerX).offset(20);
+        make.right.mas_equalTo(self.view.mas_right);
+    }];
+    
+    
+    UILabel *bbbb = [[UILabel alloc] init];
+    bbbb.font = [UIFont systemFontOfSize:14];
+    //    pokerCountLabel.layer.borderWidth = 1;
+    //    pokerCountLabel.layer.borderColor = [UIColor blueColor].CGColor;
+    bbbb.numberOfLines = 0;
+    //    pokerCountLabel.text = @"结果";S
+    bbbb.textColor = [UIColor darkGrayColor];
+    [self.view addSubview:bbbb];
+    _bbbb = bbbb;
+    
+    [bbbb mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view.mas_centerX).offset(20);
+        make.top.mas_equalTo(aaaa.mas_bottom).offset(5);
+        make.right.mas_equalTo(self.view.mas_right);
     }];
 }
 
@@ -283,7 +335,7 @@
 - (void)onStartOneButton {
     [self.view endEditing:YES];
     if (self.pokerTotalNum < 6) {  // 停止发牌
-        self.pokerCountLabel.text = [NSString stringWithFormat:@"发了%ld局 剩余%ld张牌 已结束", self.pokerCount, self.pokerTotalNum];
+        self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld  已结束", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
         return;
     }
     
@@ -300,13 +352,167 @@
  全盘
  */
 - (void)onStartButton {
+    // 记录当前时间
+    float start = CACurrentMediaTime();
+    
     self.pokerNum = self.pokerNumTextField.text.integerValue;
     [self opening];
     self.trendView.model = self.resultDataArray;
+//    [self resultStatisticsContinuous];
     [self resultStatisticsText];
     [self.tableView reloadData];
+    
+    [self resultStatisticsContinuous];
+    
+    float end = CACurrentMediaTime();
+    NSLog(@"运行时间%f", end - start);
 
 }
+
+- (NSString *)bankerOrPlayerOrTie:(NSString *)string {
+    
+    switch ([string integerValue]) {
+        case 0:
+            return @"B";
+            break;
+        case 1:
+            return @"P";
+            break;
+        case 2:
+            return @"T";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+#pragma mark -  统计连续出现最多的次数
+- (void)resultStatisticsContinuous {
+    NSString   *cCompareChar;
+    NSString   *cLongestContinChar;
+    NSInteger iMaxLen            = 1;
+    NSInteger iCharCount         = 1;
+    NSInteger indexFlag           = 0;
+    self.jumpsCount = 0;
+    NSString *lastBankerOrPlayer = nil;
+    self.continuous2 = 0;
+    self.continuous3 = 0;
+    self.continuous4 = 0;
+    self.continuous5 = 0;
+    self.continuous6 = 0;
+    self.continuous7 = 0;
+    self.continuous8 = 0;
+    
+    self.singleJumpCount = 0;
+    NSInteger lastiCharCount = iCharCount;
+    
+    if (self.resultDataArray.count <= 0) {
+        return;
+    }
+    
+    NSDictionary *firstDict = (NSDictionary *)self.resultDataArray.firstObject;
+    cCompareChar       = [[firstDict objectForKey:@"WinType"] stringValue];  // 从第一个字符开始比较
+    cLongestContinChar = cCompareChar;
+    
+    if (![cCompareChar isEqualToString:@"2"]) {  // 记录最后一次的 Banker或者Player
+        lastBankerOrPlayer = cCompareChar;
+    }
+    
+//    isSuperSix
+//    isPlayerPair
+//    isBankerPair
+    
+    for (NSInteger indexFlag = 1; indexFlag < self.resultDataArray.count; indexFlag++) {
+        
+        NSDictionary *dict = (NSDictionary *)self.resultDataArray[indexFlag];
+        NSString *tempStr       = [[dict objectForKey:@"WinType"] stringValue];
+        
+        if ([tempStr isEqualToString:cCompareChar]) {
+            iCharCount++;     // 对相同字符计数加1
+            
+            if (![tempStr isEqualToString:@"2"]) {  // 记录最后一次的 Banker或者Player
+                lastBankerOrPlayer = tempStr;
+                lastiCharCount = iCharCount;
+            }
+            
+            switch (iCharCount) {   // 没有排除TIE
+                case 2:
+                    // 连续2次的统计
+                    self.continuous2++;
+                    break;
+                case 3:
+                    // 连续3次的统计
+                    self.continuous3++;
+                    break;
+                case 4:
+                    // 连续4次的统计
+                    self.continuous4++;
+                    break;
+                case 5:
+                    // 连续5次的统计
+                    self.continuous5++;
+                    break;
+                case 6:
+                    // 连续6次的统计
+                    self.continuous6++;
+                    break;
+                case 7:
+                    // 连续7次的统计
+                    self.continuous7++;
+                    break;
+                case 8:
+                    // 连续8次的统计
+                    self.continuous8++;
+                    break;
+                default:
+                    break;
+            }
+         
+        } else {
+            
+            NSLog(@"下标 %ld",  indexFlag);
+            // 单跳的统计
+            if (iCharCount == 1 && ![tempStr isEqualToString:@"2"] && ![tempStr isEqualToString:lastBankerOrPlayer] && lastBankerOrPlayer != nil && lastiCharCount == 1) {
+                 self.singleJumpCount++;
+            }
+            
+            iCharCount   = 1;        // 字符不同时计数变为1
+            cCompareChar = tempStr;   // 重新比较新字符
+            
+            // 跳转的统计 TIE不计入统计    与之前TIE出现之前的一样 也不记录跳转统计
+            if (![tempStr isEqualToString:@"2"] && ![tempStr isEqualToString:lastBankerOrPlayer] && lastBankerOrPlayer != nil) {
+                self.jumpsCount++;
+            }
+            
+            if (![tempStr isEqualToString:@"2"]) {  // 记录最后一次的 Banker或者Player
+                lastBankerOrPlayer = tempStr;
+                lastiCharCount = iCharCount;
+            }
+
+        }
+        
+        if (iCharCount > iMaxLen) { // 获取连续出现次数最多的字符及其出现次数
+            iMaxLen            = iCharCount;
+            cLongestContinChar = tempStr;
+        }
+    }
+
+    NSString *aaa = [NSString stringWithFormat:@"连续出现次数最多的是: %@  最大次数是: %ld 跳转的次数 %ld  Win -%ld  连续Win%ld", [self bankerOrPlayerOrTie:cLongestContinChar], iMaxLen, self.jumpsCount, self.jumpsCount*self.betMoney, (self.pokerCount-self.jumpsCount-self.tieCount -2)*self.betMoney - self.jumpsCount*self.betMoney];
+    
+    NSLog(aaa);
+    
+    NSString *bbb = [NSString stringWithFormat:@"单跳的统计 %ld  连续2个%ld  连续3个%ld  连续4个%ld  连续5个%ld  连续6个%ld  连续7个%ld  连续8个%ld",self.singleJumpCount, self.continuous2,self.continuous3,self.continuous4,self.continuous5,self.continuous6,self.continuous7,self.continuous8];
+
+    NSLog(bbb);
+    
+    
+    self.aaaa.backgroundColor = [UIColor yellowColor];
+    self.aaaa.text = aaa;
+    self.bbbb.text = bbb;
+     self.bbbb.backgroundColor = [UIColor greenColor];
+}
+
 
 #pragma mark -  开始
 - (void)opening {
@@ -318,9 +524,6 @@
         }
         self.pokerCount++;
         [self oncePoker];
-        NSLog(@"---%@", [NSThread currentThread]);
-//        self.pokerCountLabel.text = [NSString stringWithFormat:@"%ld", self.pokerTotalNum];
-//        self.pokerCountLabel.font = [UIFont systemFontOfSize:40];
     }
 }
 
