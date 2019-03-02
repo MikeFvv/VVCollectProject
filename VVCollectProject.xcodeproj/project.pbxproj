@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
+		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC421ECB78D007E845B /* BANetManagerCache.m */; };
 		A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC521ECB78D007E845B /* BANetManager.m */; };
 		A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC621ECB78D007E845B /* UIImage+CompressImage.m */; };
@@ -84,6 +85,8 @@
 		0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VVCollectProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
+		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
+		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
 		A0130DC321ECB78D007E845B /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
 		A0130DC421ECB78D007E845B /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
 		A0130DC521ECB78D007E845B /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
@@ -228,6 +231,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A004E78B2226E40A0090DC44 /* BlackJack */ = {
+			isa = PBXGroup;
+			children = (
+				A004E78C2226E4C10090DC44 /* BlackJackController.h */,
+				A004E78D2226E4C10090DC44 /* BlackJackController.m */,
+			);
+			path = BlackJack;
+			sourceTree = "<group>";
+		};
 		A0130DBF21ECB78D007E845B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +349,7 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A004E78B2226E40A0090DC44 /* BlackJack */,
 				A0CBDD5E222033A500E7E21F /* ClassMethodUse */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
 				A0373A02221A9F3400E112A6 /* Test */,
@@ -750,6 +763,7 @@
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
 				A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */,
+				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
 				A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */,

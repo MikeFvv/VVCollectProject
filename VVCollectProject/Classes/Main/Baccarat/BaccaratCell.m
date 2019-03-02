@@ -151,9 +151,9 @@
     self.bankerLabel.text = bankerStr;
     
     NSString *resultStr;
-    if ([[dict objectForKey:@"WinType"] integerValue] == 0) {
+    if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
         resultStr = @"🔴";
-    } else if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
+    } else if ([[dict objectForKey:@"WinType"] integerValue] == 2) {
         resultStr = @"🅿️";
     } else {
         resultStr = @"✅";

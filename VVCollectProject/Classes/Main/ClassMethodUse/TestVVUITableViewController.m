@@ -155,7 +155,7 @@
 #pragma mark - 高度设置支持 6个
 // Variable height support
 // 高度设置支持 6个
-// 设置行高
+// 设置Cell行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 1;
 }

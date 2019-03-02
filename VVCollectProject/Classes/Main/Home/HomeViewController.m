@@ -11,6 +11,7 @@
 #import "BaccaratController.h"
 #import "Application.h"
 #import "UIColor+Hexadecimal.h"
+#import "BlackJackController.h"
 
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
@@ -235,6 +236,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight=100;   //设置每一行的高度
+//        _tableView.scrollEnabled = NO;  //设置tableview 不能滚动
     }
     
     return _tableView;
@@ -289,6 +291,10 @@
     
     if (indexPath.row == 0) {
         BaccaratController *vc = [[BaccaratController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    } if (indexPath.row == 1) {
+        
+        BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         [self doPush];

@@ -101,10 +101,10 @@
     
     NSDictionary *dict = (NSDictionary *)model;
     
-    if ([[dict objectForKey:@"WinType"] integerValue] == 0) {
+    if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
         self.bankerOrPlayerOrTieLabel.text = @"B";
         self.backgroundColor = [UIColor redColor];
-    } else if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
+    } else if ([[dict objectForKey:@"WinType"] integerValue] == 2) {
         self.bankerOrPlayerOrTieLabel.text = @"P";
         self.backgroundColor = [UIColor blueColor];
     } else {
