@@ -62,6 +62,13 @@
 		A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */; };
 		A0F3E621220D5FA500755DBB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E620220D5FA500755DBB /* Person.m */; };
 		A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E623220D75FA00755DBB /* RunTimeController.m */; };
+		A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FC8222ECCB400C4EE9C /* BJSpade.m */; };
+		A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCA222ECCB400C4EE9C /* UIView+JMNoise.m */; };
+		A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCB222ECCB400C4EE9C /* PhysicalCard.m */; };
+		A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCD222ECCB400C4EE9C /* BJClub.m */; };
+		A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCE222ECCB400C4EE9C /* BJHeart.m */; };
+		A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */; };
+		A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,6 +200,20 @@
 		A0F3E620220D5FA500755DBB /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		A0F3E622220D75FA00755DBB /* RunTimeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTimeController.h; sourceTree = "<group>"; };
 		A0F3E623220D75FA00755DBB /* RunTimeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunTimeController.m; sourceTree = "<group>"; };
+		A0F91FC6222ECCB300C4EE9C /* PhysicalCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalCard.h; sourceTree = "<group>"; };
+		A0F91FC7222ECCB300C4EE9C /* BJHeart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BJHeart.h; sourceTree = "<group>"; };
+		A0F91FC8222ECCB400C4EE9C /* BJSpade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJSpade.m; sourceTree = "<group>"; };
+		A0F91FC9222ECCB400C4EE9C /* BJSpade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BJSpade.h; sourceTree = "<group>"; };
+		A0F91FCA222ECCB400C4EE9C /* UIView+JMNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JMNoise.m"; sourceTree = "<group>"; };
+		A0F91FCB222ECCB400C4EE9C /* PhysicalCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalCard.m; sourceTree = "<group>"; };
+		A0F91FCC222ECCB400C4EE9C /* BJClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BJClub.h; sourceTree = "<group>"; };
+		A0F91FCD222ECCB400C4EE9C /* BJClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJClub.m; sourceTree = "<group>"; };
+		A0F91FCE222ECCB400C4EE9C /* BJHeart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJHeart.m; sourceTree = "<group>"; };
+		A0F91FCF222ECCB400C4EE9C /* UIView+JMNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JMNoise.h"; sourceTree = "<group>"; };
+		A0F91FD5222ECCC300C4EE9C /* BlackJackDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackJackDataSource.h; sourceTree = "<group>"; };
+		A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
+		A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackJackDataSource.m; sourceTree = "<group>"; };
+		A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCardModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,8 +255,13 @@
 		A004E78B2226E40A0090DC44 /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
+				A0F91FC5222ECCA700C4EE9C /* View */,
 				A004E78C2226E4C10090DC44 /* BlackJackController.h */,
 				A004E78D2226E4C10090DC44 /* BlackJackController.m */,
+				A0F91FD5222ECCC300C4EE9C /* BlackJackDataSource.h */,
+				A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */,
+				A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */,
+				A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */,
 			);
 			path = BlackJack;
 			sourceTree = "<group>";
@@ -562,6 +588,23 @@
 			path = RunTime;
 			sourceTree = "<group>";
 		};
+		A0F91FC5222ECCA700C4EE9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A0F91FC9222ECCB400C4EE9C /* BJSpade.h */,
+				A0F91FC8222ECCB400C4EE9C /* BJSpade.m */,
+				A0F91FC7222ECCB300C4EE9C /* BJHeart.h */,
+				A0F91FCE222ECCB400C4EE9C /* BJHeart.m */,
+				A0F91FCC222ECCB400C4EE9C /* BJClub.h */,
+				A0F91FCD222ECCB400C4EE9C /* BJClub.m */,
+				A0F91FCF222ECCB400C4EE9C /* UIView+JMNoise.h */,
+				A0F91FCA222ECCB400C4EE9C /* UIView+JMNoise.m */,
+				A0F91FC6222ECCB300C4EE9C /* PhysicalCard.h */,
+				A0F91FCB222ECCB400C4EE9C /* PhysicalCard.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A54BAFC56792119E80DECF64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -758,6 +801,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
+				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
+				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
 				A0BCD7B422218B8400BB3A9C /* UIColor+Hex.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
@@ -768,19 +813,24 @@
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
 				A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
+				A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */,
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
 				A0BCD7A822217C4300BB3A9C /* UIColor+Hexadecimal.m in Sources */,
+				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
+				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
 				A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
+				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
+				A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
 				A0C5148821EE2E4F00E2F89D /* zip.c in Sources */,

@@ -120,6 +120,9 @@
 @property (nonatomic,assign) NSInteger playerPairContinuousCount;
 @property (nonatomic,assign) NSInteger superSixContinuousCount;
 
+// 距离前6局的相同的数量
+@property (nonatomic,assign) NSInteger front6SameCount;
+
 
 
 @end
@@ -588,6 +591,7 @@
     
     self.jumpsCount = 0;   // 跳转
     self.singleJumpCount = 0;  // 单跳
+    self.front6SameCount = 0;
     
     // 连续出现的次数
     self.bankerPairOrplayerPairContinuousCount = 0;
@@ -619,6 +623,15 @@
         BOOL tempIsBankerPair       = [[dict objectForKey:@"isBankerPair"] boolValue];
         BOOL tempIsPlayerPair       = [[dict objectForKey:@"isPlayerPair"] boolValue];
         BOOL tempIsSuperSix       = [[dict objectForKey:@"isSuperSix"] boolValue];
+        
+        // 与前6局关系
+        if (indexFlag >= 6) {
+            NSDictionary *front6SameCountDict = (NSDictionary *)self.resultDataArray[indexFlag - 6];
+            NSString *tempFront6SameCountDict       = [[front6SameCountDict objectForKey:@"WinType"] stringValue];
+            if ([tempStrWinType isEqualToString:tempFront6SameCountDict]) {
+                self.front6SameCount++;
+            }
+        }
         
         if ([tempStrWinType isEqualToString:compareChar]) {
             iCharCount++;     // 对相同字符计数加1
@@ -721,7 +734,7 @@
         }
     }
     
-    NSString *aaa = [NSString stringWithFormat:@"连续最多 %@  次数 %ld", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen];
+    NSString *aaa = [NSString stringWithFormat:@"连续最多 %@  次数 %ld  与前6相同 %ld   %ld  %0.2f%", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen, self.front6SameCount, self.pokerCount -6- self.front6SameCount, self.front6SameCount*1.00/(self.pokerCount*1.00 -6)*100.0];
     
     NSLog(aaa);
     
@@ -1002,7 +1015,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +100, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +64 +100)) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +100 +30, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +64 +100 +30)) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor yellowColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
