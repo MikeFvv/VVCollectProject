@@ -2,7 +2,7 @@
 //  BlackJackController.m
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/2/27.
+//  Created by Mike on 2019/2/27.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
@@ -23,13 +23,13 @@
 @property (strong, nonatomic) UILabel *playerThreeLabel;
 @property (strong, nonatomic) UILabel *playerFourLabel;
 @property (strong, nonatomic) UILabel *playerFiveLabel;
-@property (strong, nonatomic) UILabel *playerTotalLabel; //TODO: get rid of this when we don't need it, move to array
+@property (strong, nonatomic) UILabel *playerTotalLabel;
 @property (strong, nonatomic) NSMutableArray *playershandofCardsArray;
 @property (strong, nonatomic) NSMutableArray *playerCountsArray;
-//
+
 //////banker Properties
 @property (strong, nonatomic) UILabel *bankerOneLabel;
-@property (strong, nonatomic) UILabel *bankerTotalLabel; //TODO: get rid of this when we don't need it, move to array
+@property (strong, nonatomic) UILabel *bankerTotalLabel;
 @property (strong, nonatomic) UILabel *bankerTwoLabel;
 @property (strong, nonatomic) UILabel *bankerThreeLabel;
 @property (strong, nonatomic) UILabel *bankerFourLabel;
@@ -37,15 +37,15 @@
 @property (strong, nonatomic) NSMutableArray *bankershandofCardsArray;
 @property (strong, nonatomic) NSMutableArray *bankerCountsArray;
 
-@property (nonatomic) BOOL aceFlag;
-@property (nonatomic) int pTotal;
-@property (nonatomic) int aTotal;
-@property (nonatomic) int dTotal;
-@property (nonatomic) int adTotal;
+@property (nonatomic, assign) BOOL aceFlag;
+@property (nonatomic, assign) NSInteger pTotal;
+@property (nonatomic, assign) NSInteger aTotal;
+@property (nonatomic, assign) NSInteger dTotal;
+@property (nonatomic, assign) NSInteger adTotal;
 
 @property (strong, nonatomic) UIButton *hitButton;
 @property (strong, nonatomic) BlackJackDataSource *referenceDeck;
-@property (strong, nonatomic) NSMutableArray *shuffledDeckReference;
+@property (strong, nonatomic) NSMutableArray *blackjackDataArray;
 
 @end
 
@@ -83,6 +83,366 @@
     
     [self resetPlay];
 }
+
+
+
+
+- (void)buttonPressed:(id)sender
+{
+    switch ([sender tag]) {
+        case 101:
+            [self playerLogic];
+            [self randomoneoutofFour];
+            break;
+        case 102:
+            if ((self.aceFlag == TRUE) && (self.aTotal <= 21)) {
+                self.pTotal = self.aTotal;
+            }
+            self.aceFlag = FALSE;
+            [self bankerLogic];
+            [self.hitButton setEnabled:NO];
+            break;
+        case 103:
+            [self resetPlay];
+            break;
+        default:
+            break;
+    }
+}
+
+
+#pragma mark - 玩家逻辑  玩家Hit
+- (void)playerLogic
+{
+    //TODO: Handle 'Split' condition
+    
+    if ([self.playershandofCardsArray count] == 5)
+    {
+        [self.playershandofCardsArray removeAllObjects]; //TODO: Extraneous? Might be, remove if so.
+    }
+    
+    self.pTotal = [self.playerTotalLabel.text intValue];
+    
+    self.playerTotalLabel.textColor = [UIColor whiteColor];
+    self.playerTotalLabel.backgroundColor = [UIColor clearColor];
+    
+    PlayCardModel* nextCard = [self dealCard:FALSE toPlayer:@"player"];
+    [self.playershandofCardsArray addObject:nextCard];
+    
+    self.pTotal = self.pTotal + [nextCard.cardValue intValue];
+    self.aTotal = self.pTotal + 10;
+    
+    if ([nextCard.cardValue intValue] == 1)
+    {
+        self.aceFlag = TRUE;
+    }
+    
+    //Set label text appropriately
+    switch ([self.playershandofCardsArray count])
+    {
+        case 1:
+            self.playerOneLabel.text = nextCard.cardText;
+            break;
+        case 2:
+            self.playerTwoLabel.text = nextCard.cardText;
+            break;
+        case 3:
+            self.playerThreeLabel.text = nextCard.cardText;
+            break;
+        case 4:
+            self.playerFourLabel.text = nextCard.cardText;
+            break;
+        case 5:
+            self.playerFiveLabel.text = nextCard.cardText;
+            break;
+        default:
+            break;
+    }
+    
+    if (self.pTotal > 21)
+    {
+        self.playerTotalLabel.text = @"Bust!";
+        self.playerTotalLabel.backgroundColor = [UIColor redColor];
+        [self.playershandofCardsArray removeAllObjects];
+        [self resultHandler];
+    }
+    else
+    {
+        self.playerTotalLabel.text = [NSString stringWithFormat:@"%i", self.pTotal];
+        if (self.aceFlag && self.aTotal <= 21)
+        {
+            self.playerTotalLabel.text = [self.playerTotalLabel.text stringByAppendingFormat:@" or %i", self.aTotal];
+        }
+        if ([self.playershandofCardsArray count] == 1)
+        {
+            [self performSelector:@selector(playerLogic) withObject:nil afterDelay:0.65];
+        }
+    }
+}
+
+
+#pragma mark - Stand停牌
+- (void)bankerLogic
+{
+    self.dTotal = [self.bankerTotalLabel.text intValue];
+    
+    PlayCardModel* nextCard = [self dealCard:FALSE toPlayer:@"banker"];
+    [self.bankershandofCardsArray addObject:nextCard];
+    
+    self.dTotal = self.dTotal + [nextCard.cardValue intValue];
+    self.adTotal = self.dTotal + 10; //only used when there's aces in places ;)
+    
+    //Ace detector
+    if ([nextCard.cardValue intValue] == 1)
+    {
+        self.aceFlag = TRUE; //Ace is back and he told you so.
+    }
+    
+    //Set label text appropriately
+    switch ([self.bankershandofCardsArray count])
+    {
+        case 1:
+            self.bankerOneLabel.text = nextCard.cardText;
+            break;
+        case 2:
+            self.bankerTwoLabel.text = nextCard.cardText;
+            break;
+        case 3:
+            self.bankerThreeLabel.text = nextCard.cardText;
+            break;
+        case 4:
+            self.bankerFourLabel.text = nextCard.cardText;
+            break;
+        case 5:
+            self.bankerFiveLabel.text = nextCard.cardText;
+            break;
+        default:
+            break;
+    }
+    
+    // 爆牌
+    if (self.dTotal > 21) //bust condition
+    {
+        NSLog(@"Over 21: Bust, %i/%i", self.dTotal, self.adTotal); //DEBUG
+        self.bankerTotalLabel.text = @"Bust!";
+        self.bankerTotalLabel.backgroundColor = [UIColor redColor];
+        [self resultHandler];
+    }
+    else if (self.dTotal > self.pTotal) //stand if bankers won but could still draw a card
+    {
+        NSLog(@"banker beats player: Stand, %i/%i", self.dTotal, self.adTotal); //DEBUG
+        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.dTotal];
+        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
+    }
+    else if ((self.aceFlag == TRUE) && (self.adTotal > self.pTotal) && (self.adTotal <= 21)) //alt stand if bankers won but could still draw a card
+    {
+        NSLog(@"Alt banker beats player: Stand, %i/%i", self.dTotal, self.adTotal); //DEBUG
+        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.adTotal];
+        self.dTotal = self.adTotal;
+        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
+    }
+    else if ((self.dTotal < self.pTotal) && ([self.bankershandofCardsArray count] < 5))  //always draw when losing to player
+    {
+        NSLog(@"Under pTotal and no 5CT: Draw, %i/%i", self.dTotal, self.adTotal); //DEBUG
+        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.dTotal];
+        if (self.aceFlag && self.adTotal <= 21)
+        {
+            NSLog(@"Ace in the hand, appending alt score, %i/%i", self.dTotal, self.adTotal); //DEBUG
+            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %i", self.adTotal];
+        }
+        [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:0.75];
+    }
+    else if ((self.dTotal >= self.pTotal)) //stand if over or equal to player or 5 card trick //站立，如果超过或等于玩家或5卡技巧
+        //DEBUG  || ([bankershandofCardsArray count] == 5)
+    {
+        NSLog(@">=19 or 5CT: Stand, %i/%i vs %i", self.dTotal, self.adTotal, self.pTotal); //DEBUG
+        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.dTotal];
+        if ((self.aceFlag == TRUE) && (self.adTotal <= 21))
+        {
+            NSLog(@"Ace in the hand, appending alt score, %i/%i", self.dTotal, self.adTotal); //DEBUG
+            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %i", self.adTotal];
+            self.dTotal = self.adTotal;
+        }
+        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
+    }
+    else if ([self.bankershandofCardsArray count] == 5)
+    {
+        NSLog(@"Five Card Trick, %i/%i", self.dTotal, self.adTotal); //DEBUG
+        self.dTotal = 21, self.adTotal = 21;
+        self.bankerTotalLabel.text = @"Five card trick";
+        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
+    }
+}
+
+- (void)betHandler
+{
+    
+}
+
+- (PlayCardModel*)dealCard:(BOOL)newHand toPlayer:(NSString*)player
+{
+    if (newHand)
+    {
+        [self newDeal]; //shuffles the deck
+    }
+    NSInteger nextentry = 0;
+    NSInteger nextshufflebanker = 0;
+    PlayCardModel *dealtCard;
+    
+    if ([player isEqualToString:@"player"])
+    {
+        nextentry = [self.playershandofCardsArray count]; //effectively gives you the next index to deal a card to AND from. Nice. //有效地为您提供下一个索引来处理来自AND的卡。尼斯。
+        nextshufflebanker = [[[self blackjackDataArray] objectAtIndex:nextentry] intValue];
+        dealtCard = [[self referenceDeck].sortedDeckArray objectAtIndex:nextshufflebanker];
+    }
+    
+    if ([player isEqualToString:@"banker"])
+    {
+        nextentry = [self.bankershandofCardsArray count] + 10; //yes, it's duplicated code but it's only 3 lines so deal with it. 'Deal'. Ha!  //是的，它是重复的代码，但它只有3行所以处理它。“交易”。 哈！
+        nextshufflebanker = [[[self blackjackDataArray] objectAtIndex:nextentry] intValue];
+        dealtCard = [[self referenceDeck].sortedDeckArray objectAtIndex:nextshufflebanker];
+    }
+    return dealtCard;
+}
+
+- (void)resultHandler
+{
+    //TODO: Pay bet amount.
+    
+    NSLog(@"Player: %i/%i. banker: %i/%i", self.pTotal, self.aTotal, self.dTotal, self.adTotal);
+    
+    //TODO: This really doesn't work properly yet
+    NSInteger playershighestHand = 0;
+    NSInteger bankershighestHand = 0;
+    NSString *titleString = [[NSString alloc] init];
+    NSString *messageString = [[NSString alloc] init];
+    
+    if (self.pTotal > 21)
+    {
+        playershighestHand = 0;
+    } else {
+        playershighestHand = self.pTotal;
+    }
+    
+    if (self.dTotal > 21)
+    {
+        bankershighestHand = 0;
+    } else {
+        bankershighestHand = self.dTotal;
+    }
+    
+    if (playershighestHand > bankershighestHand)
+    {
+        titleString = @"You won!";
+        messageString = [NSString stringWithFormat:@"You scored %i, I scored %i", self.pTotal, self.dTotal];
+    } else if (bankershighestHand > playershighestHand)
+    {
+        titleString = @"You lost...";
+        messageString = [NSString stringWithFormat:@"I scored %i, you scored %i", self.dTotal, self.pTotal];
+    } else if (playershighestHand == bankershighestHand)
+    {
+        titleString = @"It's a draw";
+        messageString = [NSString stringWithFormat:@"We both scored %i", self.pTotal];
+    }
+    
+    UIAlertView *resultView = [[UIAlertView alloc] initWithTitle:titleString
+                                                         message:messageString
+                                                        delegate:self
+                                               cancelButtonTitle:@"Play Again"
+                                               otherButtonTitles: nil]; //TODO: Replace this with a custom presentation.
+    [resultView show];
+}
+
+- (BOOL)randomoneoutofFour
+{
+    //TODO: No longer used.
+    int randomNumber = arc4random() % 25; //random number from 0-25
+    if ((randomNumber % 5) == 0) //does it divide evenly by 5?
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+
+
+
+- (BlackJackDataSource*)referenceDeck
+{
+    if (_referenceDeck == nil)
+    {
+        _referenceDeck = [[BlackJackDataSource alloc] init];
+    }
+    return _referenceDeck;
+}
+
+- (void)newDeal
+{
+    [_blackjackDataArray removeAllObjects];
+    _blackjackDataArray = nil;
+    [self blackjackDataArray];
+}
+
+#pragma mark - 洗牌方法
+- (NSMutableArray*)blackjackDataArray
+{
+    if (_blackjackDataArray == nil)
+    {
+        _blackjackDataArray = [[NSMutableArray alloc] init];
+        //fill with random numbers from 0 - 52 as index references against the referenceDeck.
+        int n = 52;
+        NSMutableArray *numbers = [NSMutableArray array];
+        for (int i = 0; i < n; i++)
+        {
+            [numbers addObject:[NSNumber numberWithInt:i]];
+        }
+        NSMutableArray *result = [NSMutableArray array];
+        while ([numbers count] > 0)
+        {
+            int r = arc4random() % [numbers count];
+            NSNumber *randomElement = [numbers objectAtIndex:r];
+            [result addObject:randomElement];
+            [numbers removeObjectAtIndex:r];
+        }
+        _blackjackDataArray = result;
+    }
+    return _blackjackDataArray;
+}
+
+
+
+
+#pragma mark - 重置
+- (void)resetPlay
+{
+    self.playerOneLabel.text = nil;
+    self.playerTwoLabel.text = nil;
+    self.playerThreeLabel.text = nil;
+    self.playerFourLabel.text = nil;
+    self.playerFiveLabel.text = nil;
+    self.bankerOneLabel.text = nil;
+    self.bankerTwoLabel.text = nil;
+    self.bankerThreeLabel.text = nil;
+    self.bankerFourLabel.text = nil;
+    self.bankerFiveLabel.text = nil;
+    self.playerTotalLabel.text = nil;
+    self.bankerTotalLabel.text = nil;
+    self.pTotal = 0, self.dTotal = 0, self.aTotal = 0, self.adTotal = 0;
+    self.playerTotalLabel.backgroundColor = [UIColor clearColor];
+    self.bankerTotalLabel.backgroundColor = [UIColor clearColor];
+    self.aceFlag = FALSE;
+    [self.playershandofCardsArray removeAllObjects];
+    [self.bankershandofCardsArray removeAllObjects];
+    [self newDeal];
+    [self.hitButton setEnabled:YES];
+    [self performSelector:@selector(playerLogic) withObject:nil afterDelay:0.75];
+
+}
+
+
+
+
 
 #pragma mark - UI界面
 - (void)initUI {
@@ -220,365 +580,6 @@
     resetButton.backgroundColor = [UIColor colorWithRed:0.678 green:1.000 blue:0.184 alpha:1.000];
     resetButton.layer.cornerRadius = 5;
     [self.view addSubview:resetButton];
-    
-}
-
-
-- (void)buttonPressed:(id)sender
-{
-    switch ([sender tag]) {
-        case 101:
-            [self playerLogic];
-            [self randomoneoutofFour];
-            break;
-        case 102:
-            if ((self.aceFlag == TRUE) && (self.aTotal <= 21)) {
-                self.pTotal = self.aTotal;
-            }
-            self.aceFlag = FALSE;
-            [self bankerLogic];
-            [self.hitButton setEnabled:NO];
-            break;
-        case 103:
-            [self resetPlay];
-            break;
-        default:
-            break;
-    }
-}
-
-
-#pragma mark - 玩家逻辑  玩家Hit
-- (void)playerLogic
-{
-    //TODO: Handle 'Split' condition
-    
-    if ([self.playershandofCardsArray count] == 5)
-    {
-        [self.playershandofCardsArray removeAllObjects]; //TODO: Extraneous? Might be, remove if so.
-    }
-    
-    self.pTotal = [self.playerTotalLabel.text intValue];
-    
-    self.playerTotalLabel.textColor = [UIColor whiteColor];
-    self.playerTotalLabel.backgroundColor = [UIColor clearColor];
-    
-    PlayCardModel* nextCard = [self dealCard:FALSE toPlayer:@"player"];
-    [self.playershandofCardsArray addObject:nextCard];
-    
-    self.pTotal = self.pTotal + [nextCard.cardValue intValue];
-    self.aTotal = self.pTotal + 10;
-    
-    if ([nextCard.cardValue intValue] == 1)
-    {
-        self.aceFlag = TRUE;
-    }
-    
-    //Set label text appropriately
-    switch ([self.playershandofCardsArray count])
-    {
-        case 1:
-            self.playerOneLabel.text = nextCard.cardText;
-            break;
-        case 2:
-            self.playerTwoLabel.text = nextCard.cardText;
-            break;
-        case 3:
-            self.playerThreeLabel.text = nextCard.cardText;
-            break;
-        case 4:
-            self.playerFourLabel.text = nextCard.cardText;
-            break;
-        case 5:
-            self.playerFiveLabel.text = nextCard.cardText;
-            break;
-        default:
-            break;
-    }
-    
-    if (self.pTotal > 21)
-    {
-        self.playerTotalLabel.text = @"Bust!";
-        self.playerTotalLabel.backgroundColor = [UIColor redColor];
-        [self.playershandofCardsArray removeAllObjects];
-        [self resultHandler];
-    }
-    else
-    {
-        self.playerTotalLabel.text = [NSString stringWithFormat:@"%i", self.pTotal];
-        if (self.aceFlag && self.aTotal <= 21)
-        {
-            self.playerTotalLabel.text = [self.playerTotalLabel.text stringByAppendingFormat:@" or %i", self.aTotal];
-        }
-        if ([self.playershandofCardsArray count] == 1)
-        {
-            [self performSelector:@selector(playerLogic) withObject:nil afterDelay:0.65];
-        }
-    }
-}
-
-
-#pragma mark - Stand停牌
-- (void)bankerLogic
-{
-    self.dTotal = [self.bankerTotalLabel.text intValue];
-    
-    //deal a card
-    self.bankerTotalLabel.textColor = [UIColor whiteColor];
-    self.bankerTotalLabel.backgroundColor = [UIColor clearColor];
-    
-    PlayCardModel* nextCard = [self dealCard:FALSE toPlayer:@"banker"];
-    [self.bankershandofCardsArray addObject:nextCard];
-    
-    self.dTotal = self.dTotal + [nextCard.cardValue intValue];
-    self.adTotal = self.dTotal + 10; //only used when there's aces in places ;)
-    
-    //Ace detector
-    if ([nextCard.cardValue intValue] == 1)
-    {
-        self.aceFlag = TRUE; //Ace is back and he told you so.
-    }
-    
-    //Set label text appropriately
-    switch ([self.bankershandofCardsArray count])
-    {
-        case 1:
-            self.bankerOneLabel.text = nextCard.cardText;
-            break;
-        case 2:
-            self.bankerTwoLabel.text = nextCard.cardText;
-            break;
-        case 3:
-            self.bankerThreeLabel.text = nextCard.cardText;
-            break;
-        case 4:
-            self.bankerFourLabel.text = nextCard.cardText;
-            break;
-        case 5:
-            self.bankerFiveLabel.text = nextCard.cardText;
-            break;
-        default:
-            break;
-    }
-    
-    // 爆牌
-    if (self.dTotal > 21) //bust condition
-    {
-        NSLog(@"Over 21: Bust, %i/%i", self.dTotal, self.adTotal); //DEBUG
-        self.bankerTotalLabel.text = @"Bust!";
-        self.bankerTotalLabel.backgroundColor = [UIColor redColor];
-        [self resultHandler];
-    }
-    else if (self.dTotal > self.pTotal) //stand if bankers won but could still draw a card
-    {
-        NSLog(@"banker beats player: Stand, %i/%i", self.dTotal, self.adTotal); //DEBUG
-        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.dTotal];
-        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
-    }
-    else if ((self.aceFlag == TRUE) && (self.adTotal > self.pTotal) && (self.adTotal <= 21)) //alt stand if bankers won but could still draw a card
-    {
-        NSLog(@"Alt banker beats player: Stand, %i/%i", self.dTotal, self.adTotal); //DEBUG
-        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.adTotal];
-        self.dTotal = self.adTotal;
-        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
-    }
-    else if ((self.dTotal < self.pTotal) && ([self.bankershandofCardsArray count] < 5))  //always draw when losing to player
-    {
-        NSLog(@"Under pTotal and no 5CT: Draw, %i/%i", self.dTotal, self.adTotal); //DEBUG
-        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.dTotal];
-        if (self.aceFlag && self.adTotal <= 21)
-        {
-            NSLog(@"Ace in the hand, appending alt score, %i/%i", self.dTotal, self.adTotal); //DEBUG
-            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %i", self.adTotal];
-        }
-        [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:0.75];
-    }
-    else if ((self.dTotal >= self.pTotal)) //stand if over or equal to player or 5 card trick //站立，如果超过或等于玩家或5卡技巧
-        //DEBUG  || ([bankershandofCardsArray count] == 5)
-    {
-        NSLog(@">=19 or 5CT: Stand, %i/%i vs %i", self.dTotal, self.adTotal, self.pTotal); //DEBUG
-        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%i", self.dTotal];
-        if ((self.aceFlag == TRUE) && (self.adTotal <= 21))
-        {
-            NSLog(@"Ace in the hand, appending alt score, %i/%i", self.dTotal, self.adTotal); //DEBUG
-            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %i", self.adTotal];
-            self.dTotal = self.adTotal;
-        }
-        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
-    }
-    else if ([self.bankershandofCardsArray count] == 5)
-    {
-        NSLog(@"Five Card Trick, %i/%i", self.dTotal, self.adTotal); //DEBUG
-        self.dTotal = 21, self.adTotal = 21;
-        self.bankerTotalLabel.text = @"Five card trick";
-        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:0.75];
-    }
-}
-
-- (void)betHandler
-{
-    
-}
-
-- (PlayCardModel*)dealCard:(BOOL)newHand toPlayer:(NSString*)player
-{
-    if (newHand)
-    {
-        [self newDeal]; //shuffles the deck
-    }
-    int nextentry;
-    int nextshufflebanker;
-    PlayCardModel *dealtCard;
-    
-    if ([player isEqualToString:@"player"])
-    {
-        nextentry = [self.playershandofCardsArray count]; //effectively gives you the next index to deal a card to AND from. Nice. //有效地为您提供下一个索引来处理来自AND的卡。尼斯。
-        nextshufflebanker = [[[self shuffledDeckReference] objectAtIndex:nextentry] intValue];
-        dealtCard = [[self referenceDeck].sortedDeck objectAtIndex:nextshufflebanker];
-    }
-    
-    if ([player isEqualToString:@"banker"])
-    {
-        nextentry = [self.bankershandofCardsArray count] + 10; //yes, it's duplicated code but it's only 3 lines so deal with it. 'Deal'. Ha!  //是的，它是重复的代码，但它只有3行所以处理它。“交易”。 哈！
-        nextshufflebanker = [[[self shuffledDeckReference] objectAtIndex:nextentry] intValue];
-        dealtCard = [[self referenceDeck].sortedDeck objectAtIndex:nextshufflebanker];
-    }
-    return dealtCard;
-}
-
-- (void)resultHandler
-{
-    //TODO: Pay bet amount.
-    
-    NSLog(@"Player: %i/%i. banker: %i/%i", self.pTotal, self.aTotal, self.dTotal, self.adTotal);
-    
-    //TODO: This really doesn't work properly yet
-    int playershighestHand;
-    int bankershighestHand;
-    NSString *titleString = [[NSString alloc] init];
-    NSString *messageString = [[NSString alloc] init];
-    
-    if (self.pTotal > 21)
-    {
-        playershighestHand = 0;
-    } else {
-        playershighestHand = self.pTotal;
-    }
-    
-    if (self.dTotal > 21)
-    {
-        bankershighestHand = 0;
-    } else {
-        bankershighestHand = self.dTotal;
-    }
-    
-    if (playershighestHand > bankershighestHand)
-    {
-        titleString = @"You won!";
-        messageString = [NSString stringWithFormat:@"You scored %i, I scored %i", self.pTotal, self.dTotal];
-    } else if (bankershighestHand > playershighestHand)
-    {
-        titleString = @"You lost...";
-        messageString = [NSString stringWithFormat:@"I scored %i, you scored %i", self.dTotal, self.pTotal];
-    } else if (playershighestHand == bankershighestHand)
-    {
-        titleString = @"It's a draw";
-        messageString = [NSString stringWithFormat:@"We both scored %i", self.pTotal];
-    }
-    
-    UIAlertView *resultView = [[UIAlertView alloc] initWithTitle:titleString
-                                                         message:messageString
-                                                        delegate:self
-                                               cancelButtonTitle:@"Play Again"
-                                               otherButtonTitles: nil]; //TODO: Replace this with a custom presentation.
-    [resultView show];
-}
-
-- (BOOL)randomoneoutofFour
-{
-    //TODO: No longer used.
-    int randomNumber = arc4random() % 25; //random number from 0-25
-    if ((randomNumber % 5) == 0) //does it divide evenly by 5?
-    {
-        return TRUE;
-    }
-    return FALSE;
-}
-
-
-
-
-
-- (BlackJackDataSource*)referenceDeck
-{
-    if (_referenceDeck == nil)
-    {
-        _referenceDeck = [[BlackJackDataSource alloc] init];
-    }
-    return _referenceDeck;
-}
-
-- (void)newDeal
-{
-    [_shuffledDeckReference removeAllObjects];
-    _shuffledDeckReference = nil;
-    [self shuffledDeckReference];
-}
-
-#pragma mark - 洗牌方法
-- (NSMutableArray*)shuffledDeckReference
-{
-    if (_shuffledDeckReference == nil)
-    {
-        _shuffledDeckReference = [[NSMutableArray alloc] init];
-        //fill with random numbers from 0 - 52 as index references against the referenceDeck.
-        int n = 52;
-        NSMutableArray *numbers = [NSMutableArray array];
-        for (int i = 0; i < n; i++)
-        {
-            [numbers addObject:[NSNumber numberWithInt:i]];
-        }
-        NSMutableArray *result = [NSMutableArray array];
-        while ([numbers count] > 0)
-        {
-            int r = arc4random() % [numbers count];
-            NSNumber *randomElement = [numbers objectAtIndex:r];
-            [result addObject:randomElement];
-            [numbers removeObjectAtIndex:r];
-        }
-        _shuffledDeckReference = result;
-    }
-    return _shuffledDeckReference;
-}
-
-
-
-
-#pragma mark - 重置
-- (void)resetPlay
-{
-    self.playerOneLabel.text = nil;
-    self.playerTwoLabel.text = nil;
-    self.playerThreeLabel.text = nil;
-    self.playerFourLabel.text = nil;
-    self.playerFiveLabel.text = nil;
-    self.bankerOneLabel.text = nil;
-    self.bankerTwoLabel.text = nil;
-    self.bankerThreeLabel.text = nil;
-    self.bankerFourLabel.text = nil;
-    self.bankerFiveLabel.text = nil;
-    self.playerTotalLabel.text = nil;
-    self.bankerTotalLabel.text = nil;
-    self.pTotal = 0, self.dTotal = 0, self.aTotal = 0, self.adTotal = 0;
-    self.playerTotalLabel.backgroundColor = [UIColor clearColor];
-    self.bankerTotalLabel.backgroundColor = [UIColor clearColor];
-    self.aceFlag = FALSE;
-    [self.playershandofCardsArray removeAllObjects];
-    [self.bankershandofCardsArray removeAllObjects];
-    [self newDeal];
-    [self.hitButton setEnabled:YES];
-    [self performSelector:@selector(playerLogic) withObject:nil afterDelay:0.75];
-    
     
 }
 

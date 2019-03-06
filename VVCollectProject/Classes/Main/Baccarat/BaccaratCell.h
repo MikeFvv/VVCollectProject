@@ -2,7 +2,7 @@
 //  BaccaratCell.h
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/2/22.
+//  Created by Mike on 2019/2/22.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
