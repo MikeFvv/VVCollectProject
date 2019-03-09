@@ -112,6 +112,15 @@
         self.backgroundColor = [UIColor greenColor];
     }
     
+    
+    
+    // 爆牌
+    if ([[dict objectForKey:@"PlayerBust"] boolValue]) {
+        self.bankerOrPlayerOrTieLabel.text = @"BB";
+    } else if ([[dict objectForKey:@"BankerBust"] boolValue]) {
+         self.bankerOrPlayerOrTieLabel.text = @"PB";
+    }
+    
     if ([[dict objectForKey:@"isSuperSix"] boolValue]) {
         self.superSixView.hidden = NO;
     } else {

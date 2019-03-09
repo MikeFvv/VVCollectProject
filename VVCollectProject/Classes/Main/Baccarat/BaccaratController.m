@@ -568,7 +568,7 @@
     return nil;
 }
 
-#pragma mark -  统计连续出现最多的次数
+#pragma mark -  统计数据分析
 - (void)resultStatisticsContinuous {
     NSString   *compareChar;          // 前一个字符
     BOOL   firstisBankerPair;          // 前一个字符
@@ -766,7 +766,7 @@
 //7    D-1    8    赢    +5
 
 
-#pragma mark - 结果统计数据分析
+#pragma mark - 结果统计计算
 // 结果统计
 - (void)resultStatisticsText {
     
