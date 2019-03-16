@@ -46,9 +46,10 @@
 #import "BlackJackDataSource.h"
 #import "PlayCardModel.h"
 #import "BaccaratCollectionView.h"
+#import "BJDetailsController.h"
+#import "VVFunctionManager.h"
 
 #define kFontSizeLabel 20
-#define kDelayTime 0.1
 //#define kFontName  @"Futura"
 #define kFontName  @"Futuraaaae"
 
@@ -81,19 +82,35 @@
 @property (strong, nonatomic) UIButton *hitButton;
 @property (strong, nonatomic) UIButton *standButton;
 
+@property (strong, nonatomic) UILabel *resultOneLabel;
+@property (strong, nonatomic) UILabel *resultTwoLabel;
+@property (strong, nonatomic) UILabel *resultThreeLabel;
+
 @property (nonatomic, assign) NSInteger playerTotal;
 @property (nonatomic, assign) NSInteger p_ATotal;
 @property (nonatomic, assign) NSInteger bankerTotal;
 @property (nonatomic, assign) NSInteger b_ATotal;
 
-@property (strong, nonatomic) BlackJackDataSource *referenceDeck;
+@property (strong, nonatomic) BlackJackDataSource *blackJackDataSource;
 @property (strong, nonatomic) NSMutableArray *blackjackDataArray;
 @property (strong, nonatomic) NSMutableArray *resultDataArray;
+
+@property (nonatomic, assign) CGFloat delayTime;
+
 // 是否有出现过A
 @property (nonatomic, assign) BOOL aceFlag_P;
 @property (nonatomic, assign) BOOL aceFlag_B;
+@property (nonatomic, assign) BOOL isAutoRun;
+// 加倍 加倍只能拿一张牌
+@property (nonatomic, assign) BOOL isDoubleOne;
+// 停牌
+@property (nonatomic, assign) BOOL isStand;
+// 自动处理局数
+@property (nonatomic, assign) NSInteger autoTotalIndex;
 
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
+
+@property (nonatomic, strong) UITextField *boardNumTextField;
 
 @end
 
@@ -102,31 +119,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self referenceDeck];
-    self.playershandofCardsArray = [[NSMutableArray alloc] initWithCapacity:10];
-    self.bankershandofCardsArray = [[NSMutableArray alloc] initWithCapacity:5];
+    
+    self.playershandofCardsArray = [[NSMutableArray alloc] init];
+    self.bankershandofCardsArray = [[NSMutableArray alloc] init];
     self.resultDataArray = [[NSMutableArray alloc] init];
+    self.isAutoRun = NO;
+    self.delayTime = 0.1;
     
-    //    PhysicalCard *aCard = [[PhysicalCard alloc] initWithFrame:CGRectMake(0, 50, 100, 100)];
-    //    aCard.backgroundColor = [UIColor yellowColor];
-    //    [self.view addSubview:aCard];
-    //    RSPhysicalCard *bCard = [[RSPhysicalCard alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
-    //    bCard.backgroundColor = [UIColor blueColor];
-    //    [self.view addSubview:bCard];
+    UIBarButtonItem *barBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"详情" style:UIBarButtonItemStylePlain target:self action:@selector(onDetailsData)];
+    self.navigationItem.rightBarButtonItem = barBtn1;
     
-    //    PhysicalCard *aCard = [[PhysicalCard alloc] initWithFrame:CGRectMake(-80, 100, 200, 300)];
-    //    [self.view addSubview:aCard];
-    //    PhysicalCard *bCard = [[PhysicalCard alloc] initWithFrame:CGRectMake(-80, -80, 200, 300)];
-    //    [self.view addSubview:bCard];
-    
-    //    BJHeart *aHeart = [[BJHeart alloc] initWithFrame:CGRectMake(50, 50, 50, 60)];
-    //    [self.view addSubview:aHeart];
-    
-    //    BJClub *aClub = [[BJClub alloc] initWithFrame:CGRectMake(50, 120, 50, 60)];
-    //    [self.view addSubview:aClub];
-    
-    //    BJSpade *aSpade = [[BJSpade alloc] initWithFrame:CGRectMake(50, 240, 50, 60)];
-    //    [self.view addSubview:aSpade];
+    // 可以延时调用方法
+    //    [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:self.delayTime];
     
     [self initUI];
     
@@ -134,24 +138,44 @@
 }
 
 
+- (NSMutableArray*)blackjackDataArray
+{
+    if (_blackjackDataArray == nil) {
+        _blackjackDataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.blackJackDataSource.sortedDeckArray pokerPairsNum:6]];
+    }
+    return _blackjackDataArray;
+}
 
 
+#pragma mark - 详情
+- (void)onDetailsData {
+    BJDetailsController *vc = [[BJDetailsController alloc] init];
+    vc.dataArray = self.resultDataArray;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark - 自动运行
+- (void)onAuto:(UIButton *)sender {
+    self.isAutoRun = YES;
+    self.autoTotalIndex = 0;
+    self.autoTotalIndex = self.boardNumTextField.text.integerValue;
+    [self automaticRun];
+    sender.backgroundColor = [UIColor darkGrayColor];
+    sender.enabled = YES;
+    
+}
+
+
+#pragma mark - 按钮点击事件
 - (void)buttonPressed:(id)sender
 {
     switch ([sender tag]) {
         case 101:
             [self playerLogic];
-            [self randomoneoutofFour];
             break;
         case 102:
-            if (self.p_ATotal > self.playerTotal) {
-                self.playerTotal = self.p_ATotal;
-            } else {
-                self.p_ATotal = 0;
-            }
-            
-            [self bankerLogic];
-            [self.hitButton setEnabled:NO];
+            [self onStandButton];
             break;
         case 103:
             [self resetPlay];
@@ -161,203 +185,253 @@
     }
 }
 
-
 #pragma mark - 玩家逻辑  玩家Hit
-- (void)playerLogic
-{
+- (void)playerLogic {
     //TODO: Handle 'Split' condition  TODO：处理“拆分”状态
+    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+    [self.blackjackDataArray removeObjectAtIndex:0];
     
-    if ([self.playershandofCardsArray count] == 5)
-    {
-        [self.playershandofCardsArray removeAllObjects]; //TODO: Extraneous? Might be, remove if so.  TODO：外来的？ 可能，如果是这样，删除。
-    }
-    
-    self.playerTotal = [self.playerTotalLabel.text integerValue];
-    
-    self.playerTotalLabel.textColor = [UIColor whiteColor];
-    self.playerTotalLabel.backgroundColor = [UIColor clearColor];
-    
-    PlayCardModel* nextCard = [self dealCard:NO toPlayerOrBanker:@"player"];
     [self.playershandofCardsArray addObject:nextCard];
+    if (self.playershandofCardsArray.count > 10) {
+        NSLog(@"1");
+    }
     
     self.playerTotal = self.playerTotal + [nextCard.cardValue integerValue];
     self.p_ATotal = self.playerTotal + 10;
     
-    if ([nextCard.cardValue integerValue] == 1)
-    {
+    if ([nextCard.cardValue integerValue] == 1) {
         self.aceFlag_P = YES;
     }
     
-    switch ([self.playershandofCardsArray count])
-    {
-        case 1:
+    if (!self.isAutoRun) {
+        if (self.playershandofCardsArray.count > 5) {
+            NSLog(@"1111");
+        } else if (self.playershandofCardsArray.count > 1) {
             self.playerOneLabel.text = nextCard.cardText;
-            break;
-        case 2:
+        }  else if (self.playershandofCardsArray.count > 2) {
             self.playerTwoLabel.text = nextCard.cardText;
-            break;
-        case 3:
-            self.playerThreeLabel.text = nextCard.cardText;
-            break;
-        case 4:
+        } else if (self.playershandofCardsArray.count > 3) {
+            self.playerThreeLabel .text = nextCard.cardText;
+        } else if (self.playershandofCardsArray.count > 4) {
             self.playerFourLabel.text = nextCard.cardText;
-            break;
-        case 5:
+        } else if (self.playershandofCardsArray.count > 5) {
             self.playerFiveLabel.text = nextCard.cardText;
-            break;
-        default:
-            break;
+        }
     }
     
-    if (self.playerTotal > 21) {
-        self.playerTotalLabel.text = @"Bust!";
-        self.playerTotalLabel.backgroundColor = [UIColor redColor];
-        [self.playershandofCardsArray removeAllObjects];
-        [self resultHandler];
-    } else {
+    if (!self.isAutoRun) {
         self.playerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.playerTotal];
-        if (self.aceFlag_P && self.p_ATotal <= 21) {
-            self.playerTotalLabel.text = [self.playerTotalLabel.text stringByAppendingFormat:@" or %ld", self.p_ATotal];
-        } else if (!self.aceFlag_P || self.p_ATotal < self.playerTotal || self.p_ATotal > 21) {
-            self.p_ATotal = 0;
-        }
-        if ([self.playershandofCardsArray count] == 1) {
-            //            [self performSelector:@selector(playerLogic) withObject:nil afterDelay:kDelayTime];
-            [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:kDelayTime];
-        }
     }
+    
+    if (self.playershandofCardsArray.count == 1) {
+        [self bankerLogic];
+    } else if (self.isAutoRun && self.playershandofCardsArray.count == 2) {
+        if (self.aceFlag_P) {
+            [self softPoints_A];
+        } else {
+            [self doubleOneAction];
+        }
+    } else {
+        
+        if (self.playerTotal > 21) {
+            if (!self.isAutoRun) {
+                self.playerTotalLabel.text = @"Bust!";
+                self.playerTotalLabel.backgroundColor = [UIColor redColor];
+            }
+            [self resultHandler];
+        } else {
+            
+            // 大于11 全部算 self.playerTotal 的值
+            if (self.aceFlag_P && self.playerTotal <= 11) {
+                if (self.isAutoRun) {
+                    if (self.p_ATotal <= 17) {
+                        [self playerLogic];
+                    } else {
+                        [self onStandButton];
+                    }
+                } else {
+                    self.playerTotalLabel.text = [self.playerTotalLabel.text stringByAppendingFormat:@" or %ld", self.p_ATotal];
+                }
+                return;
+            }
+            if (self.isAutoRun) {
+                if (self.isDoubleOne) {
+                    [self onStandButton];
+                } else {
+                    [self automaticRun];
+                }
+            }
+            
+            
+        }
+        
+    }
+    
 }
 
+#pragma mark - 停牌
+- (void)onStandButton {
+    if (self.p_ATotal > self.playerTotal) {
+        self.playerTotal = self.p_ATotal;
+    } else {
+        self.p_ATotal = 0;
+    }
+    
+    [self bankerLogic];
+}
 
-#pragma mark - Stand停牌 Banker发牌
-- (void)bankerLogic
-{
-    self.bankerTotal = [self.bankerTotalLabel.text integerValue];
+#pragma mark - Banker发牌
+- (void)bankerLogic {
     
-    PlayCardModel* nextCard = [self dealCard:NO toPlayerOrBanker:@"banker"];
+    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+    [self.blackjackDataArray removeObjectAtIndex:0];
     [self.bankershandofCardsArray addObject:nextCard];
-    
+    if (self.bankershandofCardsArray.count > 10) {
+        NSLog(@"1");
+    }
     self.bankerTotal = self.bankerTotal + [nextCard.cardValue integerValue];
-    
+    self.b_ATotal = self.bankerTotal + 10;
     
     // A 判断
     if ([nextCard.cardValue integerValue] == 1) {
         self.aceFlag_B = YES;
-        self.b_ATotal = self.bankerTotal + 10;
-    } else if (self.aceFlag_B) {
-        self.b_ATotal = self.bankerTotal + 10;
-    } else {
-        self.b_ATotal = 0;
     }
     
-    switch ([self.bankershandofCardsArray count])
-    {
-        case 1:
+    if (self.isAutoRun && self.bankershandofCardsArray.count == 1) {
+        [self playerLogic];
+    }
+    
+    if (!self.isAutoRun) {
+        if (self.bankershandofCardsArray.count == 1) {
             self.bankerOneLabel.text = nextCard.cardText;
             if (self.aceFlag_B) {
                 self.bankerTotalLabel.text = @"1 or 11";
             } else {
                 self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
             }
-            
-            [self performSelector:@selector(playerLogic) withObject:nil afterDelay:kDelayTime];
+            [self playerLogic];
             return;
-        case 2:
+        } else if (self.bankershandofCardsArray.count > 5) {
+            NSLog(@"1111");
+        } else if (self.bankershandofCardsArray.count > 2) {
             self.bankerTwoLabel.text = nextCard.cardText;
-            break;
-        case 3:
-            if ([nextCard.cardValue integerValue] == 1) {
-                NSLog(@"11");
-            }
+        } else if (self.bankershandofCardsArray.count > 3) {
             self.bankerThreeLabel.text = nextCard.cardText;
-            break;
-        case 4:
+        } else if (self.bankershandofCardsArray.count > 4) {
             self.bankerFourLabel.text = nextCard.cardText;
-            break;
-        case 5:
+        } else if (self.bankershandofCardsArray.count > 5) {
             self.bankerFiveLabel.text = nextCard.cardText;
-            break;
-        default:
-            break;
+        }
     }
     
     // 爆牌
     if (self.bankerTotal > 21) {
-        self.bankerTotalLabel.text = @"Bust!";
-        self.bankerTotalLabel.backgroundColor = [UIColor redColor];
+        
+        if (!self.isAutoRun) {
+            self.bankerTotalLabel.text = @"Bust!";
+            self.bankerTotalLabel.backgroundColor = [UIColor redColor];
+        }
+        
         [self resultHandler];
         
-    } else if (self.bankerTotal >= 17 || (self.b_ATotal >= 18 && self.b_ATotal <= 21) || (self.b_ATotal == 17 && self.b_ATotal > self.playerTotal)) {   // 不再拿牌
-        
-        if (self.aceFlag_B) {
-            self.bankerTotal = self.b_ATotal;
+    } else if (self.aceFlag_B && self.bankerTotal <= 11) {
+        // 大于11 全部算 bankerTotal 的值
+        if (self.b_ATotal >= 18 || (self.b_ATotal == 17 && self.b_ATotal > self.playerTotal)) {
+            [self resultHandler];
+        } else {
+            [self bankerLogic];
         }
-        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
-        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:kDelayTime];
         
-    } else if ((self.bankerTotal < 17 || self.b_ATotal <= 17) && ([self.bankershandofCardsArray count] < 5)) {
-        
-        self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
-        if (self.aceFlag_B && self.b_ATotal <= 17) {
+        if (!self.isAutoRun) {
             self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %ld", self.b_ATotal];
         }
-        [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:kDelayTime];
+    } else if (self.bankerTotal >= 17) {
+        if (!self.isAutoRun) {
+            self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
+        }
         
-    } else if ([self.bankershandofCardsArray count] == 5) {
-        
-        self.bankerTotal = 21;
-        self.playerTotal = 21;
-        self.b_ATotal = 21;
-        self.bankerTotalLabel.text = @"满了5张牌算TIE";
-        [self performSelector:@selector(resultHandler) withObject:nil afterDelay:kDelayTime];
+        [self resultHandler];
         
     } else {
-        NSLog(@"另外情况");
-    }
-}
-
-- (void)betHandler
-{
-    
-}
-
-#pragma mark - 发牌
-- (PlayCardModel*)dealCard:(BOOL)newHand toPlayerOrBanker:(NSString*)playerOrBanker
-{
-    if (newHand) {
-        [self newDeal];
-    }
-    
-    NSInteger nextentry = 0;
-    NSInteger nextshufflebanker = 0;
-    PlayCardModel *dealtCard;
-    
-    if ([playerOrBanker isEqualToString:@"player"]) {
+        if (!self.isAutoRun) {
+            self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
+        }
         
-        nextentry = [self.playershandofCardsArray count]; //effectively gives you the next index to deal a card to AND from. Nice. // 有效地为您提供下一个索引来处理来自AND的卡。尼斯。
-        nextshufflebanker = [[[self blackjackDataArray] objectAtIndex:nextentry] integerValue];
-        dealtCard = [[self referenceDeck].sortedDeckArray objectAtIndex:nextshufflebanker];
+        [self bankerLogic];
     }
     
-    if ([playerOrBanker isEqualToString:@"banker"]) {
-        nextentry = [self.bankershandofCardsArray count] + 10; //yes, it's duplicated code but it's only 3 lines so deal with it. 'Deal'. Ha!  //是的，它是重复的代码，但它只有3行所以处理它。“交易”。 哈！
-        nextshufflebanker = [[[self blackjackDataArray] objectAtIndex:nextentry] integerValue];
-        dealtCard = [[self referenceDeck].sortedDeckArray objectAtIndex:nextshufflebanker];
-    }
-    return dealtCard;
+    
+    
 }
+
+#pragma mark - 加倍算法
+- (void)doubleOneAction {
+    // 加倍算法
+    if (self.playerTotal == 9 && (self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+        return;
+    } else if (self.playerTotal == 10 && (self.bankerTotal == 2 || self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6 || self.bankerTotal == 7 || self.bankerTotal == 8 || self.bankerTotal == 9)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+        return;
+    } else if (self.playerTotal == 10 && (self.bankerTotal == 2 || self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6 || self.bankerTotal == 7 || self.bankerTotal == 8 || self.bankerTotal == 9 || self.bankerTotal == 10)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+        return;
+    }
+    
+    [self automaticRun];
+}
+
+#pragma mark - 正常停牌算法
+- (void)automaticRun {
+    
+    if (self.playerTotal == 12 && (self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isStand = YES;
+        [self onStandButton];
+    } else if ((self.playerTotal == 13 || self.playerTotal == 14 || self.playerTotal == 15 || self.playerTotal == 16) && (self.bankerTotal == 2 || self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isStand = YES;
+        [self onStandButton];
+    } else if (self.playerTotal >= 17) {
+        self.isStand = YES;
+        [self onStandButton];
+    } else {
+        [self playerLogic];
+    }
+}
+
+#pragma mark -  2张牌带A的加倍和停牌算法
+- (void)softPoints_A {
+    if ((self.p_ATotal == 13 || self.p_ATotal == 14) && (self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+    } else if ((self.p_ATotal == 15 || self.p_ATotal == 15) && (self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+    } else if (self.p_ATotal == 17 && (self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+    } else if (self.p_ATotal == 18 && (self.bankerTotal == 2 ||self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
+        self.isDoubleOne = YES;
+        [self playerLogic];
+    } else if (self.p_ATotal >= 19 || (self.p_ATotal == 18 && (self.bankerTotal == 7 || self.bankerTotal == 8))) {
+        // 停牌
+        self.isStand = YES;
+        [self onStandButton];
+    } else {
+        [self playerLogic];
+    }
+}
+
 
 
 #pragma mark - 结果处理判断
 - (void)resultHandler {
     //TODO: Pay bet amount.  // TODO：支付下注金额。
     
-    NSLog(@"Player: %ld/%ld. Banker: %ld/%ld", self.playerTotal, self.p_ATotal, self.bankerTotal, self.b_ATotal);
-    
     NSInteger playerShighestHand = 0;
     NSInteger bankerShighestHand = 0;
-    NSString *titleString = [[NSString alloc] init];
-    NSString *messageString = [[NSString alloc] init];
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
@@ -368,71 +442,89 @@
         playerShighestHand = self.playerTotal;
     }
     
-    if (self.bankerTotal > 21) {
+    
+    if (self.bankerTotal > 21 && self.playerTotal < 21) {
         bankerShighestHand = 0;
         [dict setObject:@(1) forKey:@"BankerBust"];
     } else {
         bankerShighestHand = self.bankerTotal;
     }
     
-    if (playerShighestHand > bankerShighestHand) {
-        titleString = @"Player won!";
-        messageString = [NSString stringWithFormat:@"Player %ld, Banker %ld", self.playerTotal, self.bankerTotal];
-        self.resultlLabel.text = @"Player";
-        self.resultlLabel.backgroundColor = [UIColor blueColor];
+    if (playerShighestHand > bankerShighestHand) {  // Player
+        
+        if (!self.isAutoRun) {
+            self.resultlLabel.text = @"Player";
+            self.resultlLabel.backgroundColor = [UIColor blueColor];
+        }
+        
         [dict setObject:@(2) forKey:@"WinType"];
-    } else if (bankerShighestHand > playerShighestHand) {
-        titleString = @"Banker won!";
-        messageString = [NSString stringWithFormat:@"Player %ld, Banker %ld", self.playerTotal, self.bankerTotal];
-        self.resultlLabel.text = @"Banker";
-        self.resultlLabel.backgroundColor = [UIColor redColor];
+    } else if (bankerShighestHand > playerShighestHand) {  // Banker
+        
+        if (!self.isAutoRun) {
+            self.resultlLabel.text = @"Banker";
+            self.resultlLabel.backgroundColor = [UIColor redColor];
+        }
+        
         [dict setObject:@(1) forKey:@"WinType"];
-    } else if (playerShighestHand == bankerShighestHand) {
-        titleString = @"TIE";
-        messageString = [NSString stringWithFormat:@"TIE %ld", self.playerTotal];
-        self.resultlLabel.text = @"TIE";
-        self.resultlLabel.backgroundColor = [UIColor greenColor];
+    } else if (playerShighestHand == bankerShighestHand) {  // TIE
+        
+        if (!self.isAutoRun) {
+            self.resultlLabel.text = @"TIE";
+            self.resultlLabel.backgroundColor = [UIColor greenColor];
+        }
+        
         [dict setObject:@(0) forKey:@"WinType"];
     }
     
+    // Pair
     if ([[self.playerOneLabel.text substringToIndex:1] isEqualToString:[self.playerTwoLabel.text substringToIndex:1]]) {
         [dict setObject:@(YES) forKey:@"isPlayerPair"];
     }
-//    if ([[self.bankerOneLabel.text substringToIndex:1] isEqualToString:[self.bankerTwoLabel.text substringToIndex:1]]) {
-//        [dict setObject:@(YES) forKey:@"isBankerPair"];
-//    }
+    
+    if (!self.isAutoRun) {
+        self.hitButton.enabled = NO;
+        self.standButton.enabled = NO;
+        self.hitButton.backgroundColor = [UIColor darkGrayColor];
+        self.standButton.backgroundColor = [UIColor darkGrayColor];
+    }
     
     
-    self.hitButton.enabled = NO;
-    self.standButton.enabled = NO;
-    self.hitButton.backgroundColor = [UIColor darkGrayColor];
-    self.standButton.backgroundColor = [UIColor darkGrayColor];
+    // 注意 如果直接保存， 会全部更换为目前的key对应的值  copy 解决
+    [dict setObject:[self.playershandofCardsArray copy] forKey:@"PlayerArray"];
+    [dict setObject:[self.bankershandofCardsArray copy] forKey:@"BankerArray"];
     
     [self.resultDataArray addObject:dict];
-    self.trendView.model = self.resultDataArray;
     
-//    UIAlertView *resultView = [[UIAlertView alloc] initWithTitle:titleString
-//                                                         message:messageString
-//                                                        delegate:self
-//                                               cancelButtonTitle:@"Play Again"
-//                                               otherButtonTitles: nil];
-//    [resultView show];
+    if (self.isAutoRun) {
+        if (self.autoTotalIndex > 0) {
+            self.autoTotalIndex--;
+            [self resetPlay];
+        } else {
+            [self resultStatisticsContinuous];
+            self.trendView.model = self.resultDataArray;
+        }
+    } else {
+        [self resultStatisticsContinuous];
+        self.trendView.model = self.resultDataArray;
+    }
+    
 }
 
 
 #pragma mark -  统计数据分析
 - (void)resultStatisticsContinuous {
     NSString   *compareChar;          // 前一个字符
-    BOOL   firstisBankerPair;          // 前一个字符
-    BOOL   firstisPlayerPair;          // 前一个字符
-    BOOL   firstisSuperSix;          // 前一个字符
-    
     NSString   *longestContinChar;    // 连续最长字符
     NSInteger iMaxLen            = 1;  // 最大次数
     NSInteger iCharCount         = 1;  // 当前次数
     NSString *lastBankerOrPlayer = nil;  // 最后一个BankerOrPlayer
     NSInteger lastiCharCount = iCharCount;  // 最后的连续次数
-
+    
+    
+    NSInteger playerTotalCount = 0;
+    NSInteger bankerTotalCount = 0;
+    NSInteger tieTotalCount = 0;
+    
     if (self.resultDataArray.count <= 0) {
         return;
     }
@@ -440,18 +532,31 @@
     NSDictionary *firstDict = (NSDictionary *)self.resultDataArray.firstObject;
     compareChar       = [[firstDict objectForKey:@"WinType"] stringValue];  // 从第一个字符开始比较
     longestContinChar = compareChar;
-    firstisPlayerPair       = [[firstDict objectForKey:@"isPlayerPair"] boolValue];
     
     if (![compareChar isEqualToString:@"2"]) {  // 记录最后一次的 Banker或者Player
         lastBankerOrPlayer = compareChar;
     }
     
+    
+    if (compareChar.integerValue == 1) {
+        bankerTotalCount++;
+    } else if (compareChar.integerValue == 2) {
+        playerTotalCount++;
+    } else {
+        tieTotalCount++;
+    }
     for (NSInteger indexFlag = 1; indexFlag < self.resultDataArray.count; indexFlag++) {
         
         NSDictionary *dict = (NSDictionary *)self.resultDataArray[indexFlag];
-        NSString *tempStrWinType       = [[dict objectForKey:@"WinType"] stringValue]; //
-        BOOL tempIsPlayerPair       = [[dict objectForKey:@"isPlayerPair"] boolValue];
+        NSString *tempStrWinType       = [[dict objectForKey:@"WinType"] stringValue];
         
+        if (tempStrWinType.integerValue == 1) {
+            bankerTotalCount++;
+        } else if (tempStrWinType.integerValue == 2) {
+            playerTotalCount++;
+        } else {
+            tieTotalCount++;
+        }
         
         if ([tempStrWinType isEqualToString:compareChar]) {
             iCharCount++;     // 对相同字符计数加1
@@ -465,7 +570,7 @@
             
             iCharCount   = 1;        // 字符不同时计数变为1
             compareChar = tempStrWinType;   // 重新比较新字符
-
+            
             if (![tempStrWinType isEqualToString:@"0"]) {  // 记录最后一次的 Banker或者Player
                 lastBankerOrPlayer = tempStrWinType;
                 lastiCharCount = iCharCount;
@@ -478,75 +583,20 @@
         }
     }
     
-//    NSString *aaa = [NSString stringWithFormat:@"连续最多 %@  次数 %ld  与前6相同 %ld   %ld  %0.2f%", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen, self.front6SameCount, self.pokerCount -6- self.front6SameCount, self.front6SameCount*1.00/(self.pokerCount*1.00 -6)*100.0];
+    CGFloat p100 = playerTotalCount/((playerTotalCount +bankerTotalCount) *1.0)* 100.00;
+    CGFloat b100 = bankerTotalCount*1.0/(playerTotalCount +bankerTotalCount) * 100.00;
     
-//    NSLog(aaa);
+    NSString *game = [NSString stringWithFormat:@"GAME  %ld  [Player %ld   %0.2f]  [Banker %ld  %0.2f]  庄闲相差 %0.2f", self.resultDataArray.count, playerTotalCount,p100,bankerTotalCount,b100, b100 - p100];
+    
+    NSString *aaa = [NSString stringWithFormat:@"连续最多 %@   次数 %ld   TIE %ld", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen, tieTotalCount];
+    self.resultOneLabel.text = game;
+    self.resultTwoLabel.text = aaa;
 }
-
-
-- (BOOL)randomoneoutofFour
-{
-    //TODO: No longer used.
-    int randomNumber = arc4random() % 25; //random number from 0-25
-    if ((randomNumber % 5) == 0) //does it divide evenly by 5?
-    {
-        return YES;
-    }
-    return NO;
-}
-
-
-
-
-
-- (BlackJackDataSource*)referenceDeck
-{
-    if (_referenceDeck == nil)
-    {
-        _referenceDeck = [[BlackJackDataSource alloc] init];
-    }
-    return _referenceDeck;
-}
-
-- (void)newDeal
-{
-    [_blackjackDataArray removeAllObjects];
-    _blackjackDataArray = nil;
-    [self blackjackDataArray];
-}
-
-#pragma mark - 洗牌方法
-- (NSMutableArray*)blackjackDataArray
-{
-    if (_blackjackDataArray == nil)
-    {
-        _blackjackDataArray = [[NSMutableArray alloc] init];
-        //fill with random numbers from 0 - 52 as index references against the referenceDeck.
-        int n = 52;
-        NSMutableArray *numbers = [NSMutableArray array];
-        for (int i = 0; i < n; i++)
-        {
-            [numbers addObject:[NSNumber numberWithInt:i]];
-        }
-        NSMutableArray *result = [NSMutableArray array];
-        while ([numbers count] > 0)
-        {
-            int r = arc4random() % [numbers count];
-            NSNumber *randomElement = [numbers objectAtIndex:r];
-            [result addObject:randomElement];
-            [numbers removeObjectAtIndex:r];
-        }
-        _blackjackDataArray = result;
-    }
-    return _blackjackDataArray;
-}
-
 
 
 
 #pragma mark - 重置
-- (void)resetPlay
-{
+- (void)resetPlay {
     self.playerOneLabel.text = nil;
     self.playerTwoLabel.text = nil;
     self.playerThreeLabel.text = nil;
@@ -559,29 +609,81 @@
     self.bankerFiveLabel.text = nil;
     self.playerTotalLabel.text = nil;
     self.bankerTotalLabel.text = nil;
-    self.playerTotal = 0, self.bankerTotal = 0, self.p_ATotal = 0, self.b_ATotal = 0;
-    self.playerTotalLabel.backgroundColor = [UIColor clearColor];
-    self.bankerTotalLabel.backgroundColor = [UIColor clearColor];
-    self.aceFlag_P = NO; 
-    self.aceFlag_B = NO;
+    
     self.resultlLabel.text = nil;
-    self.resultlLabel.backgroundColor = [UIColor clearColor];
+    
+    self.playerTotal = 0;
+    self.bankerTotal = 0;
+    self.p_ATotal = 0;
+    self.b_ATotal = 0;
+    
+    self.aceFlag_P = NO;
+    self.aceFlag_B = NO;
+    self.isDoubleOne = NO;
+    self.isStand = NO;
+    
     [self.playershandofCardsArray removeAllObjects];
     [self.bankershandofCardsArray removeAllObjects];
-    [self newDeal];
-    [self.hitButton setEnabled:YES];
     
-    self.hitButton.enabled = YES;
-    self.standButton.enabled = YES;
-    self.hitButton.backgroundColor = [UIColor colorWithRed:0.255 green:0.412 blue:0.882 alpha:1.000];
-    self.standButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
-
-    [self performSelector:@selector(playerLogic) withObject:nil afterDelay:kDelayTime];
+    if (self.blackjackDataArray.count < 20) {
+        [self newDeal];
+    }
     
+    
+    if (!self.isAutoRun) {
+        self.playerTotalLabel.backgroundColor = [UIColor clearColor];
+        self.bankerTotalLabel.backgroundColor = [UIColor clearColor];
+        self.resultlLabel.backgroundColor = [UIColor clearColor];
+        
+        self.hitButton.enabled = YES;
+        self.standButton.enabled = YES;
+        self.hitButton.backgroundColor = [UIColor colorWithRed:0.255 green:0.412 blue:0.882 alpha:1.000];
+        self.standButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
+    }
+    
+    
+    [self playerLogic];  // 会造成崩溃 循环调用
+    //    [self performSelector:@selector(playerLogic) withObject:nil afterDelay:self.delayTime];
 }
 
 
 
+
+- (NSString *)bankerOrPlayerOrTie:(NSString *)string {
+    
+    switch ([string integerValue]) {
+        case 0:
+            return @"T";
+            break;
+        case 1:
+            return @"B";
+            break;
+        case 2:
+            return @"P";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+
+- (BlackJackDataSource*)blackJackDataSource
+{
+    if (_blackJackDataSource == nil)
+    {
+        _blackJackDataSource = [[BlackJackDataSource alloc] init];
+    }
+    return _blackJackDataSource;
+}
+
+// 新的一局从新开始
+- (void)newDeal
+{
+    [_blackjackDataArray removeAllObjects];
+    _blackjackDataArray = nil;
+    [self blackjackDataArray];
+}
 
 
 #pragma mark - UI界面
@@ -601,6 +703,36 @@
         make.height.mas_equalTo(210);
     }];
     
+    UIButton *autoButton = [[UIButton alloc] init];
+    autoButton.titleLabel.font = [UIFont boldSystemFontOfSize:kFontSizeLabel];
+    [autoButton setTitle:@"Auto" forState:UIControlStateNormal];
+    [autoButton addTarget:self action:@selector(onAuto:) forControlEvents:UIControlEventTouchUpInside];
+    autoButton.tag = 102;
+    autoButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
+    autoButton.layer.cornerRadius = 5;
+    [pbBackView addSubview:autoButton];
+    
+    [autoButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(pbBackView.mas_top);
+        make.right.mas_equalTo(pbBackView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(50, 40));
+    }];
+    
+    UITextField *boardNumTextField = [[UITextField alloc] init];
+    boardNumTextField.text = @"1000";
+    boardNumTextField.keyboardType = UIKeyboardTypeNumberPad;
+    boardNumTextField.textColor = [UIColor grayColor];
+    boardNumTextField.layer.cornerRadius = 5;
+    boardNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    boardNumTextField.layer.borderWidth = 1;
+    [pbBackView addSubview:boardNumTextField];
+    _boardNumTextField = boardNumTextField;
+    
+    [boardNumTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(autoButton.mas_bottom).offset(5);
+        make.right.mas_equalTo(pbBackView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(50, 40));
+    }];
     
     UILabel *playerLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 100, 35)];
     playerLabel.text = @"Player";
@@ -697,7 +829,7 @@
     
     UILabel *bankerTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 180, 80, 20)];
     bankerTotalLabel.text = @"Player";
-//    bankerTotalLabel.textAlignment = NSTextAlignmentCenter;
+    //    bankerTotalLabel.textAlignment = NSTextAlignmentCenter;
     bankerTotalLabel.textColor = [UIColor whiteColor];
     bankerTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
     [pbBackView addSubview:bankerTotalLabel];
@@ -761,14 +893,59 @@
     _trendView = trendView;
     
     UIView *textBackView = [[UIView alloc] init];
-    textBackView.backgroundColor = [UIColor greenColor];
+    textBackView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:textBackView];
     
     [textBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(btnBackView.mas_bottom).offset(10);
         make.left.mas_equalTo(self.view.mas_left).offset(10);
         make.right.mas_equalTo(self.view.mas_right).offset(-10);
-        make.height.mas_equalTo(100);
+        make.height.mas_equalTo(120);
+    }];
+    
+    UILabel *resultOneLabel = [[UILabel alloc] init];
+    resultOneLabel.text = @"-";
+    resultOneLabel.font = [UIFont systemFontOfSize:16];
+    resultOneLabel.textColor = [UIColor darkGrayColor];
+    resultOneLabel.numberOfLines = 0;
+    resultOneLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:resultOneLabel];
+    _resultOneLabel = resultOneLabel;
+    
+    [resultOneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(textBackView.mas_top);
+        make.left.mas_equalTo(textBackView.mas_left);
+        make.right.mas_equalTo(textBackView.mas_right);
+    }];
+    
+    UILabel *resultTwoLabel = [[UILabel alloc] init];
+    resultTwoLabel.text = @"-";
+    resultTwoLabel.font = [UIFont systemFontOfSize:16];
+    resultTwoLabel.textColor = [UIColor darkGrayColor];
+    resultTwoLabel.numberOfLines = 0;
+    resultTwoLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:resultTwoLabel];
+    _resultTwoLabel = resultTwoLabel;
+    
+    [resultTwoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(resultOneLabel.mas_bottom);
+        make.left.mas_equalTo(textBackView.mas_left);
+        make.right.mas_equalTo(textBackView.mas_right);
+    }];
+    
+    UILabel *resultThreeLabel = [[UILabel alloc] init];
+    resultThreeLabel.text = @"-";
+    resultThreeLabel.font = [UIFont systemFontOfSize:16];
+    resultThreeLabel.textColor = [UIColor darkGrayColor];
+    resultThreeLabel.numberOfLines = 0;
+    resultThreeLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:resultThreeLabel];
+    _resultThreeLabel = resultThreeLabel;
+    
+    [resultThreeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(resultTwoLabel.mas_bottom);
+        make.left.mas_equalTo(textBackView.mas_left);
+        make.right.mas_equalTo(textBackView.mas_right);
     }];
 }
 

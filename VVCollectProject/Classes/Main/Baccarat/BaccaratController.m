@@ -10,6 +10,7 @@
 #import "BaccaratCell.h"
 #import "BaccaratCollectionView.h"
 #include <stdlib.h>
+#import "VVFunctionManager.h"
 
 
 #define kBtnHeight 35
@@ -91,7 +92,7 @@
 @property (nonatomic,strong) UILabel *superSixCountLabel;
 @property (nonatomic,strong) UILabel *kkkLabel;
 @property (nonatomic,strong) UILabel *buyMoneyLabel;
-
+@property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *aaaa;
 @property (nonatomic,strong) UILabel *bbbb;
 
@@ -180,7 +181,7 @@
     pokerNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
     pokerNumTextField.layer.borderWidth = 1;
     _pokerNumTextField = pokerNumTextField;
-
+    
     
     [self.view addSubview:pokerNumTextField];
     
@@ -215,7 +216,7 @@
     [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:clearButton];
     
-
+    
     UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
     [disKeyboardButton setTitle:@"消键盘" forState:UIControlStateNormal];
     disKeyboardButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
@@ -225,7 +226,7 @@
     disKeyboardButton.layer.cornerRadius = 5;
     [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:disKeyboardButton];
-
+    
     
     // 下注视图
     [self betView];
@@ -316,7 +317,7 @@
 #pragma mark - 加倍
 - (void)onBuyDoubleBtn {
     
-   self.betMoneyTextField.text = [NSString stringWithFormat:@"%ld", self.betMoneyTextField.text.integerValue * 2];
+    self.betMoneyTextField.text = [NSString stringWithFormat:@"%ld", self.betMoneyTextField.text.integerValue * 2];
 }
 
 
@@ -333,7 +334,7 @@
 
 #pragma mark - 消键盘
 - (void)onDisKeyboardButton {
-     [self.view endEditing:YES];
+    [self.view endEditing:YES];
 }
 
 - (void)textStatisticsView {
@@ -494,6 +495,19 @@
         make.right.mas_equalTo(self.view.mas_right);
     }];
     
+    UILabel *timeLabel = [[UILabel alloc] init];
+    timeLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
+    timeLabel.textColor = [UIColor darkGrayColor];
+    [self.view addSubview:timeLabel];
+    _timeLabel = timeLabel;
+    
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.trendView.mas_left);
+        make.top.mas_equalTo(buyMoneyLabel.mas_bottom);
+        make.right.mas_equalTo(self.view.mas_right);
+    }];
+    
+    
 }
 
 #pragma mark -  清除
@@ -543,11 +557,12 @@
     [self resultStatisticsText];
     [self.tableView reloadData];
     
-   
+    
     
     float end = CACurrentMediaTime();
-    NSLog(@"运行时间%f", end - start);
-    
+    NSString *time = [NSString stringWithFormat:@"%f", end - start];
+    NSLog(time);
+    self.timeLabel.text = time;
 }
 
 - (NSString *)bankerOrPlayerOrTie:(NSString *)string {
@@ -725,7 +740,7 @@
                 self.bankerPairOrplayerPairIntervalCount++;
             }
         }
-
+        
         
         if (tempIsSuperSix && firstisSuperSix) {
             self.superSixContinuousCount++;
@@ -743,10 +758,10 @@
     NSLog(bbb);
     
     
-//    self.aaaa.backgroundColor = [UIColor yellowColor];
+    //    self.aaaa.backgroundColor = [UIColor yellowColor];
     self.aaaa.text = aaa;
     self.bbbb.text = bbb;
-//    self.bbbb.backgroundColor = [UIColor greenColor];
+    //    self.bbbb.backgroundColor = [UIColor greenColor];
 }
 
 
@@ -782,7 +797,7 @@
     
     self.superSixCountLabel.text = [NSString stringWithFormat:@"SUPER6          %ld  平均 %ld  连续%ld", self.superSixCount, self.superSixCount ? self.pokerCount/self.superSixCount : 0, self.superSixContinuousCount];
     self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
- 
+    
     // 计算跟买的盈亏金额
     // 总局数 - 跳转的局数 - Tie - 第一局 = 连续局数 * 2000 - 跳转输的钱 *2000 = 盈利
     NSInteger cNumMoney = (self.pokerCount - self.jumpsCount -self.tieCount -1) * self.betMoney - self.jumpsCount * self.betMoney;
@@ -819,21 +834,10 @@
                              @(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11),@(12),@(13)
                              ];
     
-    self.dataArray = [[NSMutableArray alloc] init];
-    for (NSInteger index = 1; index <= self.pokerNum; index++) {
-        [self.dataArray addObjectsFromArray:pokerArray];
-    }
+    NSMutableArray *array = [VVFunctionManager shuffleArray:pokerArray pokerPairsNum:self.pokerNum];
+    self.dataArray = [NSMutableArray arrayWithArray:array];
     
     self.pokerTotalNum = self.dataArray.count;
-    
-    // 洗牌
-    for (NSInteger index = 1; index <= self.pokerTotalNum; index++) {
-        int pokerIndexA = (arc4random() % self.pokerTotalNum) + 0;
-        int pokerIndexB = (arc4random() % self.pokerTotalNum) + 0;
-        
-        [self.dataArray exchangeObjectAtIndex:pokerIndexA withObjectAtIndex:pokerIndexB];
-    }
-    
     self.pokerCount = 0;
     self.playerCount = 0;
     self.bankerCount = 0;
@@ -868,6 +872,7 @@
         //        NSNumber *num = (NSNumber *)self.dataArray[pokerPoints];
         //        [self.dataArray removeObjectAtIndex:pokerPoints];
         //        NSLog(@"🔴= %@", num.stringValue);
+        
         
         NSNumber *num = (NSNumber *)self.dataArray.firstObject;
         [self.dataArray removeObjectAtIndex:0];

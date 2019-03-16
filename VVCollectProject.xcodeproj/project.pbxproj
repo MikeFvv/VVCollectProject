@@ -42,6 +42,7 @@
 		A0BCD7B622218B8400BB3A9C /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B022218B8300BB3A9C /* Color.m */; };
 		A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */; };
 		A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */; };
+		A0BF4F58223BEA320038422F /* MasonryController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BF4F57223BEA320038422F /* MasonryController.m */; };
 		A0C5148521EE2E4F00E2F89D /* packer.php in Resources */ = {isa = PBXBuildFile; fileRef = A0C5147321EE2E4F00E2F89D /* packer.php */; };
 		A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5147721EE2E4F00E2F89D /* RSA.m */; };
 		A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C5147921EE2E4F00E2F89D /* unzip.c */; };
@@ -60,8 +61,11 @@
 		A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E25221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m */; };
 		A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E27221D98CA00D7E3B0 /* UINavigationController+HKExts.m */; };
 		A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */; };
+		A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DCEF5D2236A773002FF19C /* BJDetailsController.m */; };
+		A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */; };
 		A0F3E621220D5FA500755DBB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E620220D5FA500755DBB /* Person.m */; };
 		A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E623220D75FA00755DBB /* RunTimeController.m */; };
+		A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F607B62237CAFC002CD70B /* BlackJackCell.m */; };
 		A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FC8222ECCB400C4EE9C /* BJSpade.m */; };
 		A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCA222ECCB400C4EE9C /* UIView+JMNoise.m */; };
 		A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCB222ECCB400C4EE9C /* PhysicalCard.m */; };
@@ -163,6 +167,9 @@
 		A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCollectionView.m; sourceTree = "<group>"; };
 		A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LMJNjHuFrame.m"; sourceTree = "<group>"; };
 		A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LMJNjHuFrame.h"; sourceTree = "<group>"; };
+		A0BF4F55223BD2400038422F /* VVAdaptUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VVAdaptUI.h; sourceTree = "<group>"; };
+		A0BF4F56223BEA320038422F /* MasonryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasonryController.h; sourceTree = "<group>"; };
+		A0BF4F57223BEA320038422F /* MasonryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasonryController.m; sourceTree = "<group>"; };
 		A0C5147321EE2E4F00E2F89D /* packer.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = packer.php; sourceTree = "<group>"; };
 		A0C5147421EE2E4F00E2F89D /* JPLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPLoader.h; sourceTree = "<group>"; };
 		A0C5147621EE2E4F00E2F89D /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
@@ -196,10 +203,16 @@
 		A0D55E27221D98CA00D7E3B0 /* UINavigationController+HKExts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+HKExts.m"; sourceTree = "<group>"; };
 		A0D55E2C221DAFB500D7E3B0 /* BaccaratController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratController.h; sourceTree = "<group>"; };
 		A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratController.m; sourceTree = "<group>"; };
+		A0DCEF5C2236A772002FF19C /* BJDetailsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BJDetailsController.h; sourceTree = "<group>"; };
+		A0DCEF5D2236A773002FF19C /* BJDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJDetailsController.m; sourceTree = "<group>"; };
+		A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VVFunctionManager.h; sourceTree = "<group>"; };
+		A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VVFunctionManager.m; sourceTree = "<group>"; };
 		A0F3E61F220D5FA500755DBB /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		A0F3E620220D5FA500755DBB /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		A0F3E622220D75FA00755DBB /* RunTimeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTimeController.h; sourceTree = "<group>"; };
 		A0F3E623220D75FA00755DBB /* RunTimeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunTimeController.m; sourceTree = "<group>"; };
+		A0F607B52237CAFC002CD70B /* BlackJackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackCell.h; sourceTree = "<group>"; };
+		A0F607B62237CAFC002CD70B /* BlackJackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackCell.m; sourceTree = "<group>"; };
 		A0F91FC6222ECCB300C4EE9C /* PhysicalCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalCard.h; sourceTree = "<group>"; };
 		A0F91FC7222ECCB300C4EE9C /* BJHeart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BJHeart.h; sourceTree = "<group>"; };
 		A0F91FC8222ECCB400C4EE9C /* BJSpade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJSpade.m; sourceTree = "<group>"; };
@@ -258,10 +271,14 @@
 				A0F91FC5222ECCA700C4EE9C /* View */,
 				A004E78C2226E4C10090DC44 /* BlackJackController.h */,
 				A004E78D2226E4C10090DC44 /* BlackJackController.m */,
+				A0DCEF5C2236A772002FF19C /* BJDetailsController.h */,
+				A0DCEF5D2236A773002FF19C /* BJDetailsController.m */,
 				A0F91FD5222ECCC300C4EE9C /* BlackJackDataSource.h */,
 				A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */,
 				A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */,
 				A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */,
+				A0F607B52237CAFC002CD70B /* BlackJackCell.h */,
+				A0F607B62237CAFC002CD70B /* BlackJackCell.m */,
 			);
 			path = BlackJack;
 			sourceTree = "<group>";
@@ -289,6 +306,8 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */,
+				A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */,
 				A0BCD7A122216D9100BB3A9C /* Application.h */,
 				A0BCD7A222216D9100BB3A9C /* Application.m */,
 				A0D55E2A221D9B0300D7E3B0 /* RepeatPush */,
@@ -368,6 +387,7 @@
 				A0130DD921ECB78D007E845B /* Macros.h */,
 				A0130DDA21ECB78D007E845B /* ThirdMacros.h */,
 				A0130DD821ECB78D007E845B /* Constants.h */,
+				A0BF4F55223BD2400038422F /* VVAdaptUI.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -423,6 +443,8 @@
 				A0821DD421EF3B4700429C20 /* HomeViewController.m */,
 				A0BCD7A922218B0D00BB3A9C /* SearchViewController.h */,
 				A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */,
+				A0BF4F56223BEA320038422F /* MasonryController.h */,
+				A0BF4F57223BEA320038422F /* MasonryController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -814,16 +836,19 @@
 				A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */,
+				A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */,
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
 				A0BCD7A822217C4300BB3A9C /* UIColor+Hexadecimal.m in Sources */,
+				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,
 				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
 				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
 				A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
+				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
 				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
@@ -842,6 +867,7 @@
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */,
+				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
 				A0130DE121ECB78D007E845B /* BADataEntity.m in Sources */,
 				A0BCD7B522218B8400BB3A9C /* Palette.m in Sources */,

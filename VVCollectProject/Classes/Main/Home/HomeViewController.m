@@ -57,6 +57,9 @@
     
     [self.view addSubview:self.tableView];
 //    [self searchBarInit];
+    
+    UIBarButtonItem *barBtn1=[[UIBarButtonItem alloc]initWithTitle:@"左边" style:UIBarButtonItemStylePlain target:self action:@selector(changeColor)];
+    self.navigationItem.leftBarButtonItem=barBtn1;  
 }
 
 
