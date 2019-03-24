@@ -1,18 +1,18 @@
 //
-//  TestVVUITableViewController.m
+//  TestUITableViewController.m
 //  VVCollectProject
 //
 //  Created by Mike on 2019/2/22.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
-#import "TestVVUITableViewController.h"
+#import "TestUITableViewController.h"
 
-@interface TestVVUITableViewController ()
+@interface TestUITableViewController ()
 
 @end
 
-@implementation TestVVUITableViewController
+@implementation TestUITableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +52,7 @@
     return cell;
 }
 
-// 设置节数
+// 设置组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 0;
 }

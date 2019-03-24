@@ -37,7 +37,10 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView reusableId:(NSString *)ID
 {
-    BlackJackCell *cell = [[BlackJackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    BlackJackCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell) {
+        cell = [[BlackJackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

@@ -12,6 +12,7 @@
 #import "Application.h"
 #import "UIColor+Hexadecimal.h"
 #import "BlackJackController.h"
+#import "NetworkIndicatorView.h"
 
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
@@ -59,10 +60,24 @@
 //    [self searchBarInit];
     
     UIBarButtonItem *barBtn1=[[UIBarButtonItem alloc]initWithTitle:@"左边" style:UIBarButtonItemStylePlain target:self action:@selector(changeColor)];
-    self.navigationItem.leftBarButtonItem=barBtn1;  
+    self.navigationItem.leftBarButtonItem=barBtn1;
+//    [self network];
 }
 
 
+#pragma mark - 无网络警告视图
+- (void)network {
+    
+    NetworkIndicatorView *view = [[NetworkIndicatorView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, 40)];
+    self.tableView.tableHeaderView = view;
+    
+}
+
+- (void)changeColor {
+    self.tableView.tableHeaderView = nil;
+}
+
+#pragma mark - 搜索视图
 - (void)searchBarInit {
     //    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)];// 初始化
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];// 初始化
@@ -317,7 +332,7 @@
 }
 
 
-
+#pragma mark - 防止多次push  RepeatPush 文件夹类
 // 防止多次push   RepeatPush 文件夹类
 - (void)doPush {
     ViewController *vc = [[ViewController alloc] init];

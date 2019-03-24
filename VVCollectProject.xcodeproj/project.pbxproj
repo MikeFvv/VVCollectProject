@@ -41,6 +41,7 @@
 		A0BCD7B522218B8400BB3A9C /* Palette.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7AF22218B8300BB3A9C /* Palette.m */; };
 		A0BCD7B622218B8400BB3A9C /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B022218B8300BB3A9C /* Color.m */; };
 		A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */; };
+		A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BE49A3224772B400CDBE43 /* NetworkIndicatorView.m */; };
 		A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */; };
 		A0BF4F58223BEA320038422F /* MasonryController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BF4F57223BEA320038422F /* MasonryController.m */; };
 		A0C5148521EE2E4F00E2F89D /* packer.php in Resources */ = {isa = PBXBuildFile; fileRef = A0C5147321EE2E4F00E2F89D /* packer.php */; };
@@ -55,14 +56,14 @@
 		A0C5150421EE310900E2F89D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C5150321EE310900E2F89D /* JavaScriptCore.framework */; };
 		A0C5150621EE46CB00E2F89D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150521EE46CB00E2F89D /* main.js */; };
 		A0C5150821EE491600E2F89D /* DemoJS.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150721EE491600E2F89D /* DemoJS.js */; };
-		A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD60222033DE00E7E21F /* VVUITableViewController.m */; };
-		A0CBDD642220340600E7E21F /* TestVVUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD632220340600E7E21F /* TestVVUITableViewController.m */; };
+		A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD632220340600E7E21F /* TestUITableViewController.m */; };
 		A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD6622204AA700E7E21F /* BaccaratCell.m */; };
 		A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E25221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m */; };
 		A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E27221D98CA00D7E3B0 /* UINavigationController+HKExts.m */; };
 		A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */; };
 		A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DCEF5D2236A773002FF19C /* BJDetailsController.m */; };
 		A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */; };
+		A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF0868223FCDFA00151F35 /* NSStringController.m */; };
 		A0F3E621220D5FA500755DBB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E620220D5FA500755DBB /* Person.m */; };
 		A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E623220D75FA00755DBB /* RunTimeController.m */; };
 		A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F607B62237CAFC002CD70B /* BlackJackCell.m */; };
@@ -165,6 +166,8 @@
 		A0BCD7B222218B8300BB3A9C /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Palette.h; sourceTree = "<group>"; };
 		A0BCD7B72221ACF800BB3A9C /* BaccaratCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCollectionView.h; sourceTree = "<group>"; };
 		A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCollectionView.m; sourceTree = "<group>"; };
+		A0BE49A2224772B400CDBE43 /* NetworkIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkIndicatorView.h; sourceTree = "<group>"; };
+		A0BE49A3224772B400CDBE43 /* NetworkIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkIndicatorView.m; sourceTree = "<group>"; };
 		A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LMJNjHuFrame.m"; sourceTree = "<group>"; };
 		A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LMJNjHuFrame.h"; sourceTree = "<group>"; };
 		A0BF4F55223BD2400038422F /* VVAdaptUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VVAdaptUI.h; sourceTree = "<group>"; };
@@ -191,10 +194,8 @@
 		A0C5150321EE310900E2F89D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		A0C5150521EE46CB00E2F89D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		A0C5150721EE491600E2F89D /* DemoJS.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DemoJS.js; sourceTree = "<group>"; };
-		A0CBDD5F222033DE00E7E21F /* VVUITableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VVUITableViewController.h; sourceTree = "<group>"; };
-		A0CBDD60222033DE00E7E21F /* VVUITableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VVUITableViewController.m; sourceTree = "<group>"; };
-		A0CBDD622220340600E7E21F /* TestVVUITableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVVUITableViewController.h; sourceTree = "<group>"; };
-		A0CBDD632220340600E7E21F /* TestVVUITableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVVUITableViewController.m; sourceTree = "<group>"; };
+		A0CBDD622220340600E7E21F /* TestUITableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestUITableViewController.h; sourceTree = "<group>"; };
+		A0CBDD632220340600E7E21F /* TestUITableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestUITableViewController.m; sourceTree = "<group>"; };
 		A0CBDD6522204AA700E7E21F /* BaccaratCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCell.h; sourceTree = "<group>"; };
 		A0CBDD6622204AA700E7E21F /* BaccaratCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCell.m; sourceTree = "<group>"; };
 		A0D55E24221D98CA00D7E3B0 /* UIViewController+HKSafeExts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HKSafeExts.h"; sourceTree = "<group>"; };
@@ -207,6 +208,8 @@
 		A0DCEF5D2236A773002FF19C /* BJDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJDetailsController.m; sourceTree = "<group>"; };
 		A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VVFunctionManager.h; sourceTree = "<group>"; };
 		A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VVFunctionManager.m; sourceTree = "<group>"; };
+		A0DF0867223FCDFA00151F35 /* NSStringController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStringController.h; sourceTree = "<group>"; };
+		A0DF0868223FCDFA00151F35 /* NSStringController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSStringController.m; sourceTree = "<group>"; };
 		A0F3E61F220D5FA500755DBB /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		A0F3E620220D5FA500755DBB /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		A0F3E622220D75FA00755DBB /* RunTimeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTimeController.h; sourceTree = "<group>"; };
@@ -395,8 +398,8 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A0BE49A12247727D00CDBE43 /* Common */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
-				A0CBDD5E222033A500E7E21F /* ClassMethodUse */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
 				A0373A02221A9F3400E112A6 /* Test */,
 				A0F3E628220D859400755DBB /* RunTime */,
@@ -445,6 +448,10 @@
 				A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */,
 				A0BF4F56223BEA320038422F /* MasonryController.h */,
 				A0BF4F57223BEA320038422F /* MasonryController.m */,
+				A0DF0867223FCDFA00151F35 /* NSStringController.h */,
+				A0DF0868223FCDFA00151F35 /* NSStringController.m */,
+				A0CBDD622220340600E7E21F /* TestUITableViewController.h */,
+				A0CBDD632220340600E7E21F /* TestUITableViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -517,6 +524,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A0BE49A12247727D00CDBE43 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A0BE49A2224772B400CDBE43 /* NetworkIndicatorView.h */,
+				A0BE49A3224772B400CDBE43 /* NetworkIndicatorView.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		A0C5147121EE2E4F00E2F89D /* Loader */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,17 +578,6 @@
 				A0C5148121EE2E4F00E2F89D /* ioapi.h */,
 			);
 			path = minizip;
-			sourceTree = "<group>";
-		};
-		A0CBDD5E222033A500E7E21F /* ClassMethodUse */ = {
-			isa = PBXGroup;
-			children = (
-				A0CBDD5F222033DE00E7E21F /* VVUITableViewController.h */,
-				A0CBDD60222033DE00E7E21F /* VVUITableViewController.m */,
-				A0CBDD622220340600E7E21F /* TestVVUITableViewController.h */,
-				A0CBDD632220340600E7E21F /* TestVVUITableViewController.m */,
-			);
-			path = ClassMethodUse;
 			sourceTree = "<group>";
 		};
 		A0D55E2A221D9B0300D7E3B0 /* RepeatPush */ = {
@@ -833,7 +838,6 @@
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
-				A0CBDD61222033DE00E7E21F /* VVUITableViewController.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */,
 				A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */,
@@ -855,6 +859,7 @@
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
+				A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */,
 				A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
@@ -863,7 +868,7 @@
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
 				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
-				A0CBDD642220340600E7E21F /* TestVVUITableViewController.m in Sources */,
+				A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */,
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */,
@@ -876,6 +881,7 @@
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
 				A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */,
 				A0130DE421ECB78D007E845B /* NSString+RegexCategory.m in Sources */,
+				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,7 +1055,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S4K2KAPMXX;
+				DEVELOPMENT_TEAM = Z636N3MHCB;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1061,7 +1067,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vvc.VVCollectProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xmfx.qqvvx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1074,7 +1080,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S4K2KAPMXX;
+				DEVELOPMENT_TEAM = Z636N3MHCB;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1086,7 +1092,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vvc.VVCollectProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xmfx.qqvvx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

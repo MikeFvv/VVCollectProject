@@ -1,8 +1,8 @@
 //
-//  VVUITableViewController.h
+//  NetworkIndicatorView.h
 //  VVCollectProject
 //
-//  Created by Mike on 2019/2/22.
+//  Created by 罗耀生 on 2019/3/24.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VVUITableViewController : UIViewController
+@interface NetworkIndicatorView : UIView
 
 @end
 

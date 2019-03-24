@@ -107,6 +107,7 @@
 @property (nonatomic, assign) BOOL isStand;
 // 自动处理局数
 @property (nonatomic, assign) NSInteger autoTotalIndex;
+@property (nonatomic, assign) BOOL isEnd;
 
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
 
@@ -124,7 +125,7 @@
     self.bankershandofCardsArray = [[NSMutableArray alloc] init];
     self.resultDataArray = [[NSMutableArray alloc] init];
     self.isAutoRun = NO;
-    self.delayTime = 0.1;
+    self.delayTime = 0.05;
     
     UIBarButtonItem *barBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"详情" style:UIBarButtonItemStylePlain target:self action:@selector(onDetailsData)];
     self.navigationItem.rightBarButtonItem = barBtn1;
@@ -187,13 +188,16 @@
 
 #pragma mark - 玩家逻辑  玩家Hit
 - (void)playerLogic {
+    if (self.isEnd) {
+        return;
+    }
     //TODO: Handle 'Split' condition  TODO：处理“拆分”状态
     PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+    [self.playershandofCardsArray addObject:nextCard];
     [self.blackjackDataArray removeObjectAtIndex:0];
     
-    [self.playershandofCardsArray addObject:nextCard];
     if (self.playershandofCardsArray.count > 10) {
-        NSLog(@"1");
+        NSLog(@"P 大于10张");
     }
     
     self.playerTotal = self.playerTotal + [nextCard.cardValue integerValue];
@@ -205,16 +209,16 @@
     
     if (!self.isAutoRun) {
         if (self.playershandofCardsArray.count > 5) {
-            NSLog(@"1111");
-        } else if (self.playershandofCardsArray.count > 1) {
+            NSLog(@"P 大于5张");
+        } else if (self.playershandofCardsArray.count == 1) {
             self.playerOneLabel.text = nextCard.cardText;
-        }  else if (self.playershandofCardsArray.count > 2) {
+        }  else if (self.playershandofCardsArray.count == 2) {
             self.playerTwoLabel.text = nextCard.cardText;
-        } else if (self.playershandofCardsArray.count > 3) {
+        } else if (self.playershandofCardsArray.count == 3) {
             self.playerThreeLabel .text = nextCard.cardText;
-        } else if (self.playershandofCardsArray.count > 4) {
+        } else if (self.playershandofCardsArray.count == 4) {
             self.playerFourLabel.text = nextCard.cardText;
-        } else if (self.playershandofCardsArray.count > 5) {
+        } else if (self.playershandofCardsArray.count == 5) {
             self.playerFiveLabel.text = nextCard.cardText;
         }
     }
@@ -225,6 +229,7 @@
     
     if (self.playershandofCardsArray.count == 1) {
         [self bankerLogic];
+        return;
     } else if (self.isAutoRun && self.playershandofCardsArray.count == 2) {
         if (self.aceFlag_P) {
             [self softPoints_A];
@@ -239,6 +244,7 @@
                 self.playerTotalLabel.backgroundColor = [UIColor redColor];
             }
             [self resultHandler];
+            return;
         } else {
             
             // 大于11 全部算 self.playerTotal 的值
@@ -254,6 +260,7 @@
                 }
                 return;
             }
+            
             if (self.isAutoRun) {
                 if (self.isDoubleOne) {
                     [self onStandButton];
@@ -271,7 +278,7 @@
 
 #pragma mark - 停牌
 - (void)onStandButton {
-    if (self.p_ATotal > self.playerTotal) {
+    if (self.p_ATotal > self.playerTotal && self.p_ATotal <= 21) {
         self.playerTotal = self.p_ATotal;
     } else {
         self.p_ATotal = 0;
@@ -282,12 +289,16 @@
 
 #pragma mark - Banker发牌
 - (void)bankerLogic {
+    if (self.isEnd) {
+        return;
+    }
     
     PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.blackjackDataArray removeObjectAtIndex:0];
     [self.bankershandofCardsArray addObject:nextCard];
+    [self.blackjackDataArray removeObjectAtIndex:0];
+    
     if (self.bankershandofCardsArray.count > 10) {
-        NSLog(@"1");
+        NSLog(@"B 大于10张");
     }
     self.bankerTotal = self.bankerTotal + [nextCard.cardValue integerValue];
     self.b_ATotal = self.bankerTotal + 10;
@@ -299,6 +310,7 @@
     
     if (self.isAutoRun && self.bankershandofCardsArray.count == 1) {
         [self playerLogic];
+        return;
     }
     
     if (!self.isAutoRun) {
@@ -312,14 +324,14 @@
             [self playerLogic];
             return;
         } else if (self.bankershandofCardsArray.count > 5) {
-            NSLog(@"1111");
-        } else if (self.bankershandofCardsArray.count > 2) {
+           NSLog(@"B 大于5张牌");
+        } else if (self.bankershandofCardsArray.count == 2) {
             self.bankerTwoLabel.text = nextCard.cardText;
-        } else if (self.bankershandofCardsArray.count > 3) {
+        } else if (self.bankershandofCardsArray.count == 3) {
             self.bankerThreeLabel.text = nextCard.cardText;
-        } else if (self.bankershandofCardsArray.count > 4) {
+        } else if (self.bankershandofCardsArray.count == 4) {
             self.bankerFourLabel.text = nextCard.cardText;
-        } else if (self.bankershandofCardsArray.count > 5) {
+        } else if (self.bankershandofCardsArray.count == 5) {
             self.bankerFiveLabel.text = nextCard.cardText;
         }
     }
@@ -335,15 +347,16 @@
         [self resultHandler];
         
     } else if (self.aceFlag_B && self.bankerTotal <= 11) {
+        if (!self.isAutoRun) {
+            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %ld", self.b_ATotal];
+        }
+        
         // 大于11 全部算 bankerTotal 的值
         if (self.b_ATotal >= 18 || (self.b_ATotal == 17 && self.b_ATotal > self.playerTotal)) {
+            self.bankerTotal = self.b_ATotal;
             [self resultHandler];
         } else {
             [self bankerLogic];
-        }
-        
-        if (!self.isAutoRun) {
-            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %ld", self.b_ATotal];
         }
     } else if (self.bankerTotal >= 17) {
         if (!self.isAutoRun) {
@@ -500,6 +513,7 @@
             self.autoTotalIndex--;
             [self resetPlay];
         } else {
+            self.isEnd = YES;
             [self resultStatisticsContinuous];
             self.trendView.model = self.resultDataArray;
         }
@@ -621,6 +635,7 @@
     self.aceFlag_B = NO;
     self.isDoubleOne = NO;
     self.isStand = NO;
+    self.isEnd = NO;
     
     [self.playershandofCardsArray removeAllObjects];
     [self.bankershandofCardsArray removeAllObjects];
@@ -641,9 +656,10 @@
         self.standButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
     }
     
-    
-    [self playerLogic];  // 会造成崩溃 循环调用
-    //    [self performSelector:@selector(playerLogic) withObject:nil afterDelay:self.delayTime];
+    if (!self.isEnd) {
+//        [self playerLogic];  // 会造成崩溃 循环调用
+        [self performSelector:@selector(playerLogic) withObject:nil afterDelay:self.delayTime];
+    }
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  TestVVUITableViewController.h
+//  TestUITableViewController.h
 //  VVCollectProject
 //
 //  Created by Mike on 2019/2/22.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestVVUITableViewController : UITableViewController
+@interface TestUITableViewController : UITableViewController
 
 @end
 

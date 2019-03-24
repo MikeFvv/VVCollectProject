@@ -11,13 +11,9 @@
 @interface BaccaratCell()
 
 @property (nonatomic, strong) UILabel *indexLabel;
-
 @property (nonatomic, strong) UILabel *playerLabel;
-
 @property (nonatomic, strong) UILabel *bankerLabel;
 @property (nonatomic, strong) UILabel *resultLabel;
-
-
 
 @end
 
@@ -30,7 +26,10 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView reusableId:(NSString *)ID
 {
-    BaccaratCell *cell = [[BaccaratCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    BaccaratCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell) {
+        cell = [[BaccaratCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
