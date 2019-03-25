@@ -125,7 +125,7 @@
     self.bankershandofCardsArray = [[NSMutableArray alloc] init];
     self.resultDataArray = [[NSMutableArray alloc] init];
     self.isAutoRun = NO;
-    self.delayTime = 0.05;
+    self.delayTime = 0;
     
     UIBarButtonItem *barBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"详情" style:UIBarButtonItemStylePlain target:self action:@selector(onDetailsData)];
     self.navigationItem.rightBarButtonItem = barBtn1;
@@ -600,7 +600,7 @@
     CGFloat p100 = playerTotalCount/((playerTotalCount +bankerTotalCount) *1.0)* 100.00;
     CGFloat b100 = bankerTotalCount*1.0/(playerTotalCount +bankerTotalCount) * 100.00;
     
-    NSString *game = [NSString stringWithFormat:@"GAME  %ld  [Player %ld   %0.2f]  [Banker %ld  %0.2f]  庄闲相差 %0.2f", self.resultDataArray.count, playerTotalCount,p100,bankerTotalCount,b100, b100 - p100];
+    NSString *game = [NSString stringWithFormat:@"GAME  %ld  [Player %ld   %0.2f%]  [Banker %ld  %0.2f%]  庄闲相差 %0.2f%", self.resultDataArray.count, playerTotalCount,p100,bankerTotalCount,b100, b100 - p100];
     
     NSString *aaa = [NSString stringWithFormat:@"连续最多 %@   次数 %ld   TIE %ld", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen, tieTotalCount];
     self.resultOneLabel.text = game;

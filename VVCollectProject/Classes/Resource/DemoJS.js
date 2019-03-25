@@ -246,3 +246,83 @@ defineClass('ChatViewController',['leftBtn'], {   // 动态添加属性
             
             });
 
+
+
+
+
+require("NSString");
+
+defineClass("NetRequestManager", {
+            requestTockenWithPhone_smsCode_success_fail: function(phone, smsCode, successBlock, failBlock) {
+            var info = self.requestInfoWithAct(9);
+            var url = NSString.stringWithFormat("%@?mobile=%@&code=%@&grant_type=mobile&scope=server", info.url(), phone, smsCode);
+            info.setUrl(url);
+            self.requestWithData_requestInfo_success_fail(null, info, null, null);
+            // 这里有block 传null就不再崩溃了
+            }
+            }, {});
+
+
+
+
+defineClass("AppModel", {
+            serverUrl: function() {
+            self.setIsReleaseOrBeta(NO);
+            // 因为不能使用下划线_   所有直接返回
+            return  "http://api.5858hbw.com/api/";  
+            },
+
+            rongYunKey: function() {
+            return "n19jmcy5na0i9";
+            }
+
+            }, {});
+
+// #pragma mark - 这里注意
+/**********错************/
+//require("AppModel, NSString, NSUserDefaults");
+//
+//defineClass("ShareDetailViewController", {
+//            shareUrl: function() {
+//            return NSString.stringWithFormat("%@%@", _shareUrl, AppModel.shareInstance().user().invitecode());
+//            }
+//            }, {});
+//
+//defineClass("WXShareModel", {
+//            setLink: function(link) {
+//            var ud = NSUserDefaults.standardUserDefaults();
+//            var url = ud.objectForKey("shareUrl");
+//            var shareUrl = NSString.stringWithFormat("%@%@", url, AppModel.shareInstance().user().invitecode());
+//            _link = shareUrl;
+//            }
+//            }, {});
+
+/**********对************/
+// 下划线属性获取值  _name
+//var data = self.valueForKey("_shareUrl")
+// 下划线属性赋值  _link   把shareUrl值赋值给 _link
+//self.setValue_forKey(shareUrl,"_link");
+
+//JSPatch 的坑
+//https://blog.csdn.net/qq_31249697/article/details/79863759
+require("AppModel, NSString, NSUserDefaults");
+
+defineClass("ShareDetailViewController", {
+            shareUrl: function() {
+            
+            var data = self.valueForKey("_shareUrl")
+            return NSString.stringWithFormat("%@%@", data,AppModel.shareInstance().user().invitecode());
+            
+            }
+            
+            }, {});
+
+defineClass("WXShareModel", {
+            setLink: function(link) {
+            
+            var ud = NSUserDefaults.standardUserDefaults();
+            var url = ud.objectForKey("shareUrl");
+            var shareUrl = NSString.stringWithFormat("%@%@", url, AppModel.shareInstance().user().invitecode());
+            self.setValue_forKey(shareUrl,"_link");
+            }
+            }, {});
