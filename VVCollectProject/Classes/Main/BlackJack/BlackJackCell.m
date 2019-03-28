@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UIView *playerPairView;
 @property (nonatomic, strong) UILabel *pointsNumLabel;
 @property (nonatomic, strong) UILabel *ALabel;
-
+@property (nonatomic, strong) UILabel *doubleLabel;
 
 @end
 
@@ -178,6 +178,23 @@
         make.size.mas_equalTo(@(yWidth));
     }];
     
+    UILabel *doubleLabel = [[UILabel alloc] init];
+    doubleLabel.text = @"D";
+    doubleLabel.font = [UIFont systemFontOfSize:16];
+    doubleLabel.textColor = [UIColor whiteColor];
+    doubleLabel.layer.cornerRadius = yWidth/2;
+    doubleLabel.layer.masksToBounds = YES;
+    doubleLabel.textAlignment = NSTextAlignmentCenter;
+    doubleLabel.backgroundColor = [UIColor grayColor];
+    [self addSubview:doubleLabel];
+    _doubleLabel = doubleLabel;
+    
+    [doubleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(ALabel.mas_left).offset(-5);
+        make.centerY.mas_equalTo(self.mas_centerY);
+        make.size.mas_equalTo(@(yWidth));
+    }];
+    
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self addSubview:lineView];
@@ -264,6 +281,13 @@
         self.ALabel.hidden = NO;
     } else {
        self.ALabel.hidden = YES;
+    }
+    
+    // 加倍标示
+    if ([[dict objectForKey:@"isDoubleOne"] boolValue]) {
+        self.doubleLabel.hidden = NO;
+    } else {
+        self.doubleLabel.hidden = YES;
     }
 }
 

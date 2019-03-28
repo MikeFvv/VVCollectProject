@@ -456,7 +456,7 @@
     }
     
     
-    if (self.bankerTotal > 21 && self.playerTotal < 21) {
+    if (self.bankerTotal > 21 && self.playerTotal <= 21) {
         bankerShighestHand = 0;
         [dict setObject:@(1) forKey:@"BankerBust"];
     } else {
@@ -499,6 +499,11 @@
         self.standButton.enabled = NO;
         self.hitButton.backgroundColor = [UIColor darkGrayColor];
         self.standButton.backgroundColor = [UIColor darkGrayColor];
+    }
+    
+    // 加倍标示
+    if (self.isDoubleOne) {
+        [dict setObject:@(YES) forKey:@"isDoubleOne"];
     }
     
     

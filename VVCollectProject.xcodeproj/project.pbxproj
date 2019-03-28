@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
+		A00AD675224BAB7100DFDA5C /* FLSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A00AD673224BAB7000DFDA5C /* FLSocketManager.m */; };
 		A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC421ECB78D007E845B /* BANetManagerCache.m */; };
 		A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC521ECB78D007E845B /* BANetManager.m */; };
 		A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC621ECB78D007E845B /* UIImage+CompressImage.m */; };
@@ -99,6 +100,8 @@
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
+		A00AD673224BAB7000DFDA5C /* FLSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSocketManager.m; sourceTree = "<group>"; };
+		A00AD674224BAB7100DFDA5C /* FLSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSocketManager.h; sourceTree = "<group>"; };
 		A0130DC321ECB78D007E845B /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
 		A0130DC421ECB78D007E845B /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
 		A0130DC521ECB78D007E845B /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
@@ -286,6 +289,15 @@
 			path = BlackJack;
 			sourceTree = "<group>";
 		};
+		A00AD672224BAB6300DFDA5C /* IM */ = {
+			isa = PBXGroup;
+			children = (
+				A00AD674224BAB7100DFDA5C /* FLSocketManager.h */,
+				A00AD673224BAB7000DFDA5C /* FLSocketManager.m */,
+			);
+			path = IM;
+			sourceTree = "<group>";
+		};
 		A0130DBF21ECB78D007E845B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +410,7 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A00AD672224BAB6300DFDA5C /* IM */,
 				A0BE49A12247727D00CDBE43 /* Common */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
@@ -807,6 +820,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject-resources.sh",
 				"${PODS_ROOT}/JSPatch/JSPatch/JSPatch.js",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
@@ -814,6 +828,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/JSPatch.js",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -853,6 +868,7 @@
 				A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
+				A00AD675224BAB7100DFDA5C /* FLSocketManager.m in Sources */,
 				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
