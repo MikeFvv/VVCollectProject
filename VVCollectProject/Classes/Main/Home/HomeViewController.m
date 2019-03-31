@@ -14,6 +14,8 @@
 #import "BlackJackController.h"
 #import "NetworkIndicatorView.h"
 
+#import "SSChatController.h"
+
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic, strong) NSArray *applications;
@@ -24,6 +26,8 @@
 
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic,strong) UISearchBar *searchBar;
+
+@property(nonatomic,strong)NSMutableArray *datas;
 
 
 @end
@@ -248,7 +252,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - kiPhoneX_Top_Height) style:UITableViewStylePlain];
         //        _tableView.backgroundColor = [UIColor whiteColor];
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
@@ -308,12 +312,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
+        return;
         BaccaratController *vc = [[BaccaratController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    } if (indexPath.row == 1) {
-        
+    } else if (indexPath.row == 1) {
+        return;
         BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
+    } else if (indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6) {
+        
+        [self initData];
+        SSChatController *vc = [SSChatController new];
+        vc.chatType = (SSChatConversationType)[_datas[0][@"type"]integerValue];
+        vc.sessionId = _datas[0][@"sectionId"];
+        vc.titleString = _datas[0][@"title"];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
     } else {
         [self doPush];
     }
@@ -331,6 +346,22 @@
     
 }
 
+-(void)initData{
+
+        _datas = [NSMutableArray new];
+        [_datas addObjectsFromArray:@[@{@"image":@"touxiang1",
+                                        @"title":@"神经萝卜",
+                                        @"detail":@"王医生你好，我最近老感觉头晕乏力，是什么原因造成的呢？",
+                                        @"sectionId":@"13540033103",
+                                        @"type":@"1"
+                                        },
+                                      @{@"image":@"touxaing2",
+                                        @"title":@"王医生",
+                                        @"detail":@"您好，可以给我发送一份你的体检报告吗？便于我了解情况，谁是给我打电话13540033104",
+                                        @"sectionId":@"13540033104",
+                                        @"type":@"1"
+                                        }]];
+}
 
 #pragma mark - 防止多次push  RepeatPush 文件夹类
 // 防止多次push   RepeatPush 文件夹类

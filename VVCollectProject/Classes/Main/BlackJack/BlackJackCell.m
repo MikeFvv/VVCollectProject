@@ -2,7 +2,7 @@
 //  BlackJackCell.m
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/3/12.
+//  Created by Mike on 2019/3/12.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 

@@ -91,7 +91,7 @@
 //}
 #pragma mark - vvUILabel
 //UILabel *nameLabel = [[UILabel alloc] init];
-//nameLabel.text = @"闲赢";
+//nameLabel.text = @"-";
 //nameLabel.font = [UIFont systemFontOfSize:16];
 //nameLabel.textColor = [UIColor darkGrayColor];
 //nameLabel.numberOfLines = 0;
@@ -133,6 +133,73 @@
 //    make.right.mas_equalTo(self.view.mas_right).offset(-10);
 //    make.height.mas_equalTo(100);
 //}];
+#pragma mark - vvUIImageView
+//UIImageView *backImageView = [[UIImageView alloc] init];
+//backImageView.image = [UIImage imageNamed:@"imageName"];
+//[self.view addSubview:backImageView];
+//
+//[backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//    make.top.left.right.equalTo(self.view);
+//    make.height.equalTo(@(200));
+//}];
+
+#pragma mark - vvUITextField
+//UITextField *textField = [[UITextField alloc] init];
+////    textField.tag = 100;
+//// textField.backgroundColor = [UIColor greenColor];  // 更改背景颜色
+//textField.borderStyle = UITextBorderStyleRoundedRect;  //边框类型
+//textField.font = [UIFont boldSystemFontOfSize:14.0];  // 字体
+//textField.textColor = [UIColor blueColor];  // 字体颜色
+////    textField.textAlignment = NSTextAlignmentLeft;  // 文本对齐方式
+////    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter; // 垂直对齐
+////    textField.adjustsFontSizeToFitWidth = YES; // 文字缩放
+////    textField.minimumFontSize = 40.0; // 缩放后最小字号
+////textField.text = @"请输入账号"; // 文本
+//textField.placeholder = @"请输入账号"; // 占位文字
+//textField.clearButtonMode = UITextFieldViewModeAlways; // 清空按钮
+////textField.clearsOnBeginEditing = YES; // 当编辑时清空
+////textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters; // 自动大写
+////    textField.autocorrectionType = UITextAutocorrectionTypeNo; // 单词检测 是否是单词 显示下划线
+////textField.background
+//textField.delegate = self;
+////textField.keyboardAppearance = UIKeyboardAppearanceAlert; // 键盘样式
+//textField.keyboardType = UIKeyboardTypeEmailAddress; // 键盘类型
+//textField.returnKeyType = UIReturnKeyGo;
+////    textField.secureTextEntry = YES; // 密码
+////    textField.layer.cornerRadius = 5.0; // 圆角 导入QuartzCore.framework, 引用#import <QuartzCore/QuartzCore.h>
+////    textField.borderStyle = UITextBorderStyleRoundedRect; // 光标过于靠前
+//
+//[textField mas_makeConstraints:^(MASConstraintMaker *make) {
+//    make.top.mas_equalTo(self.view.mas_top);
+//    make.left.mas_equalTo(self.view.mas_left);
+//    make.right.mas_equalTo(self.view.mas_right);
+//    make.height.mas_equalTo(@(40));
+//}];
+
+#pragma mark - scrollView
+// 注意事项
+// 当我们在view中添加了一个scrollView并设置其约束后，再向scrollView中添加一个以scrollView为基准的约束的控件时，约束会报错，这是因为scrollView需要根据添加在其内部的子控件的宽高及与四周的距离计算出它的contentSize，也就是说内部子控件约束的添加需要遵循两个原则:
+//1、scrollView内部子控件的尺寸不能以scrollView的尺寸为参照
+//2、scrollView内部的子控件的约束必须完整
+//解决方法：
+//1、提供一个具体值的约束
+//2、子控件的尺寸可以参照scrollView以外其它的控件的尺寸(如控制器的view的尺寸)
+//- (UIScrollView *)scrollView {
+//    if (!_scrollView) {
+//        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];;
+//        _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)+1000); // 设置UIScrollView的滚动范围
+//        _scrollView.pagingEnabled = YES;
+//        //        _scrollView.scrollEnabled = YES;
+//        _scrollView.delegate = self;
+//        // 隐藏水平滚动条
+//        _scrollView.showsHorizontalScrollIndicator = NO;
+//        //        _scrollView.showsVerticalScrollIndicator = NO;
+//        _scrollView.bounces = NO; // 去掉弹簧效果
+//        _scrollView.backgroundColor = [UIColor whiteColor];
+//    }
+//    return _scrollView;
+//}
+
 
 
 

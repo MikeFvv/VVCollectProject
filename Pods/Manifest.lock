@@ -18,6 +18,7 @@ PODS:
     - JSPatch/Core (= 1.1.3)
   - JSPatch/Core (1.1.3)
   - Masonry (1.1.0)
+  - MJExtension (3.0.16)
   - MJRefresh (3.1.16)
   - SocketRocket (0.5.1)
   - TZImagePickerController (3.2.0)
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - AFNetworking
   - JSPatch
   - Masonry
+  - MJExtension
   - MJRefresh
   - SocketRocket
   - TZImagePickerController
@@ -47,6 +49,7 @@ SPEC REPOS:
     - AFNetworking
     - JSPatch
     - Masonry
+    - MJExtension
     - MJRefresh
     - SocketRocket
     - TZImagePickerController
@@ -60,6 +63,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 54dbbf6ee728f1a88e9aad904353d007831c7847
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   TZImagePickerController: 7850b158d025065b162a1a963d445040b828abc9
@@ -69,6 +73,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: a82506229d8ce1a4b788edc2dac224f15b9ab5e3
+PODFILE CHECKSUM: cd194cde5f580f7d5482f1172898c5d961fbc56f
 
 COCOAPODS: 1.5.3

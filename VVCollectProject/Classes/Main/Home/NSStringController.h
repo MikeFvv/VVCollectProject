@@ -2,7 +2,7 @@
 //  NSStringController.h
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/3/18.
+//  Created by Mike on 2019/3/18.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 

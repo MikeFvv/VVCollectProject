@@ -2,7 +2,7 @@
 //  NetworkIndicatorView.h
 //  VVCollectProject
 //
-//  Created by 罗耀生 on 2019/3/24.
+//  Created by Mike on 2019/3/24.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 

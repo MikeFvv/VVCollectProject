@@ -248,7 +248,7 @@
         } else {
             
             // 大于11 全部算 self.playerTotal 的值
-            if (self.aceFlag_P && self.playerTotal <= 11) {
+            if (!self.isDoubleOne && self.aceFlag_P && self.playerTotal <= 11) {
                 if (self.isAutoRun) {
                     if (self.p_ATotal <= 17) {
                         [self playerLogic];

@@ -30,6 +30,8 @@ target 'VVCollectProject' do
   pod 'YYText'
 #  pod 'YYAsyncLayer'
   pod 'YYCategories'
+  # 字典转模型框架
+  pod 'MJExtension'
   
   # 热更新
   pod 'JSPatch'

@@ -1,19 +1,18 @@
-/*
- * author 孔凡列
- *
- * gitHub https://github.com/gitkong
- * cocoaChina http://code.cocoachina.com/user/
- * 简书 http://www.jianshu.com/users/fe5700cfb223/latest_articles
- * QQ 279761135
- * 喜欢就给个like 和 star 喔~
- */
+//
+//  FYSocketManager.m
+//  VVCollectProject
+//
+//  Created by Mike on 2019/3/30.
+//  Copyright © 2019 Mike. All rights reserved.
+//
 
-#import "FLSocketManager.h"
+#import "FYSocketManager.h"
 #import "SRWebSocket.h"
-@interface FLSocketManager ()<SRWebSocketDelegate>
+
+@interface FYSocketManager ()<SRWebSocketDelegate>
 @property (nonatomic,strong)SRWebSocket *webSocket;
 
-@property (nonatomic,assign)FLSocketStatus fl_socketStatus;
+@property (nonatomic,assign)FYSocketStatus FY_socketStatus;
 
 @property (nonatomic,weak)NSTimer *timer;
 
@@ -21,13 +20,13 @@
 
 @end
 
-@implementation FLSocketManager{
+@implementation FYSocketManager{
     NSInteger _reconnectCounter;
 }
 
 
 + (instancetype)shareManager{
-    static FLSocketManager *instance;
+    static FYSocketManager *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];
@@ -37,34 +36,34 @@
     return instance;
 }
 
-- (void)fl_open:(NSString *)urlStr connect:(FLSocketDidConnectBlock)connect receive:(FLSocketDidReceiveBlock)receive failure:(FLSocketDidFailBlock)failure{
-    [FLSocketManager shareManager].connect = connect;
-    [FLSocketManager shareManager].receive = receive;
-    [FLSocketManager shareManager].failure = failure;
-    [self fl_open:urlStr];
+- (void)fy_open:(NSString *)urlStr connect:(FYSocketDidConnectBlock)connect receive:(FYSocketDidReceiveBlock)receive failure:(FYSocketDidFailBlock)failure{
+    [FYSocketManager shareManager].connect = connect;
+    [FYSocketManager shareManager].receive = receive;
+    [FYSocketManager shareManager].failure = failure;
+    [self fy_open:urlStr];
 }
 
-- (void)fl_close:(FLSocketDidCloseBlock)close{
-    [FLSocketManager shareManager].close = close;
-    [self fl_close];
+- (void)fy_close:(FYSocketDidCloseBlock)close{
+    [FYSocketManager shareManager].close = close;
+    [self fy_close];
 }
 
 // Send a UTF8 String or Data.
-- (void)fl_send:(id)data{
-    switch ([FLSocketManager shareManager].fl_socketStatus) {
-        case FLSocketStatusConnected:
-        case FLSocketStatusReceived:{
+- (void)fy_send:(id)data{
+    switch ([FYSocketManager shareManager].FY_socketStatus) {
+        case FYSocketStatusConnected:
+        case FYSocketStatusReceived:{
             NSLog(@"发送中。。。");
             [self.webSocket send:data];
             break;
         }
-        case FLSocketStatusFailed:
+        case FYSocketStatusFailed:
             NSLog(@"发送失败");
             break;
-        case FLSocketStatusClosedByServer:
+        case FYSocketStatusClosedByServer:
             NSLog(@"已经关闭");
             break;
-        case FLSocketStatusClosedByUser:
+        case FYSocketStatusClosedByUser:
             NSLog(@"已经关闭");
             break;
     }
@@ -72,7 +71,7 @@
 }
 
 #pragma mark -- private method
-- (void)fl_open:(id)params{
+- (void)fy_open:(id)params{
 //    NSLog(@"params = %@",params);
     NSString *urlStr = nil;
     if ([params isKindOfClass:[NSString class]]) {
@@ -82,7 +81,7 @@
         NSTimer *timer = (NSTimer *)params;
         urlStr = [timer userInfo];
     }
-    [FLSocketManager shareManager].urlString = urlStr;
+    [FYSocketManager shareManager].urlString = urlStr;
     [self.webSocket close];
     self.webSocket.delegate = nil;
     
@@ -92,7 +91,7 @@
     [self.webSocket open];
 }
 
-- (void)fl_close{
+- (void)fy_close{
     
     [self.webSocket close];
     self.webSocket = nil;
@@ -100,12 +99,12 @@
     self.timer = nil;
 }
 
-- (void)fl_reconnect{
+- (void)fy_reconnect{
     // 计数+1
     if (_reconnectCounter < self.reconnectCount - 1) {
         _reconnectCounter ++;
         // 开启定时器
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.overtime target:self selector:@selector(fl_open:) userInfo:self.urlString repeats:NO];
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.overtime target:self selector:@selector(FY_open:) userInfo:self.urlString repeats:NO];
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
         self.timer = timer;
     }
@@ -124,47 +123,47 @@
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket{
     NSLog(@"Websocket Connected");
     
-    [FLSocketManager shareManager].connect ? [FLSocketManager shareManager].connect() : nil;
-    [FLSocketManager shareManager].fl_socketStatus = FLSocketStatusConnected;
+    [FYSocketManager shareManager].connect ? [FYSocketManager shareManager].connect() : nil;
+    [FYSocketManager shareManager].FY_socketStatus = FYSocketStatusConnected;
     // 开启成功后重置重连计数器
     _reconnectCounter = 0;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
     NSLog(@":( Websocket Failed With Error %@", error);
-    [FLSocketManager shareManager].fl_socketStatus = FLSocketStatusFailed;
-    [FLSocketManager shareManager].failure ? [FLSocketManager shareManager].failure(error) : nil;
+    [FYSocketManager shareManager].FY_socketStatus = FYSocketStatusFailed;
+    [FYSocketManager shareManager].failure ? [FYSocketManager shareManager].failure(error) : nil;
     // 重连
-    [self fl_reconnect];
+    [self fy_reconnect];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
     NSLog(@":( Websocket Receive With message %@", message);
-    [FLSocketManager shareManager].fl_socketStatus = FLSocketStatusReceived;
-    [FLSocketManager shareManager].receive ? [FLSocketManager shareManager].receive(message,FLSocketReceiveTypeForMessage) : nil;
+    [FYSocketManager shareManager].FY_socketStatus = FYSocketStatusReceived;
+    [FYSocketManager shareManager].receive ? [FYSocketManager shareManager].receive(message,FYSocketReceiveTypeForMessage) : nil;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
     NSLog(@"Closed Reason:%@  code = %zd",reason,code);
     if (reason) {
-        [FLSocketManager shareManager].fl_socketStatus = FLSocketStatusClosedByServer;
+        [FYSocketManager shareManager].FY_socketStatus = FYSocketStatusClosedByServer;
         // 重连
-        [self fl_reconnect];
+        [self fy_reconnect];
     }
     else{
-        [FLSocketManager shareManager].fl_socketStatus = FLSocketStatusClosedByUser;
+        [FYSocketManager shareManager].FY_socketStatus = FYSocketStatusClosedByUser;
     }
-    [FLSocketManager shareManager].close ? [FLSocketManager shareManager].close(code,reason,wasClean) : nil;
+    [FYSocketManager shareManager].close ? [FYSocketManager shareManager].close(code,reason,wasClean) : nil;
     self.webSocket = nil;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload{
-    [FLSocketManager shareManager].receive ? [FLSocketManager shareManager].receive(pongPayload,FLSocketReceiveTypeForPong) : nil;
+    [FYSocketManager shareManager].receive ? [FYSocketManager shareManager].receive(pongPayload,FYSocketReceiveTypeForPong) : nil;
 }
 
 - (void)dealloc{
     // Close WebSocket
-    [self fl_close];
+    [self fy_close];
 }
 
 @end

@@ -16,6 +16,8 @@
 #import "YYFPSLabel.h"
 #import "UIColor+Random.h"
 
+#import "RootController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -24,6 +26,14 @@
 
 #pragma mark程序启动
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    RootController *vc = [[RootController alloc]init];
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
+    [self.window makeKeyAndVisible];
+    return YES;
+    
     
 //#if TARGET_IPHONE_SIMULATOR
 //    [JPEngine startEngine];
@@ -37,17 +47,18 @@
 //    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //    self.window.backgroundColor = [UIColor whiteColor];
     
-    BaseNavigationController *firstNav = [[BaseNavigationController alloc] initWithRootViewController:[HomeViewController new]];
-    UITabBarController *tabBarVC = [UITabBarController new];
-    tabBarVC.viewControllers = @[firstNav];
-    self.window.rootViewController = tabBarVC;
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    BaseNavigationController *firstNav = [[BaseNavigationController alloc] initWithRootViewController:[[HomeViewController alloc]init]];
+//    UITabBarController *tabBarVC = [UITabBarController new];
+//    tabBarVC.viewControllers = @[firstNav];
+    self.window.rootViewController = firstNav;
     
 //    self.window.rootViewController = [ViewController new];
 //    [self setNavBarAppearence];
     
     
     // 刷新率
-    [self.window addSubview:[[YYFPSLabel alloc] initWithFrame:CGRectMake(20, 70, 0, 0)]];
+//    [self.window addSubview:[[YYFPSLabel alloc] initWithFrame:CGRectMake(20, 70, 0, 0)]];
     
     //程序崩溃检测记录
 //    [self recordCrashCount];
@@ -56,8 +67,11 @@
     
     
     
-//    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];
     return YES;
+    
+    
+    
 }
 
 
@@ -343,15 +357,15 @@
 
 
 #pragma mark - getter
-- (UIWindow *)window
-{
-    if(!_window)
-    {
-        _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//        _window.backgroundColor = [UIColor RandomColor];
-        [_window makeKeyAndVisible];
-    }
-    return _window;
-}
+//- (UIWindow *)window
+//{
+//    if(!_window)
+//    {
+//        _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+////        _window.backgroundColor = [UIColor RandomColor];
+////        [_window makeKeyAndVisible];
+//    }
+//    return _window;
+//}
 
 @end
