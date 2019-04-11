@@ -326,3 +326,6 @@ defineClass("WXShareModel", {
             self.setValue_forKey(shareUrl,"_link");
             }
             }, {});
+
+
+// 宏里面的东西 是不能直接更改， 只能在类里面修改

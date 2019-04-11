@@ -37,7 +37,9 @@
      设置宽度为self.view的一半，multipliedBy是倍数的意思，也就是，使宽度等于self.view宽度的0.5倍
      make.width.equalTo(self.view.mas_width).multipliedBy(0.5);
      
+     make.left.right.mas_equalTo(0);
      
+     make.edges.equalTo(self.view);
      
      */
 }
