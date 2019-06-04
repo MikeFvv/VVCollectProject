@@ -49,7 +49,6 @@
     cell.detailTextLabel.text = @"bbb";
     // 4.设置cell的属性...
     return cell;
-    return cell;
 }
 
 // 设置组数

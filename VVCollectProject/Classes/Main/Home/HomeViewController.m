@@ -13,8 +13,10 @@
 #import "UIColor+Hexadecimal.h"
 #import "BlackJackController.h"
 #import "NetworkIndicatorView.h"
+#import "HackerViewController.h"
 
 #import "SSChatController.h"
+#import "FYStatusBarHUD.h"
 
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
@@ -27,8 +29,11 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic,strong) UISearchBar *searchBar;
 
-@property(nonatomic,strong)NSMutableArray *datas;
+@property(nonatomic,strong) NSMutableArray *datas;
 
+
+// 是否最底部
+@property (nonatomic,assign) BOOL isTableViewBottom;
 
 @end
 
@@ -61,13 +66,28 @@
     self.applications = [Application applicationsFromJSONAtPath:path];
     
     [self.view addSubview:self.tableView];
-//    [self searchBarInit];
+    //    [self searchBarInit];
     
     UIBarButtonItem *barBtn1=[[UIBarButtonItem alloc]initWithTitle:@"左边" style:UIBarButtonItemStylePlain target:self action:@selector(changeColor)];
     self.navigationItem.leftBarButtonItem=barBtn1;
-//    [self network];
+    //    [self network];
 }
 
+- (void)fyStatusBarHUD {
+    // 1 成功
+    [FYStatusBarHUD showSuccess:@"success"];
+    // 2 错误
+    [FYStatusBarHUD showError:@"error"];
+    
+    // 3
+    [FYStatusBarHUD showMessage:@"message" image:[UIImage imageNamed:@"vv_normal"]];
+    
+    // 4 加载
+    [FYStatusBarHUD showLoading:@"loading..."];
+    
+    // 5 消失
+    [FYStatusBarHUD hide];
+}
 
 #pragma mark - 无网络警告视图
 - (void)network {
@@ -258,7 +278,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight=100;   //设置每一行的高度
-//        _tableView.scrollEnabled = NO;  //设置tableview 不能滚动
+        //        _tableView.scrollEnabled = NO;  //设置tableview 不能滚动
     }
     
     return _tableView;
@@ -319,16 +339,13 @@
         return;
         BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    } else if (indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6) {
+    }  else if (indexPath.row == 3) {
         
-        [self initData];
-        SSChatController *vc = [SSChatController new];
-        vc.chatType = (SSChatConversationType)[_datas[0][@"type"]integerValue];
-        vc.sessionId = _datas[0][@"sectionId"];
-        vc.titleString = _datas[0][@"title"];
-        vc.hidesBottomBarWhenPushed = YES;
+        HackerViewController *vc = [HackerViewController new];
         [self.navigationController pushViewController:vc animated:YES];
         
+    } else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6) {
+        //        [self goto_ChatController];
     } else {
         [self doPush];
     }
@@ -346,22 +363,9 @@
     
 }
 
--(void)initData{
 
-        _datas = [NSMutableArray new];
-        [_datas addObjectsFromArray:@[@{@"image":@"touxiang1",
-                                        @"title":@"神经萝卜",
-                                        @"detail":@"王医生你好，我最近老感觉头晕乏力，是什么原因造成的呢？",
-                                        @"sectionId":@"13540033103",
-                                        @"type":@"1"
-                                        },
-                                      @{@"image":@"touxaing2",
-                                        @"title":@"王医生",
-                                        @"detail":@"您好，可以给我发送一份你的体检报告吗？便于我了解情况，谁是给我打电话13540033104",
-                                        @"sectionId":@"13540033104",
-                                        @"type":@"1"
-                                        }]];
-}
+
+
 
 #pragma mark - 防止多次push  RepeatPush 文件夹类
 // 防止多次push   RepeatPush 文件夹类
@@ -441,6 +445,74 @@
 {
     // Do something
 }
+
+
+
+#pragma mark - 滚动到最底部功能
+// 滚动到最底部  https://www.jianshu.com/p/03c478adcae7
+-(void)scrollToBottom {
+    if (self.datas.count > 0) {
+        if ([self.tableView numberOfRowsInSection:0] > 0) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([self.tableView numberOfRowsInSection:0]-1) inSection:0];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+    }
+}
+
+#pragma mark - 判断TableView是否在最底部
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if ((bottomOffset-150) <= height) {  // 这里可以修改高度
+        //在最底部
+        self.isTableViewBottom = YES;
+    } else {
+        self.isTableViewBottom = NO;
+    }
+}
+
+
+
+
+
+#pragma mark - IM 功能
+/**
+ 跳转到聊天控制器
+ */
+- (void)goto_ChatController {
+    [self initData];
+    SSChatController *vc = [SSChatController new];
+    vc.chatType = (SSChatConversationType)[_datas[0][@"type"]integerValue];
+    vc.sessionId = _datas[0][@"sectionId"];
+    vc.titleString = _datas[0][@"title"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+/**
+ 初始化数据
+ */
+-(void)initData{
+    
+    _datas = [NSMutableArray new];
+    [_datas addObjectsFromArray:@[@{@"image":@"touxiang1",
+                                    @"title":@"神经萝卜",
+                                    @"detail":@"王医生你好，我最近老感觉头晕乏力，是什么原因造成的呢？",
+                                    @"sectionId":@"13540033103",
+                                    @"type":@"1"
+                                    },
+                                  @{@"image":@"touxaing2",
+                                    @"title":@"王医生",
+                                    @"detail":@"您好，可以给我发送一份你的体检报告吗？便于我了解情况，谁是给我打电话13540033104",
+                                    @"sectionId":@"13540033104",
+                                    @"type":@"1"
+                                    }]];
+}
+
+
+
 
 
 @end

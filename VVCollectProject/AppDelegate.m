@@ -27,12 +27,12 @@
 #pragma mark程序启动
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    RootController *vc = [[RootController alloc]init];
-    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
-    [self.window makeKeyAndVisible];
-    return YES;
+//    RootController *vc = [[RootController alloc]init];
+//    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
+//    [self.window makeKeyAndVisible];
+//    return YES;
     
     
 //#if TARGET_IPHONE_SIMULATOR
@@ -369,3 +369,59 @@
 //}
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+//  ******************************* 每个程序创建刚开始生成的方法 *******************************
+/*
+// 程序 开始运行
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    // 应用程序启动后覆盖自定义的点。
+    return YES;
+}
+
+// 程序 挂起（有电话进来 或者 锁屏(拉下状态栏、双击Home键使App界面上移) 的时候）
+- (void)applicationWillResignActive:(UIApplication *)application {
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    
+    //当应用程序即将从活动状态转换为非活动状态时发送。 对于某些类型的临时中断（例如来电或SMS消息）或当用户退出应用程序并且它开始转换到后台状态时，可能会发生这种情况。
+         //使用此方法暂停正在进行的任务，禁用计时器，并使图形渲染回调无效。 游戏应该使用这种方法暂停游戏。
+}
+
+// 程序 进入后台
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //使用此方法释放共享资源，保存用户数据，使计时器无效，并存储足够的应用程序状态信息，以便将应用程序恢复到当前状态，以防以后终止。
+         //如果您的应用程序支持后台执行，则在用户退出时调用此方法而不是applicationWillTerminate：
+}
+
+// 程序 进入前台
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    //被称为从背景到活动状态的过渡的一部分; 在这里，您可以撤消进入后台时所做的许多更改。
+}
+
+// 程序 重新激活（复原）注意：应用程序在启动时，在调用了“applicationDidFinishLaunching”方法之后 同样也会 调用“applicationDidBecomeActive”方法!
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //在应用程序处于非活动状态时重新启动暂停（或尚未启动）的任何任务。 如果应用程序以前在后台，则可以选择刷新用户界面。
+}
+
+// 程序 终止（注：如果点击主按钮强制退出，则不会调用该方法。）
+- (void)applicationWillTerminate:(UIApplication *)application {
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    //在应用程序即将终止时调用。 如果合适，保存数据。 另请参见applicationDidEnterBackground：。
+}
+
+*/

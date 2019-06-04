@@ -329,3 +329,22 @@ defineClass("WXShareModel", {
 
 
 // 宏里面的东西 是不能直接更改， 只能在类里面修改
+
+
+
+// ============= 操作字典 =============
+require("AppModel");
+defineClass("BecomeAgentViewController", {
+            imageUrl: function() {      // imageUrl 是熟悉  新添加的方法  回自动调用
+//            var url = AppModel.shareInstance().commonInfo()["agent_rule"];   // 错误  不能使用[] 操作oc
+            var url = AppModel.shareInstance().commonInfo().objectForKey("agent_rule");  // 正确
+            return url;
+            }
+            }, {});
+
+// ============= 操作数组 objectAtIndex =============
+//RCMessageModel *model = self.conversationDataRepository[indexPath.row];  // 错误
+// var model = self.conversationDataRepository()[indexPath.row()];  // 错误
+
+//RCMessageModel *model = [self.conversationDataRepository objectAtIndex:indexPath.row];   // 正确
+//var model = self.conversationDataRepository().objectAtIndex(indexPath.row());  // 正确

@@ -10,6 +10,11 @@
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A00AD675224BAB7100DFDA5C /* FYSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A00AD673224BAB7000DFDA5C /* FYSocketManager.m */; };
+		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
+		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
+		A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A011491B229A5DA800BDD14F /* FYStatusBarHUD.m */; };
+		A011E13322A65A5800A10869 /* UIResponder+Router.m in Sources */ = {isa = PBXBuildFile; fileRef = A011E13222A65A5800A10869 /* UIResponder+Router.m */; };
+		A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = A011E13522A65BC300A10869 /* UIButton+countDown.m */; };
 		A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC421ECB78D007E845B /* BANetManagerCache.m */; };
 		A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC521ECB78D007E845B /* BANetManager.m */; };
 		A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC621ECB78D007E845B /* UIImage+CompressImage.m */; };
@@ -280,6 +285,15 @@
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
 		A00AD673224BAB7000DFDA5C /* FYSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYSocketManager.m; sourceTree = "<group>"; };
 		A00AD674224BAB7100DFDA5C /* FYSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYSocketManager.h; sourceTree = "<group>"; };
+		A010CB532261BD8900618A52 /* HackerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HackerViewController.h; sourceTree = "<group>"; };
+		A010CB542261BD8900618A52 /* HackerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerViewController.m; sourceTree = "<group>"; };
+		A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FYStatusBarHUD.bundle; sourceTree = "<group>"; };
+		A011491A229A5DA700BDD14F /* FYStatusBarHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYStatusBarHUD.h; sourceTree = "<group>"; };
+		A011491B229A5DA800BDD14F /* FYStatusBarHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYStatusBarHUD.m; sourceTree = "<group>"; };
+		A011E13122A65A5800A10869 /* UIResponder+Router.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+Router.h"; sourceTree = "<group>"; };
+		A011E13222A65A5800A10869 /* UIResponder+Router.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+Router.m"; sourceTree = "<group>"; };
+		A011E13422A65BC300A10869 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
+		A011E13522A65BC300A10869 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
 		A0130DC321ECB78D007E845B /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
 		A0130DC421ECB78D007E845B /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
 		A0130DC521ECB78D007E845B /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
@@ -694,6 +708,15 @@
 			path = IM;
 			sourceTree = "<group>";
 		};
+		A010CB522261BD5E00618A52 /* Hacker */ = {
+			isa = PBXGroup;
+			children = (
+				A010CB532261BD8900618A52 /* HackerViewController.h */,
+				A010CB542261BD8900618A52 /* HackerViewController.m */,
+			);
+			path = Hacker;
+			sourceTree = "<group>";
+		};
 		A0130DBF21ECB78D007E845B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +774,10 @@
 		A0130DCC21ECB78D007E845B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				A011E13422A65BC300A10869 /* UIButton+countDown.h */,
+				A011E13522A65BC300A10869 /* UIButton+countDown.m */,
+				A011E13122A65A5800A10869 /* UIResponder+Router.h */,
+				A011E13222A65A5800A10869 /* UIResponder+Router.m */,
 				A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */,
 				A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */,
 				A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */,
@@ -806,6 +833,7 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A010CB522261BD5E00618A52 /* Hacker */,
 				A00AD672224BAB6300DFDA5C /* IM */,
 				A0BE49A12247727D00CDBE43 /* Common */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
@@ -1237,6 +1265,9 @@
 		A0BE49A12247727D00CDBE43 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */,
+				A011491A229A5DA700BDD14F /* FYStatusBarHUD.h */,
+				A011491B229A5DA800BDD14F /* FYStatusBarHUD.m */,
 				A0BE49A2224772B400CDBE43 /* NetworkIndicatorView.h */,
 				A0BE49A3224772B400CDBE43 /* NetworkIndicatorView.m */,
 			);
@@ -1259,10 +1290,10 @@
 		A0C5147121EE2E4F00E2F89D /* Loader */ = {
 			isa = PBXGroup;
 			children = (
-				A0C5147221EE2E4F00E2F89D /* tools */,
 				A0C5147421EE2E4F00E2F89D /* JPLoader.h */,
-				A0C5147521EE2E4F00E2F89D /* libs */,
 				A0C5148421EE2E4F00E2F89D /* JPLoader.m */,
+				A0C5147221EE2E4F00E2F89D /* tools */,
+				A0C5147521EE2E4F00E2F89D /* libs */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -1489,6 +1520,7 @@
 				A09FFD0D224D19E1002647F9 /* Expression_42@2x.png in Resources */,
 				A09FFD19224D19E2002647F9 /* Expression_52@2x.png in Resources */,
 				A09FFD0E224D19E1002647F9 /* Expression_21@2x.png in Resources */,
+				A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */,
 				A09FFD3B224D19E2002647F9 /* Expression_54@2x.png in Resources */,
 				A09FFD00224D19E1002647F9 /* liaotian_ic_yuyin_nor@2x.png in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
@@ -1712,6 +1744,7 @@
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				A09FFCE7224D19E1002647F9 /* SSChatKeyBoardDatas.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
+				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */,
 				A09FFCD6224D19E1002647F9 /* UIImage+SSAdd.m in Sources */,
@@ -1743,6 +1776,7 @@
 				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
+				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				A09FFCE9224D19E1002647F9 /* UUAVAudioPlayer.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A09FFD85224D1CA7002647F9 /* VVSSessionViewController.m in Sources */,
@@ -1751,6 +1785,7 @@
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
 				A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */,
 				A09FFD79224D19E2002647F9 /* SSAddImage.m in Sources */,
+				A011E13322A65A5800A10869 /* UIResponder+Router.m in Sources */,
 				A09FFCEA224D19E1002647F9 /* UUProgressHUD.m in Sources */,
 				A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */,
 				A09FFCE5224D19E1002647F9 /* SSChatVideoCell.m in Sources */,
@@ -1760,6 +1795,7 @@
 				A09FFD7E224D19E2002647F9 /* SSImageGroupData.m in Sources */,
 				A0C5148821EE2E4F00E2F89D /* zip.c in Sources */,
 				A09FFCE6224D19E1002647F9 /* SSChatViews.m in Sources */,
+				A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */,
 				A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				A09FFBF9224D18BF002647F9 /* RootController.m in Sources */,
