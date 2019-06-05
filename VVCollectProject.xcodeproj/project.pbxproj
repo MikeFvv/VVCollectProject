@@ -250,6 +250,7 @@
 		A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF0868223FCDFA00151F35 /* NSStringController.m */; };
 		A0F3E621220D5FA500755DBB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E620220D5FA500755DBB /* Person.m */; };
 		A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E623220D75FA00755DBB /* RunTimeController.m */; };
+		A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F4B42D22A79F28003B82F5 /* TestVS.m */; };
 		A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F607B62237CAFC002CD70B /* BlackJackCell.m */; };
 		A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FC8222ECCB400C4EE9C /* BJSpade.m */; };
 		A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCA222ECCB400C4EE9C /* UIView+JMNoise.m */; };
@@ -623,6 +624,8 @@
 		A0F3E620220D5FA500755DBB /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		A0F3E622220D75FA00755DBB /* RunTimeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTimeController.h; sourceTree = "<group>"; };
 		A0F3E623220D75FA00755DBB /* RunTimeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunTimeController.m; sourceTree = "<group>"; };
+		A0F4B42C22A79F28003B82F5 /* TestVS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVS.h; sourceTree = "<group>"; };
+		A0F4B42D22A79F28003B82F5 /* TestVS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVS.m; sourceTree = "<group>"; };
 		A0F607B52237CAFC002CD70B /* BlackJackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackCell.h; sourceTree = "<group>"; };
 		A0F607B62237CAFC002CD70B /* BlackJackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackCell.m; sourceTree = "<group>"; };
 		A0F91FC6222ECCB300C4EE9C /* PhysicalCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalCard.h; sourceTree = "<group>"; };
@@ -881,6 +884,8 @@
 			children = (
 				A0821DD321EF3B4700429C20 /* HomeViewController.h */,
 				A0821DD421EF3B4700429C20 /* HomeViewController.m */,
+				A0F4B42C22A79F28003B82F5 /* TestVS.h */,
+				A0F4B42D22A79F28003B82F5 /* TestVS.m */,
 				A0BCD7A922218B0D00BB3A9C /* SearchViewController.h */,
 				A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */,
 				A0BF4F56223BEA320038422F /* MasonryController.h */,
@@ -1729,6 +1734,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
 				A09FFD77224D19E2002647F9 /* SSChatKeyBordFunctionView.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,

@@ -17,6 +17,7 @@
 
 #import "SSChatController.h"
 #import "FYStatusBarHUD.h"
+#import "TestVS.h"
 
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
@@ -344,9 +345,15 @@
         HackerViewController *vc = [HackerViewController new];
         [self.navigationController pushViewController:vc animated:YES];
         
-    } else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6) {
+    } else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 6) {
         //        [self goto_ChatController];
-    } else {
+    } else if (indexPath.row == 5) {
+        
+        TestVS *vc = [TestVS new];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
+    else {
         [self doPush];
     }
     
