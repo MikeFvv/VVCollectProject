@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Person.h"
 #import <objc/runtime.h>
+#import "UIImage+NIMKit.h"
 
 @interface ViewController ()
 
@@ -281,6 +282,42 @@
     NSMutableDictionary *dic2 = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary: dic2];
 }
+
+#pragma mark -  获取聊天界面的图片尺寸
+
+
+/**
+ 获取聊天界面的图片尺寸
+
+ @param cellWidth Cell 宽度
+ @param size 图片实际尺寸
+ @return 返回处理后的图片尺寸
+ */
+- (CGSize)contentSize:(CGFloat)cellWidth size:(CGSize)size
+{
+    CGFloat attachmentImageMinWidth  = (cellWidth / 4.0);
+    CGFloat attachmentImageMinHeight = (cellWidth / 4.0);
+    CGFloat attachmemtImageMaxWidth  = (cellWidth - 184);
+    CGFloat attachmentImageMaxHeight = (cellWidth - 184);
+    
+    
+    CGSize imageSize;
+    if (!CGSizeEqualToSize(size, CGSizeZero)) {
+        imageSize = size;
+    }
+    else
+    {
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"图片url"]]];
+        //        UIImage *image = [UIImage imageWithContentsOfFile:_message.imageUrl];
+        imageSize = image ? image.size : CGSizeZero;
+    }
+    CGSize contentSize = [UIImage nim_sizeWithImageOriginSize:imageSize
+                                               minSize:CGSizeMake(attachmentImageMinWidth, attachmentImageMinHeight)
+                                               maxSize:CGSizeMake(attachmemtImageMaxWidth, attachmentImageMaxHeight )];
+    return contentSize;
+}
+
+
 #pragma mark -  无
 
 @end

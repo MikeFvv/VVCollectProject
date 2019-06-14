@@ -248,6 +248,7 @@
 		A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DCEF5D2236A773002FF19C /* BJDetailsController.m */; };
 		A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */; };
 		A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF0868223FCDFA00151F35 /* NSStringController.m */; };
+		A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */; };
 		A0F3E621220D5FA500755DBB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E620220D5FA500755DBB /* Person.m */; };
 		A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F3E623220D75FA00755DBB /* RunTimeController.m */; };
 		A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F4B42D22A79F28003B82F5 /* TestVS.m */; };
@@ -620,6 +621,8 @@
 		A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VVFunctionManager.m; sourceTree = "<group>"; };
 		A0DF0867223FCDFA00151F35 /* NSStringController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStringController.h; sourceTree = "<group>"; };
 		A0DF0868223FCDFA00151F35 /* NSStringController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSStringController.m; sourceTree = "<group>"; };
+		A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NIMKit.m"; sourceTree = "<group>"; };
+		A0F13BE322B3BB90000C213C /* UIImage+NIMKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NIMKit.h"; sourceTree = "<group>"; };
 		A0F3E61F220D5FA500755DBB /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		A0F3E620220D5FA500755DBB /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		A0F3E622220D75FA00755DBB /* RunTimeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTimeController.h; sourceTree = "<group>"; };
@@ -777,6 +780,8 @@
 		A0130DCC21ECB78D007E845B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				A0F13BE322B3BB90000C213C /* UIImage+NIMKit.h */,
+				A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */,
 				A011E13422A65BC300A10869 /* UIButton+countDown.h */,
 				A011E13522A65BC300A10869 /* UIButton+countDown.m */,
 				A011E13122A65A5800A10869 /* UIResponder+Router.h */,
@@ -1748,6 +1753,7 @@
 				A09FFCE4224D19E1002647F9 /* SSChatVoiceCell.m in Sources */,
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
+				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
 				A09FFCE7224D19E1002647F9 /* SSChatKeyBoardDatas.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
 				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
