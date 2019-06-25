@@ -318,6 +318,21 @@
 }
 
 
+#pragma mark -  判断数组是否包含某个元素
+
+- (void)containsObjectTest {
+    NSString *str = @"数组";
+    NSArray *array=@[@"who",@"数组",@"array",@"3"];
+    BOOL isbool = [array containsObject: str];
+    NSLog(@"%i",isbool);
+    
+//    i＝1；数组包含某个元素
+//    i＝0；数组不包含某个元素
+}
+
+
 #pragma mark -  无
+
+
 
 @end
