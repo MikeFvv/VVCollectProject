@@ -95,7 +95,7 @@ static dispatch_semaphore_t semaphore;
             } 
             
             NSString *dicString = [string substringFromIndex:range.location];
-            if (dicString == nil) {
+            if (!dicString) {
                 return;
             }
             NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:[dicString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];

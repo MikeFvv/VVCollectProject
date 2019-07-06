@@ -141,7 +141,7 @@
 
 - (NSMutableArray*)blackjackDataArray
 {
-    if (_blackjackDataArray == nil) {
+    if (!_blackjackDataArray) {
         _blackjackDataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.blackJackDataSource.sortedDeckArray pokerPairsNum:6]];
     }
     return _blackjackDataArray;
@@ -691,7 +691,7 @@
 
 - (BlackJackDataSource*)blackJackDataSource
 {
-    if (_blackJackDataSource == nil)
+    if (!_blackJackDataSource)
     {
         _blackJackDataSource = [[BlackJackDataSource alloc] init];
     }

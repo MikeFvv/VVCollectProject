@@ -42,7 +42,7 @@
     // 2.从缓存池中取出cell
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     // 3.如果缓存池中没有cell
-    if (cell == nil) {
+    if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     cell.textLabel.text = @"aaa";
