@@ -12,8 +12,8 @@
 
 @interface BJDetailsController ()<UITableViewDataSource, UITableViewDelegate>
 
-// <#strong注释#>
-@property (nonatomic,strong) UITableView *tableView;
+/// <#strong注释#>
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 

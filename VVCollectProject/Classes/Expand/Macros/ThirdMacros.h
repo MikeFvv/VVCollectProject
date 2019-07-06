@@ -38,10 +38,10 @@
 static NSString * const WXKey = @"wxb9a25b32bcf8449c";
 static NSString * const WXSecret = @"2853774d619b53cef728d235874058ce";
 
-// 自定义红包 特殊字符判断
+/// 自定义红包 特殊字符判断
 static NSString * const RedPacketString = @"~!@#$%^&*()";
 
-// 在线客服系统
+/// 在线客服系统
 static NSString * const ServiceLink  =  @"http://api.pop800.com/chat/366223";
 
 // static NSString* const H_KEY  =  @"652e6f3c7dcf22227cc884ce9c5730b5";//临时请求，key固定 玩家接口i

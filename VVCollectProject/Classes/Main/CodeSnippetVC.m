@@ -25,25 +25,23 @@
 - (void)property {
     /*
      
-     // <#assign注释#>
+     /// <#assign注释#>
      @property (nonatomic, assign) <#Class#> <#property#>;
-     // <#block注释#>
+     /// <#block注释#>
      @property (nonatomic, copy) <#Block#> <#block#>;
-     // <#copy注释#>
+     /// <#copy注释#>
      @property (nonatomic, copy) NSString *<#string#>;
-     // <#delegate注释#>
+     /// <#delegate注释#>
      @property (nonatomic, weak) id<<#protocol#>> <#delegate#>;
-     // <#strong注释#>
+     /// <#strong注释#>
      @property (nonatomic, strong) <#Class#> *<#object#>;
-     // <#weak注释#>
+     /// <#weak注释#>
      @property (nonatomic, weak) <#Class#> *<#object#>;
      
      #pragma mark -  <#要注释的内容#>
      
      */
 }
-
-
 
 #pragma mark - vvUITableView
 //- (UITableView *)tableView{

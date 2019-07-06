@@ -27,47 +27,47 @@
 @interface BaccaratController ()<UITableViewDataSource, UITableViewDelegate>
 
 //
-@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 
-// 牌副数
-@property (nonatomic,assign) NSInteger pokerNum;
-// 下注金额
-@property (nonatomic,assign) NSInteger betMoney;
-// 下注输赢总金额
-@property (nonatomic,assign) NSInteger betTotalMoney;
-// 庄闲和 0 和 1 庄 2 闲
-@property (nonatomic,assign) NSInteger buyType;
-// 间隔局数量
-@property (nonatomic,assign) NSInteger intervalNum;
+/// 牌副数
+@property (nonatomic, assign) NSInteger pokerNum;
+/// 下注金额
+@property (nonatomic, assign) NSInteger betMoney;
+/// 下注输赢总金额
+@property (nonatomic, assign) NSInteger betTotalMoney;
+/// 庄闲和 0 和 1 庄 2 闲
+@property (nonatomic, assign) NSInteger buyType;
+/// 间隔局数量
+@property (nonatomic, assign) NSInteger intervalNum;
 
-// 牌副数
+/// 牌副数
 @property (nonatomic, strong) UITextField *pokerNumTextField;
-// 下注金额
+/// 下注金额
 @property (nonatomic, strong) UITextField *betMoneyTextField;
 
 
-// 牌的总张数
-@property (nonatomic,assign) NSInteger pokerTotalNum;
-// 发牌局数
-@property (nonatomic,assign) NSInteger pokerCount;
+/// 牌的总张数
+@property (nonatomic, assign) NSInteger pokerTotalNum;
+/// 发牌局数
+@property (nonatomic, assign) NSInteger pokerCount;
 
-// 闲局数
-@property (nonatomic,assign) NSInteger playerCount;
-// 庄局数
-@property (nonatomic,assign) NSInteger bankerCount;
+/// 闲局数
+@property (nonatomic, assign) NSInteger playerCount;
+/// 庄局数
+@property (nonatomic, assign) NSInteger bankerCount;
 
-// 闲对局数
-@property (nonatomic,assign) NSInteger playerPairCount;
-// 庄对局数
-@property (nonatomic,assign) NSInteger bankerPairCount;
-// 每局的 Pair 统计， 一次出2个也算1个
-@property (nonatomic,assign) NSInteger bankerPlayerSinglePairCount;
+/// 闲对局数
+@property (nonatomic, assign) NSInteger playerPairCount;
+/// 庄对局数
+@property (nonatomic, assign) NSInteger bankerPairCount;
+/// 每局的 Pair 统计， 一次出2个也算1个
+@property (nonatomic, assign) NSInteger bankerPlayerSinglePairCount;
 
-// Super6
-@property (nonatomic,assign) NSInteger superSixCount;
-// 和局
-@property (nonatomic,assign) NSInteger tieCount;
+/// Super6
+@property (nonatomic, assign) NSInteger superSixCount;
+/// 和局
+@property (nonatomic, assign) NSInteger tieCount;
 
 
 
@@ -77,52 +77,52 @@
 
 
 
-// 结果数据
+/// 结果数据
 @property (nonatomic, strong) NSMutableArray *resultDataArray;
 
-//
-@property (nonatomic,strong) UITableView *tableView;
+///
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) UILabel *pokerCountLabel;
-@property (nonatomic,strong) UILabel *bankerCountLabel;
-@property (nonatomic,strong) UILabel *playerCountLabel;
-@property (nonatomic,strong) UILabel *tieCountLabel;
-@property (nonatomic,strong) UILabel *bankerPairCountLabel;
-@property (nonatomic,strong) UILabel *playerPairCountLabel;
-@property (nonatomic,strong) UILabel *superSixCountLabel;
-@property (nonatomic,strong) UILabel *kkkLabel;
-@property (nonatomic,strong) UILabel *buyMoneyLabel;
-@property (nonatomic,strong) UILabel *timeLabel;
-@property (nonatomic,strong) UILabel *aaaa;
-@property (nonatomic,strong) UILabel *bbbb;
+@property (nonatomic, strong) UILabel *bankerCountLabel;
+@property (nonatomic, strong) UILabel *playerCountLabel;
+@property (nonatomic, strong) UILabel *tieCountLabel;
+@property (nonatomic, strong) UILabel *bankerPairCountLabel;
+@property (nonatomic, strong) UILabel *playerPairCountLabel;
+@property (nonatomic, strong) UILabel *superSixCountLabel;
+@property (nonatomic, strong) UILabel *kkkLabel;
+@property (nonatomic, strong) UILabel *buyMoneyLabel;
+@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *aaaa;
+@property (nonatomic, strong) UILabel *bbbb;
 
-// 买庄
-@property (nonatomic,strong) UIButton *buyBankerBtn;
-// 买闲
-@property (nonatomic,strong) UIButton *buyPlayerBtn;
+/// 买庄
+@property (nonatomic, strong) UIButton *buyBankerBtn;
+/// 买闲
+@property (nonatomic, strong) UIButton *buyPlayerBtn;
 
 
 // ************************ 统计字段 ************************
-// 跳转的
-@property (nonatomic,assign) NSInteger jumpsCount;
-@property (nonatomic,assign) NSInteger continuous2;
-@property (nonatomic,assign) NSInteger continuous3;
-@property (nonatomic,assign) NSInteger continuous4;
-@property (nonatomic,assign) NSInteger continuous5;
-@property (nonatomic,assign) NSInteger continuous6;
-@property (nonatomic,assign) NSInteger continuous7;
-@property (nonatomic,assign) NSInteger continuous8;
-// 单跳
-@property (nonatomic,assign) NSInteger singleJumpCount;
+/// 跳转的
+@property (nonatomic, assign) NSInteger jumpsCount;
+@property (nonatomic, assign) NSInteger continuous2;
+@property (nonatomic, assign) NSInteger continuous3;
+@property (nonatomic, assign) NSInteger continuous4;
+@property (nonatomic, assign) NSInteger continuous5;
+@property (nonatomic, assign) NSInteger continuous6;
+@property (nonatomic, assign) NSInteger continuous7;
+@property (nonatomic, assign) NSInteger continuous8;
+/// 单跳
+@property (nonatomic, assign) NSInteger singleJumpCount;
 
-@property (nonatomic,assign) NSInteger bankerPairOrplayerPairContinuousCount;
-// 庄闲间隔局数数量
-@property (nonatomic,assign) NSInteger bankerPairOrplayerPairIntervalCount;
-@property (nonatomic,assign) NSInteger playerPairContinuousCount;
-@property (nonatomic,assign) NSInteger superSixContinuousCount;
+@property (nonatomic, assign) NSInteger bankerPairOrplayerPairContinuousCount;
+/// 庄闲间隔局数数量
+@property (nonatomic, assign) NSInteger bankerPairOrplayerPairIntervalCount;
+@property (nonatomic, assign) NSInteger playerPairContinuousCount;
+@property (nonatomic, assign) NSInteger superSixContinuousCount;
 
-// 距离前6局的相同的数量
-@property (nonatomic,assign) NSInteger front6SameCount;
+/// 距离前6局的相同的数量
+@property (nonatomic, assign) NSInteger front6SameCount;
 
 
 
@@ -172,7 +172,7 @@
 - (void)initUI {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     UITextField *pokerNumTextField = [[UITextField alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginHeight, 60, kBtnHeight)];
     pokerNumTextField.text = @"8";
     pokerNumTextField.keyboardType = UIKeyboardTypeNumberPad;

@@ -13,11 +13,11 @@
 
 
 @property (nonatomic,strong) UILabel *bankerOrPlayerOrTieLabel;
-// 庄对
+/// 庄对
 @property (nonatomic,strong) UIView *bankerPairView;
-// 闲对
+/// 闲对
 @property (nonatomic,strong) UIView *playerPairView;
-// 幸运6
+/// 幸运6
 @property (nonatomic,assign) UIView *superSixView;
 
 
