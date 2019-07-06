@@ -26,17 +26,17 @@
     /*
      
      // <#assign注释#>
-     @property (nonatomic,assign) <#Class#> <#property#>;
+     @property (nonatomic, assign) <#Class#> <#property#>;
      // <#block注释#>
-     @property (nonatomic,copy) <#Block#> <#block#>;
+     @property (nonatomic, copy) <#Block#> <#block#>;
      // <#copy注释#>
-     @property (nonatomic,copy) NSString *<#string#>;
+     @property (nonatomic, copy) NSString *<#string#>;
      // <#delegate注释#>
-     @property (nonatomic,weak) id<<#protocol#>> <#delegate#>;
+     @property (nonatomic, weak) id<<#protocol#>> <#delegate#>;
      // <#strong注释#>
-     @property (nonatomic,strong) <#Class#> *<#object#>;
+     @property (nonatomic, strong) <#Class#> *<#object#>;
      // <#weak注释#>
-     @property (nonatomic,weak) <#Class#> *<#object#>;
+     @property (nonatomic, weak) <#Class#> *<#object#>;
      
      #pragma mark -  <#要注释的内容#>
      
@@ -199,6 +199,23 @@
 //    }
 //    return _scrollView;
 //}
+
+
+
+
+// 单例
+
+//static id *_instance = nil;
+//
+//+ (instancetype)shareInstance
+//{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        _instance = [[self alloc] init];
+//    });
+//    return _instance;
+//}
+
 
 
 

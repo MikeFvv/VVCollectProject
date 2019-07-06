@@ -16,8 +16,6 @@
 #import "YYFPSLabel.h"
 #import "UIColor+Random.h"
 
-#import "RootController.h"
-
 @interface AppDelegate ()
 
 @end
