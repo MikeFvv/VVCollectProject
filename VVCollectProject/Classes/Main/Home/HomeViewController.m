@@ -17,22 +17,30 @@
 #import "FYStatusBarHUD.h"
 #import "TestVS.h"
 
+
+#define dispatch_main_async_safe(block)\
+if ([NSThread isMainThread]) {\
+block();\
+} else {\
+dispatch_async(dispatch_get_main_queue(), block);\
+}
+
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic, strong) NSArray *applications;
-// 定时器
+/// 定时器
 @property (nonatomic, strong) NSTimer *timerView;
-//
-@property (nonatomic, strong) UITableView *tableView;
+/// 定时器2
+@property(nonatomic, strong) NSTimer *repeatRequestTimer;
 
+/// 表单
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
-
-@property (nonatomic, strong) NSMutableArray *datas;
-
-
-// 是否最底部
+@property (nonatomic, strong) NSMutableArray *dataSource;
+/// 是否最底部
 @property (nonatomic,assign) BOOL isTableViewBottom;
+
 
 @end
 
@@ -267,6 +275,49 @@
 }
 
 
+
+
+#pragma mark - 定时器功能2
+
+
+/**
+ 初始化
+ */
+- (void)initTimer {
+    dispatch_main_async_safe(^{
+        [self destoryrepeatRequestTimer];
+        self.repeatRequestTimer = [NSTimer timerWithTimeInterval:3 target:self selector:@selector(sentRequestData) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.repeatRequestTimer forMode:NSRunLoopCommonModes];
+    })
+}
+
+
+// 这里最好调用一下
+//-(void)dealloc {
+//    [self destoryrepeatRequestTimer];
+//}
+
+/**
+ 销毁定时器功能
+ */
+- (void)destoryrepeatRequestTimer {
+    dispatch_main_async_safe(^{
+        if (self.repeatRequestTimer) {
+            if ([self.repeatRequestTimer respondsToSelector:@selector(isValid)]){
+                if ([self.repeatRequestTimer isValid]){
+                    [self.repeatRequestTimer invalidate];
+                    self.repeatRequestTimer = nil;
+                }
+            }
+        }
+    })
+}
+
+- (void)sentRequestData {
+    NSLog(@"1");
+}
+
+
 #pragma mark -  UITableView 初始化
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -282,6 +333,10 @@
     
     return _tableView;
 }
+
+
+
+
 
 
 #pragma mark - UITableViewDataSource Methods
@@ -453,7 +508,7 @@
 #pragma mark - 滚动到最底部功能
 // 滚动到最底部  https://www.jianshu.com/p/03c478adcae7
 -(void)scrollToBottom {
-    if (self.datas.count > 0) {
+    if (self.dataSource.count > 0) {
         if ([self.tableView numberOfRowsInSection:0] > 0) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([self.tableView numberOfRowsInSection:0]-1) inSection:0];
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
@@ -474,7 +529,6 @@
         self.isTableViewBottom = NO;
     }
 }
-
 
 
 

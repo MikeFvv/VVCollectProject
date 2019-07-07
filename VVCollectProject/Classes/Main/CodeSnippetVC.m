@@ -40,6 +40,11 @@
      
      #pragma mark -  <#要注释的内容#>
      
+     
+     
+     __weak __typeof(self)weakSelf = self;
+     __strong __typeof(weakSelf)strongSelf = weakSelf;
+     
      */
 }
 
