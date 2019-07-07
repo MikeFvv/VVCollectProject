@@ -16,6 +16,7 @@
 #import "HackerViewController.h"
 #import "FYStatusBarHUD.h"
 #import "TestVS.h"
+#import "UIImage+NIMKit.h"
 
 
 #define dispatch_main_async_safe(block)\
@@ -149,8 +150,15 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 -(void)jsScriptRun:(id)sender{
     
-    ViewController *vc = [[ViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    ViewController *vc = [[ViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+-(void)goto_viewController {
+    
+        ViewController *vc = [[ViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)initUI {
@@ -318,6 +326,24 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 
+#pragma mark -  NSMutableDictionary初始化
+- (void)test {
+    NSMutableDictionary *dic2 = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary: dic2];
+    NSLog(@"%@", dic);
+}
+
+
+#pragma mark - 错误Log打印
+// NSLog  错误方法打印
+// NSLog(@"🔴类名与方法名：%@（在第%@行），描述：%@", @(__PRETTY_FUNCTION__), @(__LINE__), exception);
+//@try {
+//    [mineViewController testPush];
+//} @catch (NSException *exception) {
+//    NSLog(@"🔴类名与方法名：%@（在第%@行），描述：%@", @(__PRETTY_FUNCTION__), @(__LINE__), exception.reason);
+//}
+
+
 #pragma mark -  UITableView 初始化
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -402,7 +428,10 @@ dispatch_async(dispatch_get_main_queue(), block);\
         TestVS *vc = [TestVS new];
         [self.navigationController pushViewController:vc animated:YES];
         
+    } else if (indexPath.row == 7) {
+        [self goto_viewController];
     }
+    
     else {
         [self doPush];
     }
@@ -531,6 +560,50 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 
+#pragma mark -  判断数组是否包含某个元素
+
+- (void)containsObjectTest {
+    NSString *str = @"数组";
+    NSArray *array=@[@"who",@"数组",@"array",@"3"];
+    BOOL isbool = [array containsObject: str];
+    NSLog(@"%i",isbool);
+    
+    //    i＝1；数组包含某个元素
+    //    i＝0；数组不包含某个元素
+}
+
+
+#pragma mark -  获取聊天界面的图片尺寸
+/**
+ 获取聊天界面的图片尺寸
+ 
+ @param cellWidth Cell 宽度
+ @param size 图片实际尺寸
+ @return 返回处理后的图片尺寸
+ */
+- (CGSize)contentSize:(CGFloat)cellWidth size:(CGSize)size
+{
+    CGFloat attachmentImageMinWidth  = (cellWidth / 4.0);
+    CGFloat attachmentImageMinHeight = (cellWidth / 4.0);
+    CGFloat attachmemtImageMaxWidth  = (cellWidth - 184);
+    CGFloat attachmentImageMaxHeight = (cellWidth - 184);
+    
+    
+    CGSize imageSize;
+    if (!CGSizeEqualToSize(size, CGSizeZero)) {
+        imageSize = size;
+    }
+    else
+    {
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"图片url"]]];
+        //        UIImage *image = [UIImage imageWithContentsOfFile:_message.imageUrl];
+        imageSize = image ? image.size : CGSizeZero;
+    }
+    CGSize contentSize = [UIImage nim_sizeWithImageOriginSize:imageSize
+                                                      minSize:CGSizeMake(attachmentImageMinWidth, attachmentImageMinHeight)
+                                                      maxSize:CGSizeMake(attachmemtImageMaxWidth, attachmentImageMaxHeight )];
+    return contentSize;
+}
 
 
 @end
