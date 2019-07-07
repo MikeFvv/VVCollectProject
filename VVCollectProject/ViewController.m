@@ -82,7 +82,10 @@
     NSLog(@"%s", __FUNCTION__);
     
     [super viewDidLoad];
+    
+    
 }
+
 
 
 //视图将要出现

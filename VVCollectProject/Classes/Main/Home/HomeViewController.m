@@ -79,6 +79,33 @@ dispatch_async(dispatch_get_main_queue(), block);\
     UIBarButtonItem *barBtn1=[[UIBarButtonItem alloc]initWithTitle:@"左边" style:UIBarButtonItemStylePlain target:self action:@selector(changeColor)];
     self.navigationItem.leftBarButtonItem=barBtn1;
     //    [self network];
+    
+    [self twoNumberExchange];
+}
+
+
+#pragma mark - 两个数交换  不使用第三个变量，交换两个变量的值。
+- (void)twoNumberExchange {
+    
+//    int a=5,b;
+//    b=(++a)+(++a);  // = 13
+    
+//    __block int i = 0;
+//    
+//    while (i<10000) {
+//        
+//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//            i++;
+//        });
+//    }
+//        NSLog(@"i=%d",i);
+    
+    // 两个数交换
+//    int a = 5;
+//    int b = 10;
+//    a = a + b;
+//    b = a - b;
+//    a = a - b;
 }
 
 - (void)fyStatusBarHUD {
