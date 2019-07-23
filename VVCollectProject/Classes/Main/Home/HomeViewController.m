@@ -76,8 +76,16 @@ dispatch_async(dispatch_get_main_queue(), block);\
     [self.view addSubview:self.tableView];
     //    [self searchBarInit];
     
-    UIBarButtonItem *barBtn1=[[UIBarButtonItem alloc]initWithTitle:@"左边" style:UIBarButtonItemStylePlain target:self action:@selector(changeColor)];
-    self.navigationItem.leftBarButtonItem=barBtn1;
+    // nav按钮  nav文字
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"右边按钮" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
+    // 字体颜色
+    [rightBtn setTintColor:[UIColor redColor]
+     ];
+    // 字体大小
+    [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    self.navigationItem.rightBarButtonItem = rightBtn;
+    
+    
     //    [self network];
     
     [self twoNumberExchange];
