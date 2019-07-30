@@ -54,8 +54,12 @@
 
 // //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    BlackJackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BlackJackCell"];
+    if(cell == nil) {
+        cell = [BlackJackCell cellWithTableView:tableView reusableId:@"BlackJackCell"];
+    }
     
-    BlackJackCell *cell = [BlackJackCell cellWithTableView:tableView reusableId:@"BlackJackCell"];
     // 倒序
     cell.model = self.dataArray[self.dataArray.count - indexPath.row -1];
     cell.indexLabel.text = [NSString stringWithFormat:@"%zd", self.dataArray.count - indexPath.row -1];

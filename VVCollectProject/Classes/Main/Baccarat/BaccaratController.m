@@ -1042,7 +1042,10 @@
 // //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BaccaratCell *cell = [BaccaratCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
+    BaccaratCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BaccaratCell"];
+    if(cell == nil) {
+        cell = [BaccaratCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
+    }
     // 倒序
     cell.model = self.resultDataArray[self.resultDataArray.count - indexPath.row -1];
     return cell;
