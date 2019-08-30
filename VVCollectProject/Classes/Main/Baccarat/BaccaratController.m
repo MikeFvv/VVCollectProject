@@ -73,12 +73,16 @@
 
 //@property (nonatomic, strong) UIView *trendView;
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
-
+/// 大路
+@property (nonatomic, strong) BaccaratCollectionView *daluTrendView;
 
 
 
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray *resultDataArray;
+/// 大路数据
+@property (nonatomic, strong) NSMutableArray *daluResultDataArray;
+
 
 ///
 @property (nonatomic, strong) UITableView *tableView;
@@ -100,6 +104,9 @@
 @property (nonatomic, strong) UIButton *buyBankerBtn;
 /// 买闲
 @property (nonatomic, strong) UIButton *buyPlayerBtn;
+/// 本局赢的类型  0 和  1 庄  2 闲
+@property (nonatomic, assign) NSInteger currentWinType;
+
 
 
 // ************************ 统计字段 ************************
@@ -188,12 +195,22 @@
     
     [self setBottomView];
     
-    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
+    // 大路
+    BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
+    //    trendView.backgroundColor = [UIColor redColor];
+    daluTrendView.layer.borderWidth = 1;
+    daluTrendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.view addSubview:daluTrendView];
+    _daluTrendView = daluTrendView;
+    
+    // 庄闲路
+    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth + kTrendViewHeight + kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
     //    trendView.backgroundColor = [UIColor redColor];
     trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.view addSubview:trendView];
     _trendView = trendView;
+    
     
     
     // 统计视图
@@ -602,6 +619,7 @@
     
     [self initData];
     self.trendView.model = self.resultDataArray;
+    self.daluTrendView.model = self.daluResultDataArray;
     [self resultStatisticsText];
 //    [self.tableView reloadData];
 }
@@ -619,8 +637,10 @@
     
     self.pokerCount++;
     [self oncePoker];
+    [self daluCalculationMethod];
     
     self.trendView.model = self.resultDataArray;
+    self.daluTrendView.model = self.daluResultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
 //    [self.tableView reloadData];
@@ -638,6 +658,7 @@
     
     [self opening];
     self.trendView.model = self.resultDataArray;
+    self.daluTrendView.model = self.daluResultDataArray;
     //    [self resultStatisticsContinuous];
     
     [self resultStatisticsContinuous];
@@ -907,6 +928,7 @@
         }
         self.pokerCount++;
         [self oncePoker];
+        [self daluCalculationMethod];
     }
 }
 
@@ -934,12 +956,13 @@
     self.superSixCount = 0;
     self.tieCount = 0;
     self.resultDataArray = [NSMutableArray array];
+    self.daluResultDataArray = [NSMutableArray array];
     self.bankerPlayerSinglePairCount = 0;
     self.betTotalMoney = 40000;
     self.buyType = -1;
 }
 
-#pragma mark -  Baccarat算法
+#pragma mark -  Baccarat庄闲算法
 - (void)oncePoker {
     // 闲
     NSInteger player1 = 0;
@@ -1051,12 +1074,12 @@
                 self.betTotalMoney = self.betTotalMoney - self.betMoneyTextField.text.integerValue;
             }
         }
-        [dict setObject:@(1) forKey:@"WinType"];
+        self.currentWinType = 1;
         self.bankerCount++;
     } else if (playerPointsNum > bankerPointsNum) {
         win = @"🅿️";
         self.playerCount++;
-        [dict setObject:@(2) forKey:@"WinType"];
+        self.currentWinType = 2;
         
         if (self.buyType == 2) {
             self.betTotalMoney = self.betTotalMoney + self.betMoneyTextField.text.integerValue;
@@ -1064,11 +1087,15 @@
             self.betTotalMoney = self.betTotalMoney - self.betMoneyTextField.text.integerValue;
         }
         
-    } else {
+    } else if (playerPointsNum == bankerPointsNum) {
         win = @"✅";
         self.tieCount++;
-        [dict setObject:@(0) forKey:@"WinType"];
+        self.currentWinType = 0;
+    } else {
+        [self showMessage:@"本局判断错误， 请查看列表原因"];
+         return;
     }
+    [dict setObject:@(self.currentWinType) forKey:@"WinType"];
     
     // Pair
     if (player1 == player2) {
@@ -1105,8 +1132,30 @@
 
 
 
+#pragma mark -  Baccarat大路算法
+- (void)daluCalculationMethod {
+    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
+    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
+        [dict setObject:@(self.currentWinType) forKey:@"WinType"];
+    }
+    
+    [self.daluResultDataArray addObject:dict];
+}
 
+//#pragma mark -  Baccarat大路算法
+- (void)sd11 {
+    
+}
 
+//#pragma mark -  Baccarat大路算法
+- (void)sd22 {
+    
+}
+
+//#pragma mark -  Baccarat大路算法
+- (void)sd33 {
+    
+}
 
 
 @end
