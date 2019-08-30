@@ -46,6 +46,8 @@ pod 'TZImagePickerController'
 # Socket长连接  facebook开源库
 pod 'SocketRocket'
 
+pod 'MBProgressHUD', '~> 1.1.0'
+
 
 
 # ################## 以下使用效果待验证 ###################

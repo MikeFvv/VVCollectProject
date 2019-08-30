@@ -7,10 +7,11 @@
 //
 
 #import "BaccaratController.h"
-#import "BaccaratCell.h"
 #import "BaccaratCollectionView.h"
 #include <stdlib.h>
 #import "VVFunctionManager.h"
+#import "PointListController.h"
+#import <MBProgressHUD.h>
 
 
 #define kBtnHeight 35
@@ -18,17 +19,16 @@
 #define kBtnFontSize 16
 #define kMarginHeight 10
 // 边距
-#define kMarginWidth 20
+#define kMarginWidth 15
 #define kTrendViewHeight 138
 #define kLabelFontSize 12
 
 
 
-@interface BaccaratController ()<UITableViewDataSource, UITableViewDelegate>
+@interface BaccaratController ()
 
 //
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
 
 /// 牌副数
 @property (nonatomic, assign) NSInteger pokerNum;
@@ -148,18 +148,32 @@
     //    1 2 3 4 5 6 7 8 9 10 11 12 13
     //    A 2 3 4 5 6 7 8 9 10 L Q K
     
+    
+    // nav按钮  nav文字
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
+    // 字体颜色
+    [rightBtn setTintColor:[UIColor blackColor]
+     ];
+    // 字体大小
+    [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    self.navigationItem.rightBarButtonItem = rightBtn;
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    self.betTotalMoney = 40000;
     self.pokerNum = 8;
     self.betMoney = 2000;
-    self.betTotalMoney = 0;
     self.intervalNum = 1;
     [self initData];
     [self initUI];
-    [self.view addSubview:self.tableView];
     
-    [self.tableView registerClass:[BaccaratCell class] forCellReuseIdentifier:@"BaccaratCell"];
-    
+    self.title = [NSString stringWithFormat:@"%ld", self.betTotalMoney];
+}
+
+- (void)rightBtnAction {
+    PointListController *vc = [[PointListController alloc] init];
+    vc.resultDataArray = self.resultDataArray;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -170,9 +184,39 @@
 }
 
 - (void)initUI {
-    
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self setBottomView];
+    
+    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
+    //    trendView.backgroundColor = [UIColor redColor];
+    trendView.layer.borderWidth = 1;
+    trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.view addSubview:trendView];
+    _trendView = trendView;
+    
+    
+    // 统计视图
+//    [self textStatisticsView];
+    
+}
 
+- (void)setBottomView {
+    
+    
+    UIView *bottomView = [[UIView alloc] init];
+    bottomView.layer.borderWidth = 1;
+    bottomView.layer.borderColor = [UIColor redColor].CGColor;
+    bottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bottomView];
+    
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view.mas_bottom);
+        make.left.mas_equalTo(self.view.mas_left);
+        make.right.mas_equalTo(self.view.mas_right);
+        make.height.mas_equalTo(100);
+    }];
+    
     UITextField *pokerNumTextField = [[UITextField alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginHeight, 60, kBtnHeight)];
     pokerNumTextField.text = @"8";
     pokerNumTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -180,10 +224,10 @@
     pokerNumTextField.layer.cornerRadius = 5;
     pokerNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
     pokerNumTextField.layer.borderWidth = 1;
-    _pokerNumTextField = pokerNumTextField;
+    _pokerNumTextField  = pokerNumTextField;
     
     
-    [self.view addSubview:pokerNumTextField];
+    [bottomView addSubview:pokerNumTextField];
     
     UIButton *startButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10, kMarginHeight, 50, kBtnHeight)];
     startButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
@@ -193,7 +237,7 @@
     startButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     startButton.layer.cornerRadius = 5;
     [startButton addTarget:self action:@selector(onStartButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:startButton];
+    [bottomView addSubview:startButton];
     
     
     UIButton *startOneButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10, kMarginHeight, 80, kBtnHeight)];
@@ -204,7 +248,7 @@
     startOneButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     startOneButton.layer.cornerRadius = 5;
     [startOneButton addTarget:self action:@selector(onStartOneButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:startOneButton];
+    [bottomView addSubview:startOneButton];
     
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10, kMarginHeight, 50, kBtnHeight)];
     [clearButton setTitle:@"清除" forState:UIControlStateNormal];
@@ -214,7 +258,7 @@
     clearButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     clearButton.layer.cornerRadius = 5;
     [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:clearButton];
+    [bottomView addSubview:clearButton];
     
     
     UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
@@ -225,23 +269,10 @@
     disKeyboardButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     disKeyboardButton.layer.cornerRadius = 5;
     [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:disKeyboardButton];
-    
+    [bottomView addSubview:disKeyboardButton];
     
     // 下注视图
     [self betView];
-    
-    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(20, kMarginHeight + kBtnHeight + kBuyBtnHeight +5*2, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
-    //    trendView.backgroundColor = [UIColor redColor];
-    trendView.layer.borderWidth = 1;
-    trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.view addSubview:trendView];
-    _trendView = trendView;
-    
-    
-    // 统计视图
-    [self textStatisticsView];
-    
 }
 
 - (void)betView {
@@ -262,6 +293,22 @@
         make.size.mas_equalTo(CGSizeMake(70, kBtnHeight));
     }];
     
+    UIButton *buyLessDoubleBtn = [[UIButton alloc] init];
+    [buyLessDoubleBtn setTitle:@"减倍" forState:UIControlStateNormal];
+    buyLessDoubleBtn.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
+    [buyLessDoubleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [buyLessDoubleBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    buyLessDoubleBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    buyLessDoubleBtn.layer.cornerRadius = 5;
+    [buyLessDoubleBtn addTarget:self action:@selector(onBuyLessDoubleBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buyLessDoubleBtn];
+    
+    [buyLessDoubleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(betMoneyTextField.mas_right).offset(10);
+        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(50, kBuyBtnHeight));
+    }];
+    
     UIButton *buyDoubleBtn = [[UIButton alloc] init];
     [buyDoubleBtn setTitle:@"加倍" forState:UIControlStateNormal];
     buyDoubleBtn.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
@@ -273,26 +320,9 @@
     [self.view addSubview:buyDoubleBtn];
     
     [buyDoubleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(betMoneyTextField.mas_right).offset(10);
+        make.left.mas_equalTo(buyLessDoubleBtn.mas_right).offset(10);
         make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(50, kBuyBtnHeight));
-    }];
-    
-    UIButton *buyBankerBtn = [[UIButton alloc] init];
-    [buyBankerBtn setTitle:@"买庄" forState:UIControlStateNormal];
-    buyBankerBtn.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [buyBankerBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [buyBankerBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    buyBankerBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    buyBankerBtn.layer.cornerRadius = 5;
-    [buyBankerBtn addTarget:self action:@selector(onBuyBankerBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buyBankerBtn];
-    _buyBankerBtn = buyBankerBtn;
-    
-    [buyBankerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(buyDoubleBtn.mas_right).offset(10);
-        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(65, kBuyBtnHeight));
     }];
     
     UIButton *buyPlayerBtn = [[UIButton alloc] init];
@@ -307,12 +337,37 @@
     _buyPlayerBtn = buyPlayerBtn;
     
     [buyPlayerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(buyBankerBtn.mas_right).offset(10);
+        make.left.mas_equalTo(buyDoubleBtn.mas_right).offset(10);
         make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(65, kBuyBtnHeight));
     }];
     
+    UIButton *buyBankerBtn = [[UIButton alloc] init];
+    [buyBankerBtn setTitle:@"买庄" forState:UIControlStateNormal];
+    buyBankerBtn.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
+    [buyBankerBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [buyBankerBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    buyBankerBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    buyBankerBtn.layer.cornerRadius = 5;
+    [buyBankerBtn addTarget:self action:@selector(onBuyBankerBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buyBankerBtn];
+    _buyBankerBtn = buyBankerBtn;
+    
+    [buyBankerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(buyPlayerBtn.mas_right).offset(10);
+        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(65, kBuyBtnHeight));
+    }];
+    
+    
+    
 }
+
+#pragma mark - 减倍
+- (void)onBuyLessDoubleBtn {
+    self.betMoneyTextField.text = [NSString stringWithFormat:@"%ld", (self.betMoneyTextField.text.integerValue / 2) <= 0 ? 0 : (self.betMoneyTextField.text.integerValue / 2)];
+}
+
 
 #pragma mark - 加倍
 - (void)onBuyDoubleBtn {
@@ -320,14 +375,34 @@
     self.betMoneyTextField.text = [NSString stringWithFormat:@"%ld", self.betMoneyTextField.text.integerValue * 2];
 }
 
+- (void)showMessage:(NSString *)message {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    // Set the text mode to show only text.
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(message, @"HUD message title");
+    // Move to bottm center.
+    hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
+    
+    [hud hideAnimated:YES afterDelay:3.f];
+}
+
 
 #pragma mark - 买庄
 - (void)onBuyBankerBtn {
+    if (self.betMoneyTextField.text.integerValue > self.betTotalMoney) {
+        [self showMessage:@"下注超出本金!"];
+        return;
+    }
     self.buyType = 1;
     [self onStartOneButton];
 }
 #pragma mark - 买闲
 - (void)onBuyPlayerBtn {
+    if (self.betMoneyTextField.text.integerValue > self.betTotalMoney) {
+        [self showMessage:@"下注超出本金!"];
+        return;
+    }
     self.buyType = 2;
     [self onStartOneButton];
 }
@@ -338,12 +413,24 @@
 }
 
 - (void)textStatisticsView {
+    
+    UIView *backView = [[UIView alloc] init];
+    backView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:backView];
+    
+    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view.mas_bottom).offset(10);
+        make.left.mas_equalTo(self.view.mas_left).offset(10);
+        make.right.mas_equalTo(self.view.mas_right);
+        make.height.mas_equalTo(330);
+    }];
+    
     UILabel *bankerCountLabel = [[UILabel alloc] init];
     bankerCountLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
     bankerCountLabel.numberOfLines = 0;
     //    bankerCountLabel.text = @"庄赢";
     bankerCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:bankerCountLabel];
+    [backView addSubview:bankerCountLabel];
     _bankerCountLabel = bankerCountLabel;
     
     [bankerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -356,7 +443,7 @@
     playerCountLabel.numberOfLines = 0;
     //    playerCountLabel.text = @"闲赢";
     playerCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:playerCountLabel];
+    [backView addSubview:playerCountLabel];
     _playerCountLabel = playerCountLabel;
     
     [playerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -369,7 +456,7 @@
     tieCountLabel.numberOfLines = 0;
     //    tieCountLabel.text = @"和";
     tieCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:tieCountLabel];
+    [backView addSubview:tieCountLabel];
     _tieCountLabel = tieCountLabel;
     
     [tieCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -382,7 +469,7 @@
     bankerPairCountLabel.numberOfLines = 0;
     //    bankerPairCountLabel.text = @"庄对";
     bankerPairCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:bankerPairCountLabel];
+    [backView addSubview:bankerPairCountLabel];
     _bankerPairCountLabel = bankerPairCountLabel;
     
     [bankerPairCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -395,7 +482,7 @@
     playerPairCountLabel.numberOfLines = 0;
     //    playerPairCountLabel.text = @"闲对";
     playerPairCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:playerPairCountLabel];
+    [backView addSubview:playerPairCountLabel];
     _playerPairCountLabel = playerPairCountLabel;
     
     [playerPairCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -408,7 +495,7 @@
     superSixCountLabel.numberOfLines = 0;
     //    superSixCountLabel.text = @"SuperSix";
     superSixCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:superSixCountLabel];
+    [backView addSubview:superSixCountLabel];
     _superSixCountLabel = superSixCountLabel;
     
     [superSixCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -423,7 +510,7 @@
     pokerCountLabel.numberOfLines = 0;
     //    pokerCountLabel.text = @"结果";S
     pokerCountLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:pokerCountLabel];
+    [backView addSubview:pokerCountLabel];
     _pokerCountLabel = pokerCountLabel;
     
     [pokerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -438,7 +525,7 @@
     kkkLabel.numberOfLines = 0;
     //    pokerCountLabel.text = @"结果";S
     kkkLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:kkkLabel];
+    [backView addSubview:kkkLabel];
     _kkkLabel = kkkLabel;
     
     [kkkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -454,7 +541,7 @@
     aaaa.numberOfLines = 0;
     //    pokerCountLabel.text = @"结果";S
     aaaa.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:aaaa];
+    [backView addSubview:aaaa];
     _aaaa = aaaa;
     
     [aaaa mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -470,13 +557,13 @@
     bbbb.numberOfLines = 0;
     //    pokerCountLabel.text = @"结果";S
     bbbb.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:bbbb];
+    [backView addSubview:bbbb];
     _bbbb = bbbb;
     
     [bbbb mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.trendView.mas_left);
         make.top.mas_equalTo(aaaa.mas_bottom);
-        make.right.mas_equalTo(self.view.mas_right);
+        make.right.mas_equalTo(backView.mas_right);
     }];
     
     UILabel *buyMoneyLabel = [[UILabel alloc] init];
@@ -486,25 +573,25 @@
     buyMoneyLabel.numberOfLines = 0;
     //    pokerCountLabel.text = @"结果";S
     buyMoneyLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:buyMoneyLabel];
+    [backView addSubview:buyMoneyLabel];
     _buyMoneyLabel = buyMoneyLabel;
     
     [buyMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.trendView.mas_left);
         make.top.mas_equalTo(bbbb.mas_bottom);
-        make.right.mas_equalTo(self.view.mas_right);
+        make.right.mas_equalTo(backView.mas_right);
     }];
     
     UILabel *timeLabel = [[UILabel alloc] init];
     timeLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
     timeLabel.textColor = [UIColor darkGrayColor];
-    [self.view addSubview:timeLabel];
+    [backView addSubview:timeLabel];
     _timeLabel = timeLabel;
     
     [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.trendView.mas_left);
         make.top.mas_equalTo(buyMoneyLabel.mas_bottom);
-        make.right.mas_equalTo(self.view.mas_right);
+        make.right.mas_equalTo(backView.mas_right);
     }];
     
     
@@ -516,7 +603,7 @@
     [self initData];
     self.trendView.model = self.resultDataArray;
     [self resultStatisticsText];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 #pragma mark -  开始一局
@@ -536,7 +623,7 @@
     self.trendView.model = self.resultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 #pragma mark -  全盘
@@ -555,7 +642,7 @@
     
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     
     
     
@@ -806,6 +893,7 @@
     
     self.buyMoneyLabel.text = [NSString stringWithFormat:@"下注Win %ld",self.betTotalMoney];
     
+    self.title = [NSString stringWithFormat:@"%ld",self.betTotalMoney];
 }
 
 
@@ -847,7 +935,7 @@
     self.tieCount = 0;
     self.resultDataArray = [NSMutableArray array];
     self.bankerPlayerSinglePairCount = 0;
-    self.betTotalMoney = 0;
+    self.betTotalMoney = 40000;
     self.buyType = -1;
 }
 
@@ -1016,46 +1104,7 @@
 }
 
 
-#pragma mark -  UITableView 初始化
-- (UITableView *)tableView {
-    if (!_tableView) {
-        
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +100 +30, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - (kMarginHeight + 30 +5 + kTrendViewHeight +2 + 126 +64 +100 +30)) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor yellowColor];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.rowHeight=100;   //设置每一行的高度
-    }
-    
-    return _tableView;
-}
 
-
-#pragma mark - UITableViewDataSource
-// //返回列表每个分组section拥有cell行数
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.resultDataArray.count;
-}
-
-// //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    BaccaratCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BaccaratCell"];
-    if(cell == nil) {
-        cell = [BaccaratCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
-    }
-    // 倒序
-    cell.model = self.resultDataArray[self.resultDataArray.count - indexPath.row -1];
-    return cell;
-    
-}
-
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 35;
-}
 
 
 
