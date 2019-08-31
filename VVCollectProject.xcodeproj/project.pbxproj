@@ -11,6 +11,7 @@
 		6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52222ED9B6100D304D3 /* CountDownController.m */; };
 		6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */; };
 		659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659E139C22E732DE00E9570E /* BugCollectionController.m */; };
+		65E511F12313C597008098BE /* 新增App注意事项.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 65E511F02313C597008098BE /* 新增App注意事项.rtfd */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -112,6 +113,7 @@
 		6523E52522ED9C0D00D304D3 /* NSTimer+CQBlockSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+CQBlockSupport.h"; sourceTree = "<group>"; };
 		659E139B22E732DE00E9570E /* BugCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugCollectionController.h; sourceTree = "<group>"; };
 		659E139C22E732DE00E9570E /* BugCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugCollectionController.m; sourceTree = "<group>"; };
+		65E511F02313C597008098BE /* 新增App注意事项.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "新增App注意事项.rtfd"; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -321,6 +323,29 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		657C99BC22F036BB00CE0BF4 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				A0BF4F56223BEA320038422F /* MasonryController.h */,
+				A0BF4F57223BEA320038422F /* MasonryController.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		657C99BD22F036E300CE0BF4 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		657C99BE22F036E600CE0BF4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		A004E78B2226E40A0090DC44 /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,6 +491,9 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				657C99BE22F036E600CE0BF4 /* UI */,
+				657C99BD22F036E300CE0BF4 /* NSObject */,
+				657C99BC22F036BB00CE0BF4 /* Masonry */,
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				A010CB522261BD5E00618A52 /* Hacker */,
 				A0BE49A12247727D00CDBE43 /* Common */,
@@ -520,8 +548,6 @@
 				A0F4B42D22A79F28003B82F5 /* TestVS.m */,
 				A0BCD7A922218B0D00BB3A9C /* SearchViewController.h */,
 				A0BCD7AA22218B0D00BB3A9C /* SearchViewController.m */,
-				A0BF4F56223BEA320038422F /* MasonryController.h */,
-				A0BF4F57223BEA320038422F /* MasonryController.m */,
 				A0DF0867223FCDFA00151F35 /* NSStringController.h */,
 				A0DF0868223FCDFA00151F35 /* NSStringController.m */,
 				A0CBDD622220340600E7E21F /* TestUITableViewController.h */,
@@ -589,6 +615,7 @@
 		A0BCC4B521E8BB1800CEA8ED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				65E511F02313C597008098BE /* 新增App注意事项.rtfd */,
 				A0BCC30921E8BA6D00CEA8ED /* Main.storyboard */,
 				A0BCC30E21E8BA6F00CEA8ED /* LaunchScreen.storyboard */,
 				A0BCC31221E8BA6F00CEA8ED /* main.m */,
@@ -826,6 +853,7 @@
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0BCD7B322218B8400BB3A9C /* colors.json in Resources */,
 				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
+				65E511F12313C597008098BE /* 新增App注意事项.rtfd in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1138,8 +1166,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z636N3MHCB;
+				DEVELOPMENT_TEAM = V69W4CX966;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1151,8 +1180,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xmfx.qqvvx;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1163,8 +1193,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z636N3MHCB;
+				DEVELOPMENT_TEAM = V69W4CX966;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1176,8 +1207,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xmfx.qqvvx;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

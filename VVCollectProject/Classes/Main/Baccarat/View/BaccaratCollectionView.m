@@ -64,7 +64,7 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
 
 #pragma mark - 首先创建一个collectionView
 - (void)initSubviews {
-
+    
 //    首先创建一个collectionView
 //    创建的时候UICollectionViewFlowLayout必须创建
 //    layout.itemSize必须设置
