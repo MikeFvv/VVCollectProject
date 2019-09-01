@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
 		40CF061D2319786D00932821 /* PointListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF061C2319786D00932821 /* PointListController.m */; };
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
 		6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52222ED9B6100D304D3 /* CountDownController.m */; };
@@ -107,6 +108,8 @@
 /* Begin PBXFileReference section */
 		0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VVCollectProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
+		400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratConfigController.h; sourceTree = "<group>"; };
+		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
 		40CF061B2319786D00932821 /* PointListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointListController.h; sourceTree = "<group>"; };
 		40CF061C2319786D00932821 /* PointListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointListController.m; sourceTree = "<group>"; };
 		6523E52122ED9B6100D304D3 /* CountDownController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownController.h; sourceTree = "<group>"; };
@@ -679,6 +682,8 @@
 				A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */,
 				40CF061B2319786D00932821 /* PointListController.h */,
 				40CF061C2319786D00932821 /* PointListController.m */,
+				400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */,
+				400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */,
 			);
 			path = Baccarat;
 			sourceTree = "<group>";
@@ -924,6 +929,7 @@
 				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,
 				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
 				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
+				400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */,
 				A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */,
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,

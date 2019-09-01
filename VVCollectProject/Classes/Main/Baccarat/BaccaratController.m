@@ -12,6 +12,7 @@
 #import "VVFunctionManager.h"
 #import "PointListController.h"
 #import <MBProgressHUD.h>
+#import "BaccaratConfigController.h"
 
 
 #define kBtnHeight 35
@@ -29,9 +30,6 @@
 
 //
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
-/// 牌副数
-@property (nonatomic, assign) NSInteger pokerNum;
 /// 下注金额
 @property (nonatomic, assign) NSInteger betMoney;
 /// 下注输赢总金额
@@ -99,6 +97,8 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *aaaa;
 @property (nonatomic, strong) UILabel *bbbb;
+@property (nonatomic, strong) UILabel *gongLabel;
+
 
 /// 买庄
 @property (nonatomic, strong) UIButton *buyBankerBtn;
@@ -131,7 +131,8 @@
 /// 距离前6局的相同的数量
 @property (nonatomic, assign) NSInteger front6SameCount;
 
-
+/// 计算出公的张数
+@property (nonatomic, assign) NSInteger gongCount;
 
 @end
 
@@ -156,25 +157,96 @@
     //    A 2 3 4 5 6 7 8 9 10 L Q K
     
     
-    // nav按钮  nav文字
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
-    // 字体颜色
-    [rightBtn setTintColor:[UIColor blackColor]
-     ];
-    // 字体大小
-    [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    self.navigationItem.rightBarButtonItem = rightBtn;
+//    // nav按钮  nav文字
+//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
+//    // 字体颜色
+//    [rightBtn setTintColor:[UIColor blackColor]
+//     ];
+//    // 字体大小
+//    [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+//    self.navigationItem.rightBarButtonItem = rightBtn;
+//
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.betTotalMoney = 40000;
-    self.pokerNum = 8;
-    self.betMoney = 2000;
-    self.intervalNum = 1;
-    [self initData];
+    //添加两个button
+    NSMutableArray*buttons=[[NSMutableArray alloc]initWithCapacity:2];
+//    UIBarButtonItem*button3=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press2)];
+//    UIBarButtonItem*button2=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press)];
+    
+    UIBarButtonItem *rightBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"配置" style:(UIBarButtonItemStylePlain) target:self action:@selector(configAction)];
+    UIBarButtonItem *rightBtn2 = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
+    UIBarButtonItem *rightBtn3 = [[UIBarButtonItem alloc]initWithTitle:@"消键盘" style:(UIBarButtonItemStylePlain) target:self action:@selector(onDisKeyboardButton)];
+    
+    rightBtn1.tintColor=[UIColor blackColor];
+    rightBtn2.tintColor=[UIColor blackColor];
+    rightBtn3.tintColor=[UIColor blackColor];
+    [rightBtn1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    [rightBtn2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    [rightBtn3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    [buttons addObject:rightBtn1];
+    [buttons addObject:rightBtn2];
+    [buttons addObject:rightBtn3];
+//    [tools setItems:buttons animated:NO];
+//    UIBarButtonItem*btn=[[UIBarButtonItem alloc]initWithCustomView:tools];
+    self.navigationItem.rightBarButtonItems=buttons;
+    
+    
     [self initUI];
+    [self initData];
+    
     
     self.title = [NSString stringWithFormat:@"%ld", self.betTotalMoney];
+}
+
+#pragma mark -  数据初始化
+- (void)initData {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
+    NSArray *tempArray = [userDefaults objectForKey:@"BaccaratPokerArray"];
+    
+    
+    NSArray *pokerArray = nil;
+    if (tempArray) {
+        self.betTotalMoney = amount;
+        pokerArray = tempArray;
+    } else {
+        self.betTotalMoney = 40000;
+        
+        pokerArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
+                                 @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
+                                 @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
+                                 @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"
+                                 ];
+    }
+    
+    self.betMoney = 2000;
+    self.intervalNum = 1;
+    
+    
+    
+    NSMutableArray *array = [VVFunctionManager shuffleArray:pokerArray pokerPairsNum:self.pokerNumTextField.text.integerValue];
+    self.dataArray = [NSMutableArray arrayWithArray:array];
+    
+    self.pokerTotalNum = self.dataArray.count;
+    self.pokerCount = 0;
+    self.playerCount = 0;
+    self.bankerCount = 0;
+    self.playerPairCount = 0;
+    self.bankerPairCount = 0;
+    self.superSixCount = 0;
+    self.tieCount = 0;
+    self.gongCount = 0;
+    self.resultDataArray = [NSMutableArray array];
+    self.daluResultDataArray = [NSMutableArray array];
+    self.bankerPlayerSinglePairCount = 0;
+    self.buyType = -1;
+}
+
+- (void)configAction {
+    BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
+//    vc.resultDataArray = self.resultDataArray;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)rightBtnAction {
@@ -214,7 +286,7 @@
     
     
     // 统计视图
-//    [self textStatisticsView];
+    [self textStatisticsView];
     
 }
 
@@ -278,15 +350,15 @@
     [bottomView addSubview:clearButton];
     
     
-    UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
-    [disKeyboardButton setTitle:@"消键盘" forState:UIControlStateNormal];
-    disKeyboardButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [disKeyboardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [disKeyboardButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    disKeyboardButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    disKeyboardButton.layer.cornerRadius = 5;
-    [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:disKeyboardButton];
+//    UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
+//    [disKeyboardButton setTitle:@"消键盘" forState:UIControlStateNormal];
+//    disKeyboardButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
+//    [disKeyboardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [disKeyboardButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+//    disKeyboardButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+//    disKeyboardButton.layer.cornerRadius = 5;
+//    [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
+//    [bottomView addSubview:disKeyboardButton];
     
     // 下注视图
     [self betView];
@@ -611,6 +683,17 @@
         make.right.mas_equalTo(backView.mas_right);
     }];
     
+    UILabel *gongLabel = [[UILabel alloc] init];
+    gongLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
+    gongLabel.textColor = [UIColor darkGrayColor];
+    [backView addSubview:gongLabel];
+    _gongLabel = gongLabel;
+    
+    [gongLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.trendView.mas_left);
+        make.top.mas_equalTo(timeLabel.mas_bottom);
+    }];
+    
     
 }
 
@@ -627,6 +710,8 @@
 #pragma mark -  开始一局
 - (void)onStartOneButton {
     [self.view endEditing:YES];
+    
+//    self.betMoneyTextField.text = 0;
     
     if (self.pokerTotalNum < 6) {  // 停止发牌
         self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld  已结束", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
@@ -653,8 +738,6 @@
 - (void)onStartButton {
     // 记录当前时间
     float start = CACurrentMediaTime();
-    
-    self.pokerNum = self.pokerNumTextField.text.integerValue;
     
     [self opening];
     self.trendView.model = self.resultDataArray;
@@ -915,14 +998,15 @@
     self.buyMoneyLabel.text = [NSString stringWithFormat:@"下注Win %ld",self.betTotalMoney];
     
     self.title = [NSString stringWithFormat:@"%ld",self.betTotalMoney];
+    self.gongLabel.text = [NSString stringWithFormat:@"%ld - 剩%ld",self.gongCount, 128 - self.gongCount];
 }
 
 
 #pragma mark -  开始
 - (void)opening {
     [self initData];
-    // 发牌局数
-    for (NSInteger i = 1; i <= (self.pokerNum * 52 / 4); i++) {
+    // 发牌局数   52最齐的张数
+    for (NSInteger i = 1; i <= (self.pokerNumTextField.text.integerValue * 52 / 4); i++) {
         if (self.pokerTotalNum < 6) {
             break;
         }
@@ -935,32 +1019,7 @@
 
 
 
-#pragma mark -  数据初始化
-- (void)initData {
-    
-    NSArray *pokerArray = @[ @(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11),@(12),@(13),
-                             @(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11),@(12),@(13),
-                             @(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11),@(12),@(13),
-                             @(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11),@(12),@(13)
-                             ];
-    
-    NSMutableArray *array = [VVFunctionManager shuffleArray:pokerArray pokerPairsNum:self.pokerNum];
-    self.dataArray = [NSMutableArray arrayWithArray:array];
-    
-    self.pokerTotalNum = self.dataArray.count;
-    self.pokerCount = 0;
-    self.playerCount = 0;
-    self.bankerCount = 0;
-    self.playerPairCount = 0;
-    self.bankerPairCount = 0;
-    self.superSixCount = 0;
-    self.tieCount = 0;
-    self.resultDataArray = [NSMutableArray array];
-    self.daluResultDataArray = [NSMutableArray array];
-    self.bankerPlayerSinglePairCount = 0;
-    self.betTotalMoney = 40000;
-    self.buyType = -1;
-}
+
 
 #pragma mark -  Baccarat庄闲算法
 - (void)oncePoker {
@@ -980,23 +1039,23 @@
         
         // 洗牌
         //        int pokerIndex = (arc4random() % self.pokerTotalNum) + 0;
-        //        NSNumber *num = (NSNumber *)self.dataArray[pokerPoints];
+        //        NSString *num = (NSString *)self.dataArray[pokerPoints];
         //        [self.dataArray removeObjectAtIndex:pokerPoints];
         //        NSLog(@"🔴= %@", num.stringValue);
         
         
-        NSNumber *num = (NSNumber *)self.dataArray.firstObject;
+        NSString *numStr = (NSString *)self.dataArray.firstObject;
         [self.dataArray removeObjectAtIndex:0];
         self.pokerTotalNum--;
         
         if (i == 1) {
-            player1 = num.integerValue;
+            player1 = numStr.integerValue;
         } else if (i == 2) {
-            banker1 = num.integerValue;
+            banker1 = numStr.integerValue;
         } else if (i == 3) {
-            player2 = num.integerValue;
+            player2 = numStr.integerValue;
         } else if (i == 4) {
-            banker2 = num.integerValue;
+            banker2 = numStr.integerValue;
         }
         
         
@@ -1018,10 +1077,10 @@
             }
         } else if (i == 5) {
             if (playerPointsNum < 6) {
-                player3 = num.stringValue;
+                player3 = numStr;
             } else {
                 if (bankerPointsNum < 6) {
-                    banker3 = num.stringValue;
+                    banker3 = numStr;
                     break;
                 }
             }
@@ -1038,7 +1097,7 @@
             }
         } else if (i == 6) {
             if (bankerPointsNum <= 6) {
-                banker3 = num.stringValue;
+                banker3 = numStr;
             }
         }
     }
@@ -1126,6 +1185,27 @@
     
     
     [self.resultDataArray addObject:dict];
+    
+    // 计算公的张数
+    if (player1 >= 10) {
+        self.gongCount++;
+    }
+    if (player2 >= 10) {
+        self.gongCount++;
+    }
+    if (player3 && player3.integerValue >= 10) {
+        self.gongCount++;
+    }
+    if (banker1 >= 10) {
+        self.gongCount++;
+    }
+    if (banker2 >= 10) {
+        self.gongCount++;
+    }
+    if (banker3 && banker3.integerValue >= 10) {
+        self.gongCount++;
+    }
+    
     
     NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
 }

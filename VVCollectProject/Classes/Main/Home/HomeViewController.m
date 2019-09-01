@@ -91,6 +91,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
     [self twoNumberExchange];
 }
 
+- (void)rightBtnAction {
+    
+}
 
 #pragma mark - 两个数交换  不使用第三个变量，交换两个变量的值。
 - (void)twoNumberExchange {
