@@ -12,6 +12,8 @@
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
 		6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52222ED9B6100D304D3 /* CountDownController.m */; };
 		6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */; };
+		65813236231D396900A3BBFE /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813235231D396900A3BBFE /* UIView+Extension.m */; };
+		65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */; };
 		659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659E139C22E732DE00E9570E /* BugCollectionController.m */; };
 		65E511F12313C597008098BE /* 新增App注意事项.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 65E511F02313C597008098BE /* 新增App注意事项.rtfd */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -117,6 +119,10 @@
 		6523E52222ED9B6100D304D3 /* CountDownController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownController.m; sourceTree = "<group>"; };
 		6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+CQBlockSupport.m"; sourceTree = "<group>"; };
 		6523E52522ED9C0D00D304D3 /* NSTimer+CQBlockSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+CQBlockSupport.h"; sourceTree = "<group>"; };
+		65813234231D396900A3BBFE /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		65813235231D396900A3BBFE /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		65813237231D886E00A3BBFE /* BaccaratDaLuLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratDaLuLabel.h; sourceTree = "<group>"; };
+		65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratDaLuLabel.m; sourceTree = "<group>"; };
 		659E139B22E732DE00E9570E /* BugCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugCollectionController.h; sourceTree = "<group>"; };
 		659E139C22E732DE00E9570E /* BugCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugCollectionController.m; sourceTree = "<group>"; };
 		65E511F02313C597008098BE /* 新增App注意事项.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "新增App注意事项.rtfd"; sourceTree = "<group>"; };
@@ -325,6 +331,8 @@
 				A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */,
 				A0CBDD6522204AA700E7E21F /* BaccaratCell.h */,
 				A0CBDD6622204AA700E7E21F /* BaccaratCell.m */,
+				65813237231D886E00A3BBFE /* BaccaratDaLuLabel.h */,
+				65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -436,6 +444,8 @@
 		A0130DCC21ECB78D007E845B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				65813234231D396900A3BBFE /* UIView+Extension.h */,
+				65813235231D396900A3BBFE /* UIView+Extension.m */,
 				A0F13BE322B3BB90000C213C /* UIImage+NIMKit.h */,
 				A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */,
 				A011E13422A65BC300A10869 /* UIButton+countDown.h */,
@@ -932,6 +942,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
+				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
@@ -957,6 +968,7 @@
 				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,
 				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
 				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
+				65813236231D396900A3BBFE /* UIView+Extension.m in Sources */,
 				400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */,
 				A0BCD7AB22218B0E00BB3A9C /* SearchViewController.m in Sources */,
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,

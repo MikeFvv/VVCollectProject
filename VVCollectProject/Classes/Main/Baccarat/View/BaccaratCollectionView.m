@@ -8,6 +8,7 @@
 
 #import "BaccaratCollectionView.h"
 #import "BaccaratCollectionViewCell.h"
+#import "UIView+Extension.h"
 
 
 static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
@@ -17,6 +18,30 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
 @property (strong, nonatomic) UICollectionView *collectionView;
 //
 @property (nonatomic,strong) NSMutableArray *resultDataArray;
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UILabel *lastLbl;
+/// 记录长龙个数
+@property (nonatomic, assign)int longNum;
+/// 记录长龙的最小 X
+@property (nonatomic, assign)CGFloat longMinX;
+/// 记录"和"前面的一个结果
+@property (nonatomic, strong) NSDictionary *preTieDict;
+/// 记录最大的 x 值
+@property (nonatomic, assign)CGFloat maxXValue;
+/// 记录上一个长龙所有 label
+@property (nonatomic, strong)NSMutableArray *lastChangLongLblArray;
+@property (nonatomic, strong)NSMutableArray *currentChangLongLblArray;
+
+@property (nonatomic, assign)CGFloat twoChangLongPoint;
+/// 记录当前长龙最低下第一个 label
+@property (nonatomic, strong)UILabel *changLongBottomLbl;
+/// 连续和的数量
+@property (nonatomic, assign) NSInteger tieNum;
+
+@property (nonatomic, strong) NSDictionary *lastDict;
+
 @end
 
 @implementation BaccaratCollectionView
@@ -54,21 +79,243 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
     return self;
 }
 
+- (void)setRoadType:(NSInteger)roadType {
+    _roadType = roadType;
+    if (roadType == 0) {
+        self.collectionView.hidden = NO;
+        _scrollView.hidden = YES;
+    } else if (roadType == 1) {
+        self.collectionView.hidden = YES;
+        self.scrollView.hidden = NO;
+        [self addSubview:self.scrollView];
+    }
+}
+
 
 - (void)setModel:(id)model {
     self.resultDataArray = [NSMutableArray arrayWithArray:(NSArray *)model];
-    [self.collectionView reloadData];
+    if (self.roadType == 0) {
+        [self.collectionView reloadData];
+    } else if (self.roadType == 1) {
+        self.maxXValue = 0;
+        [self creatItems];
+    } else {
+        NSLog(@"1");
+    }
 }
 
+
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        _scrollView.delegate = self;
+        _scrollView.backgroundColor = [UIColor yellowColor];
+    }
+    return _scrollView;
+}
+
+// 画线
+// https://www.cnblogs.com/lulushen/p/11163965.html
+// https://www.cnblogs.com/jaesun/p/iOS-CAShapeLayerUIBezierPath-hua-xian.html 这个
+- (void)creatItems{
+    for (UIView *view in self.scrollView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    for (int i = 0; i < self.resultDataArray.count; i++) {
+        NSDictionary *dict = (NSDictionary *)self.resultDataArray[i];
+        
+        if ([[dict objectForKey:@"WinType"] integerValue] == 0 && i != 0) {
+            // 线的路径
+            UIBezierPath *linePath = [UIBezierPath bezierPath];
+            // 起点
+            [linePath moveToPoint:CGPointMake(16, 0)];
+            // 其他点
+            [linePath addLineToPoint:CGPointMake(0, 16)];
+            
+            CAShapeLayer *lineLayer = [CAShapeLayer layer];
+            lineLayer.lineWidth = 1.5;
+            lineLayer.strokeColor = [UIColor greenColor].CGColor;
+            lineLayer.path = linePath.CGPath;
+            lineLayer.fillColor = nil;
+            [self.lastLbl.layer addSublayer:lineLayer];
+            
+            self.tieNum++;
+            if (self.tieNum != 1) {
+                UILabel *tieNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 7, 7)];
+                tieNumLabel.font = [UIFont boldSystemFontOfSize:11];
+                tieNumLabel.textAlignment = NSTextAlignmentCenter;
+                tieNumLabel.textColor = [UIColor greenColor];
+                [self.lastLbl addSubview:tieNumLabel];
+                tieNumLabel.text = [NSString stringWithFormat:@"%ld",self.tieNum];
+            }
+            continue;
+        }
+        
+        self.tieNum = 0;
+        UILabel *label = [[UILabel alloc] init];
+        label.layer.masksToBounds = YES;
+        label.font = [UIFont boldSystemFontOfSize:14];
+        label.textAlignment = NSTextAlignmentCenter;
+        
+        CGFloat itemWidth = 16;
+        label.layer.cornerRadius = itemWidth/2;
+        [self.scrollView addSubview:label];
+        
+        
+        
+        NSDictionary *lastDict;
+        if (i >= 1) {
+            lastDict = (NSDictionary *)self.resultDataArray[i-1];
+        }
+        NSDictionary *lastTwoDict;
+        if (i >= 2) {
+            lastTwoDict = (NSDictionary *)self.resultDataArray[i-2];
+        }
+        
+        if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
+            if ([[dict objectForKey:@"isSuperSix"] boolValue]) {
+                label.text = @"6";
+                label.textColor = [UIColor whiteColor];
+            }
+            label.backgroundColor = [UIColor redColor];
+        } else if ([[dict objectForKey:@"WinType"] integerValue] == 2) {
+            label.backgroundColor = [UIColor blueColor];
+        } else {
+            label.backgroundColor = [UIColor greenColor];
+        }
+        
+        // 对子
+        CGFloat circleViewWidht = 7;
+        if ([[dict objectForKey:@"isBankerPair"] boolValue]) {
+            UIView *bankerPairView = [[UIView alloc] init];
+            bankerPairView.backgroundColor = [UIColor colorWithRed:1.000 green:0.251 blue:0.251 alpha:1.000];
+            bankerPairView.layer.cornerRadius = circleViewWidht/2;
+            bankerPairView.layer.masksToBounds = YES;
+            [self.scrollView addSubview:bankerPairView];
+            
+            [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(label.mas_top);
+                make.left.equalTo(label.mas_left);
+                make.size.mas_equalTo(@(circleViewWidht));
+            }];
+        }
+        
+        if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
+            UIView *playerPairView = [[UIView alloc] init];
+            playerPairView.backgroundColor = [UIColor colorWithRed:0.118 green:0.565 blue:1.000 alpha:1.000];
+            playerPairView.layer.cornerRadius = circleViewWidht/2;
+            playerPairView.layer.masksToBounds = YES;
+            [self.scrollView addSubview:playerPairView];
+            
+            [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(label.mas_bottom);
+                make.right.equalTo(label.mas_right);
+                make.size.mas_equalTo(@(circleViewWidht));
+            }];
+        }
+        
+        CGFloat margin = 1;
+        CGFloat w = itemWidth;
+        CGFloat h = w;
+        CGFloat x = 0;
+        CGFloat y = 0;
+        if (i == 0) {
+            label.frame = CGRectMake(x, y, w, h);
+        }else{
+            
+            BOOL continueBool = [[dict objectForKey:@"WinType"] integerValue] == [[self.lastDict objectForKey:@"WinType"] integerValue] ? YES : NO;
+            if (continueBool) {
+                //记录连续相同的结果个数
+                self.longNum += 1;
+                if (self.longNum <= 6) {
+                    self.longMinX = self.lastLbl.x;
+                    x = self.lastLbl.x;
+                    label.frame = CGRectMake(x, CGRectGetMaxY(self.lastLbl.frame) + margin, w, h);
+                    if (self.longNum == 6) {//记录长龙最底下的第一个 label,用于之后进行 x 值的比较
+                        self.changLongBottomLbl = label;
+                    }
+                }else{
+                    //将长龙底下部分加入到数组
+                    [self.currentChangLongLblArray addObject:label];
+                    x = CGRectGetMaxX(self.lastLbl.frame) + margin;
+                    label.frame = CGRectMake(x, self.lastLbl.y, w, h);
+                }
+                if (x > self.maxXValue) {
+                    self.maxXValue = x;
+                }
+            }else{
+                
+                if (self.longNum >= 6) {
+                    if (self.lastChangLongLblArray.count != 0) {
+                        for (int a = 0; a < self.lastChangLongLblArray.count; a++) {
+                            UILabel *lbl = self.lastChangLongLblArray[a];
+                            if (lbl.x >= self.changLongBottomLbl.x) {
+                                [lbl removeFromSuperview];
+                            }
+                        }
+                    }
+                    
+                    [self.lastChangLongLblArray removeAllObjects];
+                    [self.lastChangLongLblArray addObjectsFromArray:self.currentChangLongLblArray];
+                    [self.currentChangLongLblArray removeAllObjects];
+                }
+                y = 0;
+                if (self.longNum > 6) {
+                    x = self.longMinX + w + margin;
+                }else{
+                    x = CGRectGetMaxX(self.lastLbl.frame) + margin;
+                }
+                if (x > self.maxXValue) {
+                    self.maxXValue = x;
+                }
+                label.frame = CGRectMake(x, y, w, h);
+                //相同开奖结果清空
+                self.longNum = 1;
+            }
+            
+        }
+        
+//        self.scrollView.contentSize = CGSizeMake(self.maxXValue + w + margin, 0);
+
+        [UIView animateWithDuration:0.1 animations:^{
+            if (self.maxXValue + w + margin > (self.bounds.size.width - 60)){
+                if ((self.maxXValue + w + margin) != CGRectGetMinX(self.lastLbl.frame)) {
+                    [self.scrollView setContentOffset:CGPointMake(self.maxXValue + w + margin - (kSCREEN_WIDTH - 60), 0) animated:YES];
+                }
+            } else {
+                [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            }
+        }];
+        
+        
+        self.lastLbl = label;
+        self.lastLbl.tag = i;
+        self.lastDict = dict;
+        
+    }
+}
+
+- (NSString *)winTypeDict:(NSDictionary *)dict {
+    NSString *text;
+    if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
+        text = @"B";
+    } else if ([[dict objectForKey:@"WinType"] integerValue] == 2) {
+        text = @"P";
+    } else {
+       text = @"T";
+    }
+    return text;
+}
 
 
 #pragma mark - 首先创建一个collectionView
 - (void)initSubviews {
     
-//    首先创建一个collectionView
-//    创建的时候UICollectionViewFlowLayout必须创建
-//    layout.itemSize必须设置
-//    必须注册一个collectionView的自定义cell
+    //    首先创建一个collectionView
+    //    创建的时候UICollectionViewFlowLayout必须创建
+    //    layout.itemSize必须设置
+    //    必须注册一个collectionView的自定义cell
     /**
      创建layout(布局)
      UICollectionViewFlowLayout 继承与UICollectionLayout
@@ -76,7 +323,6 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
      */
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
-//    CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 30) / 3;
     CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 10*2) / (90/6+1);
     // 设置每个item的大小
     layout.itemSize = CGSizeMake(itemWidth, itemWidth);
@@ -150,27 +396,6 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
     [self addSubview:self.collectionView];
 }
 
-
-//懒加载标签和图片视图
-//- (UILabel *)titleLabel{
-//    if (_titleLabel == nil) {
-//        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.imageView.pd_height, self.contentView.pd_width, 20)];
-//        _titleLabel.numberOfLines = 0;
-//        //        _titleLabel.backgroundColor = [UIColor greenColor];
-//    }
-//    return _titleLabel;
-//}
-//
-//- (UIImageView *)imageView{
-//    if (_imageView == nil) {
-//        CGFloat imageViewWH = self.contentView.frame.size.width;
-//        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageViewWH, imageViewWH)];
-//    }
-//    return _imageView;
-//}
-
-
-
 #pragma mark -- UICollectionViewDataSource 数据源
 
 //定义展示的UICollectionViewCell的个数
@@ -195,13 +420,6 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
 }
 
 #pragma mark --UICollectionViewDelegateFlowLayout  视图布局
-//定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-     CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 10*2) / (90/6+1);
-//    return CGSizeMake(96, 100);
-    return CGSizeMake(itemWidth, itemWidth);
-}
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -222,6 +440,22 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+
+
+- (NSMutableArray *)lastChangLongLblArray{
+    if (!_lastChangLongLblArray) {
+        _lastChangLongLblArray = [NSMutableArray arrayWithCapacity:2];
+    }
+    return _lastChangLongLblArray;
+}
+
+- (NSMutableArray *)currentChangLongLblArray{
+    if (!_currentChangLongLblArray) {
+        _currentChangLongLblArray = [NSMutableArray arrayWithCapacity:2];
+    }
+    return _currentChangLongLblArray;
 }
 
 @end

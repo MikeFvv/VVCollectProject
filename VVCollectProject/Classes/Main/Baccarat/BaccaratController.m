@@ -79,7 +79,7 @@
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray *resultDataArray;
 /// 大路数据
-@property (nonatomic, strong) NSMutableArray *daluResultDataArray;
+//@property (nonatomic, strong) NSMutableArray *daluResultDataArray;
 
 
 ///
@@ -238,7 +238,7 @@
     self.tieCount = 0;
     self.gongCount = 0;
     self.resultDataArray = [NSMutableArray array];
-    self.daluResultDataArray = [NSMutableArray array];
+//    self.daluResultDataArray = [NSMutableArray array];
     self.bankerPlayerSinglePairCount = 0;
     self.buyType = -1;
 }
@@ -268,7 +268,8 @@
     [self setBottomView];
     
     // 大路
-    BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
+    BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, 110)];
+    daluTrendView.roadType = 1;
     //    trendView.backgroundColor = [UIColor redColor];
     daluTrendView.layer.borderWidth = 1;
     daluTrendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -277,6 +278,7 @@
     
     // 庄闲路
     BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth + kTrendViewHeight + kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
+    trendView.roadType = 0;
     //    trendView.backgroundColor = [UIColor redColor];
     trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -702,7 +704,7 @@
     
     [self initData];
     self.trendView.model = self.resultDataArray;
-    self.daluTrendView.model = self.daluResultDataArray;
+    self.daluTrendView.model = self.resultDataArray;
     [self resultStatisticsText];
 //    [self.tableView reloadData];
 }
@@ -722,10 +724,10 @@
     
     self.pokerCount++;
     [self oncePoker];
-    [self daluCalculationMethod];
+//    [self daluCalculationMethod];
     
     self.trendView.model = self.resultDataArray;
-    self.daluTrendView.model = self.daluResultDataArray;
+    self.daluTrendView.model = self.resultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
 //    [self.tableView reloadData];
@@ -741,7 +743,7 @@
     
     [self opening];
     self.trendView.model = self.resultDataArray;
-    self.daluTrendView.model = self.daluResultDataArray;
+    self.daluTrendView.model = self.resultDataArray;
     //    [self resultStatisticsContinuous];
     
     [self resultStatisticsContinuous];
@@ -1012,7 +1014,7 @@
         }
         self.pokerCount++;
         [self oncePoker];
-        [self daluCalculationMethod];
+//        [self daluCalculationMethod];
     }
 }
 
@@ -1214,12 +1216,12 @@
 
 #pragma mark -  Baccarat大路算法
 - (void)daluCalculationMethod {
-    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
-    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
-        [dict setObject:@(self.currentWinType) forKey:@"WinType"];
-    }
-    
-    [self.daluResultDataArray addObject:dict];
+//    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
+//    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
+//        [dict setObject:@(self.currentWinType) forKey:@"WinType"];
+//    }
+//
+//    [self.daluResultDataArray addObject:dict];
 }
 
 //#pragma mark -  Baccarat大路算法
