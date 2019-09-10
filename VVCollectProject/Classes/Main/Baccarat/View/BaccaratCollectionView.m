@@ -237,9 +237,42 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
             
             BOOL continueBool = model.WinType == self.lastModel.WinType ? YES : NO;
             if (continueBool) {
+                
+                // self.daluResultDataArray.count; // 当前列数
+                // 计算最大可使用空白格数
+                NSInteger maxBlankColumns = 6;
+                for (NSInteger i = 1; i <= self.daluResultDataArray.count; i++) {
+                    NSArray *tempArray = self.daluResultDataArray[i-1];
+                    NSInteger tempNum = tempArray.count - 6;
+                    NSInteger count = self.daluResultDataArray.count;
+                    if (tempNum > 0 && (tempNum - (count - i) >= 0)) {
+                        maxBlankColumns--;
+                        NSLog(@"1");
+                        
+                        if (i > 2) {    // 多条龙连一起时 最低下不够减 需加上
+                            NSArray *teeArray = self.daluResultDataArray[i-2];
+                            NSInteger teeNum = teeArray.count - 6;
+                            NSInteger count = self.daluResultDataArray.count;
+                            BOOL isF = YES;
+                            if (tempNum > 0 && (teeNum - (count - (i-1)) >= 0)) {
+                                isF = NO;
+                            }
+                            
+                            if (isF && teeNum >= 1) {
+                                maxBlankColumns--;
+                            }
+                            NSLog(@"3");
+                        }
+                    }
+                    
+                    NSLog(@"3");
+                    
+                }
+                
+                
                 //记录连续相同的结果个数
                 self.longNum += 1;
-                if (self.longNum <= 6) {
+                if (self.longNum <= maxBlankColumns) {
                     self.longMinX = self.lastLbl.x;
                     x = self.lastLbl.x;
                     label.frame = CGRectMake(x, CGRectGetMaxY(self.lastLbl.frame) + margin, w, h);
@@ -257,15 +290,17 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
                 }
                 [self.yiluArray addObject:model];
             }else{
-                [self.daluResultDataArray addObject:self.yiluArray];
-                self.yiluArray = nil;
+                if (self.yiluArray.count > 0) {
+                    [self.daluResultDataArray addObject:self.yiluArray];
+                    self.yiluArray = nil;
+                }
                 
                 if (self.longNum >= 6) {
                     if (self.lastChangLongLblArray.count != 0) {
                         for (int a = 0; a < self.lastChangLongLblArray.count; a++) {
                             UILabel *lbl = self.lastChangLongLblArray[a];
                             if (lbl.x >= self.changLongBottomLbl.x) {
-                                [lbl removeFromSuperview];
+//                                [lbl removeFromSuperview];
                             }
                         }
                     }

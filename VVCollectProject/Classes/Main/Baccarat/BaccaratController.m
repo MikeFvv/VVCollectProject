@@ -718,7 +718,7 @@
     
 //    self.betMoneyTextField.text = 0;
     
-    if (self.pokerTotalNum < 6) {  // 停止发牌
+    if (self.pokerTotalNum < 36) {  // 停止发牌
         self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld  已结束", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
         self.buyBankerBtn.backgroundColor = [UIColor lightGrayColor];
         self.buyPlayerBtn.backgroundColor = [UIColor lightGrayColor];
@@ -1051,23 +1051,45 @@
         //        NSLog(@"🔴= %@", num.stringValue);
         
         
-//        NSString *numStr = (NSString *)self.dataArray.firstObject;
-        NSString *numStr = @"7";
-        if (i == 5) {
-            if (self.jjjjjjj > 9) {
-                
-                if (self.jjjjjjj > 18) {
-                    numStr = @"1";
-                } else {
-                    numStr = @"8";
-                }
-                
-            } else {
-                numStr = @"1";
-            }
-        }
+        NSString *numStr = (NSString *)self.dataArray.firstObject;
         [self.dataArray removeObjectAtIndex:0];
         self.pokerTotalNum--;
+        
+        
+//        if (self.jjjjjjj > 22) {   // 测试使用  增加长庄长闲
+//            numStr = @"7";
+//        }
+//        if (i == 5) {
+        
+//            if (self.jjjjjjj > 29) {
+//
+//                if (self.jjjjjjj > 38) {
+//                    if (self.jjjjjjj > 47) {
+//                        if (self.jjjjjjj > 56) {
+//                            if (self.jjjjjjj > 65) {
+//                                if (self.jjjjjjj > 74) {
+//                                    numStr = @"1";
+//                                } else {
+//                                    numStr = @"8";
+//                                }
+//                            } else {
+//                                numStr = @"1";
+//                            }
+//                        } else {
+//                            numStr = @"8";
+//                        }
+//                    } else {
+//                        numStr = @"1";
+//                    }
+//                } else {
+//                    numStr = @"8";
+//                }
+//
+//            } else {
+//                numStr = @"1";
+//            }
+//        }
+        
         
         if (i == 1) {
             player1 = numStr.integerValue;
