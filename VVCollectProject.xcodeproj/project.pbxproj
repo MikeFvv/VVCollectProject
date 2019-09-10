@@ -15,6 +15,7 @@
 		65813236231D396900A3BBFE /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813235231D396900A3BBFE /* UIView+Extension.m */; };
 		65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */; };
 		659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659E139C22E732DE00E9570E /* BugCollectionController.m */; };
+		65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCBA0723277D3F00D89C4F /* BaccaratModel.m */; };
 		65E511F12313C597008098BE /* 新增App注意事项.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 65E511F02313C597008098BE /* 新增App注意事项.rtfd */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
@@ -125,6 +126,8 @@
 		65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratDaLuLabel.m; sourceTree = "<group>"; };
 		659E139B22E732DE00E9570E /* BugCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugCollectionController.h; sourceTree = "<group>"; };
 		659E139C22E732DE00E9570E /* BugCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugCollectionController.m; sourceTree = "<group>"; };
+		65DCBA0623277D3F00D89C4F /* BaccaratModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratModel.h; sourceTree = "<group>"; };
+		65DCBA0723277D3F00D89C4F /* BaccaratModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratModel.m; sourceTree = "<group>"; };
 		65E511F02313C597008098BE /* 新增App注意事项.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "新增App注意事项.rtfd"; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
@@ -358,6 +361,15 @@
 			children = (
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		65DCBA0523277D1F00D89C4F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				65DCBA0623277D3F00D89C4F /* BaccaratModel.h */,
+				65DCBA0723277D3F00D89C4F /* BaccaratModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A004E78B2226E40A0090DC44 /* BlackJack */ = {
@@ -714,6 +726,7 @@
 		A0D55E2B221DAFA200D7E3B0 /* Baccarat */ = {
 			isa = PBXGroup;
 			children = (
+				65DCBA0523277D1F00D89C4F /* Model */,
 				6523E53622EDD42400D304D3 /* View */,
 				A0D55E2C221DAFB500D7E3B0 /* BaccaratController.h */,
 				A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */,
@@ -977,6 +990,7 @@
 				A0BCD7B622218B8400BB3A9C /* Color.m in Sources */,
 				A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
+				65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */,
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */,

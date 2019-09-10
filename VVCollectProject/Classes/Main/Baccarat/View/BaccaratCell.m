@@ -7,6 +7,7 @@
 //
 
 #import "BaccaratCell.h"
+#import "BaccaratModel.h"
 
 @interface BaccaratCell()
 
@@ -134,37 +135,38 @@
 
 
 - (void)setModel:(id)model {
-    NSDictionary *dict = (NSDictionary *)model;
-    NSString *player3 = [dict objectForKey:@"player3"];
-    NSString *banker3 = [dict objectForKey:@"banker3"];
+    BaccaratModel *bModel;
+    if ([model isKindOfClass:[BaccaratModel class]]) {
+        bModel = model;
+    } else {
+        return;
+    }
+    
+    _indexLabel.text =  [NSString stringWithFormat:@"%ld", bModel.pokerCount];
+    NSString *playerStr = [NSString stringWithFormat:@"Player: %ld点 %@  %@  %@", bModel.playerPointsNum,  [self pokerCharacter: bModel.player1], [self pokerCharacter: bModel.player2], bModel.player3.length > 0 ? [self pokerCharacter: [bModel.player3 integerValue]] : @""];
     
     
-    
-    _indexLabel.text =  [dict objectForKey:@"pokerCount"];
-    NSString *playerStr = [NSString stringWithFormat:@"Player: %@点 %@  %@  %@", [dict objectForKey:@"playerPointsNum"],  [self pokerCharacter: [[dict objectForKey:@"player1"] integerValue]], [self pokerCharacter: [[dict objectForKey:@"player2"] integerValue]], player3.length > 0 ? [self pokerCharacter: [player3 integerValue]] : @""];
-    
-    
-    NSString *bankerStr = [NSString stringWithFormat:@"Banker: %@点 %@  %@  %@", [dict objectForKey:@"bankerPointsNum"], [self pokerCharacter: [[dict objectForKey:@"banker1"] integerValue]], [self pokerCharacter: [[dict objectForKey:@"banker2"] integerValue]], banker3.length > 0 ? [self pokerCharacter: [banker3 integerValue]] : @""];
+    NSString *bankerStr = [NSString stringWithFormat:@"Banker: %ld点 %@  %@  %@", bModel.bankerPointsNum, [self pokerCharacter: bModel.banker1], [self pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [self pokerCharacter: [bModel.banker3 integerValue]] : @""];
     
     self.playerLabel.text = playerStr;
     self.bankerLabel.text = bankerStr;
     
     NSString *resultStr;
-    if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
+    if (bModel.WinType == 1) {
         resultStr = @"🔴";
-    } else if ([[dict objectForKey:@"WinType"] integerValue] == 2) {
+    } else if (bModel.WinType == 2) {
         resultStr = @"🅿️";
     } else {
         resultStr = @"✅";
     }
     
-    if ([[dict objectForKey:@"isSuperSix"] boolValue]) {
+    if (bModel.isSuperSix) {
         resultStr = [NSString stringWithFormat:@"%@🔸", resultStr];
     }
-    if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
+    if (bModel.isPlayerPair) {
         resultStr = [NSString stringWithFormat:@"%@🔹", resultStr];
     }
-    if ([[dict objectForKey:@"isBankerPair"] boolValue]) {
+    if (bModel.isBankerPair) {
         resultStr = [NSString stringWithFormat:@"%@🔺", resultStr];
     }
     

@@ -7,7 +7,7 @@
 //
 
 #import "BaccaratCollectionViewCell.h"
-
+#import "BaccaratModel.h"
 
 @interface BaccaratCollectionViewCell ()
 
@@ -98,13 +98,17 @@
 }
 
 - (void)setModel:(id)model {
+    BaccaratModel *bModel;
+    if ([model isKindOfClass:[BaccaratModel class]]) {
+        bModel = model;
+    } else {
+        return;
+    }
     
-    NSDictionary *dict = (NSDictionary *)model;
-    
-    if ([[dict objectForKey:@"WinType"] integerValue] == 1) {
+    if (bModel.WinType == 1) {
         self.bankerOrPlayerOrTieLabel.text = @"B";
         self.backgroundColor = [UIColor redColor];
-    } else if ([[dict objectForKey:@"WinType"] integerValue] == 2) {
+    } else if (bModel.WinType == 2) {
         self.bankerOrPlayerOrTieLabel.text = @"P";
         self.backgroundColor = [UIColor blueColor];
     } else {
@@ -115,26 +119,26 @@
     
     
     // 爆牌
-    if ([[dict objectForKey:@"PlayerBust"] boolValue]) {
+    if (bModel.isPlayerBust) {
         self.bankerOrPlayerOrTieLabel.text = @"BB";
-    } else if ([[dict objectForKey:@"BankerBust"] boolValue]) {
+    } else if (bModel.isBankerBust) {
          self.bankerOrPlayerOrTieLabel.text = @"PB";
     }
     
-    if ([[dict objectForKey:@"isSuperSix"] boolValue]) {
+    if (bModel.isSuperSix) {
         self.superSixView.hidden = NO;
     } else {
         self.superSixView.hidden = YES;
     }
     
     
-    if ([[dict objectForKey:@"isBankerPair"] boolValue]) {
+    if (bModel.isBankerPair) {
         self.bankerPairView.hidden = NO;
     } else {
         self.bankerPairView.hidden = YES;
     }
     
-    if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
+    if (bModel.isPlayerPair) {
         self.playerPairView.hidden = NO;
     } else {
         self.playerPairView.hidden = YES;

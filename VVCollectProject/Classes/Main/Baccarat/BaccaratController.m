@@ -13,6 +13,7 @@
 #import "PointListController.h"
 #import <MBProgressHUD.h>
 #import "BaccaratConfigController.h"
+#import "BaccaratModel.h"
 
 
 #define kBtnHeight 35
@@ -134,6 +135,8 @@
 /// 计算出公的张数
 @property (nonatomic, assign) NSInteger gongCount;
 
+@property (nonatomic, assign) NSInteger jjjjjjj;
+
 @end
 
 @implementation BaccaratController
@@ -168,7 +171,7 @@
 //
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    
+    self.jjjjjjj = 0;
     //添加两个button
     NSMutableArray*buttons=[[NSMutableArray alloc]initWithCapacity:2];
 //    UIBarButtonItem*button3=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press2)];
@@ -723,6 +726,7 @@
     }
     
     self.pokerCount++;
+    self.jjjjjjj++;
     [self oncePoker];
 //    [self daluCalculationMethod];
     
@@ -812,13 +816,13 @@
         return;
     }
     
-    NSDictionary *firstDict = (NSDictionary *)self.resultDataArray.firstObject;
-    compareChar       = [[firstDict objectForKey:@"WinType"] stringValue];  // 从第一个字符开始比较
+    BaccaratModel *firstModel = (BaccaratModel *)self.resultDataArray.firstObject;
+    compareChar       = [NSString stringWithFormat:@"%ld", firstModel.WinType];  // 从第一个字符开始比较
     longestContinChar = compareChar;
     
-    firstisBankerPair       = [[firstDict objectForKey:@"isBankerPair"] boolValue];
-    firstisPlayerPair       = [[firstDict objectForKey:@"isPlayerPair"] boolValue];
-    firstisSuperSix       = [[firstDict objectForKey:@"isSuperSix"] boolValue];
+    firstisBankerPair       = firstModel.isBankerPair;
+    firstisPlayerPair       = firstModel.isPlayerPair;
+    firstisSuperSix       = firstModel.isSuperSix;
     
     if (![compareChar isEqualToString:@"2"]) {  // 记录最后一次的 Banker或者Player
         lastBankerOrPlayer = compareChar;
@@ -826,16 +830,16 @@
     
     for (NSInteger indexFlag = 1; indexFlag < self.resultDataArray.count; indexFlag++) {
         
-        NSDictionary *dict = (NSDictionary *)self.resultDataArray[indexFlag];
-        NSString *tempStrWinType       = [[dict objectForKey:@"WinType"] stringValue]; //
-        BOOL tempIsBankerPair       = [[dict objectForKey:@"isBankerPair"] boolValue];
-        BOOL tempIsPlayerPair       = [[dict objectForKey:@"isPlayerPair"] boolValue];
-        BOOL tempIsSuperSix       = [[dict objectForKey:@"isSuperSix"] boolValue];
+        BaccaratModel *model = (BaccaratModel *)self.resultDataArray[indexFlag];
+        NSString *tempStrWinType       = [NSString stringWithFormat:@"%ld", model.WinType];; //
+        BOOL tempIsBankerPair       = model.isBankerPair;
+        BOOL tempIsPlayerPair       = model.isPlayerPair;
+        BOOL tempIsSuperSix       = model.isSuperSix;
         
         // 与前6局关系
         if (indexFlag >= 6) {
-            NSDictionary *front6SameCountDict = (NSDictionary *)self.resultDataArray[indexFlag - 6];
-            NSString *tempFront6SameCountDict       = [[front6SameCountDict objectForKey:@"WinType"] stringValue];
+            BaccaratModel *front6SameCountModel = (BaccaratModel *)self.resultDataArray[indexFlag - 6];
+            NSString *tempFront6SameCountDict       = [NSString stringWithFormat:@"%ld", front6SameCountModel.WinType];
             if ([tempStrWinType isEqualToString:tempFront6SameCountDict]) {
                 self.front6SameCount++;
             }
@@ -922,11 +926,11 @@
         
         
         if (indexFlag > self.intervalNum) {
-            NSDictionary *dictII = (NSDictionary *)self.resultDataArray[indexFlag - self.intervalNum];
-            NSString *tempStrWinTypeII       = [[dictII objectForKey:@"WinType"] stringValue]; //
-            BOOL tempIsBankerPairII       = [[dictII objectForKey:@"isBankerPair"] boolValue];
-            BOOL tempIsPlayerPairII       = [[dictII objectForKey:@"isPlayerPair"] boolValue];
-            BOOL tempIsSuperSixII       = [[dictII objectForKey:@"isSuperSix"] boolValue];
+            BaccaratModel *modelII = (BaccaratModel *)self.resultDataArray[indexFlag - self.intervalNum];
+            NSString *tempStrWinTypeII       =  [NSString stringWithFormat:@"%ld", modelII.WinType]; //
+            BOOL tempIsBankerPairII       = modelII.isBankerPair;
+            BOOL tempIsPlayerPairII       = modelII.isPlayerPair;
+            BOOL tempIsSuperSixII       =  modelII.isSuperSix;
             
             // 隔一局出的 Pair 统计
             if ((tempIsBankerPair && tempIsBankerPairII) || (tempIsPlayerPair && tempIsPlayerPairII) || (tempIsBankerPair && tempIsPlayerPairII) || (tempIsPlayerPair && tempIsBankerPairII)) {
@@ -1013,6 +1017,7 @@
             break;
         }
         self.pokerCount++;
+        
         [self oncePoker];
 //        [self daluCalculationMethod];
     }
@@ -1046,7 +1051,21 @@
         //        NSLog(@"🔴= %@", num.stringValue);
         
         
-        NSString *numStr = (NSString *)self.dataArray.firstObject;
+//        NSString *numStr = (NSString *)self.dataArray.firstObject;
+        NSString *numStr = @"7";
+        if (i == 5) {
+            if (self.jjjjjjj > 9) {
+                
+                if (self.jjjjjjj > 18) {
+                    numStr = @"1";
+                } else {
+                    numStr = @"8";
+                }
+                
+            } else {
+                numStr = @"1";
+            }
+        }
         [self.dataArray removeObjectAtIndex:0];
         self.pokerTotalNum--;
         
@@ -1110,14 +1129,14 @@
     playerPointsNum = (playerPointsNum + tempPlayer3) >= 10 ? playerPointsNum + tempPlayer3 - 10 : playerPointsNum + tempPlayer3;
     bankerPointsNum = (bankerPointsNum + tempBanker3) >= 10 ? bankerPointsNum + tempBanker3 - 10 : bankerPointsNum + tempBanker3;
     
-    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
+    BaccaratModel *model =  [[BaccaratModel alloc] init];
     // 判断庄闲 输赢
     NSString *win;
     if (playerPointsNum < bankerPointsNum) {
         if (bankerPointsNum == 6) {  // Super6
             win = @"🔴🔸";
             self.superSixCount++;
-            [dict setObject:@(YES) forKey:@"isSuperSix"];
+            model.isSuperSix = YES;
             
             // 下注
             if (self.buyType == 1) {
@@ -1156,37 +1175,37 @@
         [self showMessage:@"本局判断错误， 请查看列表原因"];
          return;
     }
-    [dict setObject:@(self.currentWinType) forKey:@"WinType"];
+    model.WinType = self.currentWinType;
     
     // Pair
     if (player1 == player2) {
         win = [NSString stringWithFormat:@"%@🔹", win];
         self.playerPairCount++;
-        [dict setObject:@(YES) forKey:@"isPlayerPair"];
+        model.isPlayerPair = YES;
     }
     if (banker1 == banker2) {
         win = [NSString stringWithFormat:@"%@🔺", win];
         self.bankerPairCount++;
-        [dict setObject:@(YES) forKey:@"isBankerPair"];
+        model.isBankerPair = YES;
     }
     
     if (player1 == player2 || banker1 == banker2) {
         self.bankerPlayerSinglePairCount++;
     }
     
-    [dict setObject: [NSString stringWithFormat:@"%ld", player1] forKey:@"player1"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", player2] forKey:@"player2"];
+    model.player1 = player1;
+    model.player2 = player2;
+    model.player3 = player3 == nil ? @"" : player3;
     
-    [dict setObject: player3 == nil ? @"" : player3 forKey:@"player3"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", banker1] forKey:@"banker1"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", banker2] forKey:@"banker2"];
-    [dict setObject: banker3  == nil ? @"" : banker3 forKey:@"banker3"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", playerPointsNum] forKey:@"playerPointsNum"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", bankerPointsNum] forKey:@"bankerPointsNum"];
-    [dict setObject: [NSString stringWithFormat:@"%ld", self.pokerCount] forKey:@"pokerCount"];
+    model.banker1 = banker1;
+    model.banker2 = banker2;
+    model.banker3 = banker3  == nil ? @"" : banker3;
     
-    
-    [self.resultDataArray addObject:dict];
+    model.playerPointsNum = playerPointsNum;
+    model.bankerPointsNum = bankerPointsNum;
+    model.pokerCount = self.pokerCount;
+
+    [self.resultDataArray addObject:model];
     
     // 计算公的张数
     if (player1 >= 10) {
