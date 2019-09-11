@@ -31,6 +31,8 @@
 
 //
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UIView *bottomView;
+
 /// 下注金额
 @property (nonatomic, assign) NSInteger betMoney;
 /// 下注输赢总金额
@@ -347,7 +349,7 @@
     _bankerBackView = bankerBackView;
     
     [bankerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(playerBackView.mas_centerY).offset(20);
+        make.centerY.equalTo(playerBackView.mas_centerY);
         make.left.equalTo(playerBackView.mas_right).offset(20);
         make.right.equalTo(self.view.mas_right).offset(-20);
         make.height.mas_equalTo(100);
@@ -375,11 +377,12 @@
     bottomView.layer.borderColor = [UIColor redColor].CGColor;
     bottomView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomView];
+    _bottomView = bottomView;
     
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.view.mas_bottom);
-        make.left.mas_equalTo(self.view.mas_left);
-        make.right.mas_equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-kiPhoneX_Bottom_Height);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
         make.height.mas_equalTo(100);
     }];
     
@@ -451,11 +454,11 @@
     betMoneyTextField.layer.borderColor = [UIColor grayColor].CGColor;
     betMoneyTextField.layer.borderWidth = 1;
     _betMoneyTextField = betMoneyTextField;
-    [self.view addSubview:betMoneyTextField];
+    [self.bottomView addSubview:betMoneyTextField];
     
     [betMoneyTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.pokerNumTextField.mas_left);
-        make.top.mas_equalTo(self.pokerNumTextField.mas_bottom).offset(10);
+        make.left.equalTo(self.pokerNumTextField.mas_left);
+        make.top.equalTo(self.pokerNumTextField.mas_bottom).offset(10);
         make.size.mas_equalTo(CGSizeMake(70, kBtnHeight));
     }];
     
@@ -467,11 +470,11 @@
     buyLessDoubleBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     buyLessDoubleBtn.layer.cornerRadius = 5;
     [buyLessDoubleBtn addTarget:self action:@selector(onBuyLessDoubleBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buyLessDoubleBtn];
+    [self.bottomView addSubview:buyLessDoubleBtn];
     
     [buyLessDoubleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(betMoneyTextField.mas_right).offset(10);
-        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
+        make.left.equalTo(betMoneyTextField.mas_right).offset(10);
+        make.centerY.equalTo(betMoneyTextField.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(50, kBuyBtnHeight));
     }];
     
@@ -483,11 +486,11 @@
     buyDoubleBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     buyDoubleBtn.layer.cornerRadius = 5;
     [buyDoubleBtn addTarget:self action:@selector(onBuyDoubleBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buyDoubleBtn];
+    [self.bottomView addSubview:buyDoubleBtn];
     
     [buyDoubleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(buyLessDoubleBtn.mas_right).offset(10);
-        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
+        make.left.equalTo(buyLessDoubleBtn.mas_right).offset(10);
+        make.centerY.equalTo(betMoneyTextField.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(50, kBuyBtnHeight));
     }];
     
@@ -499,12 +502,12 @@
     buyPlayerBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     buyPlayerBtn.layer.cornerRadius = 5;
     [buyPlayerBtn addTarget:self action:@selector(onBuyPlayerBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buyPlayerBtn];
+    [self.bottomView addSubview:buyPlayerBtn];
     _buyPlayerBtn = buyPlayerBtn;
     
     [buyPlayerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(buyDoubleBtn.mas_right).offset(10);
-        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
+        make.left.equalTo(buyDoubleBtn.mas_right).offset(10);
+        make.centerY.equalTo(betMoneyTextField.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(65, kBuyBtnHeight));
     }];
     
@@ -516,12 +519,12 @@
     buyBankerBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     buyBankerBtn.layer.cornerRadius = 5;
     [buyBankerBtn addTarget:self action:@selector(onBuyBankerBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buyBankerBtn];
+    [self.bottomView addSubview:buyBankerBtn];
     _buyBankerBtn = buyBankerBtn;
     
     [buyBankerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(buyPlayerBtn.mas_right).offset(10);
-        make.centerY.mas_equalTo(betMoneyTextField.mas_centerY);
+        make.left.equalTo(buyPlayerBtn.mas_right).offset(10);
+        make.centerY.equalTo(betMoneyTextField.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(65, kBuyBtnHeight));
     }];
     
