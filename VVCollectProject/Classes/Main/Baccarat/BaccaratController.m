@@ -320,7 +320,7 @@
     _playerBackView = playerBackView;
     
     [playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.view.mas_centerY);
+        make.centerY.equalTo(self.view.mas_centerY).offset(20);
         make.left.equalTo(self.view.mas_left).offset(20);
         make.right.equalTo(self.view.mas_centerX).offset(-20);
         make.height.mas_equalTo(100);
@@ -347,7 +347,7 @@
     _bankerBackView = bankerBackView;
     
     [bankerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(playerBackView.mas_centerY);
+        make.centerY.equalTo(playerBackView.mas_centerY).offset(20);
         make.left.equalTo(playerBackView.mas_right).offset(20);
         make.right.equalTo(self.view.mas_right).offset(-20);
         make.height.mas_equalTo(100);
@@ -1333,7 +1333,7 @@
     NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
    
     if (!self.isRunOverall) {
-         _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
+         _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
     }
    
 }
@@ -1357,7 +1357,7 @@
     view.text = [self pokerCharacter:cardPoints.integerValue];;
     view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.7];
     [self.playerStackView addArrangedSubview:view];
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         [self.playerStackView layoutIfNeeded];
     }];
 }
@@ -1372,7 +1372,7 @@
     view.text = [self pokerCharacter:cardPoints.integerValue];
     view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.7];
     [self.bankerStackView addArrangedSubview:view];
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         [self.bankerStackView layoutIfNeeded];
     }];
 }
