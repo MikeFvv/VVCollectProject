@@ -100,6 +100,13 @@
 @property (nonatomic, strong) UILabel *bbbb;
 @property (nonatomic, strong) UILabel *gongLabel;
 
+@property (nonatomic, strong) UIView *playerBackView;
+@property (nonatomic, strong) UIView *bankerBackView;
+@property (nonatomic, strong) UIStackView *playerStackView;
+@property (nonatomic, strong) UIStackView *bankerStackView;
+/// 定时器
+@property (nonatomic, strong) NSTimer *dealerTimer;
+
 
 /// 买庄
 @property (nonatomic, strong) UIButton *buyBankerBtn;
@@ -136,6 +143,9 @@
 @property (nonatomic, assign) NSInteger gongCount;
 
 @property (nonatomic, assign) NSInteger jjjjjjj;
+/// 是否运行全盘
+@property (nonatomic, assign) BOOL isRunOverall;
+
 
 @end
 
@@ -172,6 +182,8 @@
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.jjjjjjj = 0;
+    self.isRunOverall = NO;
+    
     //添加两个button
     NSMutableArray*buttons=[[NSMutableArray alloc]initWithCapacity:2];
 //    UIBarButtonItem*button3=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press2)];
@@ -265,10 +277,16 @@
     //    [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self pressStop];
+}
+
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setBottomView];
+    [self playingCardsView];
     
     // 大路
     BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, 110)];
@@ -293,6 +311,60 @@
     // 统计视图
     [self textStatisticsView];
     
+}
+
+- (void)playingCardsView {
+    UIView *playerBackView = [[UIView alloc] init];
+    playerBackView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:playerBackView];
+    _playerBackView = playerBackView;
+    
+    [playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.view.mas_centerY);
+        make.left.equalTo(self.view.mas_left).offset(20);
+        make.right.equalTo(self.view.mas_centerX).offset(-20);
+        make.height.mas_equalTo(100);
+    }];
+    
+    _playerStackView = [[UIStackView alloc] init];
+//    _playerStackView.backgroundColor = [UIColor orangeColor];
+    //子控件的布局方向
+    _playerStackView.axis = UILayoutConstraintAxisHorizontal;
+    _playerStackView.distribution = UIStackViewDistributionFillEqually;
+    _playerStackView.spacing = 5;
+    _playerStackView.alignment = UIStackViewAlignmentFill;
+//    _playerStackView.frame = CGRectMake(0, 100, ScreenWidth, 200);
+    [playerBackView addSubview:_playerStackView];
+    [_playerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(playerBackView);
+    }];
+    
+    
+
+    UIView *bankerBackView = [[UIView alloc] init];
+    bankerBackView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:bankerBackView];
+    _bankerBackView = bankerBackView;
+    
+    [bankerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(playerBackView.mas_centerY);
+        make.left.equalTo(playerBackView.mas_right).offset(20);
+        make.right.equalTo(self.view.mas_right).offset(-20);
+        make.height.mas_equalTo(100);
+    }];
+    
+    _bankerStackView = [[UIStackView alloc] init];
+//    _bankerStackView.backgroundColor = [UIColor orangeColor];
+    //子控件的布局方向
+    _bankerStackView.axis = UILayoutConstraintAxisHorizontal;
+    _bankerStackView.distribution = UIStackViewDistributionFillEqually;
+    _bankerStackView.spacing = 5;
+    _bankerStackView.alignment = UIStackViewAlignmentFill;
+    //    _bankerStackView.frame = CGRectMake(0, 100, ScreenWidth, 200);
+    [bankerBackView addSubview:_bankerStackView];
+    [_bankerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(bankerBackView);
+    }];
 }
 
 - (void)setBottomView {
@@ -742,6 +814,7 @@
  全盘
  */
 - (void)onStartButton {
+    self.isRunOverall = YES;
     // 记录当前时间
     float start = CACurrentMediaTime();
     
@@ -1092,12 +1165,16 @@
         
         
         if (i == 1) {
+            [self playerDealerDisplayView:numStr];
             player1 = numStr.integerValue;
         } else if (i == 2) {
+            [self bankerDealerDisplayView:numStr];
             banker1 = numStr.integerValue;
         } else if (i == 3) {
+            [self playerDealerDisplayView:numStr];
             player2 = numStr.integerValue;
         } else if (i == 4) {
+            [self bankerDealerDisplayView:numStr];
             banker2 = numStr.integerValue;
         }
         
@@ -1121,9 +1198,11 @@
         } else if (i == 5) {
             if (playerPointsNum < 6) {
                 player3 = numStr;
+                [self playerDealerDisplayView:numStr];
             } else {
                 if (bankerPointsNum < 6) {
                     banker3 = numStr;
+                    [self bankerDealerDisplayView:numStr];
                     break;
                 }
             }
@@ -1141,6 +1220,7 @@
         } else if (i == 6) {
             if (bankerPointsNum <= 6) {
                 banker3 = numStr;
+                [self bankerDealerDisplayView:numStr];
             }
         }
     }
@@ -1251,8 +1331,70 @@
     
     
     NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
+   
+    if (!self.isRunOverall) {
+         _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
+    }
+   
 }
 
+-(void)pressStop {
+    if (_dealerTimer!=nil) {
+        //停止计时器
+        [_dealerTimer invalidate];
+    }
+}
+
+#pragma mark -  发牌显示视图
+- (void)playerDealerDisplayView:(NSString *)cardPoints {
+    if (self.isRunOverall) {
+        return;
+    }
+    UILabel *view = [[UILabel alloc] init];
+    view.textAlignment = NSTextAlignmentCenter;
+    view.font = [UIFont boldSystemFontOfSize:26];
+    view.textColor = [UIColor blueColor];
+    view.text = cardPoints;
+    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.7];
+    [self.playerStackView addArrangedSubview:view];
+    [UIView animateWithDuration:1.0 animations:^{
+        [self.playerStackView layoutIfNeeded];
+    }];
+}
+- (void)bankerDealerDisplayView:(NSString *)cardPoints {
+    if (self.isRunOverall) {
+        return;
+    }
+    UILabel *view = [[UILabel alloc] init];
+    view.textAlignment = NSTextAlignmentCenter;
+    view.font = [UIFont boldSystemFontOfSize:26];
+    view.textColor = [UIColor redColor];
+    view.text = cardPoints;
+    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.7];
+    [self.bankerStackView addArrangedSubview:view];
+    [UIView animateWithDuration:1.0 animations:^{
+        [self.bankerStackView layoutIfNeeded];
+    }];
+}
+
+- (void)removeStackView {
+    
+    for (NSInteger i = 0; i < [self.playerStackView subviews].count; i++) {
+        UILabel *viewLabel = [self.playerStackView subviews][i];
+        viewLabel.text = @"";
+        [self.playerStackView removeArrangedSubview:viewLabel];
+    }
+    
+    
+    for (NSInteger j = 0; j < [self.bankerStackView subviews].count; j++) {
+        UILabel *viewLabel = [self.bankerStackView subviews][j];
+        viewLabel.text = @"";
+        [self.bankerStackView removeArrangedSubview:viewLabel];
+    }
+    
+    
+    [self pressStop];
+}
 
 
 #pragma mark -  Baccarat大路算法
