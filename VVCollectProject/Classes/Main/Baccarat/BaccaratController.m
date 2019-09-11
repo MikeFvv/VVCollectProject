@@ -103,7 +103,9 @@
 @property (nonatomic, strong) UILabel *gongLabel;
 
 @property (nonatomic, strong) UIView *playerBackView;
+@property (nonatomic, strong) UIView *player3BackView;
 @property (nonatomic, strong) UIView *bankerBackView;
+@property (nonatomic, strong) UIView *banker3BackView;
 @property (nonatomic, strong) UIStackView *playerStackView;
 @property (nonatomic, strong) UIStackView *bankerStackView;
 /// 定时器
@@ -323,9 +325,19 @@
     
     [playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.view.mas_centerY).offset(20);
-        make.left.equalTo(self.view.mas_left).offset(20);
-        make.right.equalTo(self.view.mas_centerX).offset(-20);
-        make.height.mas_equalTo(100);
+        make.left.equalTo(self.view.mas_left).offset(50);
+        make.size.mas_equalTo(CGSizeMake(125, 80));
+    }];
+    
+    UIView *player3BackView = [[UIView alloc] init];
+    player3BackView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:player3BackView];
+    _player3BackView = player3BackView;
+    
+    [player3BackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(playerBackView.mas_bottom).offset(5);
+        make.centerX.equalTo(playerBackView.mas_centerX);
+        make.size.mas_equalTo(CGSizeMake(60, 80));
     }];
     
     _playerStackView = [[UIStackView alloc] init];
@@ -350,9 +362,19 @@
     
     [bankerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(playerBackView.mas_centerY);
-        make.left.equalTo(playerBackView.mas_right).offset(20);
-        make.right.equalTo(self.view.mas_right).offset(-20);
-        make.height.mas_equalTo(100);
+        make.right.equalTo(self.view.mas_right).offset(-50);
+        make.size.mas_equalTo(CGSizeMake(125, 80));
+    }];
+    
+    UIView *banker3BackView = [[UIView alloc] init];
+    banker3BackView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:banker3BackView];
+    _banker3BackView = banker3BackView;
+    
+    [banker3BackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bankerBackView.mas_bottom).offset(5);
+        make.centerX.equalTo(bankerBackView.mas_centerX);
+        make.size.mas_equalTo(CGSizeMake(60, 80));
     }];
     
     _bankerStackView = [[UIStackView alloc] init];
@@ -1201,11 +1223,11 @@
         } else if (i == 5) {
             if (playerPointsNum < 6) {
                 player3 = numStr;
-                [self playerDealerDisplayView:numStr];
+                [self player3DealerDisplayView:numStr];
             } else {
                 if (bankerPointsNum < 6) {
                     banker3 = numStr;
-                    [self bankerDealerDisplayView:numStr];
+                    [self banker3DealerDisplayView:numStr];
                     break;
                 }
             }
@@ -1223,7 +1245,7 @@
         } else if (i == 6) {
             if (bankerPointsNum <= 6) {
                 banker3 = numStr;
-                [self bankerDealerDisplayView:numStr];
+                [self banker3DealerDisplayView:numStr];
             }
         }
     }
@@ -1358,10 +1380,25 @@
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor blueColor];
     view.text = [self pokerCharacter:cardPoints.integerValue];;
-    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.7];
+    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.8];
     [self.playerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
         [self.playerStackView layoutIfNeeded];
+    }];
+}
+- (void)player3DealerDisplayView:(NSString *)cardPoints {
+    if (self.isRunOverall) {
+        return;
+    }
+    UILabel *view = [[UILabel alloc] init];
+    view.textAlignment = NSTextAlignmentCenter;
+    view.font = [UIFont boldSystemFontOfSize:26];
+    view.textColor = [UIColor blueColor];
+    view.text = [self pokerCharacter:cardPoints.integerValue];;
+    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.8];
+    [self.player3BackView addSubview:view];
+    [UIView animateWithDuration:1 animations:^{
+        view.frame = CGRectMake(0, 0, 60, 90);
     }];
 }
 - (void)bankerDealerDisplayView:(NSString *)cardPoints {
@@ -1373,19 +1410,36 @@
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor redColor];
     view.text = [self pokerCharacter:cardPoints.integerValue];
-    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.7];
+    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.8];
     [self.bankerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
         [self.bankerStackView layoutIfNeeded];
     }];
 }
-
+- (void)banker3DealerDisplayView:(NSString *)cardPoints {
+    if (self.isRunOverall) {
+        return;
+    }
+    UILabel *view = [[UILabel alloc] init];
+    view.textAlignment = NSTextAlignmentCenter;
+    view.font = [UIFont boldSystemFontOfSize:26];
+    view.textColor = [UIColor redColor];
+    view.text = [self pokerCharacter:cardPoints.integerValue];
+    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.8];
+    [self.banker3BackView addSubview:view];
+    [UIView animateWithDuration:1 animations:^{
+        view.frame = CGRectMake(0, 0, 60, 90);
+    }];
+}
 - (void)removeStackView {
     
     for (NSInteger i = 0; i < [self.playerStackView subviews].count; i++) {
         UILabel *viewLabel = [self.playerStackView subviews][i];
         viewLabel.text = @"";
         [self.playerStackView removeArrangedSubview:viewLabel];
+    }
+    while (self.player3BackView.subviews.count) {
+        [self.player3BackView.subviews.lastObject removeFromSuperview];
     }
     
     
@@ -1394,7 +1448,9 @@
         viewLabel.text = @"";
         [self.bankerStackView removeArrangedSubview:viewLabel];
     }
-    
+    while (self.banker3BackView.subviews.count) {
+        [self.banker3BackView.subviews.lastObject removeFromSuperview];
+    }
     
     [self pressStop];
 }
