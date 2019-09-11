@@ -1354,7 +1354,7 @@
     view.textAlignment = NSTextAlignmentCenter;
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor blueColor];
-    view.text = cardPoints;
+    view.text = [self pokerCharacter:cardPoints.integerValue];;
     view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.7];
     [self.playerStackView addArrangedSubview:view];
     [UIView animateWithDuration:1.0 animations:^{
@@ -1369,7 +1369,7 @@
     view.textAlignment = NSTextAlignmentCenter;
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor redColor];
-    view.text = cardPoints;
+    view.text = [self pokerCharacter:cardPoints.integerValue];
     view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.7];
     [self.bankerStackView addArrangedSubview:view];
     [UIView animateWithDuration:1.0 animations:^{
@@ -1395,6 +1395,38 @@
     
     [self pressStop];
 }
+
+
+- (NSString *)pokerCharacter:(NSInteger)num {
+    switch (num) {
+        case 1:
+            return @"A";
+            break;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+            return [NSString stringWithFormat:@"%ld", num];
+        case 11:
+            return @"L";
+            break;
+        case 12:
+            return @"Q";
+            break;
+        case 13:
+            return @"K";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
 
 
 #pragma mark -  Baccarat大路算法
