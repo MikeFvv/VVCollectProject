@@ -1336,7 +1336,7 @@
     NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
    
     if (!self.isRunOverall) {
-         _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
+         _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
     }
    
 }
