@@ -25,7 +25,7 @@
 #define kTrendViewHeight 138
 #define kLabelFontSize 12
 
-
+#define kColorAlpha 0.9
 
 @interface BaccaratController ()
 
@@ -1380,7 +1380,7 @@
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor blueColor];
     view.text = [self pokerCharacter:cardPoints.integerValue];;
-    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.8];
+    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:kColorAlpha];
     [self.playerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
         [self.playerStackView layoutIfNeeded];
@@ -1395,9 +1395,9 @@
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor blueColor];
     view.text = [self pokerCharacter:cardPoints.integerValue];;
-    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:0.8];
+    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:kColorAlpha];
     [self.player3BackView addSubview:view];
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:1.2 animations:^{
         view.frame = CGRectMake(0, 0, 60, 90);
     }];
 }
@@ -1410,7 +1410,7 @@
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor redColor];
     view.text = [self pokerCharacter:cardPoints.integerValue];
-    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.8];
+    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:kColorAlpha];
     [self.bankerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
         [self.bankerStackView layoutIfNeeded];
@@ -1425,9 +1425,9 @@
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor redColor];
     view.text = [self pokerCharacter:cardPoints.integerValue];
-    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:0.8];
+    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:kColorAlpha];
     [self.banker3BackView addSubview:view];
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:1.2 animations:^{
         view.frame = CGRectMake(0, 0, 60, 90);
     }];
 }
