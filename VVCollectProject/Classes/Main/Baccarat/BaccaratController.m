@@ -3,7 +3,7 @@
 //  VVCollectProject
 //
 //  Created by Mike on 2019/2/20.
-//  Copyright © 2019 Mike. All rights reserved. 1 2
+//  Copyright © 2019 Mike. All rights reserved. 1 2 3
 //
 
 #import "BaccaratController.h"
