@@ -330,13 +330,10 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
         
         
         [UIView animateWithDuration:0.1 animations:^{
-            if (self.maxXValue + w + margin > (self.bounds.size.width - 60)){
-                if ((self.maxXValue + w + margin) != CGRectGetMinX(self.lastLbl.frame)) {
-                    
-                    [self.scrollView setContentOffset:CGPointMake(self.maxXValue + w + margin - (kSCREEN_WIDTH - 60), 0) animated:YES];
+            if (self.maxXValue + w + margin > (self.bounds.size.width - 50)){
+                if ((self.maxXValue + w + margin) != (CGRectGetMaxX(self.lastLbl.frame) + margin)) {
+                    [self.scrollView setContentOffset:CGPointMake(self.maxXValue + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
                 }
-            } else {
-                [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
             }
         }];
         
