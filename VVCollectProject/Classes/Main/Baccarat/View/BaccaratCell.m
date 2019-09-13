@@ -152,9 +152,9 @@
     self.bankerLabel.text = bankerStr;
     
     NSString *resultStr;
-    if (bModel.WinType == 1) {
+    if (bModel.winType == WinType_Banker) {
         resultStr = @"🔴";
-    } else if (bModel.WinType == 2) {
+    } else if (bModel.winType == WinType_Player) {
         resultStr = @"🅿️";
     } else {
         resultStr = @"✅";

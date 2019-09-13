@@ -8,13 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, WinType) {
+    WinType_TIE = 0,
+    WinType_Banker = 1,
+    WinType_Player = 2
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BaccaratModel : NSObject
 
 /// 0 Tie   1 banker   2 player
-@property (nonatomic, assign) NSInteger WinType;
+@property (nonatomic, assign) WinType winType;
 
 /// banker 点数
 @property (nonatomic, assign) NSInteger bankerPointsNum;

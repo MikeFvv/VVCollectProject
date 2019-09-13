@@ -915,7 +915,7 @@
     }
     
     BaccaratModel *firstModel = (BaccaratModel *)self.resultDataArray.firstObject;
-    compareChar       = [NSString stringWithFormat:@"%ld", firstModel.WinType];  // 从第一个字符开始比较
+    compareChar       = [NSString stringWithFormat:@"%ld", firstModel.winType];  // 从第一个字符开始比较
     longestContinChar = compareChar;
     
     firstisBankerPair       = firstModel.isBankerPair;
@@ -929,7 +929,7 @@
     for (NSInteger indexFlag = 1; indexFlag < self.resultDataArray.count; indexFlag++) {
         
         BaccaratModel *model = (BaccaratModel *)self.resultDataArray[indexFlag];
-        NSString *tempStrWinType       = [NSString stringWithFormat:@"%ld", model.WinType];; //
+        NSString *tempStrWinType       = [NSString stringWithFormat:@"%ld", model.winType];; //
         BOOL tempIsBankerPair       = model.isBankerPair;
         BOOL tempIsPlayerPair       = model.isPlayerPair;
         BOOL tempIsSuperSix       = model.isSuperSix;
@@ -937,7 +937,7 @@
         // 与前6局关系
         if (indexFlag >= 6) {
             BaccaratModel *front6SameCountModel = (BaccaratModel *)self.resultDataArray[indexFlag - 6];
-            NSString *tempFront6SameCountDict       = [NSString stringWithFormat:@"%ld", front6SameCountModel.WinType];
+            NSString *tempFront6SameCountDict       = [NSString stringWithFormat:@"%ld", front6SameCountModel.winType];
             if ([tempStrWinType isEqualToString:tempFront6SameCountDict]) {
                 self.front6SameCount++;
             }
@@ -1025,7 +1025,7 @@
         
         if (indexFlag > self.intervalNum) {
             BaccaratModel *modelII = (BaccaratModel *)self.resultDataArray[indexFlag - self.intervalNum];
-            NSString *tempStrWinTypeII       =  [NSString stringWithFormat:@"%ld", modelII.WinType]; //
+            NSString *tempStrWinTypeII       =  [NSString stringWithFormat:@"%ld", modelII.winType]; //
             BOOL tempIsBankerPairII       = modelII.isBankerPair;
             BOOL tempIsPlayerPairII       = modelII.isPlayerPair;
             BOOL tempIsSuperSixII       =  modelII.isSuperSix;
@@ -1154,39 +1154,42 @@
         self.pokerTotalNum--;
         
         
-//        if (self.jjjjjjj > 22) {   // 测试使用  增加长庄长闲
-//            numStr = @"7";
-//        }
-//        if (i == 5) {
-        
-//            if (self.jjjjjjj > 29) {
-//
-//                if (self.jjjjjjj > 38) {
-//                    if (self.jjjjjjj > 47) {
-//                        if (self.jjjjjjj > 56) {
-//                            if (self.jjjjjjj > 65) {
-//                                if (self.jjjjjjj > 74) {
-//                                    numStr = @"1";
-//                                } else {
-//                                    numStr = @"8";
-//                                }
-//                            } else {
-//                                numStr = @"1";
-//                            }
-//                        } else {
-//                            numStr = @"8";
-//                        }
-//                    } else {
-//                        numStr = @"1";
-//                    }
-//                } else {
-//                    numStr = @"8";
-//                }
-//
-//            } else {
-//                numStr = @"1";
-//            }
-//        }
+        if (self.jjjjjjj > 22) {   // 测试使用  增加长庄长闲
+            numStr = @"7";
+        }
+         numStr = @"7";
+        if (i == 5) {
+
+            if (self.jjjjjjj < 5) {
+                numStr = @"10";
+            } else if (self.jjjjjjj > 10) {
+
+                if (self.jjjjjjj > 18) {
+                    if (self.jjjjjjj > 27) {
+                        if (self.jjjjjjj > 36) {
+                            if (self.jjjjjjj > 45) {
+                                if (self.jjjjjjj > 54) {
+                                    numStr = @"1";
+                                } else {
+                                    numStr = @"8";
+                                }
+                            } else {
+                                numStr = @"1";
+                            }
+                        } else {
+                            numStr = @"8";
+                        }
+                    } else {
+                        numStr = @"1";
+                    }
+                } else {
+                    numStr = @"8";
+                }
+
+            } else {
+                numStr = @"1";
+            }
+        }
         
         
         if (i == 1) {
@@ -1302,7 +1305,7 @@
         [self showMessage:@"本局判断错误， 请查看列表原因"];
          return;
     }
-    model.WinType = self.currentWinType;
+    model.winType = self.currentWinType;
     
     // Pair
     if (player1 == player2) {
@@ -1492,7 +1495,7 @@
 - (void)daluCalculationMethod {
 //    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
 //    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
-//        [dict setObject:@(self.currentWinType) forKey:@"WinType"];
+//        [dict setObject:@(self.currentWinType) forKey:@"winType"];
 //    }
 //
 //    [self.daluResultDataArray addObject:dict];
