@@ -64,8 +64,8 @@
     [self addSubview:bankerPairView];
     
     [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top);
-        make.left.mas_equalTo(self.mas_left);
+        make.top.equalTo(self.mas_top);
+        make.left.equalTo(self.mas_left);
         make.size.mas_equalTo(@(circleViewWidht));
     }];
     
@@ -77,8 +77,8 @@
     [self addSubview:playerPairView];
     
     [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.mas_bottom);
-        make.right.mas_equalTo(self.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+        make.right.equalTo(self.mas_right);
         make.size.mas_equalTo(@(circleViewWidht));
     }];
     
@@ -91,8 +91,8 @@
     [self addSubview:superSixView];
     
     [superSixView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.mas_bottom);
-        make.left.mas_equalTo(self.mas_left);
+        make.bottom.equalTo(self.mas_bottom);
+        make.left.equalTo(self.mas_left);
         make.size.mas_equalTo(@(circleViewWidht));
     }];
 }
@@ -105,10 +105,10 @@
         return;
     }
     
-    if (bModel.WinType == 1) {
+    if (bModel.winType == WinType_Banker) {
         self.bankerOrPlayerOrTieLabel.text = @"B";
         self.backgroundColor = [UIColor redColor];
-    } else if (bModel.WinType == 2) {
+    } else if (bModel.winType == WinType_Player) {
         self.bankerOrPlayerOrTieLabel.text = @"P";
         self.backgroundColor = [UIColor blueColor];
     } else {
