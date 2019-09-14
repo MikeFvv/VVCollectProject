@@ -32,8 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     [self.view addSubview:self.tableView];
     
     [self.tableView registerClass:[BaccaratCell class] forCellReuseIdentifier:@"BaccaratCell"];
@@ -46,7 +44,7 @@
     if (!_tableView) {
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height -Height_NavBar) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor yellowColor];
+        _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;

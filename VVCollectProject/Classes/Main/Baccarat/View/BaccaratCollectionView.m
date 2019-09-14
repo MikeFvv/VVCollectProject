@@ -123,7 +123,7 @@ static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionView
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _scrollView.delegate = self;
-        _scrollView.backgroundColor = [UIColor yellowColor];
+        _scrollView.backgroundColor = [UIColor whiteColor];
         _scrollView.contentSize = CGSizeMake(1000, 0);
         _maxXValue = 0;
         _longNum = 0;

@@ -29,6 +29,8 @@
 
 @interface BaccaratController ()
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *contentView;
 //
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIView *bottomView;
@@ -37,6 +39,15 @@
 @property (nonatomic, assign) NSInteger betMoney;
 /// 下注输赢总金额
 @property (nonatomic, assign) NSInteger betTotalMoney;
+/// 最高总金额
+@property (nonatomic, assign) NSInteger maxBetTotalMoney;
+/// 最低总金额
+@property (nonatomic, assign) NSInteger minBetTotalMoney;
+
+@property (nonatomic, strong) UILabel *maxLabel;
+@property (nonatomic, strong) UILabel *minLabel;
+
+
 /// 庄闲和 0 和 1 庄 2 闲
 @property (nonatomic, assign) NSInteger buyType;
 /// 间隔局数量
@@ -150,73 +161,51 @@
 /// 是否运行全盘
 @property (nonatomic, assign) BOOL isRunOverall;
 
+// ******* grm 指路图 *******
+
+@property (nonatomic, strong) UILabel *grm_bankerLabel;
+@property (nonatomic, strong) UILabel *grm_playerLabel;
+@property (nonatomic, strong) UIView *grm_dyzl_bankerView;
+@property (nonatomic, strong) UIView *grm_dyzl_playerView;
+@property (nonatomic, strong) UIView *grm_xl_bankerView;
+@property (nonatomic, strong) UIView *grm_xl_playerView;
+@property (nonatomic, strong) UILabel *grm_yyl_bankerLabel;
+@property (nonatomic, strong) UILabel *grm_yyl_playerLabel;
+
 
 @end
 
 @implementation BaccaratController
 
+//    Poker
+//    spade  黑桃
+//    heart  红桃（红心）
+//    club  梅花
+//    diamond 方块
+//    joker  大王 小王（小丑意思）
+//    PokerColor  花色
+
+//    ♡♢♤♧♣♦♥♠
+
+//    🔵 💚
+//    4种
+//    1 2 3 4 5 6 7 8 9 10 11 12 13
+//    A 2 3 4 5 6 7 8 9 10 L Q K
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //    Poker
-    //    spade  黑桃
-    //    heart  红桃（红心）
-    //    club  梅花
-    //    diamond 方块
-    //    joker  大王 小王（小丑意思）
-    //    PokerColor  花色
-    
-    //    ♡♢♤♧♣♦♥♠
-    
-    //    🔵 💚
-    //    4种
-    //    1 2 3 4 5 6 7 8 9 10 11 12 13
-    //    A 2 3 4 5 6 7 8 9 10 L Q K
-    
-    
-//    // nav按钮  nav文字
-//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
-//    // 字体颜色
-//    [rightBtn setTintColor:[UIColor blackColor]
-//     ];
-//    // 字体大小
-//    [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-//    self.navigationItem.rightBarButtonItem = rightBtn;
-//
-//    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.jjjjjjj = 0;
     self.isRunOverall = NO;
     
-    //添加两个button
-    NSMutableArray*buttons=[[NSMutableArray alloc]initWithCapacity:2];
-//    UIBarButtonItem*button3=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press2)];
-//    UIBarButtonItem*button2=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press)];
-    
-    UIBarButtonItem *rightBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"配置" style:(UIBarButtonItemStylePlain) target:self action:@selector(configAction)];
-    UIBarButtonItem *rightBtn2 = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
-    UIBarButtonItem *rightBtn3 = [[UIBarButtonItem alloc]initWithTitle:@"消键盘" style:(UIBarButtonItemStylePlain) target:self action:@selector(onDisKeyboardButton)];
-    
-    rightBtn1.tintColor=[UIColor blackColor];
-    rightBtn2.tintColor=[UIColor blackColor];
-    rightBtn3.tintColor=[UIColor blackColor];
-    [rightBtn1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    [rightBtn2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    [rightBtn3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    [buttons addObject:rightBtn1];
-    [buttons addObject:rightBtn2];
-    [buttons addObject:rightBtn3];
-//    [tools setItems:buttons animated:NO];
-//    UIBarButtonItem*btn=[[UIBarButtonItem alloc]initWithCustomView:tools];
-    self.navigationItem.rightBarButtonItems=buttons;
-    
-    
+    [self setupNavUI];
     [self initUI];
     [self initData];
     
-    
     self.title = [NSString stringWithFormat:@"%ld", self.betTotalMoney];
 }
+
+
 
 #pragma mark -  数据初始化
 - (void)initData {
@@ -228,15 +217,19 @@
     NSArray *pokerArray = nil;
     if (tempArray) {
         self.betTotalMoney = amount;
+        self.maxBetTotalMoney = amount;
+        self.minBetTotalMoney = amount;
         pokerArray = tempArray;
     } else {
         self.betTotalMoney = 40000;
+        self.maxBetTotalMoney = 40000;
+        self.minBetTotalMoney = 40000;
         
         pokerArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
-                                 @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
-                                 @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
-                                 @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"
-                                 ];
+                       @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
+                       @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
+                       @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"
+                       ];
     }
     
     self.betMoney = 2000;
@@ -257,14 +250,14 @@
     self.tieCount = 0;
     self.gongCount = 0;
     self.resultDataArray = [NSMutableArray array];
-//    self.daluResultDataArray = [NSMutableArray array];
+    //    self.daluResultDataArray = [NSMutableArray array];
     self.bankerPlayerSinglePairCount = 0;
     self.buyType = -1;
 }
 
 - (void)configAction {
     BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
-//    vc.resultDataArray = self.resultDataArray;
+    //    vc.resultDataArray = self.resultDataArray;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -289,16 +282,40 @@
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self setBottomView];
-    [self playingCardsView];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT -Height_NavBar - kiPhoneX_Bottom_Height)];
+    scrollView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:scrollView];
+    _scrollView = scrollView;
     
+    UIView *contentView = [[UIView alloc]init];
+    [scrollView addSubview:contentView];
+    contentView.backgroundColor = [UIColor clearColor];
+    _contentView = contentView;
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(scrollView);
+        make.width.offset(self.view.bounds.size.width);
+        make.height.equalTo(@1000);
+    }];
+    
+    [self setTopView];
+    [self setBottomView];
+    /// 扑克牌视图
+    [self playingCardsView];
+    [self roadMapView];
+    // 统计视图
+    [self textStatisticsView];
+    [self setGuideRoadMap];
+    
+}
+// 路子图
+- (void)roadMapView {
     // 大路
-    BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, 110)];
+    BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth +5, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, 110)];
     daluTrendView.roadType = 1;
     //    trendView.backgroundColor = [UIColor redColor];
     daluTrendView.layer.borderWidth = 1;
     daluTrendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.view addSubview:daluTrendView];
+    [self.contentView addSubview:daluTrendView];
     _daluTrendView = daluTrendView;
     
     // 庄闲路
@@ -307,17 +324,40 @@
     //    trendView.backgroundColor = [UIColor redColor];
     trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.view addSubview:trendView];
+    [self.contentView addSubview:trendView];
     _trendView = trendView;
+}
+
+- (void)setTopView {
     
+    UILabel *minLabel = [[UILabel alloc] init];
+    minLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
+    minLabel.numberOfLines = 0;
+    minLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:minLabel];
+    _minLabel = minLabel;
     
+    [minLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView.mas_right).offset(-10);
+        make.top.equalTo(self.contentView.mas_top).offset(2);
+    }];
     
-    // 统计视图
-    [self textStatisticsView];
+    UILabel *maxLabel = [[UILabel alloc] init];
+    maxLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
+    maxLabel.numberOfLines = 0;
+    maxLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:maxLabel];
+    _maxLabel = maxLabel;
+    
+    [maxLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(minLabel.mas_left).offset(-10);
+        make.centerY.equalTo(minLabel.mas_centerY);
+    }];
     
 }
 
 - (void)playingCardsView {
+    
     UIView *playerBackView = [[UIView alloc] init];
     playerBackView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:playerBackView];
@@ -341,20 +381,20 @@
     }];
     
     _playerStackView = [[UIStackView alloc] init];
-//    _playerStackView.backgroundColor = [UIColor orangeColor];
+    //    _playerStackView.backgroundColor = [UIColor orangeColor];
     //子控件的布局方向
     _playerStackView.axis = UILayoutConstraintAxisHorizontal;
     _playerStackView.distribution = UIStackViewDistributionFillEqually;
     _playerStackView.spacing = 5;
     _playerStackView.alignment = UIStackViewAlignmentFill;
-//    _playerStackView.frame = CGRectMake(0, 100, ScreenWidth, 200);
+    //    _playerStackView.frame = CGRectMake(0, 100, ScreenWidth, 200);
     [playerBackView addSubview:_playerStackView];
     [_playerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(playerBackView);
     }];
     
     
-
+    
     UIView *bankerBackView = [[UIView alloc] init];
     bankerBackView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:bankerBackView];
@@ -378,7 +418,7 @@
     }];
     
     _bankerStackView = [[UIStackView alloc] init];
-//    _bankerStackView.backgroundColor = [UIColor orangeColor];
+    //    _bankerStackView.backgroundColor = [UIColor orangeColor];
     //子控件的布局方向
     _bankerStackView.axis = UILayoutConstraintAxisHorizontal;
     _bankerStackView.distribution = UIStackViewDistributionFillEqually;
@@ -452,15 +492,15 @@
     [bottomView addSubview:clearButton];
     
     
-//    UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
-//    [disKeyboardButton setTitle:@"消键盘" forState:UIControlStateNormal];
-//    disKeyboardButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-//    [disKeyboardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [disKeyboardButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-//    disKeyboardButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-//    disKeyboardButton.layer.cornerRadius = 5;
-//    [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
-//    [bottomView addSubview:disKeyboardButton];
+    //    UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
+    //    [disKeyboardButton setTitle:@"消键盘" forState:UIControlStateNormal];
+    //    disKeyboardButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
+    //    [disKeyboardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //    [disKeyboardButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    //    disKeyboardButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    //    disKeyboardButton.layer.cornerRadius = 5;
+    //    [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
+    //    [bottomView addSubview:disKeyboardButton];
     
     // 下注视图
     [self betView];
@@ -606,14 +646,14 @@
 - (void)textStatisticsView {
     
     UIView *backView = [[UIView alloc] init];
-    backView.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:backView];
+    backView.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:backView];
     
     [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.mas_bottom).offset(10);
-        make.left.mas_equalTo(self.view.mas_left).offset(10);
-        make.right.mas_equalTo(self.view.mas_right);
-        make.height.mas_equalTo(330);
+        make.top.equalTo(self.trendView.mas_bottom).offset(5);
+        make.left.equalTo(self.contentView.mas_left).offset(10);
+        //        make.right.equalTo(self.contentView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(kSCREEN_WIDTH - 10*2, 350));
     }];
     
     UILabel *bankerCountLabel = [[UILabel alloc] init];
@@ -625,8 +665,8 @@
     _bankerCountLabel = bankerCountLabel;
     
     [bankerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(self.trendView.mas_bottom).offset(5);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(backView.mas_top);
     }];
     
     UILabel *playerCountLabel = [[UILabel alloc] init];
@@ -638,8 +678,8 @@
     _playerCountLabel = playerCountLabel;
     
     [playerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(bankerCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(bankerCountLabel.mas_bottom);
     }];
     
     UILabel *tieCountLabel = [[UILabel alloc] init];
@@ -651,8 +691,8 @@
     _tieCountLabel = tieCountLabel;
     
     [tieCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(playerCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(playerCountLabel.mas_bottom);
     }];
     
     UILabel *bankerPairCountLabel = [[UILabel alloc] init];
@@ -664,8 +704,8 @@
     _bankerPairCountLabel = bankerPairCountLabel;
     
     [bankerPairCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(tieCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(tieCountLabel.mas_bottom);
     }];
     
     UILabel *playerPairCountLabel = [[UILabel alloc] init];
@@ -677,8 +717,8 @@
     _playerPairCountLabel = playerPairCountLabel;
     
     [playerPairCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(bankerPairCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(bankerPairCountLabel.mas_bottom);
     }];
     
     UILabel *superSixCountLabel = [[UILabel alloc] init];
@@ -690,8 +730,8 @@
     _superSixCountLabel = superSixCountLabel;
     
     [superSixCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(playerPairCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(playerPairCountLabel.mas_bottom);
     }];
     
     UILabel *pokerCountLabel = [[UILabel alloc] init];
@@ -705,8 +745,8 @@
     _pokerCountLabel = pokerCountLabel;
     
     [pokerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(superSixCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(superSixCountLabel.mas_bottom);
     }];
     
     UILabel *kkkLabel = [[UILabel alloc] init];
@@ -720,8 +760,8 @@
     _kkkLabel = kkkLabel;
     
     [kkkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(pokerCountLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(pokerCountLabel.mas_bottom);
     }];
     
     
@@ -736,8 +776,8 @@
     _aaaa = aaaa;
     
     [aaaa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(kkkLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(kkkLabel.mas_bottom);
     }];
     
     
@@ -752,9 +792,9 @@
     _bbbb = bbbb;
     
     [bbbb mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(aaaa.mas_bottom);
-        make.right.mas_equalTo(backView.mas_right);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(aaaa.mas_bottom);
+        make.right.equalTo(backView.mas_right);
     }];
     
     UILabel *buyMoneyLabel = [[UILabel alloc] init];
@@ -768,9 +808,9 @@
     _buyMoneyLabel = buyMoneyLabel;
     
     [buyMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(bbbb.mas_bottom);
-        make.right.mas_equalTo(backView.mas_right);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(bbbb.mas_bottom);
+        make.right.equalTo(backView.mas_right);
     }];
     
     UILabel *timeLabel = [[UILabel alloc] init];
@@ -780,9 +820,9 @@
     _timeLabel = timeLabel;
     
     [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(buyMoneyLabel.mas_bottom);
-        make.right.mas_equalTo(backView.mas_right);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(buyMoneyLabel.mas_bottom);
+        make.right.equalTo(backView.mas_right);
     }];
     
     UILabel *gongLabel = [[UILabel alloc] init];
@@ -792,8 +832,8 @@
     _gongLabel = gongLabel;
     
     [gongLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.trendView.mas_left);
-        make.top.mas_equalTo(timeLabel.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.top.equalTo(timeLabel.mas_bottom);
     }];
     
     
@@ -806,14 +846,14 @@
     self.trendView.model = self.resultDataArray;
     self.daluTrendView.model = self.resultDataArray;
     [self resultStatisticsText];
-//    [self.tableView reloadData];
+    //    [self.tableView reloadData];
 }
 
 #pragma mark -  开始一局
 - (void)onStartOneButton {
     [self.view endEditing:YES];
     
-//    self.betMoneyTextField.text = 0;
+    //    self.betMoneyTextField.text = 0;
     
     if (self.pokerTotalNum < 36) {  // 停止发牌
         self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld  已结束", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
@@ -825,13 +865,13 @@
     self.pokerCount++;
     self.jjjjjjj++;
     [self oncePoker];
-//    [self daluCalculationMethod];
+    //    [self daluCalculationMethod];
     
     self.trendView.model = self.resultDataArray;
     self.daluTrendView.model = self.resultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
-//    [self.tableView reloadData];
+    //    [self.tableView reloadData];
 }
 
 #pragma mark -  全盘
@@ -850,7 +890,7 @@
     
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
-//    [self.tableView reloadData];
+    //    [self.tableView reloadData];
     
     
     
@@ -1080,6 +1120,9 @@
 // 结果统计
 - (void)resultStatisticsText {
     
+    self.maxLabel.text = [NSString stringWithFormat:@"最高:%ld", self.maxBetTotalMoney];
+    self.minLabel.text = [NSString stringWithFormat:@"最低:%ld", self.minBetTotalMoney];
+    
     self.bankerCountLabel.text = [NSString stringWithFormat:@"BANKER %ld  Win  %ld", self.bankerCount, (self.bankerCount - self.playerCount) * self.betMoney - self.superSixCount * self.betMoney/2];
     self.playerCountLabel.text = [NSString stringWithFormat:@"PLAYER  %ld  Win  %ld", self.playerCount, (self.playerCount-self.bankerCount) * self.betMoney];
     self.tieCountLabel.text = [NSString stringWithFormat:@"TIE          %ld  平均 %ld", self.tieCount, self.tieCount ? self.pokerCount/self.tieCount : 0];
@@ -1117,7 +1160,7 @@
         self.pokerCount++;
         
         [self oncePoker];
-//        [self daluCalculationMethod];
+        //        [self daluCalculationMethod];
     }
 }
 
@@ -1154,42 +1197,42 @@
         self.pokerTotalNum--;
         
         
-        if (self.jjjjjjj > 22) {   // 测试使用  增加长庄长闲
-            numStr = @"7";
-        }
-         numStr = @"7";
-        if (i == 5) {
-
-            if (self.jjjjjjj < 5) {
-                numStr = @"10";
-            } else if (self.jjjjjjj > 10) {
-
-                if (self.jjjjjjj > 18) {
-                    if (self.jjjjjjj > 27) {
-                        if (self.jjjjjjj > 36) {
-                            if (self.jjjjjjj > 45) {
-                                if (self.jjjjjjj > 54) {
-                                    numStr = @"1";
-                                } else {
-                                    numStr = @"8";
-                                }
-                            } else {
-                                numStr = @"1";
-                            }
-                        } else {
-                            numStr = @"8";
-                        }
-                    } else {
-                        numStr = @"1";
-                    }
-                } else {
-                    numStr = @"8";
-                }
-
-            } else {
-                numStr = @"1";
-            }
-        }
+        //        if (self.jjjjjjj > 22) {   // 测试使用  增加长庄长闲
+        //            numStr = @"7";
+        //        }
+        //         numStr = @"7";
+        //        if (i == 5) {
+        //
+        //            if (self.jjjjjjj < 5) {
+        //                numStr = @"10";
+        //            } else if (self.jjjjjjj > 10) {
+        //
+        //                if (self.jjjjjjj > 18) {
+        //                    if (self.jjjjjjj > 27) {
+        //                        if (self.jjjjjjj > 36) {
+        //                            if (self.jjjjjjj > 45) {
+        //                                if (self.jjjjjjj > 54) {
+        //                                    numStr = @"1";
+        //                                } else {
+        //                                    numStr = @"8";
+        //                                }
+        //                            } else {
+        //                                numStr = @"1";
+        //                            }
+        //                        } else {
+        //                            numStr = @"8";
+        //                        }
+        //                    } else {
+        //                        numStr = @"1";
+        //                    }
+        //                } else {
+        //                    numStr = @"8";
+        //                }
+        //
+        //            } else {
+        //                numStr = @"1";
+        //            }
+        //        }
         
         
         if (i == 1) {
@@ -1303,8 +1346,16 @@
         self.currentWinType = 0;
     } else {
         [self showMessage:@"本局判断错误， 请查看列表原因"];
-         return;
+        return;
     }
+    
+    if (self.betTotalMoney > self.maxBetTotalMoney) {
+        self.maxBetTotalMoney = self.betTotalMoney;
+    } else if (self.betTotalMoney < self.minBetTotalMoney) {
+        self.minBetTotalMoney = self.betTotalMoney;
+    }
+    
+    model.betMoney = self.betMoneyTextField.text.integerValue;
     model.winType = self.currentWinType;
     
     // Pair
@@ -1334,7 +1385,7 @@
     model.playerPointsNum = playerPointsNum;
     model.bankerPointsNum = bankerPointsNum;
     model.pokerCount = self.pokerCount;
-
+    
     [self.resultDataArray addObject:model];
     
     // 计算公的张数
@@ -1359,11 +1410,11 @@
     
     
     NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
-   
+    
     if (!self.isRunOverall) {
-         _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
+        _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
     }
-   
+    
 }
 
 -(void)pressStop {
@@ -1493,12 +1544,12 @@
 
 #pragma mark -  Baccarat大路算法
 - (void)daluCalculationMethod {
-//    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
-//    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
-//        [dict setObject:@(self.currentWinType) forKey:@"winType"];
-//    }
-//
-//    [self.daluResultDataArray addObject:dict];
+    //    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
+    //    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
+    //        [dict setObject:@(self.currentWinType) forKey:@"winType"];
+    //    }
+    //
+    //    [self.daluResultDataArray addObject:dict];
 }
 
 //#pragma mark -  Baccarat大路算法
@@ -1516,6 +1567,322 @@
     
 }
 
+- (void)setupNavUI {
+    //    // nav按钮  nav文字
+    //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
+    //    // 字体颜色
+    //    [rightBtn setTintColor:[UIColor blackColor]
+    //     ];
+    //    // 字体大小
+    //    [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    //    self.navigationItem.rightBarButtonItem = rightBtn;
+    //
+    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    
+    
+    //添加两个button
+    NSMutableArray*buttons=[[NSMutableArray alloc]initWithCapacity:2];
+    //    UIBarButtonItem*button3=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press2)];
+    //    UIBarButtonItem*button2=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press)];
+    
+    UIBarButtonItem *rightBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"配置" style:(UIBarButtonItemStylePlain) target:self action:@selector(configAction)];
+    UIBarButtonItem *rightBtn2 = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
+    UIBarButtonItem *rightBtn3 = [[UIBarButtonItem alloc]initWithTitle:@"消键盘" style:(UIBarButtonItemStylePlain) target:self action:@selector(onDisKeyboardButton)];
+    
+    rightBtn1.tintColor=[UIColor blackColor];
+    rightBtn2.tintColor=[UIColor blackColor];
+    rightBtn3.tintColor=[UIColor blackColor];
+    [rightBtn1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    [rightBtn2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    [rightBtn3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
+    [buttons addObject:rightBtn1];
+    [buttons addObject:rightBtn2];
+    [buttons addObject:rightBtn3];
+    //    [tools setItems:buttons animated:NO];
+    //    UIBarButtonItem*btn=[[UIBarButtonItem alloc]initWithCustomView:tools];
+    self.navigationItem.rightBarButtonItems=buttons;
+}
+
+#pragma mark -创建UIButton方法
+- (UIButton *)createButtonWithFrame:(CGRect)frame
+                           andTitle:(NSString *)title
+                      andTitleColor:(UIColor *)titleColor
+                 andBackgroundImage:(UIImage *)backgroundImage
+                           andImage:(UIImage *)Image
+                          andTarget:(id)target
+                          andAction:(SEL)sel
+                            andType:(UIButtonType)type
+{
+    //创建UIButton并设置类型
+    UIButton * btn = [UIButton buttonWithType:type];
+    //设置按键位置和大小
+    btn.frame = frame;
+    //设置按键名
+    [btn setTitle:title forState:UIControlStateNormal];
+    //设置按键名字体颜色
+    [btn setTitleColor:titleColor forState:UIControlStateNormal];
+    //背景图片
+    [btn setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+    //图片
+    [btn setImage:Image forState:UIControlStateNormal];
+    //设置按键响应方法
+    [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+    
+    btn.titleLabel.font = [UIFont fontWithName:@"Verdana" size:15];
+    
+    return btn;
+}
+
+- (void)setGuideRoadMap {
+    
+    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 135)];
+    guideRoadMapBackView.backgroundColor = [UIColor whiteColor];
+    guideRoadMapBackView.layer.cornerRadius = 5;
+    guideRoadMapBackView.layer.masksToBounds = YES;
+    guideRoadMapBackView.layer.borderWidth = 1;
+    guideRoadMapBackView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [self.view addSubview:guideRoadMapBackView];
+    
+    [self.view addSubview:guideRoadMapBackView];
+    [self.view bringSubviewToFront:guideRoadMapBackView];
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
+                                                    
+                                                    initWithTarget:self
+                                                    
+                                                    action:@selector(handlePan:)];
+    
+    [guideRoadMapBackView addGestureRecognizer:panGestureRecognizer];
+    
+    
+    CGFloat lineSpacing = 30;
+     CGFloat widht = 18;
+    
+    UIView *line1View = [[UIView alloc] init];
+    line1View.backgroundColor = [UIColor purpleColor];
+    [guideRoadMapBackView addSubview:line1View];
+    
+    [line1View mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(guideRoadMapBackView.mas_top).offset(lineSpacing);
+        make.left.equalTo(guideRoadMapBackView.mas_left).offset(7);
+        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-7);
+        make.height.mas_equalTo(2);
+    }];
+    
+    UIView *line2View = [[UIView alloc] init];
+    line2View.backgroundColor = [UIColor grayColor];
+    [guideRoadMapBackView addSubview:line2View];
+    
+    [line2View mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line1View.mas_bottom).offset(lineSpacing);
+        make.left.equalTo(line1View.mas_left);
+        make.right.equalTo(line1View.mas_right);
+        make.height.mas_equalTo(1);
+    }];
+    
+    UIView *line3View = [[UIView alloc] init];
+    line3View.backgroundColor = [UIColor grayColor];
+    [guideRoadMapBackView addSubview:line3View];
+    
+    [line3View mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line2View.mas_bottom).offset(lineSpacing);
+        make.left.equalTo(line1View.mas_left);
+        make.right.equalTo(line1View.mas_right);
+        make.height.mas_equalTo(1);
+    }];
+    
+    UIView *line4View = [[UIView alloc] init];
+    line4View.backgroundColor = [UIColor grayColor];
+    [guideRoadMapBackView addSubview:line4View];
+    
+    [line4View mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line3View.mas_bottom).offset(lineSpacing);
+        make.left.equalTo(line1View.mas_left);
+        make.right.equalTo(line1View.mas_right);
+        make.height.mas_equalTo(1);
+    }];
+    
+    /// *** 1 ***
+    UILabel *grm_bankerLabel = [UILabel new];
+    grm_bankerLabel.layer.cornerRadius = widht/2;
+    grm_bankerLabel.layer.masksToBounds = YES;
+    grm_bankerLabel.backgroundColor = [UIColor redColor];
+    [guideRoadMapBackView addSubview:grm_bankerLabel];
+    grm_bankerLabel.text = @"B";
+    grm_bankerLabel.textAlignment = NSTextAlignmentCenter;
+    grm_bankerLabel.font = [UIFont boldSystemFontOfSize:16];
+    grm_bankerLabel.textColor = [UIColor whiteColor];
+    _grm_bankerLabel = grm_bankerLabel;
+    
+    [grm_bankerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(guideRoadMapBackView.mas_left).offset(10);
+        make.bottom.equalTo(line1View.mas_top).offset(-3);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    UILabel *grm_playerLabel = [UILabel new];
+    grm_playerLabel.layer.cornerRadius = widht/2;
+    grm_playerLabel.layer.masksToBounds = YES;
+    grm_playerLabel.backgroundColor = [UIColor blueColor];
+    [guideRoadMapBackView addSubview:grm_playerLabel];
+    grm_playerLabel.text = @"P";
+    grm_playerLabel.textAlignment = NSTextAlignmentCenter;
+    grm_playerLabel.font = [UIFont boldSystemFontOfSize:16];
+    grm_playerLabel.textColor = [UIColor whiteColor];
+    _grm_playerLabel = grm_playerLabel;
+    
+    [grm_playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-10);
+        make.centerY.equalTo(grm_bankerLabel.mas_centerY);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    /// *** 2 ***
+    UIView *grm_dyzl_bankerView = [UIView new];
+    grm_dyzl_bankerView.layer.cornerRadius = widht/2;
+    grm_dyzl_bankerView.layer.masksToBounds = YES;
+    grm_dyzl_bankerView.layer.borderWidth = 3.6;
+    grm_dyzl_bankerView.layer.borderColor = [UIColor redColor].CGColor;
+    [guideRoadMapBackView addSubview:grm_dyzl_bankerView];
+    _grm_dyzl_bankerView = grm_dyzl_bankerView;
+    
+    [grm_dyzl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(grm_bankerLabel.mas_left);
+        make.bottom.equalTo(line2View.mas_top).offset(-3);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    UIView *grm_dyzl_playerView = [UIView new];
+    grm_dyzl_playerView.layer.cornerRadius = widht/2;
+    grm_dyzl_playerView.layer.masksToBounds = YES;
+    grm_dyzl_playerView.layer.borderWidth = 4;
+    grm_dyzl_playerView.layer.borderColor = [UIColor blueColor].CGColor;
+    [guideRoadMapBackView addSubview:grm_dyzl_playerView];
+    _grm_dyzl_playerView = grm_dyzl_playerView;
+    
+    [grm_dyzl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(grm_playerLabel.mas_right);
+        make.centerY.equalTo(grm_dyzl_bankerView.mas_centerY);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    /// *** 3 ***
+    UIView *grm_xl_bankerView = [UIView new];
+    grm_xl_bankerView.layer.cornerRadius = widht/2;
+    grm_xl_bankerView.layer.masksToBounds = YES;
+    grm_xl_bankerView.backgroundColor = [UIColor redColor];
+    [guideRoadMapBackView addSubview:grm_xl_bankerView];
+    _grm_xl_bankerView = grm_xl_bankerView;
+    
+    [grm_xl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(grm_bankerLabel.mas_left);
+        make.bottom.equalTo(line3View.mas_top).offset(-3);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    UIView *grm_xl_playerView = [UIView new];
+    grm_xl_playerView.layer.cornerRadius = widht/2;
+    grm_xl_playerView.layer.masksToBounds = YES;
+    grm_xl_playerView.backgroundColor = [UIColor blueColor];
+    [guideRoadMapBackView addSubview:grm_xl_playerView];
+    _grm_xl_playerView = grm_xl_playerView;
+    
+    [grm_xl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(grm_playerLabel.mas_right);
+        make.centerY.equalTo(grm_xl_bankerView.mas_centerY);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    /// *** 4 ***
+    UIView *grm_yyl_bankerView = [UIView new];
+    grm_yyl_bankerView.backgroundColor = [UIColor clearColor];
+    [guideRoadMapBackView addSubview:grm_yyl_bankerView];
+
+    [grm_yyl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(grm_bankerLabel.mas_left);
+        make.bottom.equalTo(line4View.mas_top).offset(-3);
+        make.size.mas_equalTo(widht);
+    }];
+
+    UIView *grm_yyl_playerView = [UIView new];
+    grm_yyl_playerView.backgroundColor = [UIColor clearColor];
+    [guideRoadMapBackView addSubview:grm_yyl_playerView];
+
+    [grm_yyl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(grm_playerLabel.mas_right);
+        make.centerY.equalTo(grm_yyl_bankerView.mas_centerY);
+        make.size.mas_equalTo(widht);
+    }];
+    
+    
+    // 线的路径
+    UIBezierPath *linePath = [UIBezierPath bezierPath];
+    // 起点
+    [linePath moveToPoint:CGPointMake(widht, 0)];
+    // 其他点
+    [linePath addLineToPoint:CGPointMake(0, widht)];
+    
+    CAShapeLayer *lineLayer = [CAShapeLayer layer];
+    lineLayer.lineWidth = 3;
+    lineLayer.strokeColor = [UIColor redColor].CGColor;
+    lineLayer.path = linePath.CGPath;
+    lineLayer.fillColor = nil;
+    [grm_yyl_bankerView.layer addSublayer:lineLayer];
+    
+    
+    // 线的路径
+    UIBezierPath *linePath2 = [UIBezierPath bezierPath];
+    // 起点
+    [linePath2 moveToPoint:CGPointMake(widht, 0)];
+    // 其他点
+    [linePath2 addLineToPoint:CGPointMake(0, widht)];
+    
+    CAShapeLayer *lineLayer2 = [CAShapeLayer layer];
+    lineLayer2.lineWidth = 3;
+    lineLayer2.strokeColor = [UIColor blueColor].CGColor;
+    lineLayer2.path = linePath.CGPath;
+    lineLayer2.fillColor = nil;
+    [grm_yyl_playerView.layer addSublayer:lineLayer2];
+ 
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer{
+    
+    CGPoint translation = [recognizer translationInView:self.view];
+    
+    CGFloat centerX=recognizer.view.center.x+ translation.x;
+    CGFloat centerY=recognizer.view.center.y+ translation.y;
+    CGFloat thecenterX=0;
+    CGFloat thecenterY=0;
+    recognizer.view.center=CGPointMake(centerX,
+                                       
+                                       recognizer.view.center.y+ translation.y);
+    
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    
+    if(recognizer.state==UIGestureRecognizerStateEnded|| recognizer.state==UIGestureRecognizerStateCancelled) {
+        
+        if(centerX>kSCREEN_WIDTH/2) {
+            thecenterX=kSCREEN_WIDTH-70/2;
+        } else {
+            thecenterX=70/2;
+        }
+        
+        if (centerY>kSCREEN_HEIGHT-Height_NavBar) {
+            thecenterY=kSCREEN_HEIGHT-Height_NavBar;
+        } else if (centerY<Height_NavBar) {
+            thecenterY=Height_NavBar;
+        } else {
+            thecenterY = recognizer.view.center.y+ translation.y;
+        }
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            recognizer.view.center=CGPointMake(thecenterX,thecenterY);
+        }];
+        
+    }
+}
 
 @end
 
