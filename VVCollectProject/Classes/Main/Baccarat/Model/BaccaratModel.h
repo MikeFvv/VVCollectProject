@@ -50,7 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 发牌局数
 @property (nonatomic, assign) NSInteger pokerCount;
-
+/// 每局下注金额
+@property (nonatomic, assign) NSInteger betMoney;
 
 // ************ 不是Baccarat ************
 

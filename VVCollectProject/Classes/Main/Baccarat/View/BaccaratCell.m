@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UILabel *playerLabel;
 @property (nonatomic, strong) UILabel *bankerLabel;
 @property (nonatomic, strong) UILabel *resultLabel;
+@property (nonatomic, strong) UILabel *betMoneyLabel;
 
 @end
 
@@ -50,11 +51,11 @@
     
     _indexLabel = [UILabel new];
     [self.contentView addSubview:_indexLabel];
-    _indexLabel.font = [UIFont systemFontOfSize:15];
+    _indexLabel.font = [UIFont systemFontOfSize:11];
     _indexLabel.textColor = [UIColor darkGrayColor];
     
     [_indexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(8);
+        make.left.equalTo(self.mas_left).offset(5);
         make.centerY.equalTo(self.mas_centerY);
     }];
     
@@ -88,6 +89,16 @@
     [_resultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right);
         make.left.equalTo(self.mas_right).offset(-70);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
+    
+    _betMoneyLabel = [UILabel new];
+    [self.contentView addSubview:_betMoneyLabel];
+    _betMoneyLabel.font = [UIFont systemFontOfSize:14];
+    _betMoneyLabel.textColor = [UIColor purpleColor];
+    
+    [_betMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_resultLabel.mas_left);
         make.centerY.equalTo(self.mas_centerY);
     }];
     
@@ -141,12 +152,12 @@
     } else {
         return;
     }
-    
+    _betMoneyLabel.text = [NSString stringWithFormat:@"%ld", bModel.betMoney];
     _indexLabel.text =  [NSString stringWithFormat:@"%ld", bModel.pokerCount];
-    NSString *playerStr = [NSString stringWithFormat:@"Player: %ld点 %@  %@  %@", bModel.playerPointsNum,  [self pokerCharacter: bModel.player1], [self pokerCharacter: bModel.player2], bModel.player3.length > 0 ? [self pokerCharacter: [bModel.player3 integerValue]] : @""];
+    NSString *playerStr = [NSString stringWithFormat:@"P: %ld点 %@  %@  %@", bModel.playerPointsNum,  [self pokerCharacter: bModel.player1], [self pokerCharacter: bModel.player2], bModel.player3.length > 0 ? [self pokerCharacter: [bModel.player3 integerValue]] : @""];
     
     
-    NSString *bankerStr = [NSString stringWithFormat:@"Banker: %ld点 %@  %@  %@", bModel.bankerPointsNum, [self pokerCharacter: bModel.banker1], [self pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [self pokerCharacter: [bModel.banker3 integerValue]] : @""];
+    NSString *bankerStr = [NSString stringWithFormat:@"B: %ld点 %@  %@  %@", bModel.bankerPointsNum, [self pokerCharacter: bModel.banker1], [self pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [self pokerCharacter: [bModel.banker3 integerValue]] : @""];
     
     self.playerLabel.text = playerStr;
     self.bankerLabel.text = bankerStr;
