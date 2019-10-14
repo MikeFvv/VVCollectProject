@@ -51,7 +51,7 @@ __strong __typeof(weakSelf)strongSelf = weakSelf;
 
 /*
 #pragma mark - vvUITableView
-- (UITableView *)tableView{
+- (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor whiteColor];
@@ -63,7 +63,9 @@ __strong __typeof(weakSelf)strongSelf = weakSelf;
         } else {
             // Fallback on earlier versions
         }
-
+ 
+        _tableView.rowHeight = 76;   // 行高
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;  // 去掉分割线
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
@@ -114,8 +116,8 @@ nameLabel.textAlignment = NSTextAlignmentCenter;
 _nameLabel = nameLabel;
 
 [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.mas_equalTo(self.view.mas_bottom).offset(10);
-    make.left.mas_equalTo(self.view.mas_left).offset(10);
+    make.top.equalTo(self.view.mas_bottom).offset(10);
+    make.left.equalTo(self.view.mas_left).offset(10);
 }];
  */
 
@@ -134,8 +136,8 @@ confirmBtn.tag = 103;
 [self.view addSubview:confirmBtn];
 
 [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.mas_equalTo(self.view.mas_bottom).offset(100);
-    make.left.mas_equalTo(self.view.mas_left).offset(100);
+    make.top.equalTo(self.view.mas_top).offset(100);
+    make.left.equalTo(self.view.mas_left).offset(100);
     make.size.mas_equalTo(CGSizeMake(100, 50));
 }];
  
@@ -149,9 +151,9 @@ backView.backgroundColor = [UIColor greenColor];
 [self.view addSubview:backView];
 
 [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.mas_equalTo(self.view.mas_bottom).offset(10);
-    make.left.mas_equalTo(self.view.mas_left).offset(10);
-    make.right.mas_equalTo(self.view.mas_right).offset(-10);
+    make.top.equalTo(self.view.mas_bottom).offset(10);
+    make.left.equalTo(self.view.mas_left).offset(10);
+    make.right.equalTo(self.view.mas_right).offset(-10);
     make.height.mas_equalTo(100);
 }];
 #pragma mark - vvUIImageView
@@ -194,9 +196,9 @@ textField.returnKeyType = UIReturnKeyGo;
 //    textField.borderStyle = UITextBorderStyleRoundedRect; // 光标过于靠前
 
 [textField mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.mas_equalTo(self.view.mas_top);
-    make.left.mas_equalTo(self.view.mas_left);
-    make.right.mas_equalTo(self.view.mas_right);
+    make.top.equalTo(self.view.mas_top);
+    make.left.equalTo(self.view.mas_left);
+    make.right.equalTo(self.view.mas_right);
     make.height.mas_equalTo(@(40));
 }];
  
