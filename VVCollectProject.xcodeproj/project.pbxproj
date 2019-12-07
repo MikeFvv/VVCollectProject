@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
 		40CF061D2319786D00932821 /* PointListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF061C2319786D00932821 /* PointListController.m */; };
+		40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E822FE2332BB240035B246 /* BaccaratRoadMapView.m */; };
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
 		6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52222ED9B6100D304D3 /* CountDownController.m */; };
 		6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */; };
@@ -116,6 +117,8 @@
 		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
 		40CF061B2319786D00932821 /* PointListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointListController.h; sourceTree = "<group>"; };
 		40CF061C2319786D00932821 /* PointListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointListController.m; sourceTree = "<group>"; };
+		40E822FD2332BB240035B246 /* BaccaratRoadMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratRoadMapView.h; sourceTree = "<group>"; };
+		40E822FE2332BB240035B246 /* BaccaratRoadMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratRoadMapView.m; sourceTree = "<group>"; };
 		6523E52122ED9B6100D304D3 /* CountDownController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownController.h; sourceTree = "<group>"; };
 		6523E52222ED9B6100D304D3 /* CountDownController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownController.m; sourceTree = "<group>"; };
 		6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+CQBlockSupport.m"; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 		6523E53622EDD42400D304D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				40E822FD2332BB240035B246 /* BaccaratRoadMapView.h */,
+				40E822FE2332BB240035B246 /* BaccaratRoadMapView.m */,
 				A0BCD7B72221ACF800BB3A9C /* BaccaratCollectionView.h */,
 				A0BCD7B82221ACF800BB3A9C /* BaccaratCollectionView.m */,
 				A0A093C82223FB4B00262344 /* BaccaratCollectionViewCell.h */,
@@ -968,6 +973,7 @@
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
+				40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */,
 				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */,
