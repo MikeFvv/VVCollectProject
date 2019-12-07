@@ -47,14 +47,14 @@ pod 'TZImagePickerController'
 pod 'SocketRocket'
 
 pod 'MBProgressHUD', '~> 1.1.0'
-
+#pod 'MBProgressHUD+JDragon'
 
 
 # ################## 以下使用效果待验证 ###################
 
 # 一行代码设置状态栏、导航栏按钮、标题、颜色、透明度，移动等
-pod 'WRNavigationBar','~>1.2.0’
-    
+#pod 'WRNavigationBar','~>1.2.0’
+
     # Toast是一个Objective-C类别，它向UIView对象类添加toast通知。它旨在简单，轻便且易于使用。大多数Toast通知都可以通过一行代码触发。
 #    pod 'Toast', '~> 4.0.0'
 

@@ -202,5 +202,16 @@
     // Configure the view for the selected state
 }
 
+
+
+
+////添加手势事件
+//UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onShadowViewDisappear)];
+////将手势添加到需要相应的view中去
+//[self.shadowView addGestureRecognizer:tapGesture];
+////选择触发事件的方式（默认单机触发）
+//[tapGesture setNumberOfTapsRequired:1];
+
+
 @end
 
