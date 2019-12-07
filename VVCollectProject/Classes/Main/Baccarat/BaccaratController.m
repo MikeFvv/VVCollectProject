@@ -14,6 +14,7 @@
 #import <MBProgressHUD.h>
 #import "BaccaratConfigController.h"
 #import "BaccaratModel.h"
+#import "BaccaratRoadMapView.h"
 
 
 #define kBtnHeight 35
@@ -86,7 +87,7 @@
 //@property (nonatomic, strong) UIView *trendView;
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
 /// 大路
-@property (nonatomic, strong) BaccaratCollectionView *daluTrendView;
+@property (nonatomic, strong) BaccaratRoadMapView *roadmapView;
 
 
 
@@ -310,16 +311,16 @@
 // 路子图
 - (void)roadMapView {
     // 大路
-    BaccaratCollectionView *daluTrendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth +5, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, 110)];
-    daluTrendView.roadType = 1;
+    BaccaratRoadMapView *roadmapView = [[BaccaratRoadMapView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth +5, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, 380)];
+    roadmapView.roadType = 1;
     //    trendView.backgroundColor = [UIColor redColor];
-    daluTrendView.layer.borderWidth = 1;
-    daluTrendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:daluTrendView];
-    _daluTrendView = daluTrendView;
+    roadmapView.layer.borderWidth = 1;
+    roadmapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:roadmapView];
+    _roadmapView = roadmapView;
     
     // 庄闲路
-    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginWidth + kTrendViewHeight + kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
+    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(kMarginWidth, 380+kMarginWidth + kTrendViewHeight + kMarginWidth, [UIScreen mainScreen].bounds.size.width - kMarginWidth*2, kTrendViewHeight)];
     trendView.roadType = 0;
     //    trendView.backgroundColor = [UIColor redColor];
     trendView.layer.borderWidth = 1;
@@ -844,7 +845,7 @@
     
     [self initData];
     self.trendView.model = self.resultDataArray;
-    self.daluTrendView.model = self.resultDataArray;
+    self.roadmapView.model = self.resultDataArray;
     [self resultStatisticsText];
     //    [self.tableView reloadData];
 }
@@ -868,7 +869,7 @@
     //    [self daluCalculationMethod];
     
     self.trendView.model = self.resultDataArray;
-    self.daluTrendView.model = self.resultDataArray;
+    self.roadmapView.model = self.resultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
     //    [self.tableView reloadData];
@@ -885,7 +886,7 @@
     
     [self opening];
     self.trendView.model = self.resultDataArray;
-    self.daluTrendView.model = self.resultDataArray;
+    self.roadmapView.model = self.resultDataArray;
     //    [self resultStatisticsContinuous];
     
     [self resultStatisticsContinuous];
