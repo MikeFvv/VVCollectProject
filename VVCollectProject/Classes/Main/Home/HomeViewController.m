@@ -440,12 +440,16 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 #pragma mark - UITableViewDelegate Methods
+// 设置Cell行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 70.0;
 }
 
-
+-(void)dismiss
+{
+    [MBProgressHUD hideHUD];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -461,6 +465,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
         
     } else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 6) {
         //        [self goto_ChatController];
+        
+        [MBProgressHUD showActivityMessageInWindow:nil];
+        [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
     } else if (indexPath.row == 5) {
         
         TestVS *vc = [TestVS new];

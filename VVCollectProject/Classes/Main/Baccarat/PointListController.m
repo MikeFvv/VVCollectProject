@@ -76,6 +76,7 @@
 }
 
 #pragma mark - UITableViewDelegate
+// 设置Cell行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 35;
 }
