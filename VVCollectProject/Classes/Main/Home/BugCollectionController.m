@@ -3,7 +3,7 @@
 //  VVCollectProject
 //
 //  Created by pt c on 2019/7/23.
-//  Copyright © 2019 Mike. All rights reserved.
+//  Copyright © 2019 Mike. All rights reserved.1
 //
 
 #import "BugCollectionController.h"
