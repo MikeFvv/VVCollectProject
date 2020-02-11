@@ -1,6 +1,6 @@
 //
 //  MMOtherCodingBlock.h
-//  VVCollectProject
+//  xxCollectProject
 //
 //  Created by Mike on 2020/2/11.
 //  Copyright © 2020 Mike. All rights reserved.
@@ -44,29 +44,21 @@ static id *_instance = nil;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self = [super initWithCoder:aDecoder])
-    {
+    if (self = [super initWithCoder:aDecoder]) {
         // 设置默认参数
         [self setupDefaults];
     }
-    
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame])
-    {
-        // 设置默认参数
-        [self setupDefaults];
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
     }
-    
     return self;
 }
 
-// 设置默认参数
-- (void)setupDefaults
-{
+- (void)setupUI {
     
 }
 
@@ -138,13 +130,17 @@ UIAlertAction *enterAction = [UIAlertAction actionWithTitle:<#title#> style:UIAl
 
 
 
+
+
+
+
+
      
 
      
- __weak __typeof(self)weakSelf = self;
- __strong __typeof(weakSelf)strongSelf = weakSelf;
 
-#pragma mark - vvUITableView
+
+#pragma mark - xxUITableView
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT) style:UITableViewStyleGrouped];
@@ -193,23 +189,22 @@ UIAlertAction *enterAction = [UIAlertAction actionWithTitle:<#title#> style:UIAl
  
 
 
-#pragma mark - vvUILabel
+#pragma mark - xxUILabel
 UILabel *nameLabel = [[UILabel alloc] init];
 nameLabel.text = @"-";
-nameLabel.font = [UIFont systemFontOfSize:16];
+nameLabel.font = [UIFont systemFontOfSize:14];
 nameLabel.textColor = [UIColor darkGrayColor];
-nameLabel.numberOfLines = 0;
 nameLabel.textAlignment = NSTextAlignmentCenter;
 [self.view addSubview:nameLabel];
 _nameLabel = nameLabel;
 
 [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(self.view.mas_bottom).offset(10);
+    make.top.equalTo(self.view.mas_top).offset(10);
     make.left.equalTo(self.view.mas_left).offset(10);
 }];
 
  
-#pragma mark - vvUIButton
+#pragma mark - xxUIButton
 UIButton *confirmBtn = [[UIButton alloc] init];
 [confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
 [confirmBtn addTarget:self action:@selector(confirmBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -230,19 +225,31 @@ confirmBtn.tag = 103;
 
 
 
-#pragma mark - vvUIView
+#pragma mark - xxUIView
 
 UIView *backView = [[UIView alloc] init];
 backView.backgroundColor = [UIColor greenColor];
 [self.view addSubview:backView];
 
 [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(self.view.mas_bottom).offset(10);
+    make.top.equalTo(self.view.mas_top).offset(10);
     make.left.equalTo(self.view.mas_left).offset(10);
     make.right.equalTo(self.view.mas_right).offset(-10);
     make.height.mas_equalTo(100);
 }];
-#pragma mark - vvUIImageView
+
+/// xxLineView
+UIView *lineView = [[UIView alloc] init];
+lineView.backgroundColor = [UIColor greenColor];
+[self.view addSubview:lineView];
+
+[lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.left.right.equalTo(self);
+    make.height.mas_equalTo(1);
+}];
+
+
+#pragma mark - xxUIImageView
 UIImageView *backImageView = [[UIImageView alloc] init];
 backImageView.image = [UIImage imageNamed:@"imageName"];
 [self.view addSubview:backImageView];
@@ -254,7 +261,7 @@ backImageView.image = [UIImage imageNamed:@"imageName"];
 
  
  
-#pragma mark - vvUITextField
+#pragma mark - xxUITextField
 UITextField *textField = [[UITextField alloc] init];
 //    textField.tag = 100;
 // textField.backgroundColor = [UIColor greenColor];  // 更改背景颜色
@@ -284,14 +291,14 @@ textField.returnKeyType = UIReturnKeyGo;
     make.top.equalTo(self.view.mas_top);
     make.left.equalTo(self.view.mas_left);
     make.right.equalTo(self.view.mas_right);
-    make.height.mas_equalTo(@(40));
+    make.height.mas_equalTo(40);
 }];
  
  
 
 
 
-#pragma mark - vvScrollView
+#pragma mark - xxUIScrollView
 
 // 注意事项
 // 当我们在view中添加了一个scrollView并设置其约束后，再向scrollView中添加一个以scrollView为基准的约束的控件时，约束会报错，这是因为scrollView需要根据添加在其内部的子控件的宽高及与四周的距离计算出它的contentSize，也就是说内部子控件约束的添加需要遵循两个原则:
@@ -317,20 +324,8 @@ textField.returnKeyType = UIReturnKeyGo;
 }
 
 
-// 单例
-static id *_instance = nil;
 
-+ (instancetype)shareInstance
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
-
-
-#pragma mark - vvTextView
+#pragma mark - xxUITextView
 UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 20, 300, 330)];
 textView.backgroundColor = [UIColor grayColor];
 //文本
@@ -349,20 +344,22 @@ textView.userInteractionEnabled = YES; ///
 //textView.inputView = view;//自定义输入区域
 //textView.inputAccessoryView = view;//键盘上加view
 textView.delegate = self;
+
+//textView.scrollEnabled = YES;//滑动
+//textView.returnKeyType = UIReturnKeyDone;//返回键类型
+//textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
+//textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应
+//textView.dataDetectorTypes = UIDataDetectorTypeAll;//数据类型连接模式
+//textView.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错方式
+//textView.autocapitalizationType = UITextAutocapitalizationTypeNone;//自动大写方式
+//
+////禁止文字居中或下移64，因为avigationController下scrollView自动适应屏幕，而UITextView继承自UIScrollView
+//if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+//}
 [self.view addSubview:textView];
 
-textView.scrollEnabled = YES;//滑动
-textView.returnKeyType = UIReturnKeyDone;//返回键类型
-textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
-textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应
-textView.dataDetectorTypes = UIDataDetectorTypeAll;//数据类型连接模式
-textView.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错方式
-textView.autocapitalizationType = UITextAutocapitalizationTypeNone;//自动大写方式
 
-//禁止文字居中或下移64，因为avigationController下scrollView自动适应屏幕，而UITextView继承自UIScrollView
-if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
-    self.automaticallyAdjustsScrollViewInsets = NO;
-}
 
 
 
