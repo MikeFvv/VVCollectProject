@@ -1,55 +1,149 @@
 //
-//  CodeSnippetVC.m
+//  MMOtherCodingBlock.h
 //  VVCollectProject
 //
-//  Created by Mike on 2018/12/29.
-//  Copyright © 2018 Mike. All rights reserved.
+//  Created by Mike on 2020/2/11.
+//  Copyright © 2020 Mike. All rights reserved.
 //
 
-#import "CodeSnippetVC.h"
+#ifndef MMOtherCodingBlock_h
+#define MMOtherCodingBlock_h
 
-// 代码块控制器
-@interface CodeSnippetVC ()
+
+/// extension代码 xxextension
+@interface <#class#> ()
 
 @end
 
-@implementation CodeSnippetVC
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+
+/// ignored代码 xxignore
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored <#"-Wdeprecated-declarations"#>
+<#code#>
+#pragma clang diagnostic pop
+
+
+
+/// singleTon代码 xxsingle
+static id *_instance = nil;
+
++ (instancetype)shareInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
+
+
+
+/// init代码 xxinit
+#pragma mark - 👀 Init Method 👀 💤
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        // 设置默认参数
+        [self setupDefaults];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame])
+    {
+        // 设置默认参数
+        [self setupDefaults];
+    }
+    
+    return self;
+}
+
+// 设置默认参数
+- (void)setupDefaults
+{
     
 }
 
 
 
-- (void)property {
-    /*
-     
-/// <#assign注释#>
-@property (nonatomic, assign) <#Class#> <#property#>;
 
-/// <#copy注释#>
-@property (nonatomic, copy) NSString *<#string#>;
-/// <#delegate注释#>
-@property (nonatomic, weak) id<<#protocol#>> <#delegate#>;
-/// <#strong注释#>
-@property (nonatomic, strong) <#Class#> *<#object#>;
-/// <#weak注释#>
-@property (nonatomic, weak) <#Class#> *<#object#>;
-/// block注释
-@property (nonatomic, copy) <#Block#> <#block#>;
-     
-#pragma mark -  <#要注释的内容#>
-     
-     
-     
-__weak __typeof(self)weakSelf = self;
-__strong __typeof(weakSelf)strongSelf = weakSelf;
-     
-     */
+/// lazyLoad代码 xxlazy
+- (<#Class#> *)<#para#>
+{
+    if (!<#para#>)
+    {
+        <#para#> = [<#Class#> <#classMethod#>];
+    }
+    return <#para#>;
 }
 
-/*
+
+
+/// afterDispath代码 xxafter
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<#delayInSeconds#> * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    <#code to be executed after a specified delay#>
+});
+
+
+
+/// cellRegister代码 xxregister
+[self.tableView registerNib:[UINib nibWithNibName:<#(nonnull NSString *)#> bundle:nil] forCellReuseIdentifier:<#(nonnull NSString *)#>];
+
+
+
+/// tableViewDataSource代码 xxcell
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return <#section#>;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    <#cellClass#> *<#cell#> = [tableView dequeueReusableCellWithIdentifier:<#(nonnull NSString *)#> forIndexPath:<#(nonnull NSIndexPath *)#>];
+    return <#cell#>;
+}
+
+
+
+/// alertViewController代码 xxalertview
+
+/// 弹出 警告框
+UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:<#title#> message:<#message#> preferredStyle:UIAlertControllerStyleAlert];
+
+// 点击取消
+UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:<#title#> style:UIAlertActionStyleDefault handler:<#^(UIAlertAction * _Nonnull action)handler#>];
+
+// 点击确定
+UIAlertAction *enterAction = [UIAlertAction actionWithTitle:<#title#> style:UIAlertActionStyleDefault handler:<#^(UIAlertAction * _Nonnull action)handler#>];
+
+[alertVc addAction:cancelAction];
+[alertVc addAction:enterAction];
+
+[self presentViewController:alertVc animated:YES completion:NULL];
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+     
+ __weak __typeof(self)weakSelf = self;
+ __strong __typeof(weakSelf)strongSelf = weakSelf;
+
 #pragma mark - vvUITableView
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -72,11 +166,7 @@ __strong __typeof(weakSelf)strongSelf = weakSelf;
     }
     return _tableView;
 }
- 
- */
 
-
-/*
  
 #pragma mark - UITableViewDataSource
 //返回列表每个分组section拥有cell行数
@@ -101,11 +191,9 @@ __strong __typeof(weakSelf)strongSelf = weakSelf;
     return cell;
 }
  
- */
 
 
 #pragma mark - vvUILabel
-/*
 UILabel *nameLabel = [[UILabel alloc] init];
 nameLabel.text = @"-";
 nameLabel.font = [UIFont systemFontOfSize:16];
@@ -119,10 +207,9 @@ _nameLabel = nameLabel;
     make.top.equalTo(self.view.mas_bottom).offset(10);
     make.left.equalTo(self.view.mas_left).offset(10);
 }];
- */
 
+ 
 #pragma mark - vvUIButton
-/*
 UIButton *confirmBtn = [[UIButton alloc] init];
 [confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
 [confirmBtn addTarget:self action:@selector(confirmBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -140,12 +227,11 @@ confirmBtn.tag = 103;
     make.left.equalTo(self.view.mas_left).offset(100);
     make.size.mas_equalTo(CGSizeMake(100, 50));
 }];
- 
- */
+
 
 
 #pragma mark - vvUIView
-/*
+
 UIView *backView = [[UIView alloc] init];
 backView.backgroundColor = [UIColor greenColor];
 [self.view addSubview:backView];
@@ -166,10 +252,9 @@ backImageView.image = [UIImage imageNamed:@"imageName"];
     make.height.equalTo(@(200));
 }];
 
- */
-
+ 
+ 
 #pragma mark - vvUITextField
-/*
 UITextField *textField = [[UITextField alloc] init];
 //    textField.tag = 100;
 // textField.backgroundColor = [UIColor greenColor];  // 更改背景颜色
@@ -202,19 +287,19 @@ textField.returnKeyType = UIReturnKeyGo;
     make.height.mas_equalTo(@(40));
 }];
  
- */
+ 
+
+
 
 #pragma mark - vvScrollView
-/*
- 
- 
- 注意事项
- 当我们在view中添加了一个scrollView并设置其约束后，再向scrollView中添加一个以scrollView为基准的约束的控件时，约束会报错，这是因为scrollView需要根据添加在其内部的子控件的宽高及与四周的距离计算出它的contentSize，也就是说内部子控件约束的添加需要遵循两个原则:
-1、scrollView内部子控件的尺寸不能以scrollView的尺寸为参照
-2、scrollView内部的子控件的约束必须完整
-解决方法：
-1、提供一个具体值的约束
-2、子控件的尺寸可以参照scrollView以外其它的控件的尺寸(如控制器的view的尺寸)
+
+// 注意事项
+// 当我们在view中添加了一个scrollView并设置其约束后，再向scrollView中添加一个以scrollView为基准的约束的控件时，约束会报错，这是因为scrollView需要根据添加在其内部的子控件的宽高及与四周的距离计算出它的contentSize，也就是说内部子控件约束的添加需要遵循两个原则:
+//1、scrollView内部子控件的尺寸不能以scrollView的尺寸为参照
+//2、scrollView内部的子控件的约束必须完整
+//解决方法：
+//1、提供一个具体值的约束
+//2、子控件的尺寸可以参照scrollView以外其它的控件的尺寸(如控制器的view的尺寸)
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];;
@@ -232,56 +317,53 @@ textField.returnKeyType = UIReturnKeyGo;
 }
 
 
-*/
-
 // 单例
+static id *_instance = nil;
 
-//static id *_instance = nil;
-//
-//+ (instancetype)shareInstance
-//{
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        _instance = [[self alloc] init];
-//    });
-//    return _instance;
-//}
++ (instancetype)shareInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
 
 
 #pragma mark - vvTextView
-//UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 20, 300, 330)];
-//textView.backgroundColor = [UIColor grayColor];
-////文本
-//textView.text = @"aaweqtrehgtbwsagas 123456 撒旦法师打发四的发生的 阿斯顿发送到发送到发阿斯顿发生阿斯蒂芬 撒旦法阿斯蒂芬";
-////字体
-//textView.font = [UIFont boldSystemFontOfSize:20.0];
-////对齐
-//textView.textAlignment = NSTextAlignmentCenter;
-////字体颜色
-//textView.textColor = [UIColor redColor];
-////允许编辑
-//textView.editable = YES;
-////用户交互     ///////若想有滚动条 不能交互 上为No，下为Yes
-//textView.userInteractionEnabled = YES; ///
-////自定义键盘
-////textView.inputView = view;//自定义输入区域
-////textView.inputAccessoryView = view;//键盘上加view
-//textView.delegate = self;
-//[self.view addSubview:textView];
-//
-//textView.scrollEnabled = YES;//滑动
-//textView.returnKeyType = UIReturnKeyDone;//返回键类型
-//textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
-//textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应
-//textView.dataDetectorTypes = UIDataDetectorTypeAll;//数据类型连接模式
-//textView.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错方式
-//textView.autocapitalizationType = UITextAutocapitalizationTypeNone;//自动大写方式
-//
-////禁止文字居中或下移64，因为avigationController下scrollView自动适应屏幕，而UITextView继承自UIScrollView
-//if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//}
+UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 20, 300, 330)];
+textView.backgroundColor = [UIColor grayColor];
+//文本
+textView.text = @"aaweqtrehgtbwsagas 123456 撒旦法师打发四的发生的 阿斯顿发送到发送到发阿斯顿发生阿斯蒂芬 撒旦法阿斯蒂芬";
+//字体
+textView.font = [UIFont boldSystemFontOfSize:20.0];
+//对齐
+textView.textAlignment = NSTextAlignmentCenter;
+//字体颜色
+textView.textColor = [UIColor redColor];
+//允许编辑
+textView.editable = YES;
+//用户交互     ///////若想有滚动条 不能交互 上为No，下为Yes
+textView.userInteractionEnabled = YES; ///
+//自定义键盘
+//textView.inputView = view;//自定义输入区域
+//textView.inputAccessoryView = view;//键盘上加view
+textView.delegate = self;
+[self.view addSubview:textView];
+
+textView.scrollEnabled = YES;//滑动
+textView.returnKeyType = UIReturnKeyDone;//返回键类型
+textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
+textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应
+textView.dataDetectorTypes = UIDataDetectorTypeAll;//数据类型连接模式
+textView.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错方式
+textView.autocapitalizationType = UITextAutocapitalizationTypeNone;//自动大写方式
+
+//禁止文字居中或下移64，因为avigationController下scrollView自动适应屏幕，而UITextView继承自UIScrollView
+if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+}
 
 
 
-@end
+#endif /* MMOtherCodingBlock_h */
