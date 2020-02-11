@@ -35,7 +35,6 @@
 		A0130DE321ECB78D007E845B /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DCF21ECB78D007E845B /* UIColor+Random.m */; };
 		A0130DE421ECB78D007E845B /* NSString+RegexCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DD321ECB78D007E845B /* NSString+RegexCategory.m */; };
 		A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DD621ECB78D007E845B /* NSString+Size.m */; };
-		A0130DE621ECB78D007E845B /* CodeSnippetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DDD21ECB78D007E845B /* CodeSnippetVC.m */; };
 		A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DE921ECC92A007E845B /* BaseNavigationController.m */; };
 		A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */; };
 		A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */; };
@@ -120,6 +119,8 @@
 		26F65B8F236C623D00CCB41E /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
 		26F65B90236C623D00CCB41E /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
 		26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
+		270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMPropertyCodingBlock.h; sourceTree = "<group>"; };
+		270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMOtherCodingBlock.h; sourceTree = "<group>"; };
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratConfigController.h; sourceTree = "<group>"; };
 		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
@@ -172,8 +173,6 @@
 		A0130DD821ECB78D007E845B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A0130DD921ECB78D007E845B /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		A0130DDA21ECB78D007E845B /* ThirdMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdMacros.h; sourceTree = "<group>"; };
-		A0130DDC21ECB78D007E845B /* CodeSnippetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSnippetVC.h; sourceTree = "<group>"; };
-		A0130DDD21ECB78D007E845B /* CodeSnippetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeSnippetVC.m; sourceTree = "<group>"; };
 		A0130DE821ECC92A007E845B /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		A0130DE921ECC92A007E845B /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GradientColor.h"; sourceTree = "<group>"; };
@@ -333,6 +332,15 @@
 				26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */,
 			);
 			path = "MBProgressHUD+JDragon";
+			sourceTree = "<group>";
+		};
+		270BA24623F294B200EABF58 /* CodeSnippet */ = {
+			isa = PBXGroup;
+			children = (
+				270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */,
+				270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */,
+			);
+			path = CodeSnippet;
 			sourceTree = "<group>";
 		};
 		6523E52022ED9B2800D304D3 /* 倒计时 */ = {
@@ -557,8 +565,7 @@
 				A0F3E628220D859400755DBB /* RunTime */,
 				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
-				A0130DDC21ECB78D007E845B /* CodeSnippetVC.h */,
-				A0130DDD21ECB78D007E845B /* CodeSnippetVC.m */,
+				270BA24623F294B200EABF58 /* CodeSnippet */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1047,7 +1054,6 @@
 				A0130DE121ECB78D007E845B /* BADataEntity.m in Sources */,
 				A0BCD7B522218B8400BB3A9C /* Palette.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
-				A0130DE621ECB78D007E845B /* CodeSnippetVC.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
 				6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */,
 				A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */,
