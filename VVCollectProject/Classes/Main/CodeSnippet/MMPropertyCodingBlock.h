@@ -18,27 +18,27 @@ static NSString *const <#varibleName#> = @"<#varibleValue#>";
 
 /// weak属性 xxweakP
 /// <#weak属性#>
-@property (weak, nonatomic) <#class#> *<#pram#>;
+@property (nonatomic, weak) <#class#> *<#pram#>;
 
 /// strong属性 xxstrong
 /// <#strong属性#>
-@property (strong, nonatomic) <#class#> *<#pram#>;
+@property (nonatomic, strong) <#class#> *<#pram#>;
 
 /// assign属性 xxassign
 /// <#assign属性#>
-@property (assign, nonatomic) <#class#> <#pram#>;
+@property (nonatomic, assign) <#class#> <#pram#>;
 
 /// copy属性 xxcopy
 /// <#copy属 #>
-@property (copy, nonatomic) <#class#> *<#pram#>;
+@property (nonatomic, copy) <#class#> *<#pram#>;
 
 /// NSString属性 xxstring
 /// <#NSString属性#>
-@property (copy, nonatomic) NSString *<#pram#>;
+@property (nonatomic, copy) NSString *<#pram#>;
 
 /// block属性 xxblock
 /// <#block属性#>
-@property (copy, nonatomic) <#ReturnType#>(^<#BlockName#>)(<#param#>);
+@property (nonatomic, copy) <#ReturnType#>(^<#BlockName#>)(<#param#>);
 
 /// block属性 xxdelegate
 /// <#delegate注释#>
@@ -48,7 +48,7 @@ static NSString *const <#varibleName#> = @"<#varibleValue#>";
 /// xxmark
 #pragma mark -  <#要注释的内容#>
 
-/// xxseak
+/// xxweak
 __weak __typeof(self)weakSelf = self;
 __strong __typeof(weakSelf)strongSelf = weakSelf;
 
