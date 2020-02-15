@@ -299,7 +299,6 @@ textField.returnKeyType = UIReturnKeyGo;
 
 
 #pragma mark - xxUIScrollView
-
 // 注意事项
 // 当我们在view中添加了一个scrollView并设置其约束后，再向scrollView中添加一个以scrollView为基准的约束的控件时，约束会报错，这是因为scrollView需要根据添加在其内部的子控件的宽高及与四周的距离计算出它的contentSize，也就是说内部子控件约束的添加需要遵循两个原则:
 //1、scrollView内部子控件的尺寸不能以scrollView的尺寸为参照
