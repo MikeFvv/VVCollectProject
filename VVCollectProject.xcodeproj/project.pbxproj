@@ -10,6 +10,8 @@
 		267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 267B11492345B901003FEF3B /* PrintBeautifulLog.m */; };
 		26F65B92236C623D00CCB41E /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F65B90236C623D00CCB41E /* MBProgressHUD+JDragon.bundle */; };
 		26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */; };
+		2754458123FD4A130012DC60 /* InjectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754457F23FD4A120012DC60 /* InjectionManager.m */; };
+		2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754458023FD4A120012DC60 /* InjectionIIIHelper.m */; };
 		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
 		40CF061D2319786D00932821 /* PointListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF061C2319786D00932821 /* PointListController.m */; };
 		40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E822FE2332BB240035B246 /* BaccaratRoadMapView.m */; };
@@ -121,6 +123,10 @@
 		26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
 		270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMPropertyCodingBlock.h; sourceTree = "<group>"; };
 		270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMOtherCodingBlock.h; sourceTree = "<group>"; };
+		2754457D23FD4A120012DC60 /* InjectionIIIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjectionIIIHelper.h; sourceTree = "<group>"; };
+		2754457E23FD4A120012DC60 /* InjectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjectionManager.h; sourceTree = "<group>"; };
+		2754457F23FD4A120012DC60 /* InjectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjectionManager.m; sourceTree = "<group>"; };
+		2754458023FD4A120012DC60 /* InjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjectionIIIHelper.m; sourceTree = "<group>"; };
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratConfigController.h; sourceTree = "<group>"; };
 		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
@@ -620,6 +626,10 @@
 		A0BCC2F721E8BA6D00CEA8ED = {
 			isa = PBXGroup;
 			children = (
+				2754457D23FD4A120012DC60 /* InjectionIIIHelper.h */,
+				2754458023FD4A120012DC60 /* InjectionIIIHelper.m */,
+				2754457E23FD4A120012DC60 /* InjectionManager.h */,
+				2754457F23FD4A120012DC60 /* InjectionManager.m */,
 				A0BCC30221E8BA6D00CEA8ED /* VVCollectProject */,
 				A0BCC31B21E8BA6F00CEA8ED /* VVCollectProjectTests */,
 				A0BCC32621E8BA6F00CEA8ED /* VVCollectProjectUITests */,
@@ -991,6 +1001,7 @@
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
+				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
 				A0BCD7B422218B8400BB3A9C /* UIColor+Hex.m in Sources */,
@@ -1048,6 +1059,7 @@
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */,
 				A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */,
+				2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */,
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
