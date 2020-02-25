@@ -9,7 +9,7 @@
 #import "InjectionIIIHelper.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-#import "BaseView.h"
+//#import "BaseView.h"
 
 
 @implementation InjectionIIIHelper
@@ -31,10 +31,10 @@ void injected (id self, SEL _cmd) {
     //view 刷新
     else if ([self isKindOfClass:[UIView class]]){
         
-        if ([self isKindOfClass:[BaseView class]]){
-            [self initSetupSubviews];
-            [self makeSubViewConstraints];
-        }
+//        if ([self isKindOfClass:[BaseView class]]){
+//            [self initSetupSubviews];
+//            [self makeSubViewConstraints];
+//        }
         
         UIViewController *vc = [InjectionIIIHelper viewControllerSupportView:self];
         if (vc && [vc isKindOfClass:[UIViewController class]]) {
