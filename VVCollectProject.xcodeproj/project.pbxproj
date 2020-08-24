@@ -323,13 +323,13 @@
 			path = "MBProgressHUD+JDragon";
 			sourceTree = "<group>";
 		};
-		270BA24623F294B200EABF58 /* CodeSnippet */ = {
+		270BA24623F294B200EABF58 /* CodeSnippet(代码块) */ = {
 			isa = PBXGroup;
 			children = (
 				270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */,
 				270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */,
 			);
-			path = CodeSnippet;
+			path = "CodeSnippet(代码块)";
 			sourceTree = "<group>";
 		};
 		27A193B124ECEAF4004C082B /* TableView */ = {
@@ -376,20 +376,6 @@
 				A0BF4F57223BEA320038422F /* MasonryController.m */,
 			);
 			path = Masonry;
-			sourceTree = "<group>";
-		};
-		657C99BD22F036E300CE0BF4 /* NSObject */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NSObject;
-			sourceTree = "<group>";
-		};
-		657C99BE22F036E600CE0BF4 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		65DCBA0523277D1F00D89C4F /* Model */ = {
@@ -488,14 +474,14 @@
 			children = (
 				267B11482345B900003FEF3B /* PrintBeautifulLog.h */,
 				267B11492345B901003FEF3B /* PrintBeautifulLog.m */,
-				65813234231D396900A3BBFE /* UIView+Extension.h */,
-				65813235231D396900A3BBFE /* UIView+Extension.m */,
 				A0F13BE322B3BB90000C213C /* UIImage+NIMKit.h */,
 				A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */,
 				A011E13422A65BC300A10869 /* UIButton+countDown.h */,
 				A011E13522A65BC300A10869 /* UIButton+countDown.m */,
 				A011E13122A65A5800A10869 /* UIResponder+Router.h */,
 				A011E13222A65A5800A10869 /* UIResponder+Router.m */,
+				65813234231D396900A3BBFE /* UIView+Extension.h */,
+				65813235231D396900A3BBFE /* UIView+Extension.m */,
 				A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */,
 				A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */,
 				A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */,
@@ -535,8 +521,6 @@
 			isa = PBXGroup;
 			children = (
 				27A193B124ECEAF4004C082B /* TableView */,
-				657C99BE22F036E600CE0BF4 /* UI */,
-				657C99BD22F036E300CE0BF4 /* NSObject */,
 				657C99BC22F036BB00CE0BF4 /* Masonry */,
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				A010CB522261BD5E00618A52 /* Hacker */,
@@ -547,7 +531,7 @@
 				A0F3E628220D859400755DBB /* RunTime */,
 				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
-				270BA24623F294B200EABF58 /* CodeSnippet */,
+				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
 			);
 			path = Main;
 			sourceTree = "<group>";
