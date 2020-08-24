@@ -13,6 +13,8 @@
 #import "Masonry.h"
 #import "VVAdaptUI.h"
 #import "MBProgressHUD+JDragon.h"
+#import "UIResponder+Router.h"
+#import "UIColor+Hex.h"
 
 
 #endif /* PrefixHeader_pch */
