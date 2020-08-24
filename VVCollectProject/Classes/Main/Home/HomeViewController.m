@@ -10,7 +10,6 @@
 #import "ViewController.h"
 #import "BaccaratController.h"
 #import "Application.h"
-#import "UIColor+Hexadecimal.h"
 #import "BlackJackController.h"
 #import "NetworkIndicatorView.h"
 #import "HackerViewController.h"

@@ -14,7 +14,6 @@
 #import "JSPatchCode.h"
 #import "HomeViewController.h"
 #import "YYFPSLabel.h"
-#import "UIColor+Random.h"
 
 @interface AppDelegate ()
 
