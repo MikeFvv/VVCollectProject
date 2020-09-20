@@ -14,6 +14,8 @@
 		2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754458023FD4A120012DC60 /* InjectionIIIHelper.m */; };
 		27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 27581CC724F38022009B7BA9 /* UIColor+Hex.m */; };
 		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
+		40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CBE28D2517C77200572FEF /* FoundationBaseController.m */; };
+		40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CBE2922517C77800572FEF /* UIKitBaseController.m */; };
 		40CF061D2319786D00932821 /* PointListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF061C2319786D00932821 /* PointListController.m */; };
 		40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E822FE2332BB240035B246 /* BaccaratRoadMapView.m */; };
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
@@ -126,6 +128,10 @@
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratConfigController.h; sourceTree = "<group>"; };
 		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
+		40CBE28D2517C77200572FEF /* FoundationBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoundationBaseController.m; sourceTree = "<group>"; };
+		40CBE28E2517C77200572FEF /* FoundationBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoundationBaseController.h; sourceTree = "<group>"; };
+		40CBE2912517C77800572FEF /* UIKitBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitBaseController.h; sourceTree = "<group>"; };
+		40CBE2922517C77800572FEF /* UIKitBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKitBaseController.m; sourceTree = "<group>"; };
 		40CF061B2319786D00932821 /* PointListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointListController.h; sourceTree = "<group>"; };
 		40CF061C2319786D00932821 /* PointListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointListController.m; sourceTree = "<group>"; };
 		40E822FD2332BB240035B246 /* BaccaratRoadMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratRoadMapView.h; sourceTree = "<group>"; };
@@ -341,6 +347,24 @@
 			path = TableView;
 			sourceTree = "<group>";
 		};
+		40CBE28C2517C77200572FEF /* Foundation-基础 */ = {
+			isa = PBXGroup;
+			children = (
+				40CBE28D2517C77200572FEF /* FoundationBaseController.m */,
+				40CBE28E2517C77200572FEF /* FoundationBaseController.h */,
+			);
+			path = "Foundation-基础";
+			sourceTree = "<group>";
+		};
+		40CBE2902517C77800572FEF /* UIKit-基础 */ = {
+			isa = PBXGroup;
+			children = (
+				40CBE2912517C77800572FEF /* UIKitBaseController.h */,
+				40CBE2922517C77800572FEF /* UIKitBaseController.m */,
+			);
+			path = "UIKit-基础";
+			sourceTree = "<group>";
+		};
 		6523E52022ED9B2800D304D3 /* 倒计时 */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +544,8 @@
 		A0130DDB21ECB78D007E845B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				40CBE2902517C77800572FEF /* UIKit-基础 */,
+				40CBE28C2517C77200572FEF /* Foundation-基础 */,
 				27A193B124ECEAF4004C082B /* TableView */,
 				657C99BC22F036BB00CE0BF4 /* Masonry */,
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
@@ -956,6 +982,7 @@
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
+				40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */,
 				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
@@ -1013,6 +1040,7 @@
 				2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */,
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
+				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
 				A0130DE121ECB78D007E845B /* BADataEntity.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
