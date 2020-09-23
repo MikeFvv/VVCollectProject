@@ -259,8 +259,43 @@ backImageView.image = [UIImage imageNamed:@"imageName"];
     make.height.equalTo(@(200));
 }];
 
- 
- 
+
+
+#pragma mark - xxUITextView
+UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 20, 300, 330)];
+textView.backgroundColor = [UIColor grayColor];
+//文本
+textView.text = @"aaweqtrehgtbwsagas 123456 撒旦法师打发四的发生的 阿斯顿发送到发送到发阿斯顿发生阿斯蒂芬 撒旦法阿斯蒂芬";
+//字体
+textView.font = [UIFont boldSystemFontOfSize:20.0];
+//对齐
+textView.textAlignment = NSTextAlignmentCenter;
+//字体颜色
+textView.textColor = [UIColor redColor];
+//允许编辑
+textView.editable = YES;
+//用户交互     ///////若想有滚动条 不能交互 上为No，下为Yes
+textView.userInteractionEnabled = YES; ///
+//自定义键盘
+//textView.inputView = view;//自定义输入区域
+//textView.inputAccessoryView = view;//键盘上加view
+textView.delegate = self;
+
+//textView.scrollEnabled = YES;//滑动
+//textView.returnKeyType = UIReturnKeyDone;//返回键类型
+//textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
+//textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应
+//textView.dataDetectorTypes = UIDataDetectorTypeAll;//数据类型连接模式
+//textView.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错方式
+//textView.autocapitalizationType = UITextAutocapitalizationTypeNone;//自动大写方式
+//
+////禁止文字居中或下移64，因为avigationController下scrollView自动适应屏幕，而UITextView继承自UIScrollView
+//if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+//}
+[self.view addSubview:textView];
+
+
 #pragma mark - xxUITextField
 UITextField *textField = [[UITextField alloc] init];
 //    textField.tag = 100;
@@ -321,45 +356,6 @@ textField.returnKeyType = UIReturnKeyGo;
     }
     return _scrollView;
 }
-
-
-
-#pragma mark - xxUITextView
-UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 20, 300, 330)];
-textView.backgroundColor = [UIColor grayColor];
-//文本
-textView.text = @"aaweqtrehgtbwsagas 123456 撒旦法师打发四的发生的 阿斯顿发送到发送到发阿斯顿发生阿斯蒂芬 撒旦法阿斯蒂芬";
-//字体
-textView.font = [UIFont boldSystemFontOfSize:20.0];
-//对齐
-textView.textAlignment = NSTextAlignmentCenter;
-//字体颜色
-textView.textColor = [UIColor redColor];
-//允许编辑
-textView.editable = YES;
-//用户交互     ///////若想有滚动条 不能交互 上为No，下为Yes
-textView.userInteractionEnabled = YES; ///
-//自定义键盘
-//textView.inputView = view;//自定义输入区域
-//textView.inputAccessoryView = view;//键盘上加view
-textView.delegate = self;
-
-//textView.scrollEnabled = YES;//滑动
-//textView.returnKeyType = UIReturnKeyDone;//返回键类型
-//textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
-//textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应
-//textView.dataDetectorTypes = UIDataDetectorTypeAll;//数据类型连接模式
-//textView.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错方式
-//textView.autocapitalizationType = UITextAutocapitalizationTypeNone;//自动大写方式
-//
-////禁止文字居中或下移64，因为avigationController下scrollView自动适应屏幕，而UITextView继承自UIScrollView
-//if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//}
-[self.view addSubview:textView];
-
-
-
 
 
 #endif /* MMOtherCodingBlock_h */
