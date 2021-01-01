@@ -12,7 +12,7 @@
 /// <#xxx属性 #">
 
 
-/// const属性 xxconst
+/// const xxconst
 /// <#const属性#>
 static NSString *const <#varibleName#> = @"<#varibleValue#>";
 
