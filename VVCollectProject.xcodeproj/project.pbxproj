@@ -10,9 +10,12 @@
 		267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 267B11492345B901003FEF3B /* PrintBeautifulLog.m */; };
 		26F65B92236C623D00CCB41E /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F65B90236C623D00CCB41E /* MBProgressHUD+JDragon.bundle */; };
 		26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */; };
+		2742F252255AA1D9001848EF /* NSString+RegexCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742F251255AA1D9001848EF /* NSString+RegexCategory.m */; };
 		2754458123FD4A130012DC60 /* InjectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754457F23FD4A120012DC60 /* InjectionManager.m */; };
 		2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754458023FD4A120012DC60 /* InjectionIIIHelper.m */; };
 		27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 27581CC724F38022009B7BA9 /* UIColor+Hex.m */; };
+		276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DBB052563D04800FD6E8A /* MMVersionControlManager.m */; };
+		277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */ = {isa = PBXBuildFile; fileRef = 277EDF472577966B0068ECD6 /* NSCarriedCTim.m */; };
 		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
 		40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CBE28D2517C77200572FEF /* FoundationBaseController.m */; };
 		40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CBE2922517C77800572FEF /* UIKitBaseController.m */; };
@@ -37,7 +40,6 @@
 		A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC621ECB78D007E845B /* UIImage+CompressImage.m */; };
 		A0130DE121ECB78D007E845B /* BADataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DC721ECB78D007E845B /* BADataEntity.m */; };
 		A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DCD21ECB78D007E845B /* NSDictionary+Log.m */; };
-		A0130DE421ECB78D007E845B /* NSString+RegexCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DD321ECB78D007E845B /* NSString+RegexCategory.m */; };
 		A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DD621ECB78D007E845B /* NSString+Size.m */; };
 		A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DE921ECC92A007E845B /* BaseNavigationController.m */; };
 		A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */; };
@@ -119,12 +121,18 @@
 		26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
 		270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMPropertyCodingBlock.h; sourceTree = "<group>"; };
 		270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMOtherCodingBlock.h; sourceTree = "<group>"; };
+		2742F250255AA1D9001848EF /* NSString+RegexCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexCategory.h"; sourceTree = "<group>"; };
+		2742F251255AA1D9001848EF /* NSString+RegexCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexCategory.m"; sourceTree = "<group>"; };
 		2754457D23FD4A120012DC60 /* InjectionIIIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjectionIIIHelper.h; sourceTree = "<group>"; };
 		2754457E23FD4A120012DC60 /* InjectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjectionManager.h; sourceTree = "<group>"; };
 		2754457F23FD4A120012DC60 /* InjectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjectionManager.m; sourceTree = "<group>"; };
 		2754458023FD4A120012DC60 /* InjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjectionIIIHelper.m; sourceTree = "<group>"; };
 		27581CC724F38022009B7BA9 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		27581CC824F38022009B7BA9 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		276DBB052563D04800FD6E8A /* MMVersionControlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMVersionControlManager.m; sourceTree = "<group>"; };
+		276DBB062563D04800FD6E8A /* MMVersionControlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMVersionControlManager.h; sourceTree = "<group>"; };
+		277EDF462577966B0068ECD6 /* NSCarriedCTim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCarriedCTim.h; sourceTree = "<group>"; };
+		277EDF472577966B0068ECD6 /* NSCarriedCTim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCarriedCTim.m; sourceTree = "<group>"; };
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratConfigController.h; sourceTree = "<group>"; };
 		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
@@ -172,9 +180,7 @@
 		A0130DCB21ECB78D007E845B /* BANetManager_OC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_OC.h; sourceTree = "<group>"; };
 		A0130DCD21ECB78D007E845B /* NSDictionary+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
 		A0130DD121ECB78D007E845B /* NSDictionary+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
-		A0130DD321ECB78D007E845B /* NSString+RegexCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexCategory.m"; sourceTree = "<group>"; };
 		A0130DD421ECB78D007E845B /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
-		A0130DD521ECB78D007E845B /* NSString+RegexCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexCategory.h"; sourceTree = "<group>"; };
 		A0130DD621ECB78D007E845B /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
 		A0130DD821ECB78D007E845B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A0130DD921ECB78D007E845B /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
@@ -338,6 +344,17 @@
 			path = "CodeSnippet(代码块)";
 			sourceTree = "<group>";
 		};
+		276DBB042563D03D00FD6E8A /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				277EDF462577966B0068ECD6 /* NSCarriedCTim.h */,
+				277EDF472577966B0068ECD6 /* NSCarriedCTim.m */,
+				276DBB062563D04800FD6E8A /* MMVersionControlManager.h */,
+				276DBB052563D04800FD6E8A /* MMVersionControlManager.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		27A193B124ECEAF4004C082B /* TableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +468,7 @@
 		A0130DC021ECB78D007E845B /* Expand */ = {
 			isa = PBXGroup;
 			children = (
+				276DBB042563D03D00FD6E8A /* Other */,
 				A0130DC121ECB78D007E845B /* Tools */,
 				A0130DCC21ECB78D007E845B /* Category */,
 				A0130DD721ECB78D007E845B /* Macros */,
@@ -522,8 +540,8 @@
 		A0130DD221ECB78D007E845B /* NSString */ = {
 			isa = PBXGroup;
 			children = (
-				A0130DD521ECB78D007E845B /* NSString+RegexCategory.h */,
-				A0130DD321ECB78D007E845B /* NSString+RegexCategory.m */,
+				2742F250255AA1D9001848EF /* NSString+RegexCategory.h */,
+				2742F251255AA1D9001848EF /* NSString+RegexCategory.m */,
 				A0130DD421ECB78D007E845B /* NSString+Size.h */,
 				A0130DD621ECB78D007E845B /* NSString+Size.m */,
 			);
@@ -988,6 +1006,7 @@
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
+				2742F252255AA1D9001848EF /* NSString+RegexCategory.m in Sources */,
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
 				A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */,
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
@@ -1015,6 +1034,7 @@
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */,
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
+				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
@@ -1027,6 +1047,7 @@
 				A0C5148821EE2E4F00E2F89D /* zip.c in Sources */,
 				A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */,
 				A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */,
+				277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */,
 				6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
@@ -1047,7 +1068,6 @@
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
 				6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */,
 				A0130DE021ECB78D007E845B /* UIImage+CompressImage.m in Sources */,
-				A0130DE421ECB78D007E845B /* NSString+RegexCategory.m in Sources */,
 				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
