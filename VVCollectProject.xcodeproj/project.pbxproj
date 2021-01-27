@@ -341,7 +341,8 @@
 				270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */,
 				270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */,
 			);
-			path = "CodeSnippet(代码块)";
+			name = "CodeSnippet(代码块)";
+			path = "Main/CodeSnippet(代码块)";
 			sourceTree = "<group>";
 		};
 		276DBB042563D03D00FD6E8A /* Other */ = {
@@ -458,6 +459,7 @@
 		A0130DBF21ECB78D007E845B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
 				A0130DC021ECB78D007E845B /* Expand */,
 				A0130DDB21ECB78D007E845B /* Main */,
 				A0130DFD21ECDC28007E845B /* Resource */,
@@ -575,7 +577,6 @@
 				A0F3E628220D859400755DBB /* RunTime */,
 				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
-				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
 			);
 			path = Main;
 			sourceTree = "<group>";
