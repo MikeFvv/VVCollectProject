@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     #pragma mark - 截取字符串
     // 截取中间需要字符 wangwangwhb
     NSString *string =  @"http://api.这是要截取的内容.com/api/";

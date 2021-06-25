@@ -41,6 +41,8 @@
         _tableView.estimatedRowHeight = 45;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
+        
+        [_tableView registerClass:[BlackJackCell class] forCellReuseIdentifier:@"BlackJackCell"];
     }
     return _tableView;
 }
