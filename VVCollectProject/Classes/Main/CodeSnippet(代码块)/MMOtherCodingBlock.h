@@ -296,31 +296,34 @@ textView.delegate = self;
 [self.view addSubview:textView];
 
 
+
 #pragma mark - xxUITextField
 UITextField *textField = [[UITextField alloc] init];
-//    textField.tag = 100;
 // textField.backgroundColor = [UIColor greenColor];  // 更改背景颜色
 textField.borderStyle = UITextBorderStyleRoundedRect;  //边框类型
 textField.font = [UIFont boldSystemFontOfSize:14.0];  // 字体
-textField.textColor = [UIColor blueColor];  // 字体颜色
+textField.textColor = [UIColor blackColor];  // 字体颜色
 //    textField.textAlignment = NSTextAlignmentLeft;  // 文本对齐方式
 //    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter; // 垂直对齐
 //    textField.adjustsFontSizeToFitWidth = YES; // 文字缩放
 //    textField.minimumFontSize = 40.0; // 缩放后最小字号
-//textField.text = @"请输入账号"; // 文本
+//textField.text = @"--"; // 文本
 textField.placeholder = @"请输入账号"; // 占位文字
 textField.clearButtonMode = UITextFieldViewModeAlways; // 清空按钮
 //textField.clearsOnBeginEditing = YES; // 当编辑时清空
 //textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters; // 自动大写
 //    textField.autocorrectionType = UITextAutocorrectionTypeNo; // 单词检测 是否是单词 显示下划线
-//textField.background
-textField.delegate = self;
+
+
 //textField.keyboardAppearance = UIKeyboardAppearanceAlert; // 键盘样式
 textField.keyboardType = UIKeyboardTypeEmailAddress; // 键盘类型
-textField.returnKeyType = UIReturnKeyGo;
+//textField.returnKeyType = UIReturnKeyGo;
 //    textField.secureTextEntry = YES; // 密码
 //    textField.layer.cornerRadius = 5.0; // 圆角 导入QuartzCore.framework, 引用#import <QuartzCore/QuartzCore.h>
 //    textField.borderStyle = UITextBorderStyleRoundedRect; // 光标过于靠前
+    textField.tag = 2000;
+textField.delegate = self;
+_textField = textField;
 
 [textField mas_makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(self.view.mas_top);

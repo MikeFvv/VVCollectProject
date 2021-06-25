@@ -170,11 +170,7 @@
 - (void)updateRightNow:(NSString *)trackViewUrl {
     NSURL *url = [NSURL URLWithString:trackViewUrl];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        if (@available(iOS 10.0, *)) {
-            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-        } else {
-            [[UIApplication sharedApplication] openURL:url];
-        }
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }
 }
 

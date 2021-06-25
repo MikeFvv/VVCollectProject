@@ -500,15 +500,15 @@
 		A0130DC221ECB78D007E845B /* BANetManager */ = {
 			isa = PBXGroup;
 			children = (
-				A0130DC321ECB78D007E845B /* BADataEntity.h */,
-				A0130DC421ECB78D007E845B /* BANetManagerCache.m */,
-				A0130DC521ECB78D007E845B /* BANetManager.m */,
-				A0130DC621ECB78D007E845B /* UIImage+CompressImage.m */,
-				A0130DC721ECB78D007E845B /* BADataEntity.m */,
-				A0130DC821ECB78D007E845B /* BANetManagerCache.h */,
-				A0130DC921ECB78D007E845B /* UIImage+CompressImage.h */,
-				A0130DCA21ECB78D007E845B /* BANetManager.h */,
 				A0130DCB21ECB78D007E845B /* BANetManager_OC.h */,
+				A0130DC321ECB78D007E845B /* BADataEntity.h */,
+				A0130DC721ECB78D007E845B /* BADataEntity.m */,
+				A0130DCA21ECB78D007E845B /* BANetManager.h */,
+				A0130DC521ECB78D007E845B /* BANetManager.m */,
+				A0130DC921ECB78D007E845B /* UIImage+CompressImage.h */,
+				A0130DC621ECB78D007E845B /* UIImage+CompressImage.m */,
+				A0130DC821ECB78D007E845B /* BANetManagerCache.h */,
+				A0130DC421ECB78D007E845B /* BANetManagerCache.m */,
 			);
 			path = BANetManager;
 			sourceTree = "<group>";
