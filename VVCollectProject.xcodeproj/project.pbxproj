@@ -14,6 +14,14 @@
 		2754458123FD4A130012DC60 /* InjectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754457F23FD4A120012DC60 /* InjectionManager.m */; };
 		2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754458023FD4A120012DC60 /* InjectionIIIHelper.m */; };
 		27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 27581CC724F38022009B7BA9 /* UIColor+Hex.m */; };
+		276C918B269159A300377224 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 276C918A269159A300377224 /* README.md */; };
+		276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C918D26915DFC00377224 /* MXWTypeConversionManager.m */; };
+		276C91D1269160C500377224 /* FileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C91D0269160C500377224 /* FileHelper.m */; };
+		276C91D42691610400377224 /* MFHTimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C91D32691610400377224 /* MFHTimeManager.m */; };
+		276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C91D6269161B100377224 /* NSDate+OST_DATE.m */; };
+		276C921D2691633300377224 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C921A2691633300377224 /* GTMBase64.m */; };
+		276C92202691633900377224 /* EncryptionClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C921F2691633900377224 /* EncryptionClass.m */; };
+		276C92262691645500377224 /* VerifyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 276C92242691645500377224 /* VerifyHelper.m */; };
 		276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DBB052563D04800FD6E8A /* MMVersionControlManager.m */; };
 		277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */ = {isa = PBXBuildFile; fileRef = 277EDF472577966B0068ECD6 /* NSCarriedCTim.m */; };
 		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
@@ -129,6 +137,22 @@
 		2754458023FD4A120012DC60 /* InjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjectionIIIHelper.m; sourceTree = "<group>"; };
 		27581CC724F38022009B7BA9 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		27581CC824F38022009B7BA9 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		276C918A269159A300377224 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		276C918C26915DFC00377224 /* MXWTypeConversionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWTypeConversionManager.h; sourceTree = "<group>"; };
+		276C918D26915DFC00377224 /* MXWTypeConversionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWTypeConversionManager.m; sourceTree = "<group>"; };
+		276C91CF269160C500377224 /* FileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelper.h; sourceTree = "<group>"; };
+		276C91D0269160C500377224 /* FileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelper.m; sourceTree = "<group>"; };
+		276C91D22691610300377224 /* MFHTimeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHTimeManager.h; sourceTree = "<group>"; };
+		276C91D32691610400377224 /* MFHTimeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHTimeManager.m; sourceTree = "<group>"; };
+		276C91D5269161B100377224 /* NSDate+OST_DATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+OST_DATE.h"; sourceTree = "<group>"; };
+		276C91D6269161B100377224 /* NSDate+OST_DATE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+OST_DATE.m"; sourceTree = "<group>"; };
+		276C921A2691633300377224 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		276C921B2691633300377224 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		276C921C2691633300377224 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		276C921E2691633900377224 /* EncryptionClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptionClass.h; sourceTree = "<group>"; };
+		276C921F2691633900377224 /* EncryptionClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptionClass.m; sourceTree = "<group>"; };
+		276C92242691645500377224 /* VerifyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyHelper.m; sourceTree = "<group>"; };
+		276C92252691645500377224 /* VerifyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyHelper.h; sourceTree = "<group>"; };
 		276DBB052563D04800FD6E8A /* MMVersionControlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMVersionControlManager.m; sourceTree = "<group>"; };
 		276DBB062563D04800FD6E8A /* MMVersionControlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMVersionControlManager.h; sourceTree = "<group>"; };
 		277EDF462577966B0068ECD6 /* NSCarriedCTim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCarriedCTim.h; sourceTree = "<group>"; };
@@ -342,16 +366,46 @@
 				270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */,
 			);
 			name = "CodeSnippet(代码块)";
-			path = "Main/CodeSnippet(代码块)";
+			path = "../CodeSnippet(代码块)";
+			sourceTree = "<group>";
+		};
+		276C92182691631100377224 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				276C921E2691633900377224 /* EncryptionClass.h */,
+				276C921F2691633900377224 /* EncryptionClass.m */,
+				276C92192691632400377224 /* GTMBase64 */,
+			);
+			path = Encryption;
+			sourceTree = "<group>";
+		};
+		276C92192691632400377224 /* GTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				276C921C2691633300377224 /* GTMBase64.h */,
+				276C921A2691633300377224 /* GTMBase64.m */,
+				276C921B2691633300377224 /* GTMDefines.h */,
+			);
+			path = GTMBase64;
 			sourceTree = "<group>";
 		};
 		276DBB042563D03D00FD6E8A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				276C92252691645500377224 /* VerifyHelper.h */,
+				276C92242691645500377224 /* VerifyHelper.m */,
+				276C91D5269161B100377224 /* NSDate+OST_DATE.h */,
+				276C91D6269161B100377224 /* NSDate+OST_DATE.m */,
+				276C91D22691610300377224 /* MFHTimeManager.h */,
+				276C91D32691610400377224 /* MFHTimeManager.m */,
+				276C91CF269160C500377224 /* FileHelper.h */,
+				276C91D0269160C500377224 /* FileHelper.m */,
 				277EDF462577966B0068ECD6 /* NSCarriedCTim.h */,
 				277EDF472577966B0068ECD6 /* NSCarriedCTim.m */,
 				276DBB062563D04800FD6E8A /* MMVersionControlManager.h */,
 				276DBB052563D04800FD6E8A /* MMVersionControlManager.m */,
+				276C918C26915DFC00377224 /* MXWTypeConversionManager.h */,
+				276C918D26915DFC00377224 /* MXWTypeConversionManager.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -459,10 +513,9 @@
 		A0130DBF21ECB78D007E845B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
-				A0130DC021ECB78D007E845B /* Expand */,
 				A0130DDB21ECB78D007E845B /* Main */,
 				A0130DFD21ECDC28007E845B /* Resource */,
+				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -481,6 +534,7 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				276C92182691631100377224 /* Encryption */,
 				26F65B8E236C623D00CCB41E /* MBProgressHUD+JDragon */,
 				A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */,
 				A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */,
@@ -653,6 +707,7 @@
 		A0BCC30221E8BA6D00CEA8ED /* VVCollectProject */ = {
 			isa = PBXGroup;
 			children = (
+				A0130DC021ECB78D007E845B /* Expand */,
 				A0130DBF21ECB78D007E845B /* Classes */,
 				A0BCC30321E8BA6D00CEA8ED /* AppDelegate.h */,
 				A0BCC30421E8BA6D00CEA8ED /* AppDelegate.m */,
@@ -687,6 +742,7 @@
 		A0BCC4B521E8BB1800CEA8ED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				276C918A269159A300377224 /* README.md */,
 				65E511F02313C597008098BE /* 新增App注意事项.rtfd */,
 				A0BCC30921E8BA6D00CEA8ED /* Main.storyboard */,
 				A0BCC30E21E8BA6F00CEA8ED /* LaunchScreen.storyboard */,
@@ -931,6 +987,7 @@
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
 				65E511F12313C597008098BE /* 新增App注意事项.rtfd in Resources */,
+				276C918B269159A300377224 /* README.md in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -998,17 +1055,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				276C92262691645500377224 /* VerifyHelper.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
+				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
+				276C91D42691610400377224 /* MFHTimeManager.m in Sources */,
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
 				40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */,
 				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
+				276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
 				2742F252255AA1D9001848EF /* NSString+RegexCategory.m in Sources */,
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
+				276C921D2691633300377224 /* GTMBase64.m in Sources */,
 				A0130DDF21ECB78D007E845B /* BANetManager.m in Sources */,
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
@@ -1040,6 +1102,7 @@
 				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
 				26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */,
+				276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */,
 				A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */,
 				A011E13322A65A5800A10869 /* UIResponder+Router.m in Sources */,
 				A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */,
@@ -1064,6 +1127,7 @@
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
+				276C91D1269160C500377224 /* FileHelper.m in Sources */,
 				A0130DE121ECB78D007E845B /* BADataEntity.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,

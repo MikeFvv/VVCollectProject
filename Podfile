@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '10.0'
 
-inhibit_all_warnings!   # 禁止_所有_警告 ？
+inhibit_all_warnings!   #解决忽略引入库的所有警告
 
 # pod update --verbose --no-repo-update
 
