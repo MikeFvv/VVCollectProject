@@ -42,6 +42,13 @@ dispatch_async(dispatch_get_main_queue(), block);\
 @property (nonatomic,assign) BOOL isTableViewBottom;
 
 
+@property(nonatomic, strong) NSString *strongStr;
+
+@property(nonatomic, copy) NSString *copyyStr;
+// 注：不能以alloc，new，copy，mutableCopy 作为开头命名，比如：copyStr
+
+
+
 @end
 
 @implementation HomeViewController
@@ -88,6 +95,23 @@ dispatch_async(dispatch_get_main_queue(), block);\
     //    [self network];
     
     [self twoNumberExchange];
+    
+    
+    
+    
+    // 第一种场景：用NSString直接赋值
+    NSString *originStr1 = [NSString stringWithFormat:@"hello,everyone"];
+
+    _strongStr = originStr1;
+    _copyyStr = originStr1;
+        
+    NSLog(@"第一种场景：用NSString直接赋值");
+    NSLog(@"               对象地址         对象指针地址        对象的值   ");
+    NSLog(@"originStr: %p , %p , %@", originStr1, &originStr1, originStr1);
+    NSLog(@"strongStr: %p , %p , %@", _strongStr, &_strongStr, _strongStr);
+    NSLog(@" copyyStr: %p , %p , %@", _copyyStr, &_copyyStr, _copyyStr);
+
+    NSLog(@"111");
 }
 
 - (void)rightBtnAction {
@@ -647,6 +671,73 @@ dispatch_async(dispatch_get_main_queue(), block);\
                                                       minSize:CGSizeMake(attachmentImageMinWidth, attachmentImageMinHeight)
                                                       maxSize:CGSizeMake(attachmemtImageMaxWidth, attachmentImageMaxHeight )];
     return contentSize;
+}
+
+
+
+
+- (void)testNSArray {
+    //定义一个空数组
+    NSArray *array = [NSArray array];
+    //空数组
+    array = @[];
+    //通过指定对象创建数组
+    array = [[NSArray alloc]initWithObjects:@"AAA",@"911",@"嗯嗯",@"abc",@"cc", nil];
+    //通过简单的方式创建数组
+    array = @[@"AAA",@"911",@"嗯嗯",@"abc",@"cc"];
+    
+    // 得到数组中第一个对象
+    NSString *first = [array firstObject];
+    // 得到数组中最后一个对象
+    NSString *last = [array lastObject];
+    
+    // 取出数组的指定的对象 (下标要小于数组的count)
+    NSString *str = [array objectAtIndex:3];
+    NSString *str1 = array[3];  // 第二种写法
+    
+    
+    // 得到指定元素在数组中的位置  如果元素不存在则打印-1值
+    int index = (int)[array indexOfObject:@"911"];
+    int index1 = (int)[array indexOfObject:@"cc"];
+    NSLog(@"index=%d,index=%d",index,index1) ;
+    
+    
+    
+    // 判断当前的数组中是否包含对应的对象  containsObject
+    BOOL isHave = [array containsObject:@"abc"] ;
+    if (isHave) {
+        NSLog(@"存在") ;
+    }else{
+        NSLog(@"不存在") ;
+    }
+    
+    
+    //  [A isKindOfClass:B]，判断A类是否是B的子类或者本类。
+    //  [A isMemberOfClass:B]，判断A类是否是B类（不包括子类）
+    
+}
+
+
+- (void)testNSMutableArray {
+    //创建并设定数组元素个数
+    NSMutableArray *arr1=[NSMutableArray arrayWithCapacity:7];
+    //复制数组
+    NSArray *arr2=@[@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun",@"Jul",@"Aug",@"Sep",@"Oct",@"Nov",@"Dec"];
+    NSMutableArray *arr3=[NSMutableArray arrayWithArray:arr2];
+    //向数组中添加一个元素
+    [arr3 addObject:@"one"];
+    //根据指定下标插入元素
+    [arr3 insertObject:@"two" atIndex:6];
+    //删除最后一个元素
+    [arr3 removeLastObject];
+    //根据指定下标删除元素
+    [arr3 removeObjectAtIndex:3];
+    //根据指定对象删除元素（若未找到返回NSNotfind
+    [arr3 removeObject:@"three"];
+    //替换指定下标的元素
+    [arr3 replaceObjectAtIndex:3 withObject:@"four"];
+    //删除全部元素
+    [arr3 removeAllObjects];
 }
 
 
