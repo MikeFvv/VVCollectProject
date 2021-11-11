@@ -12,7 +12,7 @@
 
 
 
-#define NSLogFunc NSLog(@"=====Begin==========\n FILE: %@\n FUNC: %s\n LINE: %d\n", [NSString stringWithUTF8String:__FILE__].lastPathComponent, __PRETTY_FUNCTION__, __LINE__)
+//#define NSLogFunc NSLog(@"=====Begin==========\n FILE: %@\n FUNC: %s\n LINE: %d\n", [NSString stringWithUTF8String:__FILE__].lastPathComponent, __PRETTY_FUNCTION__, __LINE__)
 
 
 
