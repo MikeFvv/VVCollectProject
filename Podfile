@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '13.0'
 
 inhibit_all_warnings!   #解决忽略引入库的所有警告
 
@@ -21,17 +21,10 @@ target 'VVCollectProject' do
   pod 'Masonry'
   # 上下拉刷新
   pod 'MJRefresh'
-  
-  # YYKit
-  #pod 'YYKit'
-  pod 'YYModel'
-  pod 'YYCache'
-#  pod 'YYImage'
-  pod 'YYText'
-#  pod 'YYAsyncLayer'
-  pod 'YYCategories'
   # 字典转模型框架
   pod 'MJExtension'
+  pod 'SDWebImage'
+  
   
   # 热更新
   pod 'JSPatch'
@@ -41,13 +34,27 @@ target 'VVCollectProject' do
 # 一个支持多选、选原图和视频的图片选择器，同时有预览、裁剪功能
 pod 'TZImagePickerController'
 
-#  po 'SDWebImage', '~> 4.2.2'
+
 
 # Socket长连接  facebook开源库
 pod 'SocketRocket'
 
 pod 'MBProgressHUD', '~> 1.1.0'
 #pod 'MBProgressHUD+JDragon'
+
+
+# YYKit
+pod 'YYKit'
+
+#pod 'YYModel'
+#pod 'YYCache'
+##  pod 'YYImage'
+#pod 'YYText'
+##  pod 'YYAsyncLayer'
+#pod 'YYCategories'
+
+
+
 
 
 # ################## 以下使用效果待验证 ###################
