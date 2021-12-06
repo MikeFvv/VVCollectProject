@@ -37,6 +37,9 @@
 		659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659E139C22E732DE00E9570E /* BugCollectionController.m */; };
 		65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCBA0723277D3F00D89C4F /* BaccaratModel.m */; };
 		65E511F12313C597008098BE /* 新增App注意事项.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 65E511F02313C597008098BE /* 新增App注意事项.rtfd */; };
+		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
+		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
+		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -181,6 +184,12 @@
 		65DCBA0623277D3F00D89C4F /* BaccaratModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratModel.h; sourceTree = "<group>"; };
 		65DCBA0723277D3F00D89C4F /* BaccaratModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratModel.m; sourceTree = "<group>"; };
 		65E511F02313C597008098BE /* 新增App注意事项.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "新增App注意事项.rtfd"; sourceTree = "<group>"; };
+		84A59209273D9B240071D524 /* MXWAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdapter.h; sourceTree = "<group>"; };
+		84A5920A273D9B240071D524 /* MXWAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdapter.m; sourceTree = "<group>"; };
+		84A59213273D9FA30071D524 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		84A59214273D9FA30071D524 /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		84A59217273DA1D70071D524 /* UIView+Function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Function.h"; sourceTree = "<group>"; };
+		84A59218273DA1D70071D524 /* UIView+Function.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Function.m"; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -483,6 +492,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		84A5920F273D9ED50071D524 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				A0F13BE322B3BB90000C213C /* UIImage+NIMKit.h */,
+				A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */,
+				A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */,
+				A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */,
+				84A59213273D9FA30071D524 /* UIImage+Extension.h */,
+				84A59214273D9FA30071D524 /* UIImage+Extension.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		84A59216273DA1990071D524 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				65813234231D396900A3BBFE /* UIView+Extension.h */,
+				65813235231D396900A3BBFE /* UIView+Extension.m */,
+				A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */,
+				A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */,
+				84A59217273DA1D70071D524 /* UIView+Function.h */,
+				84A59218273DA1D70071D524 /* UIView+Function.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
 		A004E78B2226E40A0090DC44 /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,10 +558,10 @@
 		A0130DC021ECB78D007E845B /* Expand */ = {
 			isa = PBXGroup;
 			children = (
+				A0130DD721ECB78D007E845B /* Macros */,
 				276DBB042563D03D00FD6E8A /* Other */,
 				A0130DC121ECB78D007E845B /* Tools */,
 				A0130DCC21ECB78D007E845B /* Category */,
-				A0130DD721ECB78D007E845B /* Macros */,
 			);
 			path = Expand;
 			sourceTree = "<group>";
@@ -570,24 +605,18 @@
 		A0130DCC21ECB78D007E845B /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				267B11482345B900003FEF3B /* PrintBeautifulLog.h */,
-				267B11492345B901003FEF3B /* PrintBeautifulLog.m */,
-				A0F13BE322B3BB90000C213C /* UIImage+NIMKit.h */,
-				A0F13BE222B3BB90000C213C /* UIImage+NIMKit.m */,
+				84A59216273DA1990071D524 /* UIView */,
+				84A5920F273D9ED50071D524 /* UIImage */,
 				A011E13422A65BC300A10869 /* UIButton+countDown.h */,
 				A011E13522A65BC300A10869 /* UIButton+countDown.m */,
 				A011E13122A65A5800A10869 /* UIResponder+Router.h */,
 				A011E13222A65A5800A10869 /* UIResponder+Router.m */,
-				65813234231D396900A3BBFE /* UIView+Extension.h */,
-				65813235231D396900A3BBFE /* UIView+Extension.m */,
-				A0BEDF332217E163008F97CC /* UIView+LMJNjHuFrame.h */,
-				A0BEDF322217E163008F97CC /* UIView+LMJNjHuFrame.m */,
-				A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */,
-				A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */,
-				A0130DD121ECB78D007E845B /* NSDictionary+Log.h */,
-				A0130DCD21ECB78D007E845B /* NSDictionary+Log.m */,
 				27581CC824F38022009B7BA9 /* UIColor+Hex.h */,
 				27581CC724F38022009B7BA9 /* UIColor+Hex.m */,
+				267B11482345B900003FEF3B /* PrintBeautifulLog.h */,
+				267B11492345B901003FEF3B /* PrintBeautifulLog.m */,
+				A0130DD121ECB78D007E845B /* NSDictionary+Log.h */,
+				A0130DCD21ECB78D007E845B /* NSDictionary+Log.m */,
 				A0130DD221ECB78D007E845B /* NSString */,
 			);
 			path = Category;
@@ -611,6 +640,8 @@
 				A0130DDA21ECB78D007E845B /* ThirdMacros.h */,
 				A0130DD821ECB78D007E845B /* Constants.h */,
 				A0BF4F55223BD2400038422F /* VVAdaptUI.h */,
+				84A59209273D9B240071D524 /* MXWAdapter.h */,
+				84A5920A273D9B240071D524 /* MXWAdapter.m */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -1114,15 +1145,18 @@
 				277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */,
 				6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
+				84A59219273DA1D70071D524 /* UIView+Function.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
 				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
 				A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */,
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */,
+				84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */,
 				659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */,
 				A0130DDE21ECB78D007E845B /* BANetManagerCache.m in Sources */,
 				2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */,
+				84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */,
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
