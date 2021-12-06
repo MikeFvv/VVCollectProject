@@ -18,6 +18,10 @@
 #import "UIImage+NIMKit.h"
 
 
+#import "UIImage+Extension.h"
+#import "UIView+Function.h"
+
+
 #define dispatch_main_async_safe(block)\
 if ([NSThread isMainThread]) {\
 block();\
@@ -46,7 +50,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 @property(nonatomic, copy) NSString *copyyStr;
 // 注：不能以alloc，new，copy，mutableCopy 作为开头命名，比如：copyStr
-
 
 
 @end
@@ -112,7 +115,15 @@ dispatch_async(dispatch_get_main_queue(), block);\
     NSLog(@" copyyStr: %p , %p , %@", _copyyStr, &_copyyStr, _copyyStr);
 
     NSLog(@"111");
+    
+    [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:2.0f];
+    
 }
+
+- (void)repeatDelay {
+    
+}
+
 
 - (void)rightBtnAction {
     
@@ -489,8 +500,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
     } else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 6) {
         //        [self goto_ChatController];
         
-        [MBProgressHUD showActivityMessageInWindow:nil];
-        [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
+        [self repeatDelay];
+//        [MBProgressHUD showActivityMessageInWindow:nil];
+//        [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
     } else if (indexPath.row == 5) {
         
         TestVS *vc = [TestVS new];

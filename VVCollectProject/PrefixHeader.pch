@@ -15,6 +15,7 @@
 #import "MBProgressHUD+JDragon.h"
 #import "UIResponder+Router.h"
 #import "UIColor+Hex.h"
+#import "MXWAdapter.h"
 
 
 #endif /* PrefixHeader_pch */
