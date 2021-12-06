@@ -7,9 +7,9 @@
 //
 
 #import "YYFPSLabel.h"
-#import <YYCategories.h>d's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's's  x'x'x'x'x'x'xxxxxxxxxxx'x'x'x
+//#import <YYCategories.h>
 #import "UIView+LMJNjHuFrame.h"
-#import <YYText.h>
+//#import <YYText.h>
 
 #define kSize CGSizeMake(55, 20)
 
@@ -91,10 +91,15 @@
     
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d FPS",(int)round(fps)]];
 
-    [text yy_setColor:color range:NSMakeRange(0, text.length - 3)];
-    [text yy_setColor:[UIColor whiteColor] range:NSMakeRange(text.length - 3, 3)];
-    text.yy_font = _font;
-    [text yy_setFont:_subFont range:NSMakeRange(text.length - 4, 1)];
+//    [text yy_setColor:color range:NSMakeRange(0, text.length - 3)];
+//    [text yy_setColor:[UIColor whiteColor] range:NSMakeRange(text.length - 3, 3)];
+//    text.yy_font = _font;
+//    [text yy_setFont:_subFont range:NSMakeRange(text.length - 4, 1)];
+    
+    [text setColor:color range:NSMakeRange(0, text.length - 3)];
+    [text setColor:[UIColor whiteColor] range:NSMakeRange(text.length - 3, 3)];
+    text.font = _font;
+    [text setFont:_subFont range:NSMakeRange(text.length - 4, 1)];
     
     self.attributedText = text;
 }

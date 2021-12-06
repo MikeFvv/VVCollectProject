@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UIViewController;
 
+/// ****** C版本控制管理器 ******
 @interface MMVersionControlManager : NSObject
 
 /// 单例

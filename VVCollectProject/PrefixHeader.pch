@@ -17,5 +17,8 @@
 #import "UIColor+Hex.h"
 #import "MXWAdapter.h"
 
+#import <SDWebImage/SDWebImage.h>
+#import <YYKit.h>
+
 
 #endif /* PrefixHeader_pch */

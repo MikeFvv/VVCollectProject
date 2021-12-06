@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// ****** C数据类型转换类 ******
 @interface MXWTypeConversionManager : NSObject
 
 
