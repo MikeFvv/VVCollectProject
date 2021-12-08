@@ -1,0 +1,26 @@
+//
+//  MXWPokerView.h
+//  VVCollectProject
+//
+//  Created by Admin on 2021/12/9.
+//  Copyright © 2021 Mike. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "BlackJackDataSourceModel.h"
+#import "PlayCardModel.h"
+
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface MXWPokerView : UIView
+
+/// 数据模型
+@property (nonatomic, copy) PlayCardModel *model;
+
+
+/// 数据清空
+- (void)dataClear;
+@end
+
+NS_ASSUME_NONNULL_END

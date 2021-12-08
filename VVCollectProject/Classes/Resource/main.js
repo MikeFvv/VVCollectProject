@@ -3,10 +3,10 @@ defineClass('ViewController', {
             
             viewDidLoad: function() {
             self.super().viewDidLoad();
-            self.initUI();
+            self.createUI();
             },
             
-            initUI: function() {
+            createUI: function() {
             var btn = UIButton.buttonWithType(1);
             btn.setBounds({x:0, y:0, width:200, height:50});
             btn.setCenter(self.view().center());

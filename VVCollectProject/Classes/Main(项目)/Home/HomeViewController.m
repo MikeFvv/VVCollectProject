@@ -59,7 +59,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //    [self initUI];
+    //    [self createUI];
     
     //    [self navigationBar];
     //    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
@@ -233,7 +233,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
         [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)initUI {
+- (void)createUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];

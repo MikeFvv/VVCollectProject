@@ -7,7 +7,7 @@
 @synthesize suitSymbol = _suitSymbol,
             suitText = _suitText,
             cardValue = _cardValue, 
-            altValue = _altValue, 
+            alterValue = _alterValue, 
             cardText = _cardText, 
             longName = _longName;
 
