@@ -8,6 +8,7 @@
 
 #import "BaccaratCell.h"
 #import "BaccaratModel.h"
+#import "VVFunctionManager.h"
 
 @interface BaccaratCell()
 
@@ -114,36 +115,6 @@
     
 }
 
-- (NSString *)pokerCharacter:(NSInteger)num {
-    switch (num) {
-        case 1:
-            return @"A";
-            break;
-        case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-        case 10:
-            return [NSString stringWithFormat:@"%ld", num];
-        case 11:
-            return @"L";
-            break;
-        case 12:
-            return @"Q";
-            break;
-        case 13:
-            return @"K";
-            break;
-        default:
-            break;
-    }
-    return nil;
-}
-
 
 - (void)setModel:(id)model {
     BaccaratModel *bModel;
@@ -154,10 +125,10 @@
     }
     _betMoneyLabel.text = [NSString stringWithFormat:@"%ld", bModel.betMoney];
     _indexLabel.text =  [NSString stringWithFormat:@"%ld", bModel.pokerCount];
-    NSString *playerStr = [NSString stringWithFormat:@"P: %ld点 %@  %@  %@", bModel.playerPointsNum,  [self pokerCharacter: bModel.player1], [self pokerCharacter: bModel.player2], bModel.player3.length > 0 ? [self pokerCharacter: [bModel.player3 integerValue]] : @""];
+    NSString *playerStr = [NSString stringWithFormat:@"P: %ld点 %@  %@  %@", bModel.playerPointsNum,  [VVFunctionManager pokerCharacter: bModel.player1], [VVFunctionManager pokerCharacter: bModel.player2], bModel.player3.length > 0 ? [VVFunctionManager pokerCharacter: [bModel.player3 integerValue]] : @""];
     
     
-    NSString *bankerStr = [NSString stringWithFormat:@"B: %ld点 %@  %@  %@", bModel.bankerPointsNum, [self pokerCharacter: bModel.banker1], [self pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [self pokerCharacter: [bModel.banker3 integerValue]] : @""];
+    NSString *bankerStr = [NSString stringWithFormat:@"B: %ld点 %@  %@  %@", bModel.bankerPointsNum, [VVFunctionManager pokerCharacter: bModel.banker1], [VVFunctionManager pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [VVFunctionManager pokerCharacter: [bModel.banker3 integerValue]] : @""];
     
     self.playerLabel.text = playerStr;
     self.bankerLabel.text = bankerStr;

@@ -43,11 +43,14 @@
 #import "BJHeart.h"
 #import "BJClub.h"
 #import "BJSpade.h"
-#import "BlackJackDataSource.h"
+#import "BlackJackDataSourceModel.h"
 #import "PlayCardModel.h"
 #import "BaccaratCollectionView.h"
 #import "BJDetailsController.h"
 #import "VVFunctionManager.h"
+#import "MXWPokerView.h"
+
+
 
 #define kFontSizeLabel 20
 //#define kFontName  @"Futura"
@@ -59,20 +62,22 @@
 @interface BlackJackController ()
 
 // player Properties
-@property (strong, nonatomic) UILabel *playerOneLabel;
-@property (strong, nonatomic) UILabel *playerTwoLabel;
-@property (strong, nonatomic) UILabel *playerThreeLabel;
-@property (strong, nonatomic) UILabel *playerFourLabel;
-@property (strong, nonatomic) UILabel *playerFiveLabel;
+@property (strong, nonatomic) MXWPokerView *playerOneLabel;
+@property (strong, nonatomic) MXWPokerView *playerTwoLabel;
+@property (strong, nonatomic) MXWPokerView *playerThreeLabel;
+@property (strong, nonatomic) MXWPokerView *playerFourLabel;
+@property (strong, nonatomic) MXWPokerView *playerFiveLabel;
+
 @property (strong, nonatomic) UILabel *playerTotalLabel;
 @property (strong, nonatomic) NSMutableArray *playershandofCardsArray;
 
 // banker Properties
-@property (strong, nonatomic) UILabel *bankerOneLabel;
-@property (strong, nonatomic) UILabel *bankerTwoLabel;
-@property (strong, nonatomic) UILabel *bankerThreeLabel;
-@property (strong, nonatomic) UILabel *bankerFourLabel;
-@property (strong, nonatomic) UILabel *bankerFiveLabel;
+@property (strong, nonatomic) MXWPokerView *bankerOneLabel;
+@property (strong, nonatomic) MXWPokerView *bankerTwoLabel;
+@property (strong, nonatomic) MXWPokerView *bankerThreeLabel;
+@property (strong, nonatomic) MXWPokerView *bankerFourLabel;
+@property (strong, nonatomic) MXWPokerView *bankerFiveLabel;
+
 @property (strong, nonatomic) UILabel *bankerTotalLabel;
 @property (strong, nonatomic) NSMutableArray *bankershandofCardsArray;
 
@@ -91,7 +96,7 @@
 @property (nonatomic, assign) NSInteger bankerTotal;
 @property (nonatomic, assign) NSInteger b_ATotal;
 
-@property (strong, nonatomic) BlackJackDataSource *blackJackDataSource;
+@property (strong, nonatomic) BlackJackDataSourceModel *blackJackDataModel;
 @property (strong, nonatomic) NSMutableArray *blackjackDataArray;
 @property (strong, nonatomic) NSMutableArray *resultDataArray;
 
@@ -133,7 +138,8 @@
     // 可以延时调用方法
     //    [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:self.delayTime];
     
-    [self initUI];
+    
+    [self createUI];
     
     [self resetPlay];
 }
@@ -142,7 +148,7 @@
 - (NSMutableArray*)blackjackDataArray
 {
     if (!_blackjackDataArray) {
-        _blackjackDataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.blackJackDataSource.sortedDeckArray pokerPairsNum:6]];
+        _blackjackDataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.blackJackDataModel.sortedDeckArray pokerPairsNum:6]];
     }
     return _blackjackDataArray;
 }
@@ -211,15 +217,15 @@
         if (self.playershandofCardsArray.count > 5) {
             NSLog(@"P 大于5张");
         } else if (self.playershandofCardsArray.count == 1) {
-            self.playerOneLabel.text = nextCard.cardText;
+            self.playerOneLabel.model = nextCard;
         }  else if (self.playershandofCardsArray.count == 2) {
-            self.playerTwoLabel.text = nextCard.cardText;
+            self.playerTwoLabel.model = nextCard;
         } else if (self.playershandofCardsArray.count == 3) {
-            self.playerThreeLabel .text = nextCard.cardText;
+            self.playerThreeLabel.model = nextCard;
         } else if (self.playershandofCardsArray.count == 4) {
-            self.playerFourLabel.text = nextCard.cardText;
+            self.playerFourLabel.model = nextCard;
         } else if (self.playershandofCardsArray.count == 5) {
-            self.playerFiveLabel.text = nextCard.cardText;
+            self.playerFiveLabel.model = nextCard;
         }
     }
     
@@ -315,7 +321,7 @@
     
     if (!self.isAutoRun) {
         if (self.bankershandofCardsArray.count == 1) {
-            self.bankerOneLabel.text = nextCard.cardText;
+            self.bankerOneLabel.model = nextCard;
             if (self.aceFlag_B) {
                 self.bankerTotalLabel.text = @"1 or 11";
             } else {
@@ -326,13 +332,13 @@
         } else if (self.bankershandofCardsArray.count > 5) {
            NSLog(@"B 大于5张牌");
         } else if (self.bankershandofCardsArray.count == 2) {
-            self.bankerTwoLabel.text = nextCard.cardText;
+            self.bankerTwoLabel.model = nextCard;
         } else if (self.bankershandofCardsArray.count == 3) {
-            self.bankerThreeLabel.text = nextCard.cardText;
+            self.bankerThreeLabel.model = nextCard;
         } else if (self.bankershandofCardsArray.count == 4) {
-            self.bankerFourLabel.text = nextCard.cardText;
+            self.bankerFourLabel.model = nextCard;
         } else if (self.bankershandofCardsArray.count == 5) {
-            self.bankerFiveLabel.text = nextCard.cardText;
+            self.bankerFiveLabel.model = nextCard;
         }
     }
     
@@ -489,8 +495,10 @@
         [dict setObject:@(0) forKey:@"WinType"];
     }
     
-    // Pair
-    if ([[self.playerOneLabel.text substringToIndex:1] isEqualToString:[self.playerTwoLabel.text substringToIndex:1]]) {
+    // Pair 对子
+    NSString *oneValue = [NSString stringWithFormat:@"%@", self.playerOneLabel.model.cardValue];
+    NSString *twoValue = [NSString stringWithFormat:@"%@", self.playerTwoLabel.model.cardValue];
+    if ([oneValue isEqualToString:twoValue]) {
         [dict setObject:@(YES) forKey:@"isPlayerPair"];
     }
     
@@ -616,16 +624,18 @@
 
 #pragma mark - 重置
 - (void)resetPlay {
-    self.playerOneLabel.text = nil;
-    self.playerTwoLabel.text = nil;
-    self.playerThreeLabel.text = nil;
-    self.playerFourLabel.text = nil;
-    self.playerFiveLabel.text = nil;
-    self.bankerOneLabel.text = nil;
-    self.bankerTwoLabel.text = nil;
-    self.bankerThreeLabel.text = nil;
-    self.bankerFourLabel.text = nil;
-    self.bankerFiveLabel.text = nil;
+    [self.playerOneLabel dataClear];
+    [self.playerTwoLabel dataClear];
+    [self.playerThreeLabel dataClear];
+    [self.playerFourLabel dataClear];
+    [self.playerFiveLabel dataClear];
+    
+    [self.bankerOneLabel dataClear];
+    [self.bankerTwoLabel dataClear];
+    [self.bankerThreeLabel dataClear];
+    [self.bankerFourLabel dataClear];
+    [self.bankerFiveLabel dataClear];
+    
     self.playerTotalLabel.text = nil;
     self.bankerTotalLabel.text = nil;
     
@@ -689,13 +699,13 @@
 }
 
 
-- (BlackJackDataSource*)blackJackDataSource
+- (BlackJackDataSourceModel*)blackJackDataModel
 {
-    if (!_blackJackDataSource)
+    if (!_blackJackDataModel)
     {
-        _blackJackDataSource = [[BlackJackDataSource alloc] init];
+        _blackJackDataModel = [[BlackJackDataSourceModel alloc] init];
     }
-    return _blackJackDataSource;
+    return _blackJackDataModel;
 }
 
 // 新的一局从新开始
@@ -708,7 +718,7 @@
 
 
 #pragma mark - UI界面
-- (void)initUI {
+- (void)createUI {
     
     self.view.backgroundColor = [UIColor colorWithRed:0.031 green:0.486 blue:0.255 alpha:1.000];
     
@@ -768,93 +778,64 @@
     [pbBackView addSubview:bankerLabel];
     
     
-    UILabel *playerOneLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 30, 100, 20)];
-    playerOneLabel.text = @"Player";
-    playerOneLabel.textColor = [UIColor whiteColor];
-    playerOneLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:playerOneLabel];
-    _playerOneLabel = playerOneLabel;
+    MXWPokerView *pOneLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(10, 30, 35, 45)];
+    [pbBackView addSubview:pOneLabel];
+    _playerOneLabel = pOneLabel;
     
-    UILabel *playerTwoLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 60, 100, 20)];
-    playerTwoLabel.text = @"Player";
-    playerTwoLabel.textColor = [UIColor whiteColor];
-    playerTwoLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:playerTwoLabel];
-    _playerTwoLabel = playerTwoLabel;
+    MXWPokerView *pTwoLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(55, 30, 35, 45)];
+    [pbBackView addSubview:pTwoLabel];
+    _playerTwoLabel = pTwoLabel;
     
-    UILabel *playerThreeLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 90, 100, 20)];
-    playerThreeLabel.text = @"Player";
-    playerThreeLabel.textColor = [UIColor whiteColor];
-    playerThreeLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:playerThreeLabel];
-    _playerThreeLabel = playerThreeLabel;
+    MXWPokerView *pThreeLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(10, 85, 35, 45)];
+    [pbBackView addSubview:pThreeLabel];
+    _playerThreeLabel = pThreeLabel;
     
-    UILabel *playerFourLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 120, 100, 20)];
-    playerFourLabel.text = @"Player";
-    playerFourLabel.textColor = [UIColor whiteColor];
-    playerFourLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:playerFourLabel];
-    _playerFourLabel = playerFourLabel;
+    MXWPokerView *pFourLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(55, 85, 35, 45)];
+    [pbBackView addSubview:pFourLabel];
+    _playerFourLabel = pFourLabel;
     
-    UILabel *playerFiveLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 150, 100, 20)];
-    playerFiveLabel.text = @"Player";
-    playerFiveLabel.textColor = [UIColor whiteColor];
-    playerFiveLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:playerFiveLabel];
-    _playerFiveLabel = playerFiveLabel;
+    MXWPokerView *pFiveLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(100, 85, 35, 45)];
+    [pbBackView addSubview:pFiveLabel];
+    _playerFiveLabel = pFiveLabel;
     
-    UILabel *playerTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 180, 80, 20)];
-    playerTotalLabel.text = @"Player";
-    playerTotalLabel.textAlignment = NSTextAlignmentCenter;
-    playerTotalLabel.textColor = [UIColor whiteColor];
-    playerTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:playerTotalLabel];
-    _playerTotalLabel = playerTotalLabel;
+    UILabel *pTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 180, 80, 20)];
+    pTotalLabel.text = @"--";
+    pTotalLabel.textAlignment = NSTextAlignmentCenter;
+    pTotalLabel.textColor = [UIColor whiteColor];
+    pTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
+    [pbBackView addSubview:pTotalLabel];
+    _playerTotalLabel = pTotalLabel;
     
     
     
-    UILabel *bankerOneLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 30, 100, 20)];
-    bankerOneLabel.text = @"Player";
-    bankerOneLabel.textColor = [UIColor whiteColor];
-    bankerOneLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bankerOneLabel];
-    _bankerOneLabel = bankerOneLabel;
+    MXWPokerView *bOneLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(170, 30, 35, 45)];
+    [pbBackView addSubview:bOneLabel];
+    _bankerOneLabel = bOneLabel;
     
-    UILabel *bankerTwoLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 60, 100, 20)];
-    bankerTwoLabel.text = @"Player";
-    bankerTwoLabel.textColor = [UIColor whiteColor];
-    bankerTwoLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bankerTwoLabel];
-    _bankerTwoLabel = bankerTwoLabel;
+    MXWPokerView *bTwoLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(215, 30, 35, 45)];
+    [pbBackView addSubview:bTwoLabel];
+    _bankerTwoLabel = bTwoLabel;
     
-    UILabel *bankerThreeLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 90, 100, 20)];
-    bankerThreeLabel.text = @"Player";
-    bankerThreeLabel.textColor = [UIColor whiteColor];
-    bankerThreeLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bankerThreeLabel];
-    _bankerThreeLabel = bankerThreeLabel;
+    MXWPokerView *bThreeLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(170, 85, 35, 45)];
+    [pbBackView addSubview:bThreeLabel];
+    _bankerThreeLabel = bThreeLabel;
     
-    UILabel *bankerFourLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 120, 100, 20)];
-    bankerFourLabel.text = @"Player";
-    bankerFourLabel.textColor = [UIColor whiteColor];
-    bankerFourLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bankerFourLabel];
-    _bankerFourLabel = bankerFourLabel;
+    MXWPokerView *bFourLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(215, 85, 35, 45)];
+    [pbBackView addSubview:bFourLabel];
+    _bankerFourLabel = bFourLabel;
     
-    UILabel *bankerFiveLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 150, 100, 20)];
-    bankerFiveLabel.text = @"Player";
-    bankerFiveLabel.textColor = [UIColor whiteColor];
-    bankerFiveLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bankerFiveLabel];
-    _bankerFiveLabel = bankerFiveLabel;
+    MXWPokerView *bFiveLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(260, 85, 35, 45)];
+    [pbBackView addSubview:bFiveLabel];
+    _bankerFiveLabel = bFiveLabel;
     
-    UILabel *bankerTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 180, 80, 20)];
-    bankerTotalLabel.text = @"Player";
-    //    bankerTotalLabel.textAlignment = NSTextAlignmentCenter;
-    bankerTotalLabel.textColor = [UIColor whiteColor];
-    bankerTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bankerTotalLabel];
-    _bankerTotalLabel = bankerTotalLabel;
+    
+    UILabel *bTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 180, 80, 20)];
+    bTotalLabel.text = @"--";
+    //    bTotalLabel.textAlignment = NSTextAlignmentCenter;
+    bTotalLabel.textColor = [UIColor whiteColor];
+    bTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
+    [pbBackView addSubview:bTotalLabel];
+    _bankerTotalLabel = bTotalLabel;
     
     
     UILabel *resultlLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 180, 55, 20)];
@@ -876,33 +857,36 @@
         make.height.mas_equalTo(50);
     }];
     
-    UIButton *hitButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 80, 50)];
-    hitButton.titleLabel.font = [UIFont boldSystemFontOfSize:kFontSizeLabel];
-    [hitButton setTitle:@"Hit" forState:UIControlStateNormal];
+    UIButton *hitButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 90, 50)];
+    hitButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [hitButton setTitle:@"Hit(加牌)" forState:UIControlStateNormal];
     [hitButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     hitButton.tag = 101;
     hitButton.backgroundColor = [UIColor colorWithRed:0.255 green:0.412 blue:0.882 alpha:1.000];
+    [hitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     hitButton.layer.cornerRadius = 5;
     [btnBackView addSubview:hitButton];
     _hitButton = hitButton;
     
-    UIButton *standButton = [[UIButton alloc] initWithFrame:CGRectMake(120, 0, 80, 50)];
-    standButton.titleLabel.font = [UIFont boldSystemFontOfSize:kFontSizeLabel];
-    [standButton setTitle:@"Stand" forState:UIControlStateNormal];
+    UIButton *standButton = [[UIButton alloc] initWithFrame:CGRectMake(120, 0, 90, 50)];
+    standButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    [standButton setTitle:@"Stand(停牌)" forState:UIControlStateNormal];
     [standButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     standButton.tag = 102;
     standButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
+    [standButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     standButton.layer.cornerRadius = 5;
     [btnBackView addSubview:standButton];
     _standButton = standButton;
     
     
-    UIButton *resetButton = [[UIButton alloc] initWithFrame:CGRectMake(240, 0, 80, 50)];
-    resetButton.titleLabel.font = [UIFont boldSystemFontOfSize:kFontSizeLabel];
-    [resetButton setTitle:@"Reset" forState:UIControlStateNormal];
+    UIButton *resetButton = [[UIButton alloc] initWithFrame:CGRectMake(240, 0, 90, 50)];
+    resetButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    [resetButton setTitle:@"Reset(开始)" forState:UIControlStateNormal];
     [resetButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     resetButton.tag = 103;
     resetButton.backgroundColor = [UIColor colorWithRed:0.678 green:1.000 blue:0.184 alpha:1.000];
+    [resetButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     resetButton.layer.cornerRadius = 5;
     [btnBackView addSubview:resetButton];
     

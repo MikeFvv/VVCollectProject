@@ -200,7 +200,7 @@
     self.isRunOverall = NO;
     
     [self setupNavUI];
-    [self initUI];
+    [self createUI];
     [self initData];
     
     self.title = [NSString stringWithFormat:@"%ld", self.betTotalMoney];
@@ -280,7 +280,7 @@
     [self pressStop];
 }
 
-- (void)initUI {
+- (void)createUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT -Height_NavBar - kiPhoneX_Bottom_Height)];
@@ -1434,7 +1434,7 @@
     view.textAlignment = NSTextAlignmentCenter;
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor blueColor];
-    view.text = [self pokerCharacter:cardPoints.integerValue];;
+    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];;
     view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:kColorAlpha];
     [self.playerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
@@ -1449,7 +1449,7 @@
     view.textAlignment = NSTextAlignmentCenter;
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor blueColor];
-    view.text = [self pokerCharacter:cardPoints.integerValue];;
+    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];;
     view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:kColorAlpha];
     [self.player3BackView addSubview:view];
     [UIView animateWithDuration:1.2 animations:^{
@@ -1464,7 +1464,7 @@
     view.textAlignment = NSTextAlignmentCenter;
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor redColor];
-    view.text = [self pokerCharacter:cardPoints.integerValue];
+    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];
     view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:kColorAlpha];
     [self.bankerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
@@ -1479,7 +1479,7 @@
     view.textAlignment = NSTextAlignmentCenter;
     view.font = [UIFont boldSystemFontOfSize:26];
     view.textColor = [UIColor redColor];
-    view.text = [self pokerCharacter:cardPoints.integerValue];
+    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];
     view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:kColorAlpha];
     [self.banker3BackView addSubview:view];
     [UIView animateWithDuration:1.2 animations:^{
@@ -1508,37 +1508,6 @@
     }
     
     [self pressStop];
-}
-
-
-- (NSString *)pokerCharacter:(NSInteger)num {
-    switch (num) {
-        case 1:
-            return @"A";
-            break;
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-            return [NSString stringWithFormat:@"%ld", num];
-        case 11:
-            return @"L";
-            break;
-        case 12:
-            return @"Q";
-            break;
-        case 13:
-            return @"K";
-            break;
-        default:
-            break;
-    }
-    return nil;
 }
 
 

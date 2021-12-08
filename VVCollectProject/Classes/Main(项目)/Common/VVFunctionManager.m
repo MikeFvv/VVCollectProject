@@ -31,4 +31,37 @@
     return tempArray;
 }
 
+
+/// 点数转化为 牌面字符  例如 1 转化为 A
+/// @param num 牌点数
++ (NSString *)pokerCharacter:(NSInteger)num {
+    switch (num) {
+        case 1:
+            return @"A";
+            break;
+        case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+        case 10:
+            return [NSString stringWithFormat:@"%ld", num];
+        case 11:
+            return @"L";
+            break;
+        case 12:
+            return @"Q";
+            break;
+        case 13:
+            return @"K";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
 @end

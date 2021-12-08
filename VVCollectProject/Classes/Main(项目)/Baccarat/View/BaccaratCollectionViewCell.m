@@ -29,12 +29,12 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        [self initUI];
+        [self createUI];
     }
     return self;
 }
 
-- (void)initUI {
+- (void)createUI {
     
 //    self.layer.masksToBounds = YES;
     self.layer.cornerRadius = self.frame.size.width/2;

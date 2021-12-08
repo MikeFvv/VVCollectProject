@@ -8,6 +8,8 @@
 
 #import "BlackJackCell.h"
 #import "PlayCardModel.h"
+#import "VVFunctionManager.h"
+
 
 #define kFontSizeLabel 12
 #define kFontName  @"Futura"

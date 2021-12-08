@@ -47,6 +47,7 @@
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
+		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -105,7 +106,7 @@
 		A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCB222ECCB400C4EE9C /* PhysicalCard.m */; };
 		A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCD222ECCB400C4EE9C /* BJClub.m */; };
 		A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCE222ECCB400C4EE9C /* BJHeart.m */; };
-		A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */; };
+		A0F91FD9222ECCC300C4EE9C /* BlackJackDataSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD7222ECCC300C4EE9C /* BlackJackDataSourceModel.m */; };
 		A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +208,8 @@
 		84A59214273D9FA30071D524 /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		84A59217273DA1D70071D524 /* UIView+Function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Function.h"; sourceTree = "<group>"; };
 		84A59218273DA1D70071D524 /* UIView+Function.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Function.m"; sourceTree = "<group>"; };
+		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
+		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -324,9 +327,9 @@
 		A0F91FCD222ECCB400C4EE9C /* BJClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJClub.m; sourceTree = "<group>"; };
 		A0F91FCE222ECCB400C4EE9C /* BJHeart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJHeart.m; sourceTree = "<group>"; };
 		A0F91FCF222ECCB400C4EE9C /* UIView+JMNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JMNoise.h"; sourceTree = "<group>"; };
-		A0F91FD5222ECCC300C4EE9C /* BlackJackDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackJackDataSource.h; sourceTree = "<group>"; };
+		A0F91FD5222ECCC300C4EE9C /* BlackJackDataSourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackJackDataSourceModel.h; sourceTree = "<group>"; };
 		A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
-		A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackJackDataSource.m; sourceTree = "<group>"; };
+		A0F91FD7222ECCC300C4EE9C /* BlackJackDataSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackJackDataSourceModel.m; sourceTree = "<group>"; };
 		A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCardModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -548,6 +551,7 @@
 		84568C96275E9243006C2906 /* Common(常用) */ = {
 			isa = PBXGroup;
 			children = (
+				84BDC77C276159470045354D /* 无网络 */,
 				84568C89275E8D13006C2906 /* FunctionManager.h */,
 				84568C8A275E8D13006C2906 /* FunctionManager.m */,
 				276C91D22691610300377224 /* MFHTimeManager.h */,
@@ -598,6 +602,18 @@
 			path = UIView;
 			sourceTree = "<group>";
 		};
+		84BDC77C276159470045354D /* 无网络 */ = {
+			isa = PBXGroup;
+			children = (
+				A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */,
+				A011491A229A5DA700BDD14F /* FYStatusBarHUD.h */,
+				A011491B229A5DA800BDD14F /* FYStatusBarHUD.m */,
+				A0BE49A2224772B400CDBE43 /* NetworkIndicatorView.h */,
+				A0BE49A3224772B400CDBE43 /* NetworkIndicatorView.m */,
+			);
+			path = "无网络";
+			sourceTree = "<group>";
+		};
 		A004E78B2226E40A0090DC44 /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,10 +622,6 @@
 				A004E78D2226E4C10090DC44 /* BlackJackController.m */,
 				A0DCEF5C2236A772002FF19C /* BJDetailsController.h */,
 				A0DCEF5D2236A773002FF19C /* BJDetailsController.m */,
-				A0F91FD5222ECCC300C4EE9C /* BlackJackDataSource.h */,
-				A0F91FD7222ECCC300C4EE9C /* BlackJackDataSource.m */,
-				A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */,
-				A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */,
 				A0F607B52237CAFC002CD70B /* BlackJackCell.h */,
 				A0F607B62237CAFC002CD70B /* BlackJackCell.m */,
 			);
@@ -654,8 +666,6 @@
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				276C92182691631100377224 /* Encryption */,
 				26F65B8E236C623D00CCB41E /* MBProgressHUD+JDragon */,
-				A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */,
-				A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */,
 				A0BCD7A122216D9100BB3A9C /* Application.h */,
 				A0BCD7A222216D9100BB3A9C /* Application.m */,
 				A0D55E2A221D9B0300D7E3B0 /* RepeatPush */,
@@ -715,8 +725,8 @@
 		A0130DDB21ECB78D007E845B /* Main(项目) */ = {
 			isa = PBXGroup;
 			children = (
-				A010CB522261BD5E00618A52 /* Hacker */,
 				A0BE49A12247727D00CDBE43 /* Common */,
+				A010CB522261BD5E00618A52 /* Hacker */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
 				A0821DD221EF3B2600429C20 /* Home */,
@@ -847,11 +857,14 @@
 		A0BE49A12247727D00CDBE43 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */,
-				A011491A229A5DA700BDD14F /* FYStatusBarHUD.h */,
-				A011491B229A5DA800BDD14F /* FYStatusBarHUD.m */,
-				A0BE49A2224772B400CDBE43 /* NetworkIndicatorView.h */,
-				A0BE49A3224772B400CDBE43 /* NetworkIndicatorView.m */,
+				A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */,
+				A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */,
+				A0F91FD5222ECCC300C4EE9C /* BlackJackDataSourceModel.h */,
+				A0F91FD7222ECCC300C4EE9C /* BlackJackDataSourceModel.m */,
+				A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */,
+				A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */,
+				84BDC77D27615FD40045354D /* MXWPokerView.h */,
+				84BDC77E27615FD40045354D /* MXWPokerView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1192,7 +1205,7 @@
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
-				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSource.m in Sources */,
+				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSourceModel.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
 				26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */,
 				276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */,
@@ -1209,6 +1222,7 @@
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				84A59219273DA1D70071D524 /* UIView+Function.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
+				84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */,
 				84568C82275E8255006C2906 /* MXWAdTimerAlertView.m in Sources */,
 				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
 				A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */,
