@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+// https://www.jianshu.com/p/e3162f3c61fa
+    
     /*
     全屏居中： make.center.equalTo(self.window)
     make.top.equalTo(self.window).with.offset(15.0)  上边界

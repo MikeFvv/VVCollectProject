@@ -382,8 +382,7 @@
 				270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */,
 				270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */,
 			);
-			name = "CodeSnippet(代码块)";
-			path = "../CodeSnippet(代码块)";
+			path = "CodeSnippet(代码块)";
 			sourceTree = "<group>";
 		};
 		276C92182691631100377224 /* Encryption */ = {
@@ -480,13 +479,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		657C99BC22F036BB00CE0BF4 /* Masonry */ = {
+		657C99BC22F036BB00CE0BF4 /* Masonry(UI约束) */ = {
 			isa = PBXGroup;
 			children = (
 				A0BF4F56223BEA320038422F /* MasonryController.h */,
 				A0BF4F57223BEA320038422F /* MasonryController.m */,
 			);
-			path = Masonry;
+			path = "Masonry(UI约束)";
 			sourceTree = "<group>";
 		};
 		65DCBA0523277D1F00D89C4F /* Model */ = {
@@ -559,6 +558,20 @@
 			path = "Common(常用)";
 			sourceTree = "<group>";
 		};
+		84568C97275F4333006C2906 /* 展示、用法 */ = {
+			isa = PBXGroup;
+			children = (
+				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
+				A0F3E628220D859400755DBB /* RunTime */,
+				A0373A02221A9F3400E112A6 /* Test */,
+				40CBE2902517C77800572FEF /* UIKit-基础 */,
+				40CBE28C2517C77200572FEF /* Foundation-基础 */,
+				27A193B124ECEAF4004C082B /* TableView */,
+				657C99BC22F036BB00CE0BF4 /* Masonry(UI约束) */,
+			);
+			path = "展示、用法";
+			sourceTree = "<group>";
+		};
 		84A5920F273D9ED50071D524 /* UIImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,7 +632,6 @@
 				84568C78275E81B5006C2906 /* Common */,
 				A0130DDB21ECB78D007E845B /* Main(项目) */,
 				A0130DFD21ECDC28007E845B /* Resource */,
-				270BA24623F294B200EABF58 /* CodeSnippet(代码块) */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -639,6 +651,7 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				276C92182691631100377224 /* Encryption */,
 				26F65B8E236C623D00CCB41E /* MBProgressHUD+JDragon */,
 				A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */,
@@ -702,17 +715,10 @@
 		A0130DDB21ECB78D007E845B /* Main(项目) */ = {
 			isa = PBXGroup;
 			children = (
-				40CBE2902517C77800572FEF /* UIKit-基础 */,
-				40CBE28C2517C77200572FEF /* Foundation-基础 */,
-				27A193B124ECEAF4004C082B /* TableView */,
-				657C99BC22F036BB00CE0BF4 /* Masonry */,
-				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				A010CB522261BD5E00618A52 /* Hacker */,
 				A0BE49A12247727D00CDBE43 /* Common */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
-				A0373A02221A9F3400E112A6 /* Test */,
-				A0F3E628220D859400755DBB /* RunTime */,
 				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
 			);
@@ -793,6 +799,7 @@
 		A0BCC30221E8BA6D00CEA8ED /* VVCollectProject */ = {
 			isa = PBXGroup;
 			children = (
+				84568C97275F4333006C2906 /* 展示、用法 */,
 				A0130DC021ECB78D007E845B /* Expand */,
 				A0130DBF21ECB78D007E845B /* Classes */,
 				A0BCC30321E8BA6D00CEA8ED /* AppDelegate.h */,
