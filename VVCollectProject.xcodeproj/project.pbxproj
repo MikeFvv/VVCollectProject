@@ -47,6 +47,9 @@
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
+		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
+		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
+		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -208,6 +211,9 @@
 		84A59214273D9FA30071D524 /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		84A59217273DA1D70071D524 /* UIView+Function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Function.h"; sourceTree = "<group>"; };
 		84A59218273DA1D70071D524 /* UIView+Function.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Function.m"; sourceTree = "<group>"; };
+		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
+		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
+		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -609,6 +615,16 @@
 			path = "Holdem(德州)";
 			sourceTree = "<group>";
 		};
+		84B85DD32762627F009AC598 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */,
+				84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */,
+				84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		84BDC77C276159470045354D /* 无网络 */ = {
 			isa = PBXGroup;
 			children = (
@@ -827,6 +843,7 @@
 				A0F3E61F220D5FA500755DBB /* Person.h */,
 				A0F3E620220D5FA500755DBB /* Person.m */,
 				A0BCC30C21E8BA6F00CEA8ED /* Assets.xcassets */,
+				84B85DD32762627F009AC598 /* Resource */,
 				A0BCC4B521E8BB1800CEA8ED /* Supporting Files */,
 			);
 			path = VVCollectProject;
@@ -1095,11 +1112,14 @@
 				84568C88275E87C7006C2906 /* App注意事项.rtfd in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
 				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
+				84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
+				84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */,
 				26F65B92236C623D00CCB41E /* MBProgressHUD+JDragon.bundle in Resources */,
 				84568C86275E874D006C2906 /* README.md in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
+				84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
