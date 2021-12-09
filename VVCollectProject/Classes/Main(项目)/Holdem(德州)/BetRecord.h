@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat flopStrategy;
 /// 转牌圈牌型
 @property (nonatomic, copy) NSString *turnType;
-
 /// 转牌圈策略
 @property (nonatomic, assign) CGFloat turnStrategy;
 /// 河牌圈牌型
@@ -36,6 +35,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 河牌圈策略
 @property (nonatomic, assign) CGFloat riverStrategy;
 
+
+
+- (void)BetRecord:(NSString *)playerID position:(NSInteger)position jetton:(CGFloat)jetton;
+
+- (void)setHoldState:(NSString *)holdType holdStrategy:(CGFloat)holdStrategy;
+
+- (void)setFlopState:(NSString *)flopType flopStrategy:(CGFloat)flopStrategy;
+
+- (void)setTurnState:(NSString *)turnType turnStrategy:(CGFloat)turnStrategy;
+
+- (void)setRiverState:(NSString *)riverType riverStrategy:(CGFloat)riverStrategy;
 
 
 

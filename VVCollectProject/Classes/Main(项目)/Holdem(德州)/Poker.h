@@ -10,12 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //  表示一张扑克牌
-@interface PokerModel : NSObject
+@interface Poker : NSObject
 
 /// 花色类型
 @property (nonatomic, assign) CardColorType colorTyp;
 /// 牌面大小 1-13
-@property (nonatomic, assign) NSInteger cardSizeValue;
+@property (nonatomic, assign) NSInteger value;
 
 @end
 

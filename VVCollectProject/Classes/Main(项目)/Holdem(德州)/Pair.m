@@ -6,8 +6,8 @@
 //  Copyright © 2021 Mike. All rights reserved.
 //
 
-#import "PairModel.h"
+#import "Pair.h"
 
-@implementation PairModel
+@implementation Pair
 
 @end

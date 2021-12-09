@@ -52,10 +52,15 @@
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
 		84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DDB276264CF009AC598 /* ComCardManager.m */; };
 		84B85DDF2762660F009AC598 /* MaxCardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DDE2762660F009AC598 /* MaxCardManager.m */; };
-		84B85DE22762667F009AC598 /* PokerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DE12762667F009AC598 /* PokerModel.m */; };
+		84B85DE22762667F009AC598 /* Poker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DE12762667F009AC598 /* Poker.m */; };
 		84B85DE527626A93009AC598 /* BetState.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DE427626A93009AC598 /* BetState.m */; };
 		84B85DE827626B7E009AC598 /* BetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DE727626B7E009AC598 /* BetRecord.m */; };
-		84B85DEB27626DF0009AC598 /* PairModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DEA27626DF0009AC598 /* PairModel.m */; };
+		84B85DEB27626DF0009AC598 /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DEA27626DF0009AC598 /* Pair.m */; };
+		84B85DEE2762725D009AC598 /* CardGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DED2762725D009AC598 /* CardGroup.m */; };
+		84B85DF42762745D009AC598 /* 程序通讯协议v1.26.docx in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DF02762745D009AC598 /* 程序通讯协议v1.26.docx */; };
+		84B85DF52762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DF12762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx */; };
+		84B85DF62762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DF22762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx */; };
+		84B85DF72762745D009AC598 /* 开发调试指南v1.26.docx in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DF32762745D009AC598 /* 开发调试指南v1.26.docx */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -224,14 +229,20 @@
 		84B85DDB276264CF009AC598 /* ComCardManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComCardManager.m; sourceTree = "<group>"; };
 		84B85DDD2762660F009AC598 /* MaxCardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxCardManager.h; sourceTree = "<group>"; };
 		84B85DDE2762660F009AC598 /* MaxCardManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxCardManager.m; sourceTree = "<group>"; };
-		84B85DE02762667F009AC598 /* PokerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PokerModel.h; sourceTree = "<group>"; };
-		84B85DE12762667F009AC598 /* PokerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokerModel.m; sourceTree = "<group>"; };
+		84B85DE02762667F009AC598 /* Poker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Poker.h; sourceTree = "<group>"; };
+		84B85DE12762667F009AC598 /* Poker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Poker.m; sourceTree = "<group>"; };
 		84B85DE327626A93009AC598 /* BetState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetState.h; sourceTree = "<group>"; };
 		84B85DE427626A93009AC598 /* BetState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetState.m; sourceTree = "<group>"; };
 		84B85DE627626B7E009AC598 /* BetRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetRecord.h; sourceTree = "<group>"; };
 		84B85DE727626B7E009AC598 /* BetRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetRecord.m; sourceTree = "<group>"; };
-		84B85DE927626DF0009AC598 /* PairModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PairModel.h; sourceTree = "<group>"; };
-		84B85DEA27626DF0009AC598 /* PairModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PairModel.m; sourceTree = "<group>"; };
+		84B85DE927626DF0009AC598 /* Pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
+		84B85DEA27626DF0009AC598 /* Pair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pair.m; sourceTree = "<group>"; };
+		84B85DEC2762725D009AC598 /* CardGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardGroup.h; sourceTree = "<group>"; };
+		84B85DED2762725D009AC598 /* CardGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardGroup.m; sourceTree = "<group>"; };
+		84B85DF02762745D009AC598 /* 程序通讯协议v1.26.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "程序通讯协议v1.26.docx"; sourceTree = "<group>"; };
+		84B85DF12762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华为软件精英挑战赛赛题v1.26.docx"; sourceTree = "<group>"; };
+		84B85DF22762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华为软件精英挑战赛赛制说明v1.26.docx"; sourceTree = "<group>"; };
+		84B85DF32762745D009AC598 /* 开发调试指南v1.26.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "开发调试指南v1.26.docx"; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -631,19 +642,40 @@
 			children = (
 				84B85DDD2762660F009AC598 /* MaxCardManager.h */,
 				84B85DDE2762660F009AC598 /* MaxCardManager.m */,
-				84B85DE02762667F009AC598 /* PokerModel.h */,
-				84B85DE12762667F009AC598 /* PokerModel.m */,
+				84B85DE02762667F009AC598 /* Poker.h */,
+				84B85DE12762667F009AC598 /* Poker.m */,
 				84B85DE327626A93009AC598 /* BetState.h */,
 				84B85DE427626A93009AC598 /* BetState.m */,
 				84B85DE627626B7E009AC598 /* BetRecord.h */,
 				84B85DE727626B7E009AC598 /* BetRecord.m */,
-				84B85DE927626DF0009AC598 /* PairModel.h */,
-				84B85DEA27626DF0009AC598 /* PairModel.m */,
+				84B85DE927626DF0009AC598 /* Pair.h */,
+				84B85DEA27626DF0009AC598 /* Pair.m */,
+				84B85DEC2762725D009AC598 /* CardGroup.h */,
+				84B85DED2762725D009AC598 /* CardGroup.m */,
+				84B85DEF2762744B009AC598 /* Resource */,
 			);
 			path = "Holdem(德州)";
 			sourceTree = "<group>";
 		};
 		84B85DD32762627F009AC598 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		84B85DEF2762744B009AC598 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				84B85DF02762745D009AC598 /* 程序通讯协议v1.26.docx */,
+				84B85DF12762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx */,
+				84B85DF22762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx */,
+				84B85DF32762745D009AC598 /* 开发调试指南v1.26.docx */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		84B85DF827627475009AC598 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */,
@@ -993,6 +1025,7 @@
 				40CF061C2319786D00932821 /* PointListController.m */,
 				400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */,
 				400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */,
+				84B85DF827627475009AC598 /* Resource */,
 			);
 			path = Baccarat;
 			sourceTree = "<group>";
@@ -1138,12 +1171,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0C5150621EE46CB00E2F89D /* main.js in Resources */,
+				84B85DF52762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx in Resources */,
 				A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */,
+				84B85DF62762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx in Resources */,
 				84568C88275E87C7006C2906 /* App注意事项.rtfd in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
 				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
 				84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
+				84B85DF42762745D009AC598 /* 程序通讯协议v1.26.docx in Resources */,
+				84B85DF72762745D009AC598 /* 开发调试指南v1.26.docx in Resources */,
 				84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */,
 				26F65B92236C623D00CCB41E /* MBProgressHUD+JDragon.bundle in Resources */,
 				84568C86275E874D006C2906 /* README.md in Resources */,
@@ -1220,7 +1257,7 @@
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
-				84B85DEB27626DF0009AC598 /* PairModel.m in Sources */,
+				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
 				276C91D42691610400377224 /* MFHTimeManager.m in Sources */,
 				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
@@ -1260,6 +1297,7 @@
 				400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */,
 				84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */,
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,
+				84B85DEE2762725D009AC598 /* CardGroup.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
@@ -1298,7 +1336,7 @@
 				84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */,
 				84568C8B275E8D13006C2906 /* FunctionManager.m in Sources */,
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
-				84B85DE22762667F009AC598 /* PokerModel.m in Sources */,
+				84B85DE22762667F009AC598 /* Poker.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
