@@ -602,6 +602,13 @@
 			path = UIView;
 			sourceTree = "<group>";
 		};
+		84B85DD22761CB1F009AC598 /* Holdem(德州) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Holdem(德州)";
+			sourceTree = "<group>";
+		};
 		84BDC77C276159470045354D /* 无网络 */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,6 +647,7 @@
 		A0130DBF21ECB78D007E845B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				84B85DD22761CB1F009AC598 /* Holdem(德州) */,
 				84568C79275E8222006C2906 /* Popups(弹窗) */,
 				84568C78275E81B5006C2906 /* Common */,
 				A0130DDB21ECB78D007E845B /* Main(项目) */,
@@ -1419,7 +1427,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V69W4CX966;
+				DEVELOPMENT_TEAM = QBCL4CPLNM;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1446,7 +1454,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V69W4CX966;
+				DEVELOPMENT_TEAM = QBCL4CPLNM;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
