@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 /// 用于从当前牌中提取最大牌
-@interface MaxCardManager : NSObject
+@interface MaxCardComputer : NSObject
 /// 自己可用的所有牌
 @property (nonatomic, strong) NSMutableArray<Poker *> *pokers;
 /// 组成最大牌型的五张牌

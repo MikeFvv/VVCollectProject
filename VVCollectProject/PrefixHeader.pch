@@ -22,7 +22,8 @@
 
 
 #import "ComCardManager.h"
-
+#import "Poker.h"
+#import "CardConstants.h"
 
 
 
