@@ -6,9 +6,9 @@
 //  Copyright © 2021 Mike. All rights reserved.
 //
 
-#import "MaxCardManager.h"
+#import "MaxCardComputer.h"
 
-@implementation MaxCardManager
+@implementation MaxCardComputer
 
 
 
@@ -22,7 +22,7 @@
     [self computeMaxCardGroup];
 }
 
--(void) MaxCardComputer:(MaxCardManager *)oldComputer poker:(Poker *)poker {
+-(void) MaxCardComputer:(MaxCardComputer *)oldComputer poker:(Poker *)poker {
     self.pokers = [NSMutableArray array];
     [self.pokers addObjectsFromArray:self.pokers];
     
