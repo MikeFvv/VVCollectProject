@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BlackJackDataSourceModel.h"
+#import "CardDataSourceModel.h"
 #import "PlayCardModel.h"
 
 
@@ -18,9 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 数据模型
 @property (nonatomic, copy) PlayCardModel *model;
 
-
+/// 来源类型  默认 21点   1 百家乐
+@property (nonatomic, assign) NSInteger fromType;
 /// 数据清空
 - (void)dataClear;
+
 @end
 
 NS_ASSUME_NONNULL_END

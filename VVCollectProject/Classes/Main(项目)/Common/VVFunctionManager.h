@@ -14,8 +14,8 @@
 
 #pragma mark - 洗牌方法
 /// 洗牌方法
-/// @param dataArray <#dataArray description#>
-/// @param pokerPairsNum <#pokerPairsNum description#>
+/// @param dataArray 一副牌模型数组
+/// @param pokerPairsNum 多少副牌进入
 + (NSMutableArray *)shuffleArray:(NSArray *)dataArray pokerPairsNum:(NSInteger)pokerPairsNum;
 
 /// 点数转化为 牌面字符  例如 1 转化为 A

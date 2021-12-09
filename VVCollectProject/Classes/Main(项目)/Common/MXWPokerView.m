@@ -72,6 +72,14 @@
     }
 }
 
+- (void)setFromType:(NSInteger)fromType {
+    _fromType = fromType;
+    
+    if (fromType == 1) {
+        self.pointsNumLabel.font = [UIFont boldSystemFontOfSize:30];
+        self.pokerColorLabel.font = [UIFont systemFontOfSize:30];
+    }
+}
 
 - (void)createUI {
 //    self.clipsToBounds = true;
@@ -82,6 +90,9 @@
     backView.backgroundColor = [UIColor whiteColor];
     backView.layer.cornerRadius = 3;
     backView.layer.masksToBounds = YES;
+    backView.layer.borderWidth = 1;
+    backView.layer.borderColor = [UIColor blackColor].CGColor;
+    
     [self addSubview:backView];
     
     [backView mas_makeConstraints:^(MASConstraintMaker *make) {

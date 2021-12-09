@@ -43,7 +43,7 @@
 #import "BJHeart.h"
 #import "BJClub.h"
 #import "BJSpade.h"
-#import "BlackJackDataSourceModel.h"
+#import "CardDataSourceModel.h"
 #import "PlayCardModel.h"
 #import "BaccaratCollectionView.h"
 #import "BJDetailsController.h"
@@ -96,7 +96,7 @@
 @property (nonatomic, assign) NSInteger bankerTotal;
 @property (nonatomic, assign) NSInteger b_ATotal;
 
-@property (strong, nonatomic) BlackJackDataSourceModel *blackJackDataModel;
+@property (strong, nonatomic) CardDataSourceModel *blackJackDataModel;
 @property (strong, nonatomic) NSMutableArray *blackjackDataArray;
 @property (strong, nonatomic) NSMutableArray *resultDataArray;
 
@@ -699,11 +699,11 @@
 }
 
 
-- (BlackJackDataSourceModel*)blackJackDataModel
+- (CardDataSourceModel*)blackJackDataModel
 {
     if (!_blackJackDataModel)
     {
-        _blackJackDataModel = [[BlackJackDataSourceModel alloc] init];
+        _blackJackDataModel = [[CardDataSourceModel alloc] init];
     }
     return _blackJackDataModel;
 }

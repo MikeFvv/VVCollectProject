@@ -15,6 +15,8 @@
 #import "BaccaratConfigController.h"
 #import "BaccaratModel.h"
 #import "BaccaratRoadMapView.h"
+#import "CardDataSourceModel.h"
+#import "MXWPokerView.h"
 
 
 #define kBtnHeight 35
@@ -173,6 +175,7 @@
 @property (nonatomic, strong) UILabel *grm_yyl_bankerLabel;
 @property (nonatomic, strong) UILabel *grm_yyl_playerLabel;
 
+@property (strong, nonatomic) CardDataSourceModel *baccaratDataModel;
 
 @end
 
@@ -237,10 +240,6 @@
     self.intervalNum = 1;
     
     
-    
-    NSMutableArray *array = [VVFunctionManager shuffleArray:pokerArray pokerPairsNum:self.pokerNumTextField.text.integerValue];
-    self.dataArray = [NSMutableArray arrayWithArray:array];
-    
     self.pokerTotalNum = self.dataArray.count;
     self.pokerCount = 0;
     self.playerCount = 0;
@@ -256,9 +255,26 @@
     self.buyType = -1;
 }
 
+- (NSMutableArray*)dataArray
+{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.baccaratDataModel.sortedDeckArray pokerPairsNum:self.pokerNumTextField.text.integerValue]];
+    }
+    return _dataArray;
+}
+
+- (CardDataSourceModel*)baccaratDataModel
+{
+    if (!_baccaratDataModel)
+    {
+        _baccaratDataModel = [[CardDataSourceModel alloc] init];
+    }
+    return _baccaratDataModel;
+}
+
+
 - (void)configAction {
     BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
-    //    vc.resultDataArray = self.resultDataArray;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -367,7 +383,7 @@
     [playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.view.mas_centerY).offset(20);
         make.left.equalTo(self.view.mas_left).offset(50);
-        make.size.mas_equalTo(CGSizeMake(125, 80));
+        make.size.mas_equalTo(CGSizeMake(120, 70));
     }];
     
     UIView *player3BackView = [[UIView alloc] init];
@@ -378,17 +394,15 @@
     [player3BackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(playerBackView.mas_bottom).offset(5);
         make.centerX.equalTo(playerBackView.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(60, 80));
+        make.size.mas_equalTo(CGSizeMake(55, 70));
     }];
     
     _playerStackView = [[UIStackView alloc] init];
-    //    _playerStackView.backgroundColor = [UIColor orangeColor];
     //子控件的布局方向
     _playerStackView.axis = UILayoutConstraintAxisHorizontal;
     _playerStackView.distribution = UIStackViewDistributionFillEqually;
-    _playerStackView.spacing = 5;
+    _playerStackView.spacing = 10;
     _playerStackView.alignment = UIStackViewAlignmentFill;
-    //    _playerStackView.frame = CGRectMake(0, 100, ScreenWidth, 200);
     [playerBackView addSubview:_playerStackView];
     [_playerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(playerBackView);
@@ -404,7 +418,7 @@
     [bankerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(playerBackView.mas_centerY);
         make.right.equalTo(self.view.mas_right).offset(-50);
-        make.size.mas_equalTo(CGSizeMake(125, 80));
+        make.size.mas_equalTo(CGSizeMake(120, 70));
     }];
     
     UIView *banker3BackView = [[UIView alloc] init];
@@ -415,17 +429,15 @@
     [banker3BackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bankerBackView.mas_bottom).offset(5);
         make.centerX.equalTo(bankerBackView.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(60, 80));
+        make.size.mas_equalTo(CGSizeMake(55, 70));
     }];
     
     _bankerStackView = [[UIStackView alloc] init];
-    //    _bankerStackView.backgroundColor = [UIColor orangeColor];
     //子控件的布局方向
     _bankerStackView.axis = UILayoutConstraintAxisHorizontal;
     _bankerStackView.distribution = UIStackViewDistributionFillEqually;
-    _bankerStackView.spacing = 5;
+    _bankerStackView.spacing = 10;
     _bankerStackView.alignment = UIStackViewAlignmentFill;
-    //    _bankerStackView.frame = CGRectMake(0, 100, ScreenWidth, 200);
     [bankerBackView addSubview:_bankerStackView];
     [_bankerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(bankerBackView);
@@ -492,16 +504,6 @@
     [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:clearButton];
     
-    
-    //    UIButton *disKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10 + 50 +10, kMarginHeight, 50, kBtnHeight)];
-    //    [disKeyboardButton setTitle:@"消键盘" forState:UIControlStateNormal];
-    //    disKeyboardButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    //    [disKeyboardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //    [disKeyboardButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    //    disKeyboardButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    //    disKeyboardButton.layer.cornerRadius = 5;
-    //    [disKeyboardButton addTarget:self action:@selector(onDisKeyboardButton) forControlEvents:UIControlEventTouchUpInside];
-    //    [bottomView addSubview:disKeyboardButton];
     
     // 下注视图
     [self betView];
@@ -1193,7 +1195,8 @@
         //        NSLog(@"🔴= %@", num.stringValue);
         
         
-        NSString *numStr = (NSString *)self.dataArray.firstObject;
+        
+        PlayCardModel *cardModel = (PlayCardModel *)self.dataArray.firstObject;
         [self.dataArray removeObjectAtIndex:0];
         self.pokerTotalNum--;
         
@@ -1237,17 +1240,17 @@
         
         
         if (i == 1) {
-            [self playerDealerDisplayView:numStr];
-            player1 = numStr.integerValue;
+            [self playerDealerDisplayView:cardModel];
+            player1 = cardModel.cardSizeValue;
         } else if (i == 2) {
-            [self bankerDealerDisplayView:numStr];
-            banker1 = numStr.integerValue;
+            [self bankerDealerDisplayView:cardModel];
+            banker1 = cardModel.cardSizeValue;
         } else if (i == 3) {
-            [self playerDealerDisplayView:numStr];
-            player2 = numStr.integerValue;
+            [self playerDealerDisplayView:cardModel];
+            player2 = cardModel.cardSizeValue;
         } else if (i == 4) {
-            [self bankerDealerDisplayView:numStr];
-            banker2 = numStr.integerValue;
+            [self bankerDealerDisplayView:cardModel];
+            banker2 = cardModel.cardSizeValue;
         }
         
         
@@ -1269,12 +1272,12 @@
             }
         } else if (i == 5) {
             if (playerPointsNum < 6) {
-                player3 = numStr;
-                [self player3DealerDisplayView:numStr];
+                player3 = [NSString stringWithFormat:@"%zd",cardModel.cardSizeValue];
+                [self player3DealerDisplayView:cardModel];
             } else {
                 if (bankerPointsNum < 6) {
-                    banker3 = numStr;
-                    [self banker3DealerDisplayView:numStr];
+                    banker3 = [NSString stringWithFormat:@"%zd",cardModel.cardSizeValue];
+                    [self banker3DealerDisplayView:cardModel];
                     break;
                 }
             }
@@ -1291,8 +1294,8 @@
             }
         } else if (i == 6) {
             if (bankerPointsNum <= 6) {
-                banker3 = numStr;
-                [self banker3DealerDisplayView:numStr];
+                banker3 = [NSString stringWithFormat:@"%zd",cardModel.cardSizeValue];
+                [self banker3DealerDisplayView:cardModel];
             }
         }
     }
@@ -1413,7 +1416,7 @@
     NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
     
     if (!self.isRunOverall) {
-        _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
+        _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
     }
     
 }
@@ -1426,71 +1429,66 @@
 }
 
 #pragma mark -  发牌显示视图
-- (void)playerDealerDisplayView:(NSString *)cardPoints {
+- (void)playerDealerDisplayView:(PlayCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
-    UILabel *view = [[UILabel alloc] init];
-    view.textAlignment = NSTextAlignmentCenter;
-    view.font = [UIFont boldSystemFontOfSize:26];
-    view.textColor = [UIColor blueColor];
-    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];;
-    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:kColorAlpha];
+    
+    MXWPokerView *view = [[MXWPokerView alloc] init];
+    view.fromType = 1;
+    view.model = carModel;
+    
     [self.playerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
         [self.playerStackView layoutIfNeeded];
     }];
 }
-- (void)player3DealerDisplayView:(NSString *)cardPoints {
+- (void)player3DealerDisplayView:(PlayCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
-    UILabel *view = [[UILabel alloc] init];
-    view.textAlignment = NSTextAlignmentCenter;
-    view.font = [UIFont boldSystemFontOfSize:26];
-    view.textColor = [UIColor blueColor];
-    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];;
-    view.backgroundColor = [UIColor colorWithRed:0.259 green:0.749 blue:0.8 alpha:kColorAlpha];
+    MXWPokerView *view = [[MXWPokerView alloc] init];
+    view.fromType = 1;
+    view.model = carModel;
+    
     [self.player3BackView addSubview:view];
-    [UIView animateWithDuration:1.2 animations:^{
-        view.frame = CGRectMake(0, 0, 60, 90);
+    [UIView animateWithDuration:1.0 animations:^{
+        view.frame = CGRectMake(0, 0, 55, 70);
     }];
 }
-- (void)bankerDealerDisplayView:(NSString *)cardPoints {
+- (void)bankerDealerDisplayView:(PlayCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
-    UILabel *view = [[UILabel alloc] init];
-    view.textAlignment = NSTextAlignmentCenter;
-    view.font = [UIFont boldSystemFontOfSize:26];
-    view.textColor = [UIColor redColor];
-    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];
-    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:kColorAlpha];
+    
+    MXWPokerView *view = [[MXWPokerView alloc] init];
+    view.fromType = 1;
+    view.model = carModel;
+    
     [self.bankerStackView addArrangedSubview:view];
     [UIView animateWithDuration:0.5 animations:^{
         [self.bankerStackView layoutIfNeeded];
     }];
 }
-- (void)banker3DealerDisplayView:(NSString *)cardPoints {
+
+- (void)banker3DealerDisplayView:(PlayCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
-    UILabel *view = [[UILabel alloc] init];
-    view.textAlignment = NSTextAlignmentCenter;
-    view.font = [UIFont boldSystemFontOfSize:26];
-    view.textColor = [UIColor redColor];
-    view.text = [VVFunctionManager pokerCharacter:cardPoints.integerValue];
-    view.backgroundColor = [UIColor colorWithRed:0.965 green:0.412 blue:0.8 alpha:kColorAlpha];
+    MXWPokerView *view = [[MXWPokerView alloc] init];
+    view.fromType = 1;
+    view.model = carModel;
+    
     [self.banker3BackView addSubview:view];
-    [UIView animateWithDuration:1.2 animations:^{
-        view.frame = CGRectMake(0, 0, 60, 90);
+    [UIView animateWithDuration:1.0 animations:^{
+        view.frame = CGRectMake(0, 0, 55, 70);
     }];
 }
 - (void)removeStackView {
     
     for (NSInteger i = 0; i < [self.playerStackView subviews].count; i++) {
-        UILabel *viewLabel = [self.playerStackView subviews][i];
-        viewLabel.text = @"";
+        MXWPokerView *viewLabel = [self.playerStackView subviews][i];
+        [viewLabel dataClear];
         [self.playerStackView removeArrangedSubview:viewLabel];
     }
     while (self.player3BackView.subviews.count) {
@@ -1499,8 +1497,8 @@
     
     
     for (NSInteger j = 0; j < [self.bankerStackView subviews].count; j++) {
-        UILabel *viewLabel = [self.bankerStackView subviews][j];
-        viewLabel.text = @"";
+        MXWPokerView *viewLabel = [self.bankerStackView subviews][j];
+        [viewLabel dataClear];
         [self.bankerStackView removeArrangedSubview:viewLabel];
     }
     while (self.banker3BackView.subviews.count) {

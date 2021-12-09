@@ -48,6 +48,7 @@
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
+		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -106,8 +107,7 @@
 		A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCB222ECCB400C4EE9C /* PhysicalCard.m */; };
 		A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCD222ECCB400C4EE9C /* BJClub.m */; };
 		A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FCE222ECCB400C4EE9C /* BJHeart.m */; };
-		A0F91FD9222ECCC300C4EE9C /* BlackJackDataSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD7222ECCC300C4EE9C /* BlackJackDataSourceModel.m */; };
-		A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */; };
+		A0F91FD9222ECCC300C4EE9C /* CardDataSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F91FD7222ECCC300C4EE9C /* CardDataSourceModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +210,8 @@
 		84A59218273DA1D70071D524 /* UIView+Function.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Function.m"; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
+		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
+		84BDC7812761840A0045354D /* PlayCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCardModel.m; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -327,10 +329,8 @@
 		A0F91FCD222ECCB400C4EE9C /* BJClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJClub.m; sourceTree = "<group>"; };
 		A0F91FCE222ECCB400C4EE9C /* BJHeart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJHeart.m; sourceTree = "<group>"; };
 		A0F91FCF222ECCB400C4EE9C /* UIView+JMNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JMNoise.h"; sourceTree = "<group>"; };
-		A0F91FD5222ECCC300C4EE9C /* BlackJackDataSourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackJackDataSourceModel.h; sourceTree = "<group>"; };
-		A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
-		A0F91FD7222ECCC300C4EE9C /* BlackJackDataSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackJackDataSourceModel.m; sourceTree = "<group>"; };
-		A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCardModel.m; sourceTree = "<group>"; };
+		A0F91FD5222ECCC300C4EE9C /* CardDataSourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardDataSourceModel.h; sourceTree = "<group>"; };
+		A0F91FD7222ECCC300C4EE9C /* CardDataSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardDataSourceModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -859,10 +859,10 @@
 			children = (
 				A0DCEF5F2236ACE4002FF19C /* VVFunctionManager.h */,
 				A0DCEF602236ACE4002FF19C /* VVFunctionManager.m */,
-				A0F91FD5222ECCC300C4EE9C /* BlackJackDataSourceModel.h */,
-				A0F91FD7222ECCC300C4EE9C /* BlackJackDataSourceModel.m */,
-				A0F91FD6222ECCC300C4EE9C /* PlayCardModel.h */,
-				A0F91FD8222ECCC300C4EE9C /* PlayCardModel.m */,
+				A0F91FD5222ECCC300C4EE9C /* CardDataSourceModel.h */,
+				A0F91FD7222ECCC300C4EE9C /* CardDataSourceModel.m */,
+				84BDC7802761840A0045354D /* PlayCardModel.h */,
+				84BDC7812761840A0045354D /* PlayCardModel.m */,
 				84BDC77D27615FD40045354D /* MXWPokerView.h */,
 				84BDC77E27615FD40045354D /* MXWPokerView.m */,
 			);
@@ -1168,6 +1168,7 @@
 				40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */,
 				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
+				84BDC7822761840A0045354D /* PlayCardModel.m in Sources */,
 				276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
@@ -1182,7 +1183,6 @@
 				40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */,
 				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
-				A0F91FDA222ECCC300C4EE9C /* PlayCardModel.m in Sources */,
 				A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,
 				84568C95275E9228006C2906 /* NSUserDefaultsManager.m in Sources */,
@@ -1205,7 +1205,7 @@
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
-				A0F91FD9222ECCC300C4EE9C /* BlackJackDataSourceModel.m in Sources */,
+				A0F91FD9222ECCC300C4EE9C /* CardDataSourceModel.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
 				26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */,
 				276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */,

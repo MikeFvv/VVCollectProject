@@ -11,6 +11,11 @@
 @implementation VVFunctionManager
 
 #pragma mark - 洗牌方法
+
+
+/// 洗牌方法
+/// @param dataArray 一副牌模型数组
+/// @param pokerPairsNum 多少副牌进入
 + (NSMutableArray *)shuffleArray:(NSArray *)dataArray pokerPairsNum:(NSInteger)pokerPairsNum {
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:dataArray];
     // 添加牌副数

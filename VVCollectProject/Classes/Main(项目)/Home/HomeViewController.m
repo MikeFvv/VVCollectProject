@@ -115,7 +115,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
     NSLog(@" copyyStr: %p , %p , %@", _copyyStr, &_copyyStr, _copyyStr);
 
     NSLog(@"111");
-    
+    // 延时执行
     [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:2.0f];
     
 }

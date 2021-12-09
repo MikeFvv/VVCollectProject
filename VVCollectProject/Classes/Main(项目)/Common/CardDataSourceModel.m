@@ -1,11 +1,11 @@
 
 
-#import "BlackJackDataSourceModel.h"
+#import "CardDataSourceModel.h"
 #import "PlayCardModel.h"
 #import "VVFunctionManager.h"
 
 
-@implementation BlackJackDataSourceModel
+@implementation CardDataSourceModel
 
 @synthesize sortedDeckArray = _sortedDeckArray;
 
@@ -30,6 +30,7 @@
                                 @"Hearts",
                                 @"Spades",
                                 nil];
+        
         NSArray *colorTypeArray = [NSArray arrayWithObjects:
                                    @(PokerColorType_Diamonds),
                                    @(PokerColorType_Clubs),
@@ -62,7 +63,9 @@
                 PlayCardModel *aCard = [[PlayCardModel alloc] init];
                 aCard.suitSymbol = [suitsAsSymbols objectAtIndex:suitloopIndex];
                 aCard.suitText = [suitsAsText objectAtIndex:suitloopIndex];
+                
                 aCard.colorTyp = [[colorTypeArray objectAtIndex:suitloopIndex] integerValue];
+                
                 aCard.cardSizeValue = valueIndex +1;
                 aCard.cardStr = [VVFunctionManager pokerCharacter:valueIndex+1];
                 
