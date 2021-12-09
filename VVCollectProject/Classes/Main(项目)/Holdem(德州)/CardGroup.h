@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 牌的大小
 @property (nonatomic, assign) NSInteger power;
 
-
+-(void)CardGroup:(NSMutableArray<Poker *> *)pokers;
 
 @end
 

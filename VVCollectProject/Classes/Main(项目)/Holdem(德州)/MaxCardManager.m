@@ -11,47 +11,135 @@
 @implementation MaxCardManager
 
 
-///**
-//     * 计算最大的五张牌
-//     */
-////    @SuppressWarnings("unchecked")
-//    - (void)computeMaxCardGroup {
-//        if (self.pokers.count == 5) {
-//            CardGroup group = new CardGroup(pokers);
-//            this.maxGroup = group;
-//        }
-//        else if (pokers.size() == 6) {
-//            ArrayList<CardGroup> groups = new ArrayList<CardGroup>();
-//            for (int i = 0; i < 6; i++) {
-//                ArrayList<Poker> pokerList = new ArrayList<Poker>(
-//                        pokers);
-//                pokerList.remove(i);
-//                groups.add(new CardGroup(pokerList));
-//            }
-//            Collections.sort(groups, new CardGroupComparator());
-//            this.maxGroup = groups.get(0);
-//        }
-//        else if (pokers.size() == 7) {
-//            ArrayList<CardGroup> groups = new ArrayList<CardGroup>();
-//            for (int i = 0; i < 7; i++) {
-//                for (int j = 0; j < 7; j++) {
-//                    if (i == j) continue;
-//                    ArrayList<Poker> pokerList = new ArrayList<Poker>(
-//                            pokers);
-//                    Poker pi = pokerList.get(i);
-//                    Poker pj = pokerList.get(j);
-//                    pokerList.remove(pi);
-//                    pokerList.remove(pj);
-//
-//                    groups.add(new CardGroup(pokerList));
-//                }
-//            }
-//            Collections.sort(groups, new CardGroupComparator());
-//            this.maxGroup = groups.get(0);
-//        }
-//
-//    }
 
+-(void)MaxCardComputer:(NSMutableArray<Poker *> *)holdPokers publicPokers:(NSMutableArray<Poker *> *)publicPokers {
+    self.pokers = [NSMutableArray array];
+    if (holdPokers != nil)
+        [self.pokers addObjectsFromArray:holdPokers];
+    if (publicPokers != nil)
+        [self.pokers addObjectsFromArray:publicPokers];
+    
+    [self computeMaxCardGroup];
+}
+
+-(void) MaxCardComputer:(MaxCardManager *)oldComputer poker:(Poker *)poker {
+    self.pokers = [NSMutableArray array];
+    [self.pokers addObjectsFromArray:self.pokers];
+    
+    [self computeMaxCardGroup_New:poker];
+    [self.pokers addObject:poker];
+}
+
+
+/**
+ * 计算最大的五张牌
+ */
+//    @SuppressWarnings("unchecked")
+- (void)computeMaxCardGroup {
+    if (self.pokers.count == 5) {
+        
+        CardGroup *group = [[CardGroup alloc] init];
+        [group CardGroup:self.pokers];
+        self.maxGroup = group;
+    }
+    else if (self.pokers.count == 6) {
+        NSMutableArray<CardGroup *> *groups = [NSMutableArray array];
+        
+        for (int i = 0; i < 6; i++) {
+            NSMutableArray<Poker *> *pokerList = [NSMutableArray array];
+            pokerList = self.pokers;
+            
+            [pokerList removeObjectAtIndex:i];
+            
+            CardGroup *group = [[CardGroup alloc] init];
+            [group CardGroup:pokerList];
+            [groups addObject:group];
+        }
+        
+        NSArray *sortArray = [groups sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2 options:NSNumericSearch];
+        }];
+        
+        self.maxGroup = sortArray[0];
+    }
+    else if (self.pokers.count == 7) {
+        NSMutableArray<CardGroup *> *groups = [NSMutableArray array];
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (i == j) continue;
+                NSMutableArray<Poker *> *pokerList = [NSMutableArray array];
+                pokerList = self.pokers;
+                
+                Poker *pi = pokerList[i];
+                Poker *pj = pokerList[j];
+                
+                [pokerList removeObject:pi];
+                [pokerList removeObject:pj];
+                
+                CardGroup *group = [[CardGroup alloc] init];
+                [group CardGroup:pokerList];
+                [groups addObject:group];
+            }
+        }
+        NSArray *sortArray = [groups sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2 options:NSNumericSearch];
+        }];
+        self.maxGroup = sortArray[0];
+    }
+    
+}
+
+
+
+
+//@SuppressWarnings("unchecked")
+- (void) computeMaxCardGroup_New:(Poker *)poker {
+    if (self.pokers.count == 5) {
+        NSMutableArray<CardGroup *> *groups = [NSMutableArray array];
+        for (int i = 0; i < 5; i++) {
+            NSMutableArray<Poker *> *pokerList = [NSMutableArray array];
+            pokerList = self.pokers;
+            
+            [pokerList removeObjectAtIndex:i];
+            [pokerList addObject:poker];
+            
+            CardGroup *group = [[CardGroup alloc] init];
+            [group CardGroup:pokerList];
+            [groups addObject:group];
+        }
+        
+        NSArray *sortArray = [groups sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2 options:NSNumericSearch];
+        }];
+        self.maxGroup = sortArray[0];
+    }
+    else if (self.pokers.count == 6) {
+        NSMutableArray<CardGroup *> *groups = [NSMutableArray array];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                if (i == j) continue;
+                NSMutableArray<Poker *> *pokerList = [NSMutableArray array];
+                pokerList = self.pokers;
+                
+                Poker *pi = pokerList[i];
+                Poker *pj = pokerList[j];
+                
+                [pokerList removeObject:pi];
+                [pokerList removeObject:pj];
+                
+                [pokerList addObject:poker];
+                
+                CardGroup *group = [[CardGroup alloc] init];
+                [group CardGroup:pokerList];
+                [groups addObject:group];
+            }
+        }
+        NSArray *sortArray = [groups sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2 options:NSNumericSearch];
+        }];
+        self.maxGroup = sortArray[0];
+    }
+}
 
 
 @end
