@@ -2,13 +2,7 @@
 
 #import <Foundation/Foundation.h>
 
-// 花色 从小到大
-typedef NS_ENUM(NSInteger, PokerColorType) {
-    PokerColorType_Diamonds = 0,   //  方块
-    PokerColorType_Clubs = 1,   // 梅花
-    PokerColorType_Hearts = 2,    // 红桃（红心）
-    PokerColorType_Spades = 3,       // 黑桃
-};
+
 
 
 @interface PlayCardModel : NSObject
@@ -18,7 +12,7 @@ typedef NS_ENUM(NSInteger, PokerColorType) {
 /// 花色名称  Diamonds
 @property (nonatomic, copy) NSString* suitText;
 /// 花色类型
-@property (nonatomic, assign) PokerColorType colorTyp;
+@property (nonatomic, assign) CardColorType colorTyp;
 
 /// 牌面大小 1-13
 @property (nonatomic, assign) NSInteger cardSizeValue;

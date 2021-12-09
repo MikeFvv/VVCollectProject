@@ -16,7 +16,7 @@
 /// 花色
 @property (nonatomic, strong) UILabel *pokerColorLabel;
 /// 花色类型
-@property (nonatomic, assign) PokerColorType colorTyp;
+@property (nonatomic, assign) CardColorType colorTyp;
 
 @end
 
@@ -53,17 +53,17 @@
     self.colorTyp = self.model.colorTyp;
 }
 
-- (void)setColorTyp:(PokerColorType)colorTyp {
+- (void)setColorTyp:(CardColorType)colorTyp {
     _colorTyp = colorTyp;
     
     switch (colorTyp) {
-        case PokerColorType_Diamonds:
-        case PokerColorType_Hearts:
+        case CardColorType_Diamonds:
+        case CardColorType_Hearts:
             self.pointsNumLabel.textColor = [UIColor redColor];
             self.pokerColorLabel.textColor = [UIColor redColor];
             break;
-        case PokerColorType_Clubs:
-        case PokerColorType_Spades:
+        case CardColorType_Clubs:
+        case CardColorType_Spades:
             self.pointsNumLabel.textColor = [UIColor blackColor];
             self.pokerColorLabel.textColor = [UIColor blackColor];
             break;
