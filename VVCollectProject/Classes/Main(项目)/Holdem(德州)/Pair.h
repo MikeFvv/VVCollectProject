@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PokerModel.h"
+#import "Poker.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PairModel : NSObject
+@interface Pair : NSObject
 
 /// 第一张
-@property (nonatomic, strong) PokerModel *first;
+@property (nonatomic, strong) Poker *first;
 /// 第二张
-@property (nonatomic, strong) PokerModel *second;
+@property (nonatomic, strong) Poker *second;
 
 @end
 

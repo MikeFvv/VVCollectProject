@@ -6,9 +6,9 @@
 //  Copyright © 2021 Mike. All rights reserved.
 //
 
-#import "PokerModel.h"
+#import "Poker.h"
 
-@implementation PokerModel
+@implementation Poker
 
 //+ (void)poker:(CardColorType)colorTyp cardSizeValue:(NSInteger)cardSizeValue {
 //    _colorTyp = colorTyp;
@@ -34,10 +34,16 @@
 //    return _cardSizeValue;
 //}
 
-- (void)setCardSizeValue:(NSInteger)cardSizeValue {
-    if (cardSizeValue >= 2 && cardSizeValue <= 14) {
-        _cardSizeValue = cardSizeValue;
+- (void)setValue:(NSInteger)value {
+    if (value >= 2 && value <= 14) {
+        _value = value;
     }
 }
+
+//- (void)setCardSizeValue:(NSInteger)cardSizeValue {
+//    if (cardSizeValue >= 2 && cardSizeValue <= 14) {
+//        _cardSizeValue = cardSizeValue;
+//    }
+//}
 
 @end
