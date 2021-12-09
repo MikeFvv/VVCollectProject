@@ -21,4 +21,9 @@
 #import <YYKit.h>
 
 
+#import "ComCardManager.h"
+
+
+
+
 #endif /* PrefixHeader_pch */
