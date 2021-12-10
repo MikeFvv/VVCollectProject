@@ -12,7 +12,7 @@
 
 
 
--(void)MaxCardComputer:(NSMutableArray<Poker *> *)holdPokers publicPokers:(NSMutableArray<Poker *> *)publicPokers {
+-(void)maxCardComputer:(NSMutableArray<Poker *> *)holdPokers publicPokers:(NSMutableArray<Poker *> *)publicPokers {
     self.pokers = [NSMutableArray array];
     if (holdPokers != nil)
         [self.pokers addObjectsFromArray:holdPokers];
@@ -22,7 +22,7 @@
     [self computeMaxCardGroup];
 }
 
--(void) MaxCardComputer:(MaxCardComputer *)oldComputer poker:(Poker *)poker {
+-(void)maxCardComputer:(MaxCardComputer *)oldComputer poker:(Poker *)poker {
     self.pokers = [NSMutableArray array];
     [self.pokers addObjectsFromArray:self.pokers];
     
