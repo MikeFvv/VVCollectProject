@@ -32,10 +32,10 @@
                                 nil];
         
         NSArray *colorTypeArray = [NSArray arrayWithObjects:
-                                   @(CardColorType_Diamonds),
-                                   @(CardColorType_Clubs),
-                                   @(CardColorType_Hearts),
-                                   @(CardColorType_Spades),
+                                   @(DIAMONDS),
+                                   @(CLUBS),
+                                   @(HEARTS),
+                                   @(SPADES),
                                    nil];
         
         NSArray *cardTextValues = [NSArray arrayWithObjects:

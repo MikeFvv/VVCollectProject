@@ -65,6 +65,38 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用于记录所有未弃牌玩家的押注状态
 @property (nonatomic, strong) NSMutableArray<BetState *> *betStates;
 
+
+-(int)getTotalMoneyAndJetton;
+
+
+
+/**
+ * 跟注
+ *
+ * @param diff
+ * @param maxMultiple 最大可容忍跟注倍数
+ * @return
+ */
+-(NSString *)callByDiff:(int)diff maxMultiple:(int)maxMultiple;
+/**
+ * 加注：加注金额为mutiple * blind
+ *
+ * @param diff
+ *            根据前面玩家下注，需要跟注的最小数量
+ * @param multiple
+ * @param maxMultiple 最大可接受倍数
+ * @return
+ */
+-(NSString *)raiseByDiff:(int)diff multiple:(int)multiple maxMultiple:(int)maxMultiple;
+
+/**
+ * 在发送下注策略之前必须通过该方法获得策略
+ * @param diff
+ * @param jetton
+ * @return
+ */
+-(NSString *)getResponse:(int)diff jetton:(int)jetton;
+
 @end
 
 NS_ASSUME_NONNULL_END

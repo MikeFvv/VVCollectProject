@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-
 // 花色 从小到大
 typedef NS_ENUM(NSInteger, CardColorType) {
-    CardColorType_Diamonds = 0,   //  方块(方片)
-    CardColorType_Clubs = 1,   // 梅花
-    CardColorType_Hearts = 2,    // 红桃（红心）
-    CardColorType_Spades = 3,       // 黑桃
+    DIAMONDS = 0,   //  方块(方片)
+    CLUBS = 1,   // 梅花
+    HEARTS = 2,    // 红桃（红心）
+    SPADES = 3,       // 黑桃
 };
 
 // 牌面大小 从小到大
