@@ -50,7 +50,7 @@
  for (InitState state: self.ainitStates) {
  self.activePlayers.add(state.getPlayerID());
  }
- self.buttonID = self.activePlayers.get(0);
+ self.buttonID = self.activePlayers[0];
  if (self.buttonID.equals(self.playerID)) {
  self.isTheLastOne = true;
  }
@@ -78,7 +78,7 @@
  if (!player.equals(self.buttonID))
  count ++;
  }
- if (count > self.activePlayers.size() / 2) {
+ if (count > self.activePlayers.count / 2) {
  self.isLastHalf = true;
  return ;
  }
@@ -100,15 +100,15 @@
  if (self.buttonID.equals(self.playerID)) {
  self.isTheLastOne = true;
  }
- else if (!self.activePlayers.get(0).equals(self.buttonID) &&
- self.activePlayers.get(self.activePlayers.size() - 1)
+ else if (!self.activePlayers[0].equals(self.buttonID) &&
+ self.activePlayers.get(self.activePlayers.count - 1)
  .equals(self.playerID)) {
  self.isTheLastOne = true;
  }
  
  self.computeLastHalf();
  
- if (!self.hasAllIn && self.publicPokers.size() == 0) {
+ if (!self.hasAllIn && self.publicPokers.count == 0) {
  for (BetState state: states) {
  if (state.getAction().equals("all_in")) {
  self.hasAllIn = true;
@@ -170,7 +170,7 @@
         return @"call";
     }
     else if (jetton > diff) {
-        //            Random random = new Random();
+        //             
         //            int sum = jetton + (random.nextInt(5) + 1);
         //            self.totalJetton -= sum;
         //            self.setHasRaised(true);

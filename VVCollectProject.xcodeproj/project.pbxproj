@@ -68,6 +68,8 @@
 		84B85E0E2763C096009AC598 /* game_desk_bg_6p.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E0C2763C096009AC598 /* game_desk_bg_6p.jpg */; };
 		84B85E0F2763C096009AC598 /* game_desk_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E0D2763C096009AC598 /* game_desk_bg.jpg */; };
 		84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E112763C0EC009AC598 /* ProbabilityComputer.m */; };
+		84B85E162763D117009AC598 /* TwoAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E152763D117009AC598 /* TwoAI.m */; };
+		84B85E192763DE6A009AC598 /* AdvancedAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E182763DE6A009AC598 /* AdvancedAI.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -263,6 +265,10 @@
 		84B85E0D2763C096009AC598 /* game_desk_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = game_desk_bg.jpg; sourceTree = "<group>"; };
 		84B85E102763C0EC009AC598 /* ProbabilityComputer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProbabilityComputer.h; sourceTree = "<group>"; };
 		84B85E112763C0EC009AC598 /* ProbabilityComputer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProbabilityComputer.m; sourceTree = "<group>"; };
+		84B85E142763D117009AC598 /* TwoAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoAI.h; sourceTree = "<group>"; };
+		84B85E152763D117009AC598 /* TwoAI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoAI.m; sourceTree = "<group>"; };
+		84B85E172763DE6A009AC598 /* AdvancedAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedAI.h; sourceTree = "<group>"; };
+		84B85E182763DE6A009AC598 /* AdvancedAI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvancedAI.m; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -660,6 +666,7 @@
 		84B85DD22761CB1F009AC598 /* Holdem(德州) */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E132763D0FA009AC598 /* AdvancedAI */,
 				84B85E102763C0EC009AC598 /* ProbabilityComputer.h */,
 				84B85E112763C0EC009AC598 /* ProbabilityComputer.m */,
 				84B85DF927629028009AC598 /* CardConstants.h */,
@@ -681,8 +688,6 @@
 				84B85DFE276291DD009AC598 /* PokerComparator.m */,
 				84B85E0027629315009AC598 /* CardGroupComparator.h */,
 				84B85E0127629315009AC598 /* CardGroupComparator.m */,
-				84B85E0327629400009AC598 /* SuperAI.h */,
-				84B85E0427629400009AC598 /* SuperAI.m */,
 				84B85DEF2762744B009AC598 /* Resource */,
 			);
 			path = "Holdem(德州)";
@@ -716,6 +721,19 @@
 				84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		84B85E132763D0FA009AC598 /* AdvancedAI */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E0327629400009AC598 /* SuperAI.h */,
+				84B85E0427629400009AC598 /* SuperAI.m */,
+				84B85E172763DE6A009AC598 /* AdvancedAI.h */,
+				84B85E182763DE6A009AC598 /* AdvancedAI.m */,
+				84B85E142763D117009AC598 /* TwoAI.h */,
+				84B85E152763D117009AC598 /* TwoAI.m */,
+			);
+			path = AdvancedAI;
 			sourceTree = "<group>";
 		};
 		84BDC77C276159470045354D /* 无网络 */ = {
@@ -1324,7 +1342,9 @@
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				84568C83275E8255006C2906 /* MXWBaiJiaShareAlert.m in Sources */,
+				84B85E192763DE6A009AC598 /* AdvancedAI.m in Sources */,
 				84B85DE527626A93009AC598 /* BetState.m in Sources */,
+				84B85E162763D117009AC598 /* TwoAI.m in Sources */,
 				A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */,
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
 				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,

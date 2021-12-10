@@ -57,13 +57,13 @@
     _colorTyp = colorTyp;
     
     switch (colorTyp) {
-        case CardColorType_Diamonds:
-        case CardColorType_Hearts:
+        case DIAMONDS:
+        case HEARTS:
             self.pointsNumLabel.textColor = [UIColor redColor];
             self.pokerColorLabel.textColor = [UIColor redColor];
             break;
-        case CardColorType_Clubs:
-        case CardColorType_Spades:
+        case CLUBS:
+        case SPADES:
             self.pointsNumLabel.textColor = [UIColor blackColor];
             self.pokerColorLabel.textColor = [UIColor blackColor];
             break;
