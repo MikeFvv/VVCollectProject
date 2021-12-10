@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 组成最大牌型的五张牌
 @property (nonatomic, strong) CardGroup *maxGroup;
 
+-(void)maxCardComputer:(NSMutableArray<Poker *> *)holdPokers publicPokers:(NSMutableArray<Poker *> *)publicPokers;
+-(void)maxCardComputer:(MaxCardComputer *)oldComputer poker:(Poker *)poker;
+
 @end
 
 NS_ASSUME_NONNULL_END

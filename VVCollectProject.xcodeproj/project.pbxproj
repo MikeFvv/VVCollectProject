@@ -65,6 +65,9 @@
 		84B85DFF276291DD009AC598 /* PokerComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85DFE276291DD009AC598 /* PokerComparator.m */; };
 		84B85E0227629315009AC598 /* CardGroupComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E0127629315009AC598 /* CardGroupComparator.m */; };
 		84B85E0527629400009AC598 /* SuperAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E0427629400009AC598 /* SuperAI.m */; };
+		84B85E0E2763C096009AC598 /* game_desk_bg_6p.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E0C2763C096009AC598 /* game_desk_bg_6p.jpg */; };
+		84B85E0F2763C096009AC598 /* game_desk_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E0D2763C096009AC598 /* game_desk_bg.jpg */; };
+		84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E112763C0EC009AC598 /* ProbabilityComputer.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -256,6 +259,10 @@
 		84B85E0127629315009AC598 /* CardGroupComparator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardGroupComparator.m; sourceTree = "<group>"; };
 		84B85E0327629400009AC598 /* SuperAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperAI.h; sourceTree = "<group>"; };
 		84B85E0427629400009AC598 /* SuperAI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperAI.m; sourceTree = "<group>"; };
+		84B85E0C2763C096009AC598 /* game_desk_bg_6p.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = game_desk_bg_6p.jpg; sourceTree = "<group>"; };
+		84B85E0D2763C096009AC598 /* game_desk_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = game_desk_bg.jpg; sourceTree = "<group>"; };
+		84B85E102763C0EC009AC598 /* ProbabilityComputer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProbabilityComputer.h; sourceTree = "<group>"; };
+		84B85E112763C0EC009AC598 /* ProbabilityComputer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProbabilityComputer.m; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -653,6 +660,8 @@
 		84B85DD22761CB1F009AC598 /* Holdem(德州) */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E102763C0EC009AC598 /* ProbabilityComputer.h */,
+				84B85E112763C0EC009AC598 /* ProbabilityComputer.m */,
 				84B85DF927629028009AC598 /* CardConstants.h */,
 				84B85DDD2762660F009AC598 /* MaxCardComputer.h */,
 				84B85DDE2762660F009AC598 /* MaxCardComputer.m */,
@@ -682,6 +691,8 @@
 		84B85DD32762627F009AC598 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E0C2763C096009AC598 /* game_desk_bg_6p.jpg */,
+				84B85E0D2763C096009AC598 /* game_desk_bg.jpg */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -830,8 +841,8 @@
 		A0130DDB21ECB78D007E845B /* Main(项目) */ = {
 			isa = PBXGroup;
 			children = (
-				84B85DD22761CB1F009AC598 /* Holdem(德州) */,
 				A0BE49A12247727D00CDBE43 /* Common */,
+				84B85DD22761CB1F009AC598 /* Holdem(德州) */,
 				A010CB522261BD5E00618A52 /* Hacker */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
@@ -1195,9 +1206,11 @@
 				A0C5150621EE46CB00E2F89D /* main.js in Resources */,
 				84B85DF52762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx in Resources */,
 				A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */,
+				84B85E0E2763C096009AC598 /* game_desk_bg_6p.jpg in Resources */,
 				84B85DF62762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx in Resources */,
 				84568C88275E87C7006C2906 /* App注意事项.rtfd in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
+				84B85E0F2763C096009AC598 /* game_desk_bg.jpg in Resources */,
 				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
 				84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
@@ -1286,6 +1299,7 @@
 				40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */,
 				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
+				84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */,
 				84B85DE827626B7E009AC598 /* BetRecord.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
 				84BDC7822761840A0045354D /* PlayCardModel.m in Sources */,
