@@ -70,6 +70,13 @@
 		84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E112763C0EC009AC598 /* ProbabilityComputer.m */; };
 		84B85E162763D117009AC598 /* TwoAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E152763D117009AC598 /* TwoAI.m */; };
 		84B85E192763DE6A009AC598 /* AdvancedAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E182763DE6A009AC598 /* AdvancedAI.m */; };
+		84B85E5027640736009AC598 /* SelectAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E4727640735009AC598 /* SelectAI.m */; };
+		84B85E5127640736009AC598 /* ProbAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E4827640735009AC598 /* ProbAI.m */; };
+		84B85E5227640736009AC598 /* SimpleAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E4927640735009AC598 /* SimpleAI.m */; };
+		84B85E5327640736009AC598 /* MoreAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E4B27640736009AC598 /* MoreAI.m */; };
+		84B85E5427640736009AC598 /* ThreeAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E4E27640736009AC598 /* ThreeAI.m */; };
+		84B85E5527640736009AC598 /* LessAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E4F27640736009AC598 /* LessAI.m */; };
+		84B85E58276407DA009AC598 /* GameClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E57276407DA009AC598 /* GameClient.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -269,6 +276,20 @@
 		84B85E152763D117009AC598 /* TwoAI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoAI.m; sourceTree = "<group>"; };
 		84B85E172763DE6A009AC598 /* AdvancedAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedAI.h; sourceTree = "<group>"; };
 		84B85E182763DE6A009AC598 /* AdvancedAI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvancedAI.m; sourceTree = "<group>"; };
+		84B85E4427640735009AC598 /* SelectAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAI.h; sourceTree = "<group>"; };
+		84B85E4527640735009AC598 /* ThreeAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeAI.h; sourceTree = "<group>"; };
+		84B85E4627640735009AC598 /* LessAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessAI.h; sourceTree = "<group>"; };
+		84B85E4727640735009AC598 /* SelectAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAI.m; sourceTree = "<group>"; };
+		84B85E4827640735009AC598 /* ProbAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProbAI.m; sourceTree = "<group>"; };
+		84B85E4927640735009AC598 /* SimpleAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAI.m; sourceTree = "<group>"; };
+		84B85E4A27640736009AC598 /* MoreAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAI.h; sourceTree = "<group>"; };
+		84B85E4B27640736009AC598 /* MoreAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreAI.m; sourceTree = "<group>"; };
+		84B85E4C27640736009AC598 /* SimpleAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAI.h; sourceTree = "<group>"; };
+		84B85E4D27640736009AC598 /* ProbAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProbAI.h; sourceTree = "<group>"; };
+		84B85E4E27640736009AC598 /* ThreeAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeAI.m; sourceTree = "<group>"; };
+		84B85E4F27640736009AC598 /* LessAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LessAI.m; sourceTree = "<group>"; };
+		84B85E56276407DA009AC598 /* GameClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameClient.h; sourceTree = "<group>"; };
+		84B85E57276407DA009AC598 /* GameClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameClient.m; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -726,6 +747,7 @@
 		84B85E132763D0FA009AC598 /* AdvancedAI */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E5C27640CE5009AC598 /* Fin */,
 				84B85E0327629400009AC598 /* SuperAI.h */,
 				84B85E0427629400009AC598 /* SuperAI.m */,
 				84B85E172763DE6A009AC598 /* AdvancedAI.h */,
@@ -734,6 +756,27 @@
 				84B85E152763D117009AC598 /* TwoAI.m */,
 			);
 			path = AdvancedAI;
+			sourceTree = "<group>";
+		};
+		84B85E5C27640CE5009AC598 /* Fin */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E56276407DA009AC598 /* GameClient.h */,
+				84B85E57276407DA009AC598 /* GameClient.m */,
+				84B85E4627640735009AC598 /* LessAI.h */,
+				84B85E4F27640736009AC598 /* LessAI.m */,
+				84B85E4A27640736009AC598 /* MoreAI.h */,
+				84B85E4B27640736009AC598 /* MoreAI.m */,
+				84B85E4D27640736009AC598 /* ProbAI.h */,
+				84B85E4827640735009AC598 /* ProbAI.m */,
+				84B85E4427640735009AC598 /* SelectAI.h */,
+				84B85E4727640735009AC598 /* SelectAI.m */,
+				84B85E4C27640736009AC598 /* SimpleAI.h */,
+				84B85E4927640735009AC598 /* SimpleAI.m */,
+				84B85E4527640735009AC598 /* ThreeAI.h */,
+				84B85E4E27640736009AC598 /* ThreeAI.m */,
+			);
+			path = Fin;
 			sourceTree = "<group>";
 		};
 		84BDC77C276159470045354D /* 无网络 */ = {
@@ -1309,6 +1352,7 @@
 			files = (
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
+				84B85E5527640736009AC598 /* LessAI.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
@@ -1319,6 +1363,7 @@
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
 				84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */,
 				84B85DE827626B7E009AC598 /* BetRecord.m in Sources */,
+				84B85E5127640736009AC598 /* ProbAI.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
 				84BDC7822761840A0045354D /* PlayCardModel.m in Sources */,
 				276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */,
@@ -1342,6 +1387,7 @@
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				84568C83275E8255006C2906 /* MXWBaiJiaShareAlert.m in Sources */,
+				84B85E5027640736009AC598 /* SelectAI.m in Sources */,
 				84B85E192763DE6A009AC598 /* AdvancedAI.m in Sources */,
 				84B85DE527626A93009AC598 /* BetState.m in Sources */,
 				84B85E162763D117009AC598 /* TwoAI.m in Sources */,
@@ -1350,6 +1396,7 @@
 				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,
 				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
 				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
+				84B85E5227640736009AC598 /* SimpleAI.m in Sources */,
 				84B85DFC2762916D009AC598 /* InitState.m in Sources */,
 				65813236231D396900A3BBFE /* UIView+Extension.m in Sources */,
 				400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */,
@@ -1360,12 +1407,14 @@
 				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
 				84B85E0227629315009AC598 /* CardGroupComparator.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
+				84B85E5327640736009AC598 /* MoreAI.m in Sources */,
 				65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */,
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* CardDataSourceModel.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
+				84B85E5427640736009AC598 /* ThreeAI.m in Sources */,
 				26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */,
 				276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */,
 				A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */,
@@ -1407,6 +1456,7 @@
 				6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */,
 				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
 				84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */,
+				84B85E58276407DA009AC598 /* GameClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
