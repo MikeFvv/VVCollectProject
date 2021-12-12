@@ -22,15 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 加倍算法
 
-/// 玩家 正常是否加倍
+/// 玩家是否加倍拿牌
 /// @param playerTotal 玩家点数
-/// @param bankerTotal 庄家点数
-+ (BOOL)autoDoubleOneAction:(NSInteger)playerTotal bankerTotal:(NSInteger)bankerTotal;
+/// @param isPlayer_A 玩家是否有A
+/// @param bankerTotal 庄家点数  autoRunPlayerStandTakeCards
++ (BOOL)autoRunPlayerDoubleOneTakeCards:(NSInteger)playerTotal isPlayer_A:(BOOL)isPlayer_A bankerTotal:(NSInteger)bankerTotal;
 
-/// 玩家 2张牌带A牌是否加倍算法
-/// @param p_ATotal 玩家点数
-/// @param bankerTotal 庄家点数
-+ (BOOL)autoDoubleOnePoints_A:(NSInteger)p_ATotal bankerTotal:(NSInteger)bankerTotal;
 
 #pragma mark - 庄家是否停止拿牌
 /// 庄家是否停止拿牌
