@@ -49,7 +49,7 @@
 #import "BJDetailsController.h"
 #import "VVFunctionManager.h"
 #import "MXWPokerView.h"
-
+#import "BJSendPokerView.h"
 
 
 #define kFontSizeLabel 20
@@ -61,24 +61,10 @@
 
 @interface BlackJackController ()
 
-// player Properties
-@property (strong, nonatomic) MXWPokerView *playerOneLabel;
-@property (strong, nonatomic) MXWPokerView *playerTwoLabel;
-@property (strong, nonatomic) MXWPokerView *playerThreeLabel;
-@property (strong, nonatomic) MXWPokerView *playerFourLabel;
-@property (strong, nonatomic) MXWPokerView *playerFiveLabel;
-
-@property (strong, nonatomic) UILabel *playerTotalLabel;
+@property (nonatomic, strong) BJSendPokerView *playerSendPokerView;
+@property (nonatomic, strong) BJSendPokerView *bankerSendPokerView;
+// 每盘数据
 @property (strong, nonatomic) NSMutableArray *playershandofCardsArray;
-
-// banker Properties
-@property (strong, nonatomic) MXWPokerView *bankerOneLabel;
-@property (strong, nonatomic) MXWPokerView *bankerTwoLabel;
-@property (strong, nonatomic) MXWPokerView *bankerThreeLabel;
-@property (strong, nonatomic) MXWPokerView *bankerFourLabel;
-@property (strong, nonatomic) MXWPokerView *bankerFiveLabel;
-
-@property (strong, nonatomic) UILabel *bankerTotalLabel;
 @property (strong, nonatomic) NSMutableArray *bankershandofCardsArray;
 
 
@@ -91,6 +77,10 @@
 @property (strong, nonatomic) UILabel *resultTwoLabel;
 @property (strong, nonatomic) UILabel *resultThreeLabel;
 
+@property (nonatomic, strong) BaccaratCollectionView *trendView;
+@property (nonatomic, strong) UITextField *boardNumTextField;
+
+
 @property (nonatomic, assign) NSInteger playerTotal;
 @property (nonatomic, assign) NSInteger p_ATotal;
 @property (nonatomic, assign) NSInteger bankerTotal;
@@ -99,8 +89,6 @@
 @property (strong, nonatomic) CardDataSourceModel *blackJackDataModel;
 @property (strong, nonatomic) NSMutableArray *blackjackDataArray;
 @property (strong, nonatomic) NSMutableArray *resultDataArray;
-
-@property (nonatomic, assign) CGFloat delayTime;
 
 // 是否有出现过A
 @property (nonatomic, assign) BOOL aceFlag_P;
@@ -114,9 +102,7 @@
 @property (nonatomic, assign) NSInteger autoTotalIndex;
 @property (nonatomic, assign) BOOL isEnd;
 
-@property (nonatomic, strong) BaccaratCollectionView *trendView;
 
-@property (nonatomic, strong) UITextField *boardNumTextField;
 
 @end
 
@@ -130,13 +116,9 @@
     self.bankershandofCardsArray = [[NSMutableArray alloc] init];
     self.resultDataArray = [[NSMutableArray alloc] init];
     self.isAutoRun = NO;
-    self.delayTime = 0;
     
     UIBarButtonItem *barBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"详情" style:UIBarButtonItemStylePlain target:self action:@selector(onDetailsData)];
     self.navigationItem.rightBarButtonItem = barBtn1;
-    
-    // 可以延时调用方法
-    //    [self performSelector:@selector(bankerLogic) withObject:nil afterDelay:self.delayTime];
     
     
     [self createUI];
@@ -202,9 +184,6 @@
     [self.playershandofCardsArray addObject:nextCard];
     [self.blackjackDataArray removeObjectAtIndex:0];
     
-    if (self.playershandofCardsArray.count > 10) {
-        NSLog(@"P 大于10张");
-    }
     
     self.playerTotal = self.playerTotal + [nextCard.cardValue integerValue];
     self.p_ATotal = self.playerTotal + 10;
@@ -214,23 +193,8 @@
     }
     
     if (!self.isAutoRun) {
-        if (self.playershandofCardsArray.count > 5) {
-            NSLog(@"P 大于5张");
-        } else if (self.playershandofCardsArray.count == 1) {
-            self.playerOneLabel.model = nextCard;
-        }  else if (self.playershandofCardsArray.count == 2) {
-            self.playerTwoLabel.model = nextCard;
-        } else if (self.playershandofCardsArray.count == 3) {
-            self.playerThreeLabel.model = nextCard;
-        } else if (self.playershandofCardsArray.count == 4) {
-            self.playerFourLabel.model = nextCard;
-        } else if (self.playershandofCardsArray.count == 5) {
-            self.playerFiveLabel.model = nextCard;
-        }
-    }
-    
-    if (!self.isAutoRun) {
-        self.playerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.playerTotal];
+        self.playerSendPokerView.resultDataArray = self.playershandofCardsArray;
+        self.playerSendPokerView.totalPoints = self.playerTotal;
     }
     
     if (self.playershandofCardsArray.count == 1) {
@@ -246,8 +210,7 @@
         
         if (self.playerTotal > 21) {
             if (!self.isAutoRun) {
-                self.playerTotalLabel.text = @"Bust!";
-                self.playerTotalLabel.backgroundColor = [UIColor redColor];
+                self.playerSendPokerView.totalPoints = self.playerTotal;
             }
             [self resultHandler];
             return;
@@ -262,7 +225,8 @@
                         [self onStandButton];
                     }
                 } else {
-                    self.playerTotalLabel.text = [self.playerTotalLabel.text stringByAppendingFormat:@" or %ld", self.p_ATotal];
+                    self.playerSendPokerView.totalPointsLabel.text = [NSString stringWithFormat:@"%ld or %ld", self.playerTotal,self.p_ATotal];
+                    
                 }
                 return;
             }
@@ -274,12 +238,8 @@
                     [self automaticRun];
                 }
             }
-            
-            
         }
-        
     }
-    
 }
 
 #pragma mark - 停牌
@@ -296,6 +256,7 @@
 #pragma mark - Banker发牌
 - (void)bankerLogic {
     if (self.isEnd) {
+        NSLog(@"11");
         return;
     }
     
@@ -321,59 +282,53 @@
     
     if (!self.isAutoRun) {
         if (self.bankershandofCardsArray.count == 1) {
-            self.bankerOneLabel.model = nextCard;
+            
+            self.bankerSendPokerView.resultDataArray = self.bankershandofCardsArray;
             if (self.aceFlag_B) {
-                self.bankerTotalLabel.text = @"1 or 11";
+                self.bankerSendPokerView.totalPointsLabel.text = @"1 or 11";
+                
             } else {
-                self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
+                self.bankerSendPokerView.totalPoints = self.bankerTotal;
             }
             [self playerLogic];
             return;
-        } else if (self.bankershandofCardsArray.count > 5) {
-           NSLog(@"B 大于5张牌");
-        } else if (self.bankershandofCardsArray.count == 2) {
-            self.bankerTwoLabel.model = nextCard;
-        } else if (self.bankershandofCardsArray.count == 3) {
-            self.bankerThreeLabel.model = nextCard;
-        } else if (self.bankershandofCardsArray.count == 4) {
-            self.bankerFourLabel.model = nextCard;
-        } else if (self.bankershandofCardsArray.count == 5) {
-            self.bankerFiveLabel.model = nextCard;
         }
+        self.bankerSendPokerView.resultDataArray = self.bankershandofCardsArray;
     }
     
     // 爆牌
     if (self.bankerTotal > 21) {
         
         if (!self.isAutoRun) {
-            self.bankerTotalLabel.text = @"Bust!";
-            self.bankerTotalLabel.backgroundColor = [UIColor redColor];
+            self.bankerSendPokerView.totalPoints = self.bankerTotal;
+          
         }
         
         [self resultHandler];
         
     } else if (self.aceFlag_B && self.bankerTotal <= 11) {
-        if (!self.isAutoRun) {
-            self.bankerTotalLabel.text = [self.bankerTotalLabel.text stringByAppendingFormat:@" or %ld", self.b_ATotal];
-        }
+        
         
         // 大于11 全部算 bankerTotal 的值
         if (self.b_ATotal >= 18 || (self.b_ATotal == 17 && self.b_ATotal > self.playerTotal)) {
             self.bankerTotal = self.b_ATotal;
             [self resultHandler];
         } else {
+            if (!self.isAutoRun) {
+                self.bankerSendPokerView.totalPointsLabel.text = [NSString stringWithFormat:@"%ld or %ld", self.bankerTotal,self.b_ATotal];
+            }
             [self bankerLogic];
         }
     } else if (self.bankerTotal >= 17) {
         if (!self.isAutoRun) {
-            self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
+            self.bankerSendPokerView.totalPoints = self.bankerTotal;
         }
         
         [self resultHandler];
         
     } else {
         if (!self.isAutoRun) {
-            self.bankerTotalLabel.text = [NSString stringWithFormat:@"%ld", self.bankerTotal];
+            self.bankerSendPokerView.totalPoints = self.bankerTotal;
         }
         
         [self bankerLogic];
@@ -472,7 +427,7 @@
     if (playerShighestHand > bankerShighestHand) {  // Player
         
         if (!self.isAutoRun) {
-            self.resultlLabel.text = @"Player";
+            self.resultlLabel.text = @"Player Win";
             self.resultlLabel.backgroundColor = [UIColor blueColor];
         }
         
@@ -480,7 +435,7 @@
     } else if (bankerShighestHand > playerShighestHand) {  // Banker
         
         if (!self.isAutoRun) {
-            self.resultlLabel.text = @"Banker";
+            self.resultlLabel.text = @"Banker Win";
             self.resultlLabel.backgroundColor = [UIColor redColor];
         }
         
@@ -495,25 +450,19 @@
         [dict setObject:@(0) forKey:@"WinType"];
     }
     
-    // Pair 对子
-    NSString *oneValue = [NSString stringWithFormat:@"%@", self.playerOneLabel.model.cardValue];
-    NSString *twoValue = [NSString stringWithFormat:@"%@", self.playerTwoLabel.model.cardValue];
-    if ([oneValue isEqualToString:twoValue]) {
-        [dict setObject:@(YES) forKey:@"isPlayerPair"];
-    }
     
-    if (!self.isAutoRun) {
-        self.hitButton.enabled = NO;
-        self.standButton.enabled = NO;
-        self.hitButton.backgroundColor = [UIColor darkGrayColor];
-        self.standButton.backgroundColor = [UIColor darkGrayColor];
-    }
+    // Pair 对子
+//    NSString *oneValue = [NSString stringWithFormat:@"%@", self.playerOneLabel.model.cardValue];
+//    NSString *twoValue = [NSString stringWithFormat:@"%@", self.playerTwoLabel.model.cardValue];
+//    if ([oneValue isEqualToString:twoValue]) {
+//        [dict setObject:@(YES) forKey:@"isPlayerPair"];
+//    }
+    
     
     // 加倍标示
     if (self.isDoubleOne) {
         [dict setObject:@(YES) forKey:@"isDoubleOne"];
     }
-    
     
     // 注意 如果直接保存， 会全部更换为目前的key对应的值  copy 解决
     [dict setObject:[self.playershandofCardsArray copy] forKey:@"PlayerArray"];
@@ -533,6 +482,11 @@
     } else {
         [self resultStatisticsContinuous];
         self.trendView.model = self.resultDataArray;
+        
+        self.hitButton.enabled = NO;
+        self.standButton.enabled = NO;
+        self.hitButton.backgroundColor = [UIColor darkGrayColor];
+        self.standButton.backgroundColor = [UIColor darkGrayColor];
     }
     
 }
@@ -624,20 +578,6 @@
 
 #pragma mark - 重置
 - (void)resetPlay {
-    [self.playerOneLabel dataClear];
-    [self.playerTwoLabel dataClear];
-    [self.playerThreeLabel dataClear];
-    [self.playerFourLabel dataClear];
-    [self.playerFiveLabel dataClear];
-    
-    [self.bankerOneLabel dataClear];
-    [self.bankerTwoLabel dataClear];
-    [self.bankerThreeLabel dataClear];
-    [self.bankerFourLabel dataClear];
-    [self.bankerFiveLabel dataClear];
-    
-    self.playerTotalLabel.text = nil;
-    self.bankerTotalLabel.text = nil;
     
     self.resultlLabel.text = nil;
     
@@ -661,8 +601,6 @@
     
     
     if (!self.isAutoRun) {
-        self.playerTotalLabel.backgroundColor = [UIColor clearColor];
-        self.bankerTotalLabel.backgroundColor = [UIColor clearColor];
         self.resultlLabel.backgroundColor = [UIColor clearColor];
         
         self.hitButton.enabled = YES;
@@ -673,7 +611,7 @@
     
     if (!self.isEnd) {
 //        [self playerLogic];  // 会造成崩溃 循环调用
-        [self performSelector:@selector(playerLogic) withObject:nil afterDelay:self.delayTime];
+        [self performSelector:@selector(playerLogic) withObject:nil afterDelay:0.5];
     }
 }
 
@@ -720,146 +658,64 @@
 #pragma mark - UI界面
 - (void)createUI {
     
-    self.view.backgroundColor = [UIColor colorWithRed:0.031 green:0.486 blue:0.255 alpha:1.000];
+    self.view.backgroundColor = [UIColor whiteColor];
     
+    UIImageView *backImageView = [[UIImageView alloc] init];
+    backImageView.userInteractionEnabled = YES;
+    backImageView.image = [UIImage imageNamed:@"game_back_1242x2208.jpg"];
+    [self.view addSubview:backImageView];
     
-    UIView *pbBackView = [[UIView alloc] init];
-    pbBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:pbBackView];
-    
-    [pbBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.mas_top).offset(10);
-        make.left.mas_equalTo(self.view.mas_left).offset(10);
-        make.right.mas_equalTo(self.view.mas_right).offset(-10);
-        make.height.mas_equalTo(210);
+    [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.view);
     }];
     
-    UIButton *autoButton = [[UIButton alloc] init];
-    autoButton.titleLabel.font = [UIFont boldSystemFontOfSize:kFontSizeLabel];
-    [autoButton setTitle:@"Auto" forState:UIControlStateNormal];
-    [autoButton addTarget:self action:@selector(onAuto:) forControlEvents:UIControlEventTouchUpInside];
-    autoButton.tag = 102;
-    autoButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
-    autoButton.layer.cornerRadius = 5;
-    [pbBackView addSubview:autoButton];
     
-    [autoButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(pbBackView.mas_top);
-        make.right.mas_equalTo(pbBackView.mas_right);
-        make.size.mas_equalTo(CGSizeMake(50, 40));
-    }];
+    [backImageView addSubview:self.playerSendPokerView];
+//    [self.playerSendPokerView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(backImageView.mas_top).offset(10);
+//        make.left.equalTo(backImageView.mas_left).offset(10);
+//        make.right.equalTo(backImageView.mas_centerX).offset(-10);
+//        make.height.mas_equalTo(180);
+//    }];
     
-    UITextField *boardNumTextField = [[UITextField alloc] init];
-    boardNumTextField.text = @"1000";
-    boardNumTextField.keyboardType = UIKeyboardTypeNumberPad;
-    boardNumTextField.textColor = [UIColor grayColor];
-    boardNumTextField.layer.cornerRadius = 5;
-    boardNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
-    boardNumTextField.layer.borderWidth = 1;
-    [pbBackView addSubview:boardNumTextField];
-    _boardNumTextField = boardNumTextField;
+    [backImageView addSubview:self.bankerSendPokerView];
+//    [self.bankerSendPokerView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(backImageView.mas_top).offset(10);
+//        make.left.equalTo(self.playerSendPokerView.mas_right).offset(20);
+//        make.right.equalTo(backImageView.mas_right).offset(-10);
+//        make.height.mas_equalTo(180);
+//    }];
     
-    [boardNumTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(autoButton.mas_bottom).offset(5);
-        make.right.mas_equalTo(pbBackView.mas_right);
-        make.size.mas_equalTo(CGSizeMake(50, 40));
-    }];
-    
-    UILabel *playerLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 100, 35)];
-    playerLabel.text = @"Player";
-    playerLabel.textColor = [UIColor whiteColor];
-    playerLabel.font = [UIFont systemFontOfSize:kFontSizeLabel];
-    [pbBackView addSubview:playerLabel];
-    
-    UILabel *bankerLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 100, 35)];
-    bankerLabel.text = @"Banker";
-    bankerLabel.textColor = [UIColor whiteColor];
-    bankerLabel.font = [UIFont systemFontOfSize:kFontSizeLabel];
-    [pbBackView addSubview:bankerLabel];
-    
-    
-    MXWPokerView *pOneLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(10, 30, 35, 45)];
-    [pbBackView addSubview:pOneLabel];
-    _playerOneLabel = pOneLabel;
-    
-    MXWPokerView *pTwoLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(55, 30, 35, 45)];
-    [pbBackView addSubview:pTwoLabel];
-    _playerTwoLabel = pTwoLabel;
-    
-    MXWPokerView *pThreeLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(10, 85, 35, 45)];
-    [pbBackView addSubview:pThreeLabel];
-    _playerThreeLabel = pThreeLabel;
-    
-    MXWPokerView *pFourLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(55, 85, 35, 45)];
-    [pbBackView addSubview:pFourLabel];
-    _playerFourLabel = pFourLabel;
-    
-    MXWPokerView *pFiveLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(100, 85, 35, 45)];
-    [pbBackView addSubview:pFiveLabel];
-    _playerFiveLabel = pFiveLabel;
-    
-    UILabel *pTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 180, 80, 20)];
-    pTotalLabel.text = @"--";
-    pTotalLabel.textAlignment = NSTextAlignmentCenter;
-    pTotalLabel.textColor = [UIColor whiteColor];
-    pTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:pTotalLabel];
-    _playerTotalLabel = pTotalLabel;
-    
-    
-    
-    MXWPokerView *bOneLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(170, 30, 35, 45)];
-    [pbBackView addSubview:bOneLabel];
-    _bankerOneLabel = bOneLabel;
-    
-    MXWPokerView *bTwoLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(215, 30, 35, 45)];
-    [pbBackView addSubview:bTwoLabel];
-    _bankerTwoLabel = bTwoLabel;
-    
-    MXWPokerView *bThreeLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(170, 85, 35, 45)];
-    [pbBackView addSubview:bThreeLabel];
-    _bankerThreeLabel = bThreeLabel;
-    
-    MXWPokerView *bFourLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(215, 85, 35, 45)];
-    [pbBackView addSubview:bFourLabel];
-    _bankerFourLabel = bFourLabel;
-    
-    MXWPokerView *bFiveLabel = [[MXWPokerView alloc] initWithFrame:CGRectMake(260, 85, 35, 45)];
-    [pbBackView addSubview:bFiveLabel];
-    _bankerFiveLabel = bFiveLabel;
-    
-    
-    UILabel *bTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 180, 80, 20)];
-    bTotalLabel.text = @"--";
-    //    bTotalLabel.textAlignment = NSTextAlignmentCenter;
-    bTotalLabel.textColor = [UIColor whiteColor];
-    bTotalLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:bTotalLabel];
-    _bankerTotalLabel = bTotalLabel;
-    
-    
-    UILabel *resultlLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 180, 55, 20)];
-    resultlLabel.text = @"NO";
+
+
+    UILabel *resultlLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 180, 80, 20)];
+    resultlLabel.text = @"";
     resultlLabel.textColor = [UIColor whiteColor];
-    resultlLabel.font = [UIFont fontWithName:kFontName size:kFontSizeLabel];
-    [pbBackView addSubview:resultlLabel];
+    resultlLabel.font = [UIFont boldSystemFontOfSize:17];
+    [backImageView addSubview:resultlLabel];
     _resultlLabel = resultlLabel;
     
     
+    [resultlLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.playerSendPokerView.mas_centerY);
+        make.centerX.equalTo(backImageView.mas_centerX);
+    }];
+
+
     UIView *btnBackView = [[UIView alloc] init];
     btnBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:btnBackView];
-    
+    [backImageView addSubview:btnBackView];
+
     [btnBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(pbBackView.mas_bottom).offset(10);
-        make.left.mas_equalTo(self.view.mas_left).offset(10);
-        make.right.mas_equalTo(self.view.mas_right).offset(-10);
+        make.top.equalTo(self.playerSendPokerView.mas_bottom).offset(10);
+        make.left.equalTo(backImageView.mas_left).offset(10);
+        make.right.equalTo(backImageView.mas_right).offset(-10);
         make.height.mas_equalTo(50);
     }];
-    
+
     UIButton *hitButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 90, 50)];
     hitButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [hitButton setTitle:@"Hit(加牌)" forState:UIControlStateNormal];
+    [hitButton setTitle:@"Hit(拿牌)" forState:UIControlStateNormal];
     [hitButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     hitButton.tag = 101;
     hitButton.backgroundColor = [UIColor colorWithRed:0.255 green:0.412 blue:0.882 alpha:1.000];
@@ -867,10 +723,10 @@
     hitButton.layer.cornerRadius = 5;
     [btnBackView addSubview:hitButton];
     _hitButton = hitButton;
-    
+
     UIButton *standButton = [[UIButton alloc] initWithFrame:CGRectMake(120, 0, 90, 50)];
     standButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
-    [standButton setTitle:@"Stand(停牌)" forState:UIControlStateNormal];
+    [standButton setTitle:@"Stand(停止)" forState:UIControlStateNormal];
     [standButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     standButton.tag = 102;
     standButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
@@ -878,8 +734,8 @@
     standButton.layer.cornerRadius = 5;
     [btnBackView addSubview:standButton];
     _standButton = standButton;
-    
-    
+
+
     UIButton *resetButton = [[UIButton alloc] initWithFrame:CGRectMake(240, 0, 90, 50)];
     resetButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     [resetButton setTitle:@"Reset(开始)" forState:UIControlStateNormal];
@@ -889,69 +745,140 @@
     [resetButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     resetButton.layer.cornerRadius = 5;
     [btnBackView addSubview:resetButton];
-    
+
     BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(20, 450, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
     //    trendView.backgroundColor = [UIColor redColor];
     trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.view addSubview:trendView];
+    [backImageView addSubview:trendView];
     _trendView = trendView;
+
     
     UIView *textBackView = [[UIView alloc] init];
     textBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:textBackView];
-    
+    [backImageView addSubview:textBackView];
+
     [textBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(btnBackView.mas_bottom).offset(10);
-        make.left.mas_equalTo(self.view.mas_left).offset(10);
-        make.right.mas_equalTo(self.view.mas_right).offset(-10);
+        make.top.equalTo(btnBackView.mas_bottom).offset(10);
+        make.left.equalTo(backImageView.mas_left).offset(10);
+        make.right.equalTo(backImageView.mas_right).offset(-10);
         make.height.mas_equalTo(120);
     }];
+
     
+    
+    
+    
+    
+    
+    #pragma mark  统计
     UILabel *resultOneLabel = [[UILabel alloc] init];
     resultOneLabel.text = @"-";
     resultOneLabel.font = [UIFont systemFontOfSize:16];
     resultOneLabel.textColor = [UIColor darkGrayColor];
     resultOneLabel.numberOfLines = 0;
     resultOneLabel.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:resultOneLabel];
+    [backImageView addSubview:resultOneLabel];
     _resultOneLabel = resultOneLabel;
-    
+
     [resultOneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(textBackView.mas_top);
-        make.left.mas_equalTo(textBackView.mas_left);
-        make.right.mas_equalTo(textBackView.mas_right);
+        make.top.equalTo(textBackView.mas_top);
+        make.left.equalTo(textBackView.mas_left);
+        make.right.equalTo(textBackView.mas_right);
     }];
-    
+
     UILabel *resultTwoLabel = [[UILabel alloc] init];
     resultTwoLabel.text = @"-";
     resultTwoLabel.font = [UIFont systemFontOfSize:16];
     resultTwoLabel.textColor = [UIColor darkGrayColor];
     resultTwoLabel.numberOfLines = 0;
     resultTwoLabel.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:resultTwoLabel];
+    [backImageView addSubview:resultTwoLabel];
     _resultTwoLabel = resultTwoLabel;
-    
+
     [resultTwoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(resultOneLabel.mas_bottom);
-        make.left.mas_equalTo(textBackView.mas_left);
-        make.right.mas_equalTo(textBackView.mas_right);
+        make.top.equalTo(resultOneLabel.mas_bottom);
+        make.left.equalTo(textBackView.mas_left);
+        make.right.equalTo(textBackView.mas_right);
     }];
-    
+
+
     UILabel *resultThreeLabel = [[UILabel alloc] init];
     resultThreeLabel.text = @"-";
     resultThreeLabel.font = [UIFont systemFontOfSize:16];
     resultThreeLabel.textColor = [UIColor darkGrayColor];
     resultThreeLabel.numberOfLines = 0;
     resultThreeLabel.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:resultThreeLabel];
+    [backImageView addSubview:resultThreeLabel];
     _resultThreeLabel = resultThreeLabel;
-    
+
     [resultThreeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(resultTwoLabel.mas_bottom);
-        make.left.mas_equalTo(textBackView.mas_left);
-        make.right.mas_equalTo(textBackView.mas_right);
+        make.top.equalTo(resultTwoLabel.mas_bottom);
+        make.left.equalTo(textBackView.mas_left);
+        make.right.equalTo(textBackView.mas_right);
     }];
+
+    
+    
+    UIView *bottomBgView = [[UIView alloc] init];
+    bottomBgView.backgroundColor = [UIColor clearColor];
+    [backImageView addSubview:bottomBgView];
+    
+    [bottomBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(backImageView.mas_bottom).offset(-mxwBottomSafeAreaHeight());
+        make.left.equalTo(backImageView.mas_left).offset(10);
+        make.right.equalTo(backImageView.mas_right).offset(-10);
+        make.height.mas_equalTo(50);
+    }];
+   
+    
+    UIButton *autoButton = [[UIButton alloc] init];
+    autoButton.titleLabel.font = [UIFont boldSystemFontOfSize:kFontSizeLabel];
+    [autoButton setTitle:@"Auto" forState:UIControlStateNormal];
+    [autoButton addTarget:self action:@selector(onAuto:) forControlEvents:UIControlEventTouchUpInside];
+    autoButton.tag = 102;
+    autoButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
+    autoButton.layer.cornerRadius = 5;
+    [bottomBgView addSubview:autoButton];
+
+    [autoButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomBgView.mas_centerY);
+        make.right.equalTo(bottomBgView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(50, 40));
+    }];
+
+    UITextField *boardNumTextField = [[UITextField alloc] init];
+    boardNumTextField.text = @"1000";
+    boardNumTextField.keyboardType = UIKeyboardTypeNumberPad;
+    boardNumTextField.textColor = [UIColor grayColor];
+    boardNumTextField.layer.cornerRadius = 5;
+    boardNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    boardNumTextField.layer.borderWidth = 1;
+    [bottomBgView addSubview:boardNumTextField];
+    _boardNumTextField = boardNumTextField;
+
+    [boardNumTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomBgView.mas_centerY);
+        make.right.equalTo(autoButton.mas_left).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(50, 40));
+    }];
+    
+}
+
+
+-(BJSendPokerView *)playerSendPokerView {
+    if (!_playerSendPokerView) {
+        _playerSendPokerView = [[BJSendPokerView alloc] initWithFrame:CGRectMake(20, 10, mxwScreenWidth()/2-20*2, 200)];
+        _playerSendPokerView.nameLabel.text = @"Player";
+    }
+    return _playerSendPokerView;
+}
+-(BJSendPokerView *)bankerSendPokerView {
+    if (!_bankerSendPokerView) {
+        _bankerSendPokerView = [[BJSendPokerView alloc] initWithFrame:CGRectMake(20+mxwScreenWidth()/2, 10, mxwScreenWidth()/2-20*2, 200)];
+        _bankerSendPokerView.nameLabel.text = @"Banker";
+    }
+    return _bankerSendPokerView;
 }
 
 @end

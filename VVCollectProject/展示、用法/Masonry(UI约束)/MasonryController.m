@@ -24,9 +24,9 @@
     /*
     全屏居中： make.center.equalTo(self.window)
     make.top.equalTo(self.window).with.offset(15.0)  上边界
-        或  make.top.mas_equalTo(15.0)   上边界
-    上边界、左边界：make.top.left.mas_equalTo(15.0)
-    下边界、右边界：make.bottom.right.mas_equalTo(-15.0)
+        或  make.top.equalTo(15.0)   上边界
+    上边界、左边界：make.top.left.equalTo(15.0)
+    下边界、右边界：make.bottom.right.equalTo(-15.0)
     
     
     3、equalTo与mas_equalTo有什么区别？
@@ -41,7 +41,7 @@
      设置宽度为self.view的一半，multipliedBy是倍数的意思，也就是，使宽度等于self.view宽度的0.5倍
      make.width.equalTo(self.view.mas_width).multipliedBy(0.5);
      
-     make.left.right.mas_equalTo(0);
+     make.left.right.equalTo(0);
      
      make.edges.equalTo(self.view);
      

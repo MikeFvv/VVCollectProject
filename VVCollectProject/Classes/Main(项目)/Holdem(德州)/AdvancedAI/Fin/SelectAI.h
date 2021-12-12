@@ -10,11 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+static const int NUM_6_8 = 0;
+static const int NUM_4_5 = 1;
+static const int NUM_3 = 2;
+static const int NUM_2 = 3;
+
+
 @interface SelectAI : SuperAI
-public final static int NUM_6_8 = 0;
-    public final static int NUM_4_5 = 1;
-    public final static int NUM_3 = 2;
-    public final static int NUM_2 = 3;
+
 @end
 
 NS_ASSUME_NONNULL_END
