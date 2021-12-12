@@ -17,9 +17,9 @@
 /// 牌面大小 1-13
 @property (nonatomic, assign) NSInteger cardSizeValue;
 /// 计算点数 1   L-11也算10
-@property (nonatomic, strong) NSNumber* cardValue;
+@property (nonatomic, assign) NSInteger cardValue;
 /// 变化点数  11
-@property (nonatomic, strong) NSNumber* alterValue;
+@property (nonatomic, assign) NSInteger alterValue;
 
 /// 牌面字符  例如 A
 @property (nonatomic, copy) NSString *cardStr;

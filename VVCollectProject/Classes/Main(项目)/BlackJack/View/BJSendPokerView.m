@@ -23,7 +23,7 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
 
 @implementation BJSendPokerView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self createUI];
@@ -35,20 +35,43 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
     _resultDataArray = resultDataArray;
     
     [self.collectionView reloadData];
+    
+    // 计算点数
+    [self calculateNumberPoints];
 }
 
-- (void)setTotalPoints:(NSInteger)totalPoints {
-    _totalPoints = totalPoints;
+- (void)calculateNumberPoints {
+    NSInteger totalPoints = 0;
+    NSInteger totalAlterValue = 0;
+    BOOL isfirstA = NO;
+    for (PlayCardModel *model in self.resultDataArray) {
+        BOOL isCurrent = YES;
+        if (model.alterValue == 11 && !isfirstA) {
+            isfirstA = YES;
+            isCurrent = NO;
+            totalAlterValue = totalPoints + model.alterValue;
+        }
+        totalPoints = totalPoints + model.cardValue;
+        
+        if (isfirstA && isCurrent) {
+            totalAlterValue = totalAlterValue + model.cardValue;
+        }
+    }
     
     if (totalPoints > 21) {
         self.totalPointsLabel.text = @"Bust!";
         self.totalPointsLabel.backgroundColor = [UIColor redColor];
     } else {
-        self.totalPointsLabel.text = [NSString stringWithFormat:@"%ld", totalPoints];
+        NSString *str = nil;
+        if (totalAlterValue > 0 && totalAlterValue <= 21) {
+            str = [NSString stringWithFormat:@"%ld or %ld", totalPoints,totalAlterValue];;
+        } else {
+            str = [NSString stringWithFormat:@"%ld", totalPoints];;
+        }
+        self.totalPointsLabel.text = str;
         self.totalPointsLabel.backgroundColor = [UIColor clearColor];
     }
 }
-
 
 
 

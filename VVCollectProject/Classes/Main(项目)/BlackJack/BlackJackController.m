@@ -50,7 +50,7 @@
 #import "VVFunctionManager.h"
 #import "MXWPokerView.h"
 #import "BJSendPokerView.h"
-
+#import "BlackJackManager.h"
 
 #define kFontSizeLabel 20
 //#define kFontName  @"Futura"
@@ -149,10 +149,16 @@
     self.isAutoRun = YES;
     self.autoTotalIndex = 0;
     self.autoTotalIndex = self.boardNumTextField.text.integerValue;
-    [self automaticRun];
     sender.backgroundColor = [UIColor darkGrayColor];
     sender.enabled = YES;
     
+    
+    BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
+    if (isStand) {
+        [self onStandButton];
+    } else {
+        [self playerLogic];
+    }
 }
 
 
@@ -174,6 +180,15 @@
     }
 }
 
+#pragma - mark - 玩家发一张牌
+- (void)playerSendOneCard {
+    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+    [self.playershandofCardsArray addObject:nextCard];
+    [self.blackjackDataArray removeObjectAtIndex:0];
+    
+    
+}
+
 #pragma mark - 玩家逻辑  玩家Hit
 - (void)playerLogic {
     if (self.isEnd) {
@@ -185,33 +200,57 @@
     [self.blackjackDataArray removeObjectAtIndex:0];
     
     
-    self.playerTotal = self.playerTotal + [nextCard.cardValue integerValue];
-    self.p_ATotal = self.playerTotal + 10;
+    self.playerTotal = self.playerTotal + nextCard.cardValue;
+    self.p_ATotal = nextCard.alterValue;
     
-    if ([nextCard.cardValue integerValue] == 1) {
+    if (nextCard.cardValue == 1) {
         self.aceFlag_P = YES;
     }
     
-    if (!self.isAutoRun) {
-        self.playerSendPokerView.resultDataArray = self.playershandofCardsArray;
-        self.playerSendPokerView.totalPoints = self.playerTotal;
-    }
     
     if (self.playershandofCardsArray.count == 1) {
         [self bankerLogic];
         return;
     } else if (self.isAutoRun && self.playershandofCardsArray.count == 2) {
         if (self.aceFlag_P) {
-            [self softPoints_A];
+            BOOL isDoubleOne = [BlackJackManager autoDoubleOnePoints_A:self.playerTotal bankerTotal:self.bankerTotal];
+            if (isDoubleOne) {
+                self.isDoubleOne = YES;
+                [self playerLogic];
+            } else {
+                self.isDoubleOne = NO;
+                BOOL isStand = [BlackJackManager automaticRunPoints_A:self.p_ATotal bankerTotal:self.bankerTotal];
+                if (isStand) {
+                    [self onStandButton];
+                } else {
+                    [self playerLogic];
+                }
+            }
+            
         } else {
-            [self doubleOneAction];
+            BOOL isDoubleOne = [BlackJackManager autoDoubleOneAction:self.playerTotal bankerTotal:self.bankerTotal];
+            if (isDoubleOne) {
+                self.isDoubleOne = YES;
+                [self playerLogic];
+            } else {
+                self.isDoubleOne = NO;
+                BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
+                if (isStand) {
+                    [self onStandButton];
+                } else {
+                    [self playerLogic];
+                }
+            }
         }
     } else {
         
+        if (!self.isAutoRun) {
+            self.playerSendPokerView.resultDataArray = self.playershandofCardsArray;
+          
+        }
+        
         if (self.playerTotal > 21) {
-            if (!self.isAutoRun) {
-                self.playerSendPokerView.totalPoints = self.playerTotal;
-            }
+            
             [self resultHandler];
             return;
         } else {
@@ -224,10 +263,7 @@
                     } else {
                         [self onStandButton];
                     }
-                } else {
-                    self.playerSendPokerView.totalPointsLabel.text = [NSString stringWithFormat:@"%ld or %ld", self.playerTotal,self.p_ATotal];
-                    
-                }
+                } 
                 return;
             }
             
@@ -235,7 +271,12 @@
                 if (self.isDoubleOne) {
                     [self onStandButton];
                 } else {
-                    [self automaticRun];
+                    BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
+                    if (isStand) {
+                        [self onStandButton];
+                    } else {
+                        [self playerLogic];
+                    }
                 }
             }
         }
@@ -264,14 +305,12 @@
     [self.bankershandofCardsArray addObject:nextCard];
     [self.blackjackDataArray removeObjectAtIndex:0];
     
-    if (self.bankershandofCardsArray.count > 10) {
-        NSLog(@"B 大于10张");
-    }
-    self.bankerTotal = self.bankerTotal + [nextCard.cardValue integerValue];
+    
+    self.bankerTotal = self.bankerTotal + nextCard.cardValue;
     self.b_ATotal = self.bankerTotal + 10;
     
     // A 判断
-    if ([nextCard.cardValue integerValue] == 1) {
+    if (nextCard.cardValue == 1) {
         self.aceFlag_B = YES;
     }
     
@@ -284,12 +323,7 @@
         if (self.bankershandofCardsArray.count == 1) {
             
             self.bankerSendPokerView.resultDataArray = self.bankershandofCardsArray;
-            if (self.aceFlag_B) {
-                self.bankerSendPokerView.totalPointsLabel.text = @"1 or 11";
-                
-            } else {
-                self.bankerSendPokerView.totalPoints = self.bankerTotal;
-            }
+           
             [self playerLogic];
             return;
         }
@@ -298,11 +332,6 @@
     
     // 爆牌
     if (self.bankerTotal > 21) {
-        
-        if (!self.isAutoRun) {
-            self.bankerSendPokerView.totalPoints = self.bankerTotal;
-          
-        }
         
         [self resultHandler];
         
@@ -314,90 +343,19 @@
             self.bankerTotal = self.b_ATotal;
             [self resultHandler];
         } else {
-            if (!self.isAutoRun) {
-                self.bankerSendPokerView.totalPointsLabel.text = [NSString stringWithFormat:@"%ld or %ld", self.bankerTotal,self.b_ATotal];
-            }
             [self bankerLogic];
         }
     } else if (self.bankerTotal >= 17) {
-        if (!self.isAutoRun) {
-            self.bankerSendPokerView.totalPoints = self.bankerTotal;
-        }
-        
+       
         [self resultHandler];
         
     } else {
-        if (!self.isAutoRun) {
-            self.bankerSendPokerView.totalPoints = self.bankerTotal;
-        }
-        
         [self bankerLogic];
     }
     
     
     
 }
-
-#pragma mark - 加倍算法
-- (void)doubleOneAction {
-    // 加倍算法
-    if (self.playerTotal == 9 && (self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-        return;
-    } else if (self.playerTotal == 10 && (self.bankerTotal == 2 || self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6 || self.bankerTotal == 7 || self.bankerTotal == 8 || self.bankerTotal == 9)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-        return;
-    } else if (self.playerTotal == 10 && (self.bankerTotal == 2 || self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6 || self.bankerTotal == 7 || self.bankerTotal == 8 || self.bankerTotal == 9 || self.bankerTotal == 10)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-        return;
-    }
-    
-    [self automaticRun];
-}
-
-#pragma mark - 正常停牌算法
-- (void)automaticRun {
-    
-    if (self.playerTotal == 12 && (self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isStand = YES;
-        [self onStandButton];
-    } else if ((self.playerTotal == 13 || self.playerTotal == 14 || self.playerTotal == 15 || self.playerTotal == 16) && (self.bankerTotal == 2 || self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isStand = YES;
-        [self onStandButton];
-    } else if (self.playerTotal >= 17) {
-        self.isStand = YES;
-        [self onStandButton];
-    } else {
-        [self playerLogic];
-    }
-}
-
-#pragma mark -  2张牌带A的加倍和停牌算法
-- (void)softPoints_A {
-    if ((self.p_ATotal == 13 || self.p_ATotal == 14) && (self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-    } else if ((self.p_ATotal == 15 || self.p_ATotal == 15) && (self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-    } else if (self.p_ATotal == 17 && (self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-    } else if (self.p_ATotal == 18 && (self.bankerTotal == 2 ||self.bankerTotal == 3 || self.bankerTotal == 4 || self.bankerTotal == 5 || self.bankerTotal == 6)) {
-        self.isDoubleOne = YES;
-        [self playerLogic];
-    } else if (self.p_ATotal >= 19 || (self.p_ATotal == 18 && (self.bankerTotal == 7 || self.bankerTotal == 8))) {
-        // 停牌
-        self.isStand = YES;
-        [self onStandButton];
-    } else {
-        [self playerLogic];
-    }
-}
-
 
 
 #pragma mark - 结果处理判断

@@ -79,6 +79,7 @@
 		84B85E632764AE8C009AC598 /* BJSendPokerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E622764AE8C009AC598 /* BJSendPokerCollectionViewCell.m */; };
 		84B85E6627655394009AC598 /* game_back_1242x2208.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E6427655394009AC598 /* game_back_1242x2208.jpg */; };
 		84B85E6727655394009AC598 /* game_back_750x1334.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E6527655394009AC598 /* game_back_750x1334.jpg */; };
+		84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E6A27658821009AC598 /* BlackJackManager.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -296,6 +297,8 @@
 		84B85E622764AE8C009AC598 /* BJSendPokerCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJSendPokerCollectionViewCell.m; sourceTree = "<group>"; };
 		84B85E6427655394009AC598 /* game_back_1242x2208.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = game_back_1242x2208.jpg; sourceTree = "<group>"; };
 		84B85E6527655394009AC598 /* game_back_750x1334.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = game_back_750x1334.jpg; sourceTree = "<group>"; };
+		84B85E6927658821009AC598 /* BlackJackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackManager.h; sourceTree = "<group>"; };
+		84B85E6A27658821009AC598 /* BlackJackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackManager.m; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -800,6 +803,15 @@
 			path = BJ;
 			sourceTree = "<group>";
 		};
+		84B85E6827658806009AC598 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E6927658821009AC598 /* BlackJackManager.h */,
+				84B85E6A27658821009AC598 /* BlackJackManager.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		84BDC77C276159470045354D /* 无网络 */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,11 +827,12 @@
 		A004E78B2226E40A0090DC44 /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
-				A0F91FC5222ECCA700C4EE9C /* View */,
+				84B85E6827658806009AC598 /* Model */,
 				A004E78C2226E4C10090DC44 /* BlackJackController.h */,
 				A004E78D2226E4C10090DC44 /* BlackJackController.m */,
 				A0DCEF5C2236A772002FF19C /* BJDetailsController.h */,
 				A0DCEF5D2236A773002FF19C /* BJDetailsController.m */,
+				A0F91FC5222ECCA700C4EE9C /* View */,
 			);
 			path = BlackJack;
 			sourceTree = "<group>";
@@ -1472,6 +1485,7 @@
 				276C91D1269160C500377224 /* FileHelper.m in Sources */,
 				84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
+				84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
 				6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */,
 				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
