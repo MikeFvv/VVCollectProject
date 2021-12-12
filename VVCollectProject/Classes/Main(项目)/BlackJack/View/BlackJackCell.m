@@ -221,8 +221,8 @@
     for (NSInteger i = 0; i < playerArray.count; i++) {
         PlayCardModel *model = playerArray[i];
         [playerStr appendString:model.cardText];
-        playerNum = playerNum + model.cardValue.integerValue;
-        if (model.cardValue.integerValue == 1) {
+        playerNum = playerNum + model.cardValue;
+        if (model.cardValue == 1) {
             isPlayerA = YES;
         }
     }
@@ -237,8 +237,8 @@
     for (NSInteger j = 0; j < bankerArray.count; j++) {
         PlayCardModel *model = bankerArray[j];
         [bankerStr appendString:model.cardText];
-        bankerNum = bankerNum + model.cardValue.integerValue;
-        if (model.cardValue.integerValue == 1) {
+        bankerNum = bankerNum + model.cardValue;
+        if (model.cardValue == 1) {
             isBankerA = YES;
         }
     }

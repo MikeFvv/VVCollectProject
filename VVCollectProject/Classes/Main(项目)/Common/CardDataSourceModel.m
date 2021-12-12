@@ -71,80 +71,80 @@
                 
                 switch (valueIndex) {
                     case 0:
-                        aCard.cardValue =  [NSNumber numberWithInt:1];
-                        aCard.alterValue = [NSNumber numberWithInt:11];
+                        aCard.cardValue =  1;
+                        aCard.alterValue = 11;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", @"A", aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 1:
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 2:
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 3: 
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 4:
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 5: 
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 6:
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 7: 
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 8:
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 9:
-                        aCard.cardValue = [NSNumber numberWithInt:valueIndex + 1];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = valueIndex + 1;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", [NSNumber numberWithInt:valueIndex + 1], aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 10: 
-                        aCard.cardValue = [NSNumber numberWithInt:10];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = 10;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", @"J", aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 11:
-                        aCard.cardValue = [NSNumber numberWithInt:10];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = 10;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", @"Q", aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
                     case 12:
-                        aCard.cardValue = [NSNumber numberWithInt:10];
-                        aCard.alterValue = nil;
+                        aCard.cardValue = 10;
+                        aCard.alterValue = 0;
                         aCard.cardText = [NSString stringWithFormat:@"%@%@", @"K", aCard.suitSymbol];
                         aCard.longName = [NSString stringWithFormat:@"%@ of %@", [cardTextValues objectAtIndex:valueIndex], [suitsAsText objectAtIndex:suitloopIndex]];
                         break;
