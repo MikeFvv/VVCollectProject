@@ -1,60 +1,58 @@
 //
-//  MXWPokerView.m
+//  BJSendPokerCollectionViewCell.m
 //  VVCollectProject
 //
-//  Created by Admin on 2021/12/9.
+//  Created by Admin on 2021/12/11.
 //  Copyright © 2021 Mike. All rights reserved.
 //
 
-#import "MXWPokerView.h"
+#import "BJSendPokerCollectionViewCell.h"
+#import "BaccaratModel.h"
 
-
-@interface MXWPokerView ()
-
+@interface BJSendPokerCollectionViewCell ()
+@property (nonatomic, strong) UIView *backView;
 /// 扑克字符(点数)
 @property (nonatomic, strong) UILabel *pokerTextLabel;
 /// 扑克花色
 @property (nonatomic, strong) UILabel *pokerColorLabel;
-/// 花色类型
-@property (nonatomic, assign) CardColorType colorTyp;
+
 
 @end
 
-@implementation MXWPokerView
+@implementation BJSendPokerCollectionViewCell
 
-
-- (void)dealloc
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    DLog(@"1");
-}
-
-
--(instancetype)initWithFrame:(CGRect)frame
-{
-    if(self = [super initWithFrame:frame]){
+    if (self = [super initWithFrame:frame]) {
         
         [self createUI];
     }
     return self;
 }
 
-/// 数据清空
-- (void)dataClear {
+- (void)clearDataContent {
+    self.backView.backgroundColor = [UIColor clearColor];
+    self.backView.layer.borderWidth = 0;
     self.pokerTextLabel.text = @"";
     self.pokerColorLabel.text = @"";
+    
 }
 
 - (void)setModel:(PlayCardModel *)model {
     _model = model;
     
-    
     self.pokerTextLabel.text = model.cardStr;
     self.pokerColorLabel.text = model.suitSymbol;
-    self.colorTyp = self.model.colorTyp;
+    
+    [self setLabelColorTypp:self.model.colorTyp];
+    
+    
+    
+    self.backView.backgroundColor = [UIColor whiteColor];
+    self.backView.layer.borderWidth = 1;
 }
 
-- (void)setColorTyp:(CardColorType)colorTyp {
-    _colorTyp = colorTyp;
+- (void)setLabelColorTypp:(CardColorType)colorTyp {
     
     switch (colorTyp) {
         case DIAMONDS:
@@ -72,17 +70,8 @@
     }
 }
 
-- (void)setFromType:(NSInteger)fromType {
-    _fromType = fromType;
-    
-    if (fromType == 1) {
-        self.pokerTextLabel.font = [UIFont boldSystemFontOfSize:30];
-        self.pokerColorLabel.font = [UIFont systemFontOfSize:30];
-    }
-}
 
 - (void)createUI {
-//    self.clipsToBounds = true;
 //    self.backgroundColor = [UIColor whiteColor];
     
     
@@ -92,15 +81,15 @@
     backView.layer.masksToBounds = YES;
     backView.layer.borderWidth = 1;
     backView.layer.borderColor = [UIColor blackColor].CGColor;
-    
     [self addSubview:backView];
+    _backView = backView;
     
     [backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];
     
     UILabel *pokerTextLabel = [[UILabel alloc] init];
-    pokerTextLabel.text = @"--";
+    pokerTextLabel.text = @"";
     pokerTextLabel.font = [UIFont boldSystemFontOfSize:20];
     pokerTextLabel.textColor = [UIColor blackColor];
     pokerTextLabel.textAlignment = NSTextAlignmentCenter;
@@ -114,7 +103,7 @@
     
     
     UILabel *pokerColorLabel = [[UILabel alloc] init];
-    pokerColorLabel.text = @"--";
+    pokerColorLabel.text = @"";
     pokerColorLabel.font = [UIFont systemFontOfSize:20];
     pokerColorLabel.textColor = [UIColor blackColor];
     pokerColorLabel.textAlignment = NSTextAlignmentCenter;
@@ -129,13 +118,5 @@
 }
 
 
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.layer.masksToBounds = true;
-}
-
-
 @end
-
 

@@ -69,7 +69,7 @@
     
     [indexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.mas_centerY);
-        make.left.mas_equalTo(self.mas_left).offset(3);
+        make.left.equalTo(self.mas_left).offset(3);
     }];
     
     UILabel *playerLabel = [[UILabel alloc] init];
@@ -82,8 +82,8 @@
     _playerLabel = playerLabel;
     
     [playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top).offset(3);
-        make.left.mas_equalTo(self.mas_left).offset(30);
+        make.top.equalTo(self.mas_top).offset(3);
+        make.left.equalTo(self.mas_left).offset(30);
     }];
    
     UILabel *bankerLabel = [[UILabel alloc] init];
@@ -96,8 +96,8 @@
     _bankerLabel = bankerLabel;
     
     [bankerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(playerLabel.mas_bottom).offset(2);
-        make.left.mas_equalTo(playerLabel.mas_left);
+        make.top.equalTo(playerLabel.mas_bottom).offset(2);
+        make.left.equalTo(playerLabel.mas_left);
     }];
     
     
@@ -115,7 +115,7 @@
     _playerOrbankerOrTieLabel = playerOrbankerOrTieLabel;
     
     [playerOrbankerOrTieLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.mas_right).offset(-12);
+        make.right.equalTo(self.mas_right).offset(-12);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(yWidth, yWidth));
     }];
@@ -129,7 +129,7 @@
     
     [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(playerOrbankerOrTieLabel.mas_bottom);
-        make.right.mas_equalTo(playerOrbankerOrTieLabel.mas_right);
+        make.right.equalTo(playerOrbankerOrTieLabel.mas_right);
         make.size.mas_equalTo(@(8));
     }];
     
@@ -146,7 +146,7 @@
     _bustLabel = bustLabel;
     
     [bustLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(playerOrbankerOrTieLabel.mas_left).offset(-2);
+        make.right.equalTo(playerOrbankerOrTieLabel.mas_left).offset(-2);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(@(yWidth));
     }];
@@ -159,7 +159,7 @@
     _pointsNumLabel = pointsNumLabel;
     
     [pointsNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(bustLabel.mas_left).offset(-5);
+        make.right.equalTo(bustLabel.mas_left).offset(-5);
         make.centerY.mas_equalTo(self.mas_centerY);
     }];
     
@@ -175,7 +175,7 @@
     _ALabel = ALabel;
     
     [ALabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(pointsNumLabel.mas_left).offset(-5);
+        make.right.equalTo(pointsNumLabel.mas_left).offset(-5);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(@(yWidth));
     }];
@@ -192,7 +192,7 @@
     _doubleLabel = doubleLabel;
     
     [doubleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(ALabel.mas_left).offset(-5);
+        make.right.equalTo(ALabel.mas_left).offset(-5);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(@(yWidth));
     }];
