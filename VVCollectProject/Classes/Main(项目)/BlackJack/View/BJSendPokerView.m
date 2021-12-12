@@ -31,8 +31,8 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
     return self;
 }
 
-- (void)setResultDataArray:(NSMutableArray<PlayCardModel *> *)resultDataArray {
-    _resultDataArray = resultDataArray;
+- (void)setSendCardDataArray:(NSMutableArray<PlayCardModel *> *)sendCardDataArray {
+    _sendCardDataArray = sendCardDataArray;
     
     [self.collectionView reloadData];
     
@@ -44,7 +44,7 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
     NSInteger totalPoints = 0;
     NSInteger totalAlterValue = 0;
     BOOL isfirstA = NO;
-    for (PlayCardModel *model in self.resultDataArray) {
+    for (PlayCardModel *model in self.sendCardDataArray) {
         BOOL isCurrent = YES;
         if (model.alterValue == 11 && !isfirstA) {
             isfirstA = YES;
@@ -81,10 +81,10 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     //    return 10;
-    if (self.resultDataArray.count > 2) {
-        return self.resultDataArray.count + 1;
+    if (self.sendCardDataArray.count > 2) {
+        return self.sendCardDataArray.count + 1;
     }
-    return self.resultDataArray.count;
+    return self.sendCardDataArray.count;
 }
 
 //定义展示的Section的个数
@@ -103,7 +103,7 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
         return cell;
     }
     NSInteger index = indexPath.row > 2 ? indexPath.row-1 : indexPath.row;
-    PlayCardModel *model = (PlayCardModel *)self.resultDataArray[index];
+    PlayCardModel *model = (PlayCardModel *)self.sendCardDataArray[index];
     cell.model = model;
     
     return cell;
@@ -138,11 +138,11 @@ static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollecti
 
 
 #pragma mark -  懒加载
-//- (NSMutableArray *)daluResultDataArray{
-//    if (!_daluResultDataArray) {
-//        _daluResultDataArray = [NSMutableArray array];
+//- (NSMutableArray *)dalusendCardDataArray{
+//    if (!_dalusendCardDataArray) {
+//        _dalusendCardDataArray = [NSMutableArray array];
 //    }
-//    return _daluResultDataArray;
+//    return _dalusendCardDataArray;
 //}
 
 

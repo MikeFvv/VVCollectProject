@@ -80,24 +80,23 @@
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
 @property (nonatomic, strong) UITextField *boardNumTextField;
 
-
+/// 玩家总点数
 @property (nonatomic, assign) NSInteger playerTotal;
-@property (nonatomic, assign) NSInteger p_ATotal;
+/// 庄家总点数
 @property (nonatomic, assign) NSInteger bankerTotal;
-@property (nonatomic, assign) NSInteger b_ATotal;
 
 @property (strong, nonatomic) CardDataSourceModel *blackJackDataModel;
+/// 初始数据
 @property (strong, nonatomic) NSMutableArray *blackjackDataArray;
-@property (strong, nonatomic) NSMutableArray *resultDataArray;
+/// 全部盘数结果
+@property (strong, nonatomic) NSMutableArray<NSMutableDictionary *> *resultDataArray;
 
 // 是否有出现过A
-@property (nonatomic, assign) BOOL aceFlag_P;
-@property (nonatomic, assign) BOOL aceFlag_B;
+@property (nonatomic, assign) BOOL isPlayer_A;
+@property (nonatomic, assign) BOOL isBanker_A;
 @property (nonatomic, assign) BOOL isAutoRun;
 // 加倍 加倍只能拿一张牌
 @property (nonatomic, assign) BOOL isDoubleOne;
-// 停牌
-@property (nonatomic, assign) BOOL isStand;
 // 自动处理局数
 @property (nonatomic, assign) NSInteger autoTotalIndex;
 @property (nonatomic, assign) BOOL isEnd;
@@ -124,6 +123,8 @@
     [self createUI];
     
     [self resetPlay];
+    
+   
 }
 
 
@@ -152,12 +153,11 @@
     sender.backgroundColor = [UIColor darkGrayColor];
     sender.enabled = YES;
     
-    
-    BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
+    BOOL isStand = [BlackJackManager autoRunPlayerStandTakeCards:self.playerTotal isPlayer_A:self.isPlayer_A bankerTotal:self.bankerTotal];
     if (isStand) {
         [self onStandButton];
     } else {
-        [self playerLogic];
+        [self autoAIPlayerLogic];
     }
 }
 
@@ -167,7 +167,7 @@
 {
     switch ([sender tag]) {
         case 101:
-            [self playerLogic];
+            [self getPlayerOneCardLogic];
             break;
         case 102:
             [self onStandButton];
@@ -180,121 +180,37 @@
     }
 }
 
-#pragma - mark - 玩家发一张牌
-- (void)playerSendOneCard {
-    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.playershandofCardsArray addObject:nextCard];
-    [self.blackjackDataArray removeObjectAtIndex:0];
-    
-    
-}
 
-#pragma mark - 玩家逻辑  玩家Hit
-- (void)playerLogic {
-    if (self.isEnd) {
-        return;
-    }
-    //TODO: Handle 'Split' condition  TODO：处理“拆分”状态
-    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.playershandofCardsArray addObject:nextCard];
-    [self.blackjackDataArray removeObjectAtIndex:0];
-    
-    
-    self.playerTotal = self.playerTotal + nextCard.cardValue;
-    self.p_ATotal = nextCard.alterValue;
-    
-    if (nextCard.cardValue == 1) {
-        self.aceFlag_P = YES;
-    }
-    
-    
-    if (self.playershandofCardsArray.count == 1) {
-        [self bankerLogic];
-        return;
-    } else if (self.isAutoRun && self.playershandofCardsArray.count == 2) {
-        if (self.aceFlag_P) {
-            BOOL isDoubleOne = [BlackJackManager autoDoubleOnePoints_A:self.playerTotal bankerTotal:self.bankerTotal];
-            if (isDoubleOne) {
-                self.isDoubleOne = YES;
-                [self playerLogic];
-            } else {
-                self.isDoubleOne = NO;
-                BOOL isStand = [BlackJackManager automaticRunPoints_A:self.p_ATotal bankerTotal:self.bankerTotal];
-                if (isStand) {
-                    [self onStandButton];
-                } else {
-                    [self playerLogic];
-                }
-            }
-            
-        } else {
-            BOOL isDoubleOne = [BlackJackManager autoDoubleOneAction:self.playerTotal bankerTotal:self.bankerTotal];
-            if (isDoubleOne) {
-                self.isDoubleOne = YES;
-                [self playerLogic];
-            } else {
-                self.isDoubleOne = NO;
-                BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
-                if (isStand) {
-                    [self onStandButton];
-                } else {
-                    [self playerLogic];
-                }
-            }
-        }
-    } else {
-        
-        if (!self.isAutoRun) {
-            self.playerSendPokerView.resultDataArray = self.playershandofCardsArray;
-          
-        }
-        
-        if (self.playerTotal > 21) {
-            
-            [self resultHandler];
-            return;
-        } else {
-            
-            // 大于11 全部算 self.playerTotal 的值
-            if (!self.isDoubleOne && self.aceFlag_P && self.playerTotal <= 11) {
-                if (self.isAutoRun) {
-                    if (self.p_ATotal <= 17) {
-                        [self playerLogic];
-                    } else {
-                        [self onStandButton];
-                    }
-                } 
-                return;
-            }
-            
-            if (self.isAutoRun) {
-                if (self.isDoubleOne) {
-                    [self onStandButton];
-                } else {
-                    BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
-                    if (isStand) {
-                        [self onStandButton];
-                    } else {
-                        [self playerLogic];
-                    }
-                }
-            }
-        }
-    }
-}
-
-#pragma mark - 停牌
-- (void)onStandButton {
-    if (self.p_ATotal > self.playerTotal && self.p_ATotal <= 21) {
-        self.playerTotal = self.p_ATotal;
-    } else {
-        self.p_ATotal = 0;
-    }
-    
+-(void)startCard {
+    [self getPlayerOneCardLogic];
     [self bankerLogic];
+    NSLog(@"11");
 }
 
-#pragma mark - Banker发牌
+#pragma mark - 玩家拿牌(玩家Hit)
+- (void)getPlayerOneCardLogic {
+
+    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+    [self.playershandofCardsArray addObject:nextCard];
+    [self.blackjackDataArray removeObjectAtIndex:0];
+    
+    self.playerSendPokerView.sendCardDataArray = self.playershandofCardsArray;
+    
+    // 计算结果
+    self.playerTotal = self.playerTotal + nextCard.cardValue;
+    if (nextCard.alterValue > 0) {
+        self.isPlayer_A = YES;
+    }
+
+
+    if (self.playershandofCardsArray.count >= 2 && self.playerTotal > 21) {
+        [self resultHandler];
+    }
+}
+
+
+
+#pragma mark - 手动Banker发牌
 - (void)bankerLogic {
     if (self.isEnd) {
         NSLog(@"11");
@@ -304,58 +220,56 @@
     PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
     [self.bankershandofCardsArray addObject:nextCard];
     [self.blackjackDataArray removeObjectAtIndex:0];
-    
+    self.bankerSendPokerView.sendCardDataArray = self.bankershandofCardsArray;
     
     self.bankerTotal = self.bankerTotal + nextCard.cardValue;
-    self.b_ATotal = self.bankerTotal + 10;
-    
-    // A 判断
-    if (nextCard.cardValue == 1) {
-        self.aceFlag_B = YES;
+    if (nextCard.alterValue > 0) {
+        self.isBanker_A = YES;
     }
     
-    if (self.isAutoRun && self.bankershandofCardsArray.count == 1) {
-        [self playerLogic];
+    if (self.bankershandofCardsArray.count == 1) {
+        [self getPlayerOneCardLogic];
         return;
     }
     
-    if (!self.isAutoRun) {
-        if (self.bankershandofCardsArray.count == 1) {
-            
-            self.bankerSendPokerView.resultDataArray = self.bankershandofCardsArray;
-           
-            [self playerLogic];
-            return;
-        }
-        self.bankerSendPokerView.resultDataArray = self.bankershandofCardsArray;
+    
+    // 庄家爆牌
+    if (self.bankerTotal > 21) {
+        [self resultHandler];
+        return;
     }
     
-    // 爆牌
-    if (self.bankerTotal > 21) {
-        
-        [self resultHandler];
-        
-    } else if (self.aceFlag_B && self.bankerTotal <= 11) {
-        
-        
-        // 大于11 全部算 bankerTotal 的值
-        if (self.b_ATotal >= 18 || (self.b_ATotal == 17 && self.b_ATotal > self.playerTotal)) {
-            self.bankerTotal = self.b_ATotal;
-            [self resultHandler];
-        } else {
-            [self bankerLogic];
+    
+    BOOL isStand = [BlackJackManager bankerStandTakeCards:self.bankerTotal isBanker_A:self.isBanker_A playerTotal:self.playerTotal];
+    if (isStand) {
+        if (self.isBanker_A) {
+            if (self.bankerTotal + 10 <= 21) {
+                self.bankerTotal = self.bankerTotal + 10;
+            }
         }
-    } else if (self.bankerTotal >= 17) {
-       
         [self resultHandler];
-        
     } else {
         [self bankerLogic];
     }
     
-    
-    
 }
+#pragma mark - 停牌
+- (void)onStandButton {
+    
+    if (self.isPlayer_A) {
+        if (self.playerTotal + 10 <= 21) {
+            self.playerTotal = self.playerTotal + 10;
+        }
+    }
+    
+    [self bankerLogic];
+}
+
+
+
+
+
+
 
 
 #pragma mark - 结果处理判断
@@ -409,14 +323,6 @@
     }
     
     
-    // Pair 对子
-//    NSString *oneValue = [NSString stringWithFormat:@"%@", self.playerOneLabel.model.cardValue];
-//    NSString *twoValue = [NSString stringWithFormat:@"%@", self.playerTwoLabel.model.cardValue];
-//    if ([oneValue isEqualToString:twoValue]) {
-//        [dict setObject:@(YES) forKey:@"isPlayerPair"];
-//    }
-    
-    
     // 加倍标示
     if (self.isDoubleOne) {
         [dict setObject:@(YES) forKey:@"isDoubleOne"];
@@ -447,6 +353,146 @@
         self.standButton.backgroundColor = [UIColor darkGrayColor];
     }
     
+}
+
+
+
+//#pragma mark - 自动玩家逻辑  玩家Hit
+- (void)autoAIPlayerLogic {
+//    if (self.isEnd) {
+//        return;
+//    }
+//    //TODO: Handle 'Split' condition  TODO：处理“拆分”状态
+//    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+//    [self.playershandofCardsArray addObject:nextCard];
+//    [self.blackjackDataArray removeObjectAtIndex:0];
+//
+//
+//    self.playerTotal = self.playerTotal + nextCard.cardValue;
+
+//
+//    if (nextCard.cardValue == 1) {
+//        self.isPlayer_A = YES;
+//    }
+//
+//
+//    if (self.playershandofCardsArray.count == 1) {
+//        [self bankerLogic];
+//        return;
+//    }
+//
+//    if (self.playershandofCardsArray.count == 2) {
+//        if (self.isPlayer_A) {
+//            BOOL isDoubleOne = [BlackJackManager autoDoubleOnePoints_A:self.playerTotal bankerTotal:self.bankerTotal];
+//            if (isDoubleOne) {
+//                self.isDoubleOne = YES;
+//                [self autoAIPlayerLogic];
+//            } else {
+//                self.isDoubleOne = NO;
+//                BOOL isStand = [BlackJackManager automaticRunPoints_A:self.p_ATotal bankerTotal:self.bankerTotal];
+//                if (isStand) {
+//                    [self onStandButton];
+//                } else {
+//                    [self autoAIPlayerLogic];
+//                }
+//            }
+//
+//        } else {
+//            BOOL isDoubleOne = [BlackJackManager autoDoubleOneAction:self.playerTotal bankerTotal:self.bankerTotal];
+//            if (isDoubleOne) {
+//                self.isDoubleOne = YES;
+//                [self autoAIPlayerLogic];
+//            } else {
+//                self.isDoubleOne = NO;
+//                BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
+//                if (isStand) {
+//                    [self onStandButton];
+//                } else {
+//                    [self autoAIPlayerLogic];
+//                }
+//            }
+//        }
+//    } else {
+//
+//        if (self.playerTotal > 21) {
+//            [self resultHandler];
+//            return;
+//        }
+//
+//
+//        // 大于11 全部算 self.playerTotal 的值
+//        if (!self.isDoubleOne && self.isPlayer_A && self.playerTotal <= 11) {
+//            if (self.p_ATotal <= 17) {
+//                [self autoAIPlayerLogic];
+//            } else {
+//                [self onStandButton];
+//            }
+//            return;
+//        }
+//
+//        if (self.isDoubleOne) {
+//            [self onStandButton];
+//        } else {
+//            BOOL isStand = [BlackJackManager automaticRun:self.playerTotal bankerTotal:self.bankerTotal];
+//            if (isStand) {
+//                [self onStandButton];
+//            } else {
+//                [self autoAIPlayerLogic];
+//            }
+//        }
+//
+//    }
+}
+//
+//
+//#pragma mark -自动 Banker发牌
+- (void)autoAIBankerLogic {
+//    if (self.isEnd) {
+//        NSLog(@"11");
+//        return;
+//    }
+//
+//    self.isAutoRun = YES;
+//
+//    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
+//    [self.bankershandofCardsArray addObject:nextCard];
+//    [self.blackjackDataArray removeObjectAtIndex:0];
+//
+//
+//    self.bankerTotal = self.bankerTotal + nextCard.cardValue;
+//    self.b_ATotal = self.bankerTotal + 10;
+//
+//    // A 判断
+//    if (nextCard.cardValue == 1) {
+//        self.isBanker_A = YES;
+//    }
+//
+//    if (self.bankershandofCardsArray.count == 1) {
+//        [self autoAIPlayerLogic];
+//        return;
+//    }
+//
+//    // 爆牌
+//    if (self.bankerTotal > 21) {
+//        [self resultHandler];
+//
+//    } else if (self.isBanker_A && self.bankerTotal <= 11) {
+//
+//        // 大于11 全部算 bankerTotal 的值
+//        if (self.b_ATotal >= 18 || (self.b_ATotal == 17 && self.b_ATotal > self.playerTotal)) {
+//            self.bankerTotal = self.b_ATotal;
+//            [self resultHandler];
+//        } else {
+//            [self autoAIBankerLogic];
+//        }
+//    } else if (self.bankerTotal >= 17) {
+//
+//        [self resultHandler];
+//
+//    } else {
+//        [self autoAIBankerLogic];
+//    }
+//
 }
 
 
@@ -527,9 +573,9 @@
     
     NSString *game = [NSString stringWithFormat:@"GAME  %ld  [Player %ld   %0.2f%]  [Banker %ld  %0.2f%]  庄闲相差 %0.2f%", self.resultDataArray.count, playerTotalCount,p100,bankerTotalCount,b100, b100 - p100];
     
-    NSString *aaa = [NSString stringWithFormat:@"连续最多 %@   次数 %ld   TIE %ld", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen, tieTotalCount];
-    self.resultOneLabel.text = game;
-    self.resultTwoLabel.text = aaa;
+//    NSString *aaa = [NSString stringWithFormat:@"连续最多 %@   次数 %ld   TIE %ld", [self bankerOrPlayerOrTie:longestContinChar], iMaxLen, tieTotalCount];
+//    self.resultOneLabel.text = game;
+//    self.resultTwoLabel.text = aaa;
 }
 
 
@@ -537,28 +583,19 @@
 #pragma mark - 重置
 - (void)resetPlay {
     
-    self.resultlLabel.text = nil;
-    
     self.playerTotal = 0;
     self.bankerTotal = 0;
-    self.p_ATotal = 0;
-    self.b_ATotal = 0;
     
-    self.aceFlag_P = NO;
-    self.aceFlag_B = NO;
+    self.isPlayer_A = NO;
+    self.isBanker_A = NO;
     self.isDoubleOne = NO;
-    self.isStand = NO;
     self.isEnd = NO;
     
     [self.playershandofCardsArray removeAllObjects];
     [self.bankershandofCardsArray removeAllObjects];
     
-    if (self.blackjackDataArray.count < 20) {
-        [self newDeal];
-    }
-    
-    
     if (!self.isAutoRun) {
+        self.resultlLabel.text = nil;
         self.resultlLabel.backgroundColor = [UIColor clearColor];
         
         self.hitButton.enabled = YES;
@@ -567,32 +604,19 @@
         self.standButton.backgroundColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.004 alpha:1.000];
     }
     
+    
     if (!self.isEnd) {
 //        [self playerLogic];  // 会造成崩溃 循环调用
-        [self performSelector:@selector(playerLogic) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(startCard) withObject:nil afterDelay:0.5];
     }
-}
-
-
-
-
-- (NSString *)bankerOrPlayerOrTie:(NSString *)string {
     
-    switch ([string integerValue]) {
-        case 0:
-            return @"T";
-            break;
-        case 1:
-            return @"B";
-            break;
-        case 2:
-            return @"P";
-            break;
-        default:
-            break;
+    if (self.blackjackDataArray.count < 20) {
+        [self newDeal];
     }
-    return nil;
 }
+
+
+
 
 
 - (CardDataSourceModel*)blackJackDataModel
