@@ -21,6 +21,11 @@
 /// 点数转化为 牌面字符  例如 1 转化为 A
 /// @param num 牌点数
 + (NSString *)pokerCharacter:(NSInteger)num;
+
+/// 转化输赢结果类型  返回字符
+/// @param stringType 输赢类型
+- (NSString *)bankerOrPlayerOrTie:(NSString *)stringType;
+
 @end
 
 

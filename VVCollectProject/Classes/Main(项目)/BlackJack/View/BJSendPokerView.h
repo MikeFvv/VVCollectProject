@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (nonatomic,assign) NSInteger emptyDataIndex;
 //
-@property (nonatomic,strong) NSMutableArray<PlayCardModel *> *resultDataArray;
+@property (nonatomic,strong) NSMutableArray<PlayCardModel *> *sendCardDataArray;
 
 @end
 

@@ -70,6 +70,33 @@
 }
 
 
+
+/// 转化输赢结果类型  返回字符
+/// @param stringType 输赢类型
+- (NSString *)bankerOrPlayerOrTie:(NSString *)stringType {
+    
+    switch ([stringType integerValue]) {
+        case 0:
+            return @"T";
+            break;
+        case 1:
+            return @"B";
+            break;
+        case 2:
+            return @"P";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+
+
+
+
+
+
 /*
 
 #pragma mark -  皇家同花顺

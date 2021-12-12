@@ -7,31 +7,38 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PlayCardModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BlackJackManager : NSObject
+
 /// 玩家是否停止拿牌
 /// @param playerTotal 玩家点数
+/// @param isPlayer_A 玩家是否有A
 /// @param bankerTotal 庄家点数
-+ (BOOL)automaticRun:(NSInteger)playerTotal bankerTotal:(NSInteger)bankerTotal;
-/// 带A 牌 玩家是否停止拿牌
-/// @param p_ATotal 玩家点数
-/// @param bankerTotal 庄家点数
-+ (BOOL)automaticRunPoints_A:(NSInteger)p_ATotal bankerTotal:(NSInteger)bankerTotal;
++ (BOOL)autoRunPlayerStandTakeCards:(NSInteger)playerTotal isPlayer_A:(BOOL)isPlayer_A bankerTotal:(NSInteger)bankerTotal;
 
 
-#pragma mark - 正常加倍算法
+#pragma mark - 加倍算法
 
-/// 正常 玩家是否加倍
+/// 玩家 正常是否加倍
 /// @param playerTotal 玩家点数
 /// @param bankerTotal 庄家点数
 + (BOOL)autoDoubleOneAction:(NSInteger)playerTotal bankerTotal:(NSInteger)bankerTotal;
 
-/// 2张牌带A的加倍算法  玩家是否加倍
+/// 玩家 2张牌带A牌是否加倍算法
 /// @param p_ATotal 玩家点数
 /// @param bankerTotal 庄家点数
 + (BOOL)autoDoubleOnePoints_A:(NSInteger)p_ATotal bankerTotal:(NSInteger)bankerTotal;
+
+#pragma mark - 庄家是否停止拿牌
+/// 庄家是否停止拿牌
+/// @param bankerTotal 庄家点数
+/// @param isBanker_A 庄家是否有A
+/// @param playerTotal 玩家点数
++(BOOL)bankerStandTakeCards:(NSInteger)bankerTotal isBanker_A:(BOOL)isBanker_A playerTotal:(NSInteger)playerTotal;
+
 @end
 
 NS_ASSUME_NONNULL_END
