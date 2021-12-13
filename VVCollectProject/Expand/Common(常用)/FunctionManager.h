@@ -44,16 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-/**
- 给label一部分字符串设置不同颜色
- 
- @param allString 整体字符串内容
- @param colorStr  要改变颜色的字符串
- @param color     设置的颜色
- @param font      字号
- @return          获得可变字符串
- */
-+ (NSMutableAttributedString *)attrStrFrom:(NSString *)allString colorStr:(NSString *)colorStr color:(UIColor *)color font:(UIFont *)font;
+
 
 /// 一天只执行一次 是否第一次 YES   NO
 /// @param dateKey 当前日期Key  存储在偏好设置中  例如： @“ nowDate”

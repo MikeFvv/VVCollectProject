@@ -80,6 +80,19 @@
 		84B85E6627655394009AC598 /* game_back_1242x2208.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E6427655394009AC598 /* game_back_1242x2208.jpg */; };
 		84B85E6727655394009AC598 /* game_back_750x1334.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84B85E6527655394009AC598 /* game_back_750x1334.jpg */; };
 		84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E6A27658821009AC598 /* BlackJackManager.m */; };
+		84B85E6E2766DCBC009AC598 /* NSAttributedStringManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E6D2766DCBC009AC598 /* NSAttributedStringManager.m */; };
+		84B85E7B2766F5F2009AC598 /* MXVNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E6F2766F5F1009AC598 /* MXVNavController.m */; };
+		84B85E7C2766F5F2009AC598 /* MXVBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E712766F5F1009AC598 /* MXVBaseViewController.m */; };
+		84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E722766F5F1009AC598 /* MXVUpperButton.m */; };
+		84B85E7E2766F5F2009AC598 /* MXVTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E762766F5F2009AC598 /* MXVTabBar.m */; };
+		84B85E7F2766F5F2009AC598 /* MXVNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E772766F5F2009AC598 /* MXVNavigationBarView.m */; };
+		84B85E802766F5F2009AC598 /* MXVTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E792766F5F2009AC598 /* MXVTabBarController.m */; };
+		84B85E852766F6E3009AC598 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E842766F6E3009AC598 /* AppModel.m */; };
+		84B85E882766F6F4009AC598 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E862766F6F4009AC598 /* UserInfo.m */; };
+		84B85E8C2766FA51009AC598 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E8B2766FA51009AC598 /* MeViewController.m */; };
+		84B85E912766FB0C009AC598 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E902766FB0C009AC598 /* GameViewController.m */; };
+		84B85E942766FB14009AC598 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E932766FB14009AC598 /* AppViewController.m */; };
+		84B85E972766FD21009AC598 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E962766FD21009AC598 /* LoginViewController.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -299,6 +312,32 @@
 		84B85E6527655394009AC598 /* game_back_750x1334.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = game_back_750x1334.jpg; sourceTree = "<group>"; };
 		84B85E6927658821009AC598 /* BlackJackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackManager.h; sourceTree = "<group>"; };
 		84B85E6A27658821009AC598 /* BlackJackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackManager.m; sourceTree = "<group>"; };
+		84B85E6C2766DCBC009AC598 /* NSAttributedStringManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSAttributedStringManager.h; sourceTree = "<group>"; };
+		84B85E6D2766DCBC009AC598 /* NSAttributedStringManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSAttributedStringManager.m; sourceTree = "<group>"; };
+		84B85E6F2766F5F1009AC598 /* MXVNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXVNavController.m; sourceTree = "<group>"; };
+		84B85E702766F5F1009AC598 /* MXVBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXVBaseViewController.h; sourceTree = "<group>"; };
+		84B85E712766F5F1009AC598 /* MXVBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXVBaseViewController.m; sourceTree = "<group>"; };
+		84B85E722766F5F1009AC598 /* MXVUpperButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXVUpperButton.m; sourceTree = "<group>"; };
+		84B85E732766F5F1009AC598 /* MXVNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXVNavigationBarView.h; sourceTree = "<group>"; };
+		84B85E742766F5F2009AC598 /* MXVNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXVNavController.h; sourceTree = "<group>"; };
+		84B85E752766F5F2009AC598 /* MXVTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXVTabBar.h; sourceTree = "<group>"; };
+		84B85E762766F5F2009AC598 /* MXVTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXVTabBar.m; sourceTree = "<group>"; };
+		84B85E772766F5F2009AC598 /* MXVNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXVNavigationBarView.m; sourceTree = "<group>"; };
+		84B85E782766F5F2009AC598 /* MXVUpperButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXVUpperButton.h; sourceTree = "<group>"; };
+		84B85E792766F5F2009AC598 /* MXVTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXVTabBarController.m; sourceTree = "<group>"; };
+		84B85E7A2766F5F2009AC598 /* MXVTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXVTabBarController.h; sourceTree = "<group>"; };
+		84B85E832766F6E3009AC598 /* AppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
+		84B85E842766F6E3009AC598 /* AppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
+		84B85E862766F6F4009AC598 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		84B85E872766F6F4009AC598 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		84B85E8A2766FA51009AC598 /* MeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
+		84B85E8B2766FA51009AC598 /* MeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
+		84B85E8F2766FB0C009AC598 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		84B85E902766FB0C009AC598 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		84B85E922766FB14009AC598 /* AppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
+		84B85E932766FB14009AC598 /* AppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
+		84B85E952766FD21009AC598 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		84B85E962766FD21009AC598 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -649,6 +688,8 @@
 				276C91D32691610400377224 /* MFHTimeManager.m */,
 				276C92252691645500377224 /* VerifyHelper.h */,
 				276C92242691645500377224 /* VerifyHelper.m */,
+				84B85E6C2766DCBC009AC598 /* NSAttributedStringManager.h */,
+				84B85E6D2766DCBC009AC598 /* NSAttributedStringManager.m */,
 			);
 			path = "Common(常用)";
 			sourceTree = "<group>";
@@ -812,6 +853,54 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		84B85E812766F6BF009AC598 /* Login&Reg */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E822766F6D7009AC598 /* Model */,
+				84B85E952766FD21009AC598 /* LoginViewController.h */,
+				84B85E962766FD21009AC598 /* LoginViewController.m */,
+			);
+			path = "Login&Reg";
+			sourceTree = "<group>";
+		};
+		84B85E822766F6D7009AC598 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E832766F6E3009AC598 /* AppModel.h */,
+				84B85E842766F6E3009AC598 /* AppModel.m */,
+				84B85E872766F6F4009AC598 /* UserInfo.h */,
+				84B85E862766F6F4009AC598 /* UserInfo.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		84B85E892766FA40009AC598 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E8A2766FA51009AC598 /* MeViewController.h */,
+				84B85E8B2766FA51009AC598 /* MeViewController.m */,
+			);
+			path = Me;
+			sourceTree = "<group>";
+		};
+		84B85E8D2766FAE7009AC598 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E8F2766FB0C009AC598 /* GameViewController.h */,
+				84B85E902766FB0C009AC598 /* GameViewController.m */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		84B85E8E2766FAEF009AC598 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E922766FB14009AC598 /* AppViewController.h */,
+				84B85E932766FB14009AC598 /* AppViewController.m */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		84BDC77C276159470045354D /* 无网络 */ = {
 			isa = PBXGroup;
 			children = (
@@ -934,6 +1023,10 @@
 		A0130DDB21ECB78D007E845B /* Main(项目) */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E8E2766FAEF009AC598 /* App */,
+				84B85E8D2766FAE7009AC598 /* Game */,
+				84B85E892766FA40009AC598 /* Me */,
+				84B85E812766F6BF009AC598 /* Login&Reg */,
 				A0BE49A12247727D00CDBE43 /* Common */,
 				84B85DD22761CB1F009AC598 /* Holdem(德州) */,
 				A004E78B2226E40A0090DC44 /* BlackJack */,
@@ -948,6 +1041,18 @@
 		A0130DE721ECC920007E845B /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E7A2766F5F2009AC598 /* MXVTabBarController.h */,
+				84B85E792766F5F2009AC598 /* MXVTabBarController.m */,
+				84B85E702766F5F1009AC598 /* MXVBaseViewController.h */,
+				84B85E712766F5F1009AC598 /* MXVBaseViewController.m */,
+				84B85E742766F5F2009AC598 /* MXVNavController.h */,
+				84B85E6F2766F5F1009AC598 /* MXVNavController.m */,
+				84B85E732766F5F1009AC598 /* MXVNavigationBarView.h */,
+				84B85E772766F5F2009AC598 /* MXVNavigationBarView.m */,
+				84B85E752766F5F2009AC598 /* MXVTabBar.h */,
+				84B85E762766F5F2009AC598 /* MXVTabBar.m */,
+				84B85E782766F5F2009AC598 /* MXVUpperButton.h */,
+				84B85E722766F5F1009AC598 /* MXVUpperButton.m */,
 				A0130DE821ECC92A007E845B /* BaseNavigationController.h */,
 				A0130DE921ECC92A007E845B /* BaseNavigationController.m */,
 			);
@@ -1382,7 +1487,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
+				84B85E912766FB0C009AC598 /* GameViewController.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
+				84B85E802766F5F2009AC598 /* MXVTabBarController.m in Sources */,
 				84B85E5527640736009AC598 /* LessAI.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
@@ -1413,6 +1520,7 @@
 				40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */,
 				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
+				84B85E7E2766F5F2009AC598 /* MXVTabBar.m in Sources */,
 				A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,
 				84568C95275E9228006C2906 /* NSUserDefaultsManager.m in Sources */,
@@ -1426,12 +1534,14 @@
 				A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */,
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
 				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,
+				84B85E7C2766F5F2009AC598 /* MXVBaseViewController.m in Sources */,
 				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
 				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
 				84B85E5227640736009AC598 /* SimpleAI.m in Sources */,
 				84B85DFC2762916D009AC598 /* InitState.m in Sources */,
 				65813236231D396900A3BBFE /* UIView+Extension.m in Sources */,
 				400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */,
+				84B85E8C2766FA51009AC598 /* MeViewController.m in Sources */,
 				84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */,
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,
 				84B85DEE2762725D009AC598 /* CardGroup.m in Sources */,
@@ -1446,6 +1556,8 @@
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* CardDataSourceModel.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
+				84B85E7B2766F5F2009AC598 /* MXVNavController.m in Sources */,
+				84B85E882766F6F4009AC598 /* UserInfo.m in Sources */,
 				84B85E5427640736009AC598 /* ThreeAI.m in Sources */,
 				26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */,
 				276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */,
@@ -1453,6 +1565,7 @@
 				A011E13322A65A5800A10869 /* UIResponder+Router.m in Sources */,
 				A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
+				84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
 				A0C5148821EE2E4F00E2F89D /* zip.c in Sources */,
 				A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */,
@@ -1461,6 +1574,7 @@
 				6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				84B85E632764AE8C009AC598 /* BJSendPokerCollectionViewCell.m in Sources */,
+				84B85E6E2766DCBC009AC598 /* NSAttributedStringManager.m in Sources */,
 				84B85DDF2762660F009AC598 /* MaxCardComputer.m in Sources */,
 				84A59219273DA1D70071D524 /* UIView+Function.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
@@ -1472,6 +1586,9 @@
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */,
 				84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */,
+				84B85E942766FB14009AC598 /* AppViewController.m in Sources */,
+				84B85E972766FD21009AC598 /* LoginViewController.m in Sources */,
+				84B85E7F2766F5F2009AC598 /* MXVNavigationBarView.m in Sources */,
 				84B85DFF276291DD009AC598 /* PokerComparator.m in Sources */,
 				659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */,
 				2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */,
@@ -1487,6 +1604,7 @@
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
 				84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
+				84B85E852766F6E3009AC598 /* AppModel.m in Sources */,
 				6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */,
 				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
 				84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */,
