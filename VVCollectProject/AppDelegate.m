@@ -208,12 +208,12 @@
 //运行本地JS文件
 -(void)HSDevaluateScript {
     //从本地获取下载的JS文件
-    NSString*path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES) lastObject];
-//    NSString*path2 = [path stringByAppendingString:@"/main.js"];
-     NSString*path2 = [path stringByAppendingString:@"/JSPatch/1.0/demo.js"];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES) lastObject];
+//    NSString *path2 = [path stringByAppendingString:@"/main.js"];
+     NSString *path2 = [path stringByAppendingString:@"/JSPatch/1.0/demo.js"];
     NSLog(@"%@",path2);
     //获取内容
-    NSString*js = [NSString stringWithContentsOfFile:path2 encoding:NSUTF8StringEncoding error:nil];
+    NSString *js = [NSString stringWithContentsOfFile:path2 encoding:NSUTF8StringEncoding error:nil];
     
     NSLog(@"%@",js);
     
@@ -243,7 +243,7 @@
 //记录崩溃次数
 - (void)recordCrashCount{
     
-    NSString*isCrash = [[NSUserDefaults standardUserDefaults] valueForKey:@"isCrash"];
+    NSString *isCrash = [[NSUserDefaults standardUserDefaults] valueForKey:@"isCrash"];
     
     //读取本地的崩溃标识是否为YES,是则代表上次退出程序时是崩溃,为NO则代表上次是正常被退出
     
@@ -302,9 +302,9 @@
 // 判断app是否更新了更新软件后删除js文件,没更新运行本地js文件
 - (void)judgeIfAppUpdate{
     
-    NSString*appVersion = [[NSUserDefaults standardUserDefaults] valueForKey:@"appVersion"];
+    NSString *appVersion = [[NSUserDefaults standardUserDefaults] valueForKey:@"appVersion"];
     NSDictionary* dicInfo =[[NSBundle mainBundle] infoDictionary];
-    NSString* currentAppVersion =[dicInfo objectForKey:@"CFBundleShortVersionString"];
+    NSString *currentAppVersion =[dicInfo objectForKey:@"CFBundleShortVersionString"];
     
     int result = [currentAppVersion compare:appVersion];
     //如果app更新
@@ -320,8 +320,8 @@
 //删除JSPatch文件
 - (void)deleteJSPatchFile{
     NSFileManager* fileManager=[NSFileManager defaultManager];
-    NSString*path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES) lastObject];
-    NSString*path2 = [path stringByAppendingString:@"/main.js"];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES) lastObject];
+    NSString *path2 = [path stringByAppendingString:@"/main.js"];
     [fileManager removeItemAtPath:path2 error:nil];
 }
 
@@ -353,7 +353,7 @@
         // 如果js文件版本更新了就删除旧js文件下载新的js文件
         if (!oldJSversion || result >0) {
             
-            NSString*downloadUrl = [jsDic valueForKey:@"download_url"];
+            NSString *downloadUrl = [jsDic valueForKey:@"download_url"];
             
             //删除原先的js文件
             [self deleteJSPatchFile];
@@ -368,7 +368,7 @@
 }
 
 //下载JSPatch文件(使用的是AFNetworking框架)
-- (void)downLoadJSFileWithUrlString:(NSString*)urlString jsVersion:(NSString*)jsVersion{
+- (void)downLoadJSFileWithUrlString:(NSString *)urlString jsVersion:(NSString *)jsVersion{
     
     //1.创建管理者对象
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

@@ -36,7 +36,7 @@ typedef void(^ZipArchiveProgressUpdateBlock)(int percentage, int filesProcessed,
     @result     void
 */
 
--(void) ErrorMessage:(NSString*) msg;
+-(void) ErrorMessage:(NSString *) msg;
 
 /**
     @brief   Delegate method to determine if a file should be replaced
@@ -49,7 +49,7 @@ typedef void(^ZipArchiveProgressUpdateBlock)(int percentage, int filesProcessed,
     @result     a BOOL - YES to replace, NO to skip
 */
 
--(BOOL) OverWriteOperation:(NSString*) file;
+-(BOOL) OverWriteOperation:(NSString *) file;
 
 @end
 
@@ -69,7 +69,7 @@ typedef void(^ZipArchiveProgressUpdateBlock)(int percentage, int filesProcessed,
 	void*           _unzFile;
 	
     unsigned long   _numFiles;
-	NSString*       _password;
+	NSString *       _password;
 	__weak id       _delegate;
     ZipArchiveProgressUpdateBlock _progressBlock;
     
@@ -94,14 +94,14 @@ typedef void(^ZipArchiveProgressUpdateBlock)(int percentage, int filesProcessed,
 
 -(id) initWithFileManager:(NSFileManager*) fileManager;
 
--(BOOL) CreateZipFile2:(NSString*) zipFile;
--(BOOL) CreateZipFile2:(NSString*) zipFile Password:(NSString*) password;
--(BOOL) addFileToZip:(NSString*) file newname:(NSString*) newname;
+-(BOOL) CreateZipFile2:(NSString *) zipFile;
+-(BOOL) CreateZipFile2:(NSString *) zipFile Password:(NSString *) password;
+-(BOOL) addFileToZip:(NSString *) file newname:(NSString *) newname;
 -(BOOL) CloseZipFile2;
 
--(BOOL) UnzipOpenFile:(NSString*) zipFile;
--(BOOL) UnzipOpenFile:(NSString*) zipFile Password:(NSString*) password;
--(BOOL) UnzipFileTo:(NSString*) path overWrite:(BOOL) overwrite;
+-(BOOL) UnzipOpenFile:(NSString *) zipFile;
+-(BOOL) UnzipOpenFile:(NSString *) zipFile Password:(NSString *) password;
+-(BOOL) UnzipFileTo:(NSString *) path overWrite:(BOOL) overwrite;
 -(BOOL) UnzipCloseFile;
 -(NSArray*) getZipFileContents;     // list the contents of the zip archive. must be called after UnzipOpenFile
 

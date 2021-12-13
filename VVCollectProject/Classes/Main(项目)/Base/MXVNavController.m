@@ -83,7 +83,7 @@
 //    [btn setBackgroundImage:imageNormal forState:UIControlStateNormal];
 //    [btn setBackgroundImage:imageSelect forState:UIControlStateHighlighted];
     
-    [btn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"nav_back_white"] forState:UIControlStateNormal];
     
 //    [btn setTitle:@"" forState:UIControlStateNormal];
 //    [btn setTitle:@"" forState:UIControlStateHighlighted];

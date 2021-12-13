@@ -21,7 +21,7 @@
 #pragma mark NSString 转 NSData
 
 - (void)NSStringToNSData {
-    NSString * str =@"str";
+    NSString *str =@"str";
     NSData *data =[str dataUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@", data);
 }
@@ -34,7 +34,7 @@
 //        free(bytes1);   // ??
     
     // 主要这句
-    NSString * str =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *str =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"%@", str);
 }
 
@@ -105,7 +105,7 @@
 #pragma mark NSNumber 转 int
 - (void)NSNumberToint {
     NSNumber *number = [NSNumber numberWithInt:10];
-    NSString * string = [NSString stringWithFormat:@"%d",number];
+    NSString *string = [NSString stringWithFormat:@"%d",number];
     int Num = [string intValue];
     
     
@@ -190,7 +190,7 @@
 
 #pragma mark 字典转json格式字符串
 //字典转json格式字符串：
-- (NSString*)dictionaryToJsonStr:(NSDictionary *)dict
+- (NSString *)dictionaryToJsonStr:(NSDictionary *)dict
 {
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
@@ -226,7 +226,7 @@
 
 //－－－－－－－－－－－－－－－－－－－－－－－－－－－不含辩解码--------------------------------------
 //NSData转成16进制字符串
-+ (NSString*)stringWithHexBytes2:(NSData *)sender
++ (NSString *)stringWithHexBytes2:(NSData *)sender
 {
     static const char hexdigits[] = "0123456789ABCDEF";
     const size_t numBytes = [sender length];
@@ -251,7 +251,7 @@
 /*
  将16进制数据转化成NSData 数组
  */
-+ (NSData*)dataWithHexBytesString:(NSString*)hexString
++ (NSData*)dataWithHexBytesString:(NSString *)hexString
 {
     int j=0;
     Byte bytes[hexString.length];

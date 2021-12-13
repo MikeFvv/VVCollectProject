@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 点数 or Other 字符显示
 @property (nonatomic,strong) UILabel *totalPointsLabel;
 
-//@property (nonatomic,assign) NSInteger emptyDataIndex;
+//@property (nonatomic, assign) NSInteger emptyDataIndex;
 //
 @property (nonatomic,strong) NSMutableArray<PlayCardModel *> *sendCardDataArray;
 

@@ -86,10 +86,10 @@ static inline MXWAdapterPhoneType mxwCurrentType() {
 @property(nonatomic)MXWAdapterPhoneType defaultType;
 
 /** 屏幕宽度 */
-@property(nonatomic,readonly)CGFloat defaultScreenWidth;
+@property (nonatomic,readonly)CGFloat defaultScreenWidth;
 
 /** 屏幕高度 */
-@property(nonatomic,readonly)CGFloat defaultScreenHeight;
+@property (nonatomic,readonly)CGFloat defaultScreenHeight;
 
 /** 共享适配器 */
 + (instancetype)shareAdapter;

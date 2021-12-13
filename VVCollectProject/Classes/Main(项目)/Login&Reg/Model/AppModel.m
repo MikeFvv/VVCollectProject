@@ -114,7 +114,7 @@ MJCodingImplementation
 
 - (void)saveAppModel {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* filename = [[paths objectAtIndex:0] stringByAppendingPathComponent:Path];
+    NSString *filename = [[paths objectAtIndex:0] stringByAppendingPathComponent:Path];
     [NSKeyedArchiver archiveRootObject:self toFile:filename];
 }
 

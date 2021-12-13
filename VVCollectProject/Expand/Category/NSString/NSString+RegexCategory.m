@@ -26,23 +26,23 @@
      * 联通：130,131,132,152,155,156,185,186,1709
      * 电信：133,1349,153,180,189,1700
      */
-    //    NSString * MOBILE = @"^1((3//d|5[0-35-9]|8[025-9])//d|70[059])\\d{7}$";//总况
+    //    NSString *MOBILE = @"^1((3//d|5[0-35-9]|8[025-9])//d|70[059])\\d{7}$";//总况
     
     /**
      10         * 中国移动：China Mobile
      11         * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188，1705
      12         */
-    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d|705)\\d{7}$";
+    NSString *CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d|705)\\d{7}$";
     /**
      15         * 中国联通：China Unicom
      16         * 130,131,132,152,155,156,185,186,1709
      17         */
-    NSString * CU = @"^1((3[0-2]|5[256]|8[56])\\d|709)\\d{7}$";
+    NSString *CU = @"^1((3[0-2]|5[256]|8[56])\\d|709)\\d{7}$";
     /**
      20         * 中国电信：China Telecom
      21         * 133,1349,153,180,189,1700
      22         */
-    NSString * CT = @"^1((33|53|8[09])\\d|349|700)\\d{7}$";
+    NSString *CT = @"^1((33|53|8[09])\\d|349|700)\\d{7}$";
     
     
     /**
@@ -50,7 +50,7 @@
      26         * 区号：010,020,021,022,023,024,025,027,028,029
      27         * 号码：七位或八位
      28         */
-    NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
+    NSString *PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
     
     
     //    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
@@ -121,7 +121,7 @@
 }
 
 - (BOOL)isMacAddress{
-    NSString * macAddRegex = @"([A-Fa-f\\d]{2}:){5}[A-Fa-f\\d]{2}";
+    NSString *macAddRegex = @"([A-Fa-f\\d]{2}:){5}[A-Fa-f\\d]{2}";
     return  [self isValidateByRegex:macAddRegex];
 }
 
@@ -288,12 +288,12 @@
  *  3，将加法和加上校验位能被 10 整除。
  */
 - (BOOL)bankCardluhmCheck{
-    NSString * lastNum = [[self substringFromIndex:(self.length-1)] copy];//取出最后一位
-    NSString * forwardNum = [[self substringToIndex:(self.length -1)] copy];//前15或18位
+    NSString *lastNum = [[self substringFromIndex:(self.length-1)] copy];//取出最后一位
+    NSString *forwardNum = [[self substringToIndex:(self.length -1)] copy];//前15或18位
     
     NSMutableArray * forwardArr = [[NSMutableArray alloc] initWithCapacity:0];
     for (int i=0; i<forwardNum.length; i++) {
-        NSString * subStr = [forwardNum substringWithRange:NSMakeRange(i, 1)];
+        NSString *subStr = [forwardNum substringWithRange:NSMakeRange(i, 1)];
         [forwardArr addObject:subStr];
     }
     
@@ -386,7 +386,7 @@
 // *************** 待验证 ***************
 #pragma mark 验证
 +(BOOL)checkIsNum:(NSString *)str{
-    NSString * regex        = @"(^[0-9.]{0,15}$)";
+    NSString *regex        = @"(^[0-9.]{0,15}$)";
     NSPredicate * pred      = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     BOOL isMatch            = [pred evaluateWithObject:str];
     return isMatch;
@@ -394,7 +394,7 @@
 
 /// 是否整数
 +(BOOL)checkIsInteger:(NSString *)str{
-    NSString * regex        = @"(^[0-9]{0,15}$)";
+    NSString *regex        = @"(^[0-9]{0,15}$)";
     NSPredicate * pred      = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     BOOL isMatch            = [pred evaluateWithObject:str];
     return isMatch;

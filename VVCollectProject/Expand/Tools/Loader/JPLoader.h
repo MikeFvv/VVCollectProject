@@ -22,7 +22,7 @@ typedef enum {
 
 @interface JPLoader : NSObject
 + (BOOL)run;
-+ (void)updateToVersion:(NSInteger)version loadURL:(NSString*)loadURL callback:(JPUpdateCallback)callback;
++ (void)updateToVersion:(NSInteger)version loadURL:(NSString *)loadURL callback:(JPUpdateCallback)callback;
 + (void)runTestScriptInBundle;
 + (void)setLogger:(void(^)(NSString *log))logger;
 + (NSInteger)currentVersion;

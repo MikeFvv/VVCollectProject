@@ -12,7 +12,7 @@
 #import "BaccaratModel.h"
 
 
-static NSString * const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectionViewCell";
+static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectionViewCell";
 
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
 @interface BJSendPokerView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>

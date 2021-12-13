@@ -90,9 +90,12 @@
 		84B85E852766F6E3009AC598 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E842766F6E3009AC598 /* AppModel.m */; };
 		84B85E882766F6F4009AC598 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E862766F6F4009AC598 /* UserInfo.m */; };
 		84B85E8C2766FA51009AC598 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E8B2766FA51009AC598 /* MeViewController.m */; };
-		84B85E912766FB0C009AC598 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E902766FB0C009AC598 /* GameViewController.m */; };
+		84B85E912766FB0C009AC598 /* FunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E902766FB0C009AC598 /* FunViewController.m */; };
 		84B85E942766FB14009AC598 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E932766FB14009AC598 /* AppViewController.m */; };
 		84B85E972766FD21009AC598 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E962766FD21009AC598 /* LoginViewController.m */; };
+		84B85E9C27671FA5009AC598 /* FunModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85E9B27671FA5009AC598 /* FunModel.m */; };
+		84B85EA427672388009AC598 /* NSAttrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85EA027672387009AC598 /* NSAttrViewController.m */; };
+		84B85EA527672388009AC598 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85EA327672387009AC598 /* NextViewController.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PlayCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PlayCardModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
@@ -332,12 +335,18 @@
 		84B85E872766F6F4009AC598 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		84B85E8A2766FA51009AC598 /* MeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
 		84B85E8B2766FA51009AC598 /* MeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
-		84B85E8F2766FB0C009AC598 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		84B85E902766FB0C009AC598 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		84B85E8F2766FB0C009AC598 /* FunViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunViewController.h; sourceTree = "<group>"; };
+		84B85E902766FB0C009AC598 /* FunViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunViewController.m; sourceTree = "<group>"; };
 		84B85E922766FB14009AC598 /* AppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
 		84B85E932766FB14009AC598 /* AppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
 		84B85E952766FD21009AC598 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		84B85E962766FD21009AC598 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		84B85E9A27671FA5009AC598 /* FunModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunModel.h; sourceTree = "<group>"; };
+		84B85E9B27671FA5009AC598 /* FunModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunModel.m; sourceTree = "<group>"; };
+		84B85EA027672387009AC598 /* NSAttrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAttrViewController.m; sourceTree = "<group>"; };
+		84B85EA127672387009AC598 /* NSAttrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAttrViewController.h; sourceTree = "<group>"; };
+		84B85EA227672387009AC598 /* NextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextViewController.h; sourceTree = "<group>"; };
+		84B85EA327672387009AC598 /* NextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 		84BDC77D27615FD40045354D /* MXWPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWPokerView.h; sourceTree = "<group>"; };
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PlayCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCardModel.h; sourceTree = "<group>"; };
@@ -883,13 +892,15 @@
 			path = Me;
 			sourceTree = "<group>";
 		};
-		84B85E8D2766FAE7009AC598 /* Game */ = {
+		84B85E8D2766FAE7009AC598 /* Fun(功能示例) */ = {
 			isa = PBXGroup;
 			children = (
-				84B85E8F2766FB0C009AC598 /* GameViewController.h */,
-				84B85E902766FB0C009AC598 /* GameViewController.m */,
+				84B85EA62767238C009AC598 /* NSAttributedString */,
+				84B85E9927671F96009AC598 /* Model */,
+				84B85E8F2766FB0C009AC598 /* FunViewController.h */,
+				84B85E902766FB0C009AC598 /* FunViewController.m */,
 			);
-			path = Game;
+			path = "Fun(功能示例)";
 			sourceTree = "<group>";
 		};
 		84B85E8E2766FAEF009AC598 /* App */ = {
@@ -899,6 +910,35 @@
 				84B85E932766FB14009AC598 /* AppViewController.m */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		84B85E9827671E32009AC598 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A0BCD7A122216D9100BB3A9C /* Application.h */,
+				A0BCD7A222216D9100BB3A9C /* Application.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		84B85E9927671F96009AC598 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84B85E9A27671FA5009AC598 /* FunModel.h */,
+				84B85E9B27671FA5009AC598 /* FunModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		84B85EA62767238C009AC598 /* NSAttributedString */ = {
+			isa = PBXGroup;
+			children = (
+				84B85EA227672387009AC598 /* NextViewController.h */,
+				84B85EA327672387009AC598 /* NextViewController.m */,
+				84B85EA127672387009AC598 /* NSAttrViewController.h */,
+				84B85EA027672387009AC598 /* NSAttrViewController.m */,
+			);
+			path = NSAttributedString;
 			sourceTree = "<group>";
 		};
 		84BDC77C276159470045354D /* 无网络 */ = {
@@ -964,8 +1004,6 @@
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				276C92182691631100377224 /* Encryption */,
 				26F65B8E236C623D00CCB41E /* MBProgressHUD+JDragon */,
-				A0BCD7A122216D9100BB3A9C /* Application.h */,
-				A0BCD7A222216D9100BB3A9C /* Application.m */,
 				A0D55E2A221D9B0300D7E3B0 /* RepeatPush */,
 				A034FDA92216DEA800081EE2 /* YYFPSLabel.h */,
 				A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */,
@@ -1024,7 +1062,7 @@
 			isa = PBXGroup;
 			children = (
 				84B85E8E2766FAEF009AC598 /* App */,
-				84B85E8D2766FAE7009AC598 /* Game */,
+				84B85E8D2766FAE7009AC598 /* Fun(功能示例) */,
 				84B85E892766FA40009AC598 /* Me */,
 				84B85E812766F6BF009AC598 /* Login&Reg */,
 				A0BE49A12247727D00CDBE43 /* Common */,
@@ -1083,6 +1121,7 @@
 		A0821DD221EF3B2600429C20 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				84B85E9827671E32009AC598 /* Model */,
 				A0821DD321EF3B4700429C20 /* HomeViewController.h */,
 				A0821DD421EF3B4700429C20 /* HomeViewController.m */,
 				659E139B22E732DE00E9570E /* BugCollectionController.h */,
@@ -1486,10 +1525,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B85EA427672388009AC598 /* NSAttrViewController.m in Sources */,
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
-				84B85E912766FB0C009AC598 /* GameViewController.m in Sources */,
+				84B85E912766FB0C009AC598 /* FunViewController.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
 				84B85E802766F5F2009AC598 /* MXVTabBarController.m in Sources */,
+				84B85EA527672388009AC598 /* NextViewController.m in Sources */,
 				84B85E5527640736009AC598 /* LessAI.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
@@ -1515,6 +1556,7 @@
 				276C921D2691633300377224 /* GTMBase64.m in Sources */,
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
+				84B85E9C27671FA5009AC598 /* FunModel.m in Sources */,
 				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
 				40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */,
