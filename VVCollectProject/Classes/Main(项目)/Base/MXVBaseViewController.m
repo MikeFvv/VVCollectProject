@@ -59,7 +59,7 @@
     }
 }
 //导航标题 navTitle
--(void)setTitle:(NSString*)title TitleColor:(UIColor*)color
+-(void)setTitle:(NSString *)title TitleColor:(UIColor*)color
 {
     UILabel *titleLab = [[UILabel alloc]init];
     titleLab.frame= CGRectMake(0, 0, 100, 30);

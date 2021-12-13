@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *    @return    十六进制的字符串
  */
-+ (NSString*)stringWithHexBytes2:(NSData *)sender;
++ (NSString *)stringWithHexBytes2:(NSData *)sender;
 
 /**
  *    @brief    将16进制的字符串转化为data
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *    @return    data
  */
-+ (NSData*)dataWithHexBytesString:(NSString*)hexString;
++ (NSData*)dataWithHexBytesString:(NSString *)hexString;
 
 /**
  *    @brief    将字节类型数据转化成16进制的字符串

@@ -12,7 +12,7 @@
 #import "BaccaratModel.h"
 
 
-static NSString * const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
+static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
 
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
 @interface BaccaratCollectionView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>

@@ -21,11 +21,11 @@
 
 @interface ZipArchive ()
 
--(void) OutputErrorMessage:(NSString*) msg;
--(BOOL) OverWrite:(NSString*) file;
+-(void) OutputErrorMessage:(NSString *) msg;
+-(BOOL) OverWrite:(NSString *) file;
 -(NSDate*) Date1980;
 
-@property (nonatomic,copy) NSString* password;
+@property (nonatomic,copy) NSString *password;
 @end
 
 
@@ -71,7 +71,7 @@
  * @returns BOOL YES on success
  */
 
--(BOOL) CreateZipFile2:(NSString*) zipFile
+-(BOOL) CreateZipFile2:(NSString *) zipFile
 {
 	_zipFile = zipOpen( (const char*)[zipFile UTF8String], 0 );
 	if( !_zipFile ) 
@@ -87,7 +87,7 @@
  * @returns BOOL YES on success
  */
 
--(BOOL) CreateZipFile2:(NSString*) zipFile Password:(NSString*) password
+-(BOOL) CreateZipFile2:(NSString *) zipFile Password:(NSString *) password
 {
 	self.password = password;
 	return [self CreateZipFile2:zipFile];
@@ -101,7 +101,7 @@
  * @returns BOOL YES on success
  */
 
--(BOOL) addFileToZip:(NSString*) file newname:(NSString*) newname;
+-(BOOL) addFileToZip:(NSString *) file newname:(NSString *) newname;
 {
 	if( !_zipFile )
 		return NO;
@@ -208,7 +208,7 @@
  * @returns BOOL YES on success
  */
 
--(BOOL) UnzipOpenFile:(NSString*) zipFile
+-(BOOL) UnzipOpenFile:(NSString *) zipFile
 {
     // create an array to receive the list of unzipped files.
     _unzippedFiles = [[NSMutableArray alloc] initWithCapacity:1];
@@ -234,7 +234,7 @@
  * @returns BOOL YES on success
  */
 
--(BOOL) UnzipOpenFile:(NSString*) zipFile Password:(NSString*) password
+-(BOOL) UnzipOpenFile:(NSString *) zipFile Password:(NSString *) password
 {
 	self.password = password;
 	return [self UnzipOpenFile:zipFile];
@@ -254,7 +254,7 @@
  * @returns BOOL YES on success
  */
 
--(BOOL) UnzipFileTo:(NSString*) path overWrite:(BOOL) overwrite
+-(BOOL) UnzipFileTo:(NSString *) path overWrite:(BOOL) overwrite
 {
 	BOOL success = YES;
     int index = 0;
@@ -296,7 +296,7 @@
             filename[fileInfo.size_filename] = '\0';
             
             // check if it contains directory
-            NSString * strPath = [NSString stringWithCString:filename encoding:self.stringEncoding];
+            NSString *strPath = [NSString stringWithCString:filename encoding:self.stringEncoding];
             BOOL isDirectory = NO;
             if( filename[fileInfo.size_filename-1]=='/' || filename[fileInfo.size_filename-1]=='\\')
                 isDirectory = YES;
@@ -305,7 +305,7 @@
             {// contains a path
                 strPath = [strPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
             }
-            NSString* fullPath = [path stringByAppendingPathComponent:strPath];
+            NSString *fullPath = [path stringByAppendingPathComponent:strPath];
             
             if( isDirectory )
                 [_fileManager createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -467,7 +467,7 @@
         filename[fileInfo.size_filename] = '\0';
         
         // check if it contains directory
-        NSString * strPath = [NSString stringWithCString:filename encoding:NSASCIIStringEncoding];
+        NSString *strPath = [NSString stringWithCString:filename encoding:NSASCIIStringEncoding];
         free( filename );
         if( [strPath rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"/\\"]].location!=NSNotFound )
         {// contains a path
@@ -491,7 +491,7 @@
 /**
  * send the ErrorMessage: to the delegate if it responds to it.
  */
--(void) OutputErrorMessage:(NSString*) msg
+-(void) OutputErrorMessage:(NSString *) msg
 {
 	if( _delegate && [_delegate respondsToSelector:@selector(ErrorMessage:)] )
 		[_delegate ErrorMessage:msg];
@@ -502,7 +502,7 @@
  * returning the result, or YES by default.
  */
 
--(BOOL) OverWrite:(NSString*) file
+-(BOOL) OverWrite:(NSString *) file
 {
 	if( _delegate && [_delegate respondsToSelector:@selector(OverWriteOperation:)] )
 		return [_delegate OverWriteOperation:file];
@@ -536,7 +536,7 @@
     if (followingSymLinks && results && (error ? *error == nil : YES)) {
         if ([[results fileType] isEqualToString:NSFileTypeSymbolicLink]) {
             // follow the symlink
-            NSString* realPath = [self destinationOfSymbolicLinkAtPath:path error:error];
+            NSString *realPath = [self destinationOfSymbolicLinkAtPath:path error:error];
             if (realPath && (error ? *error == nil : YES)) {
                 return [self _attributesOfItemAtPath:realPath followingSymLinks:followingSymLinks error:error];
             } else {

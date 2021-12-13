@@ -9,7 +9,7 @@
 #ifndef Constants_h
 #define Constants_h
 
-static NSString* const WXShareTitle  = @"下载抢红包,每天签到领红包最高88.88，诚招代理0成本0门槛代理每天拉群抢最高8888元";
+static NSString * const WXShareTitle  = @"下载抢红包,每天签到领红包最高88.88，诚招代理0成本0门槛代理每天拉群抢最高8888元";
 
 static NSString * const kMessRefundMessage = @"未领取的红包，将于5分钟后发起退款";
 

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXWAdTimerAlertView : UIView
 
-@property(nonatomic,assign)id<MXWAdTimerAlertViewDelegate> delegate;
+@property (nonatomic, assign)id<MXWAdTimerAlertViewDelegate> delegate;
 
 +(MXWAdTimerAlertView *)showInView:(UIView *)view theDelegate:(id)delegate theADInfo: (NSArray *)dataList placeHolderImage: (NSString *)placeHolderStr;
 
@@ -27,11 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXWItemView : UIView
 /// 记录当前第几个item
-@property(nonatomic,assign)NSInteger index;
+@property (nonatomic, assign)NSInteger index;
 /// 自定义视图
-@property(nonatomic,strong)UIImageView *imageView;
+@property (nonatomic,strong)UIImageView *imageView;
 /// 倒计时Label
-@property(nonatomic,strong)UILabel *countdownTimeLabel;
+@property (nonatomic,strong)UILabel *countdownTimeLabel;
 /// 倒计时
 @property (nonatomic,strong) NSTimer *mxwTimer;
 ///  倒计时时长

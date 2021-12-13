@@ -18,7 +18,7 @@
 /// 闲对
 @property (nonatomic,strong) UIView *playerPairView;
 /// 幸运6
-@property (nonatomic,assign) UIView *superSixView;
+@property (nonatomic, assign) UIView *superSixView;
 
 
 @end

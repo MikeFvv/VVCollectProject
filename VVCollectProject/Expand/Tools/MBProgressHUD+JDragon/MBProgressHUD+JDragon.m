@@ -10,7 +10,7 @@
 
 @implementation MBProgressHUD (JDragon)
 
-+ (MBProgressHUD*)createMBProgressHUDviewWithMessage:(NSString*)message isWindiw:(BOOL)isWindow
++ (MBProgressHUD*)createMBProgressHUDviewWithMessage:(NSString *)message isWindiw:(BOOL)isWindow
 {
     UIView  *view = isWindow? (UIView*)[UIApplication sharedApplication].delegate.window:[self getCurrentUIVC].view;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -22,23 +22,23 @@
 }
 #pragma mark-------------------- show Tip----------------------------
 
-+ (void)showTipMessageInWindow:(NSString*)message
++ (void)showTipMessageInWindow:(NSString *)message
 {
     [self showTipMessage:message isWindow:true timer:2];
 }
-+ (void)showTipMessageInView:(NSString*)message
++ (void)showTipMessageInView:(NSString *)message
 {
     [self showTipMessage:message isWindow:false timer:2];
 }
-+ (void)showTipMessageInWindow:(NSString*)message timer:(int)aTimer
++ (void)showTipMessageInWindow:(NSString *)message timer:(int)aTimer
 {
     [self showTipMessage:message isWindow:true timer:aTimer];
 }
-+ (void)showTipMessageInView:(NSString*)message timer:(int)aTimer
++ (void)showTipMessageInView:(NSString *)message timer:(int)aTimer
 {
     [self showTipMessage:message isWindow:false timer:aTimer];
 }
-+ (void)showTipMessage:(NSString*)message isWindow:(BOOL)isWindow timer:(int)aTimer
++ (void)showTipMessage:(NSString *)message isWindow:(BOOL)isWindow timer:(int)aTimer
 {
     MBProgressHUD *hud = [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
     hud.mode = MBProgressHUDModeText;
@@ -46,23 +46,23 @@
 }
 #pragma mark-------------------- show Activity----------------------------
 
-+ (void)showActivityMessageInWindow:(NSString*)message
++ (void)showActivityMessageInWindow:(NSString *)message
 {
     [self showActivityMessage:message isWindow:true timer:0];
 }
-+ (void)showActivityMessageInView:(NSString*)message
++ (void)showActivityMessageInView:(NSString *)message
 {
     [self showActivityMessage:message isWindow:false timer:0];
 }
-+ (void)showActivityMessageInWindow:(NSString*)message timer:(int)aTimer
++ (void)showActivityMessageInWindow:(NSString *)message timer:(int)aTimer
 {
     [self showActivityMessage:message isWindow:true timer:aTimer];
 }
-+ (void)showActivityMessageInView:(NSString*)message timer:(int)aTimer
++ (void)showActivityMessageInView:(NSString *)message timer:(int)aTimer
 {
     [self showActivityMessage:message isWindow:false timer:aTimer];
 }
-+ (void)showActivityMessage:(NSString*)message isWindow:(BOOL)isWindow timer:(int)aTimer
++ (void)showActivityMessage:(NSString *)message isWindow:(BOOL)isWindow timer:(int)aTimer
 {
     MBProgressHUD *hud  =  [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
     hud.mode = MBProgressHUDModeIndeterminate;

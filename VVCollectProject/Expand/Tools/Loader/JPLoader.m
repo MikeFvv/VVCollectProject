@@ -83,7 +83,7 @@ void (^JPLogger)(NSString *log);
     }
 }
 
-+ (void)updateToVersion:(NSInteger)version loadURL:(NSString*)loadURL callback:(JPUpdateCallback)callback
++ (void)updateToVersion:(NSInteger)version loadURL:(NSString *)loadURL callback:(JPUpdateCallback)callback
 {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     

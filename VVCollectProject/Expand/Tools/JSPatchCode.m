@@ -66,7 +66,7 @@ static BOOL _async;
     
 }
 static dispatch_semaphore_t semaphore;
-+(void)patchVersionCheck:(NSString*)urlStr{
++(void)patchVersionCheck:(NSString *)urlStr{
     //======因为下面的请求使用同步请求方法=================
     //会出现在没网的情况下卡在启动界面，所以在请求之前检测网络状态
     if (![JSPatchCode isUserNetOK]) {
@@ -219,7 +219,7 @@ static dispatch_semaphore_t semaphore;
  @param script js内容
  @param filename 文件名称
  */
-+(void)saveJSPatchToLocal:(NSString*)script fileName:(NSString*)filename{
++(void)saveJSPatchToLocal:(NSString *)script fileName:(NSString *)filename{
     // script directory
     NSString *scriptDirectory = [self fetchScriptDirectory];
     if (![[NSFileManager defaultManager] fileExistsAtPath:scriptDirectory]){
@@ -256,7 +256,7 @@ static dispatch_semaphore_t semaphore;
 
  @param fileName 文件名称
  */
-+(void)getJSPatchWithFileName:(NSString*)fileName{
++(void)getJSPatchWithFileName:(NSString *)fileName{
     NSString *scriptDirectory = [self fetchScriptDirectory];
     NSString *scriptPath = [scriptDirectory stringByAppendingPathComponent:fileName];
     if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]){
@@ -326,7 +326,7 @@ static dispatch_semaphore_t semaphore;
 
  @return <#return value description#>
  */
-+ (NSString*)currentJSFileName
++ (NSString *)currentJSFileName
 {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *filekey = [NSString stringWithFormat:@"JSPatchFileName_%@",appVersion];
@@ -340,7 +340,7 @@ static dispatch_semaphore_t semaphore;
 
  @param fileName <#fileName description#>
  */
-+(void)saveLatestJSFileName:(NSString*)fileName{
++(void)saveLatestJSFileName:(NSString *)fileName{
     if (!fileName) {
         return;
     }
@@ -351,7 +351,7 @@ static dispatch_semaphore_t semaphore;
 }
 
 #pragma mark -- app版本比较
-+ (ZJComparisonResult)compareVersionNumber:(NSString*)str{
++ (ZJComparisonResult)compareVersionNumber:(NSString *)str{
     if ([str rangeOfString:@"."].location != NSNotFound) {
         str = [str stringByAppendingString:@".0"];
     }

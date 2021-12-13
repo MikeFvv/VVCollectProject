@@ -10,16 +10,16 @@
 
 @interface MBProgressHUD (JDragon)
 
-+ (void)showTipMessageInWindow:(NSString*)message;
-+ (void)showTipMessageInView:(NSString*)message;
-+ (void)showTipMessageInWindow:(NSString*)message timer:(int)aTimer;
-+ (void)showTipMessageInView:(NSString*)message timer:(int)aTimer;
++ (void)showTipMessageInWindow:(NSString *)message;
++ (void)showTipMessageInView:(NSString *)message;
++ (void)showTipMessageInWindow:(NSString *)message timer:(int)aTimer;
++ (void)showTipMessageInView:(NSString *)message timer:(int)aTimer;
 
 
-+ (void)showActivityMessageInWindow:(NSString*)message;
-+ (void)showActivityMessageInView:(NSString*)message;
-+ (void)showActivityMessageInWindow:(NSString*)message timer:(int)aTimer;
-+ (void)showActivityMessageInView:(NSString*)message timer:(int)aTimer;
++ (void)showActivityMessageInWindow:(NSString *)message;
++ (void)showActivityMessageInView:(NSString *)message;
++ (void)showActivityMessageInWindow:(NSString *)message timer:(int)aTimer;
++ (void)showActivityMessageInView:(NSString *)message timer:(int)aTimer;
 
 
 + (void)showSuccessMessage:(NSString *)Message;

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 导航背景   
 - (void)navBarColor:(UIColor *)navColor;
 // 导航标题 navigationTitle
-- (void)setTitle:(NSString*)title TitleColor:(UIColor*)color;
+- (void)setTitle:(NSString *)title TitleColor:(UIColor*)color;
 // 设置导航条：带右按钮 
 - (void)zm_setNavTitle:(NSString *)str backBtnHidden:(BOOL)hidden originalBack:(BOOL)originalBack;
 

@@ -14,12 +14,12 @@
 //private Socket socket = null;
 //    private BufferedReader input = null;
 //    private PrintWriter output = null;
-@property (nonatomic, copy) NSString * playerID;
+@property (nonatomic, copy) NSString *playerID;
 @property (nonatomic, assign) NSInteger handNum;
 @property (nonatomic, strong) SimpleAI *ai;
 //    private AdvancedAI ai;
 //    private SelectAI ai;
-@property (nonatomic, copy) NSString * needNotify;
+@property (nonatomic, copy) NSString *needNotify;
 
 
 @end

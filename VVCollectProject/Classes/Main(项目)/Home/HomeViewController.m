@@ -35,7 +35,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 /// 定时器
 @property (nonatomic, strong) NSTimer *timerView;
 /// 定时器2
-@property(nonatomic, strong) NSTimer *repeatRequestTimer;
+@property (nonatomic, strong) NSTimer *repeatRequestTimer;
 
 /// 表单
 @property (nonatomic, strong) UITableView *tableView;
@@ -43,12 +43,12 @@ dispatch_async(dispatch_get_main_queue(), block);\
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 /// 是否最底部
-@property (nonatomic,assign) BOOL isTableViewBottom;
+@property (nonatomic, assign) BOOL isTableViewBottom;
 
 
-@property(nonatomic, strong) NSString *strongStr;
+@property (nonatomic, copy) NSString *strongStr;
 
-@property(nonatomic, copy) NSString *copyyStr;
+@property (nonatomic, copy) NSString *copyyStr;
 // 注：不能以alloc，new，copy，mutableCopy 作为开头命名，比如：copyStr
 
 
@@ -220,7 +220,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
     [self.view addSubview:btn];
 }
 
--(void)jsScriptRun:(id)sender{
+-(void)jsScriptRun:(id)sender {
     
 //    ViewController *vc = [[ViewController alloc] init];
 //    [self.navigationController pushViewController:vc animated:YES];

@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 
 #import "HomeViewController.h"
-#import "GameViewController.h"
+#import "FunViewController.h"
 #import "AppViewController.h"
 #import "MeViewController.h"
 
@@ -128,7 +128,7 @@
     HomeViewController *v1 = [[HomeViewController alloc] init];
     
     //2.
-    GameViewController *v2= [[GameViewController alloc] init];
+    FunViewController *v2= [[FunViewController alloc] init];
     //3.
     AppViewController *v3 = [[AppViewController alloc] init];
     //4.
@@ -148,7 +148,7 @@
                                                      normolImgName:@"tabbar_home_normal"
                                                      selectImgName:@"tabbar_home_press"];
    
-    UITabBarItem *tabBarItem_2 =[self getTabBarItemOfNavController: navRootVC_2 myVC: v2 title:@"游戏"
+    UITabBarItem *tabBarItem_2 =[self getTabBarItemOfNavController: navRootVC_2 myVC: v2 title:@"功能示例"
                                                      normolImgName:@"tabbar_info_normal"
                                                      selectImgName:@"tabbar_info_press"];
     

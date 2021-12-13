@@ -60,7 +60,7 @@
 
 
 -(void)createQrImage {
-//    NSString * cardName = [EPVUserInfoModel getUserInfoModel].link;
+//    NSString *cardName = [EPVUserInfoModel getUserInfoModel].link;
 //    UIImage * avatar = IMAGE_NAMED(@"logo");
     
     // 二维码控件
@@ -298,7 +298,7 @@
 //        [[SensorsAnalyticsSDK sharedInstance] track:@"InviteFriend" withProperties:@{@"invite_entrance":self.entryStr,@"invitebutton_type":@"保存二维码"}];
 //        [MBProgressHUD showSuccessMessage:msg];
 //        
-//        NSString * url = [NSString stringWithFormat:@"%@%@",URL_main,URL_User_TaskFinish];
+//        NSString *url = [NSString stringWithFormat:@"%@%@",URL_main,URL_User_TaskFinish];
 //        
 //        NSDictionary * ary = @{
 //                               @"task_id":[EPVConfigModel getQrTaskID],
