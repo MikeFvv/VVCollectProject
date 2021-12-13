@@ -10,15 +10,21 @@
 #define PrefixHeader_pch
 
 #import "Macros.h"
-#import "Masonry.h"
 #import "VVAdaptUI.h"
 #import "MBProgressHUD+JDragon.h"
 #import "UIResponder+Router.h"
 #import "UIColor+Hex.h"
 #import "MXWAdapter.h"
 
+// *** 第三方 ***
+#import "Masonry.h"
 #import <SDWebImage/SDWebImage.h>
 #import <YYKit.h>
+#import <MJExtension.h>
+
+
+#import "AppModel.h"
+#import "UserInfo.h"
 
 
 #import "ComCardManager.h"

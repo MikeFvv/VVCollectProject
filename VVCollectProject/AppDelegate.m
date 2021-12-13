@@ -11,9 +11,15 @@
 #import "BaseNavigationController.h"
 #import "UIImage+GradientColor.h"
 #import "ViewController.h"
+
 #import "JSPatchCode.h"
-#import "HomeViewController.h"
 #import "YYFPSLabel.h"
+
+#import "HomeViewController.h"
+#import "LoginViewController.h"
+#import "MXVNavController.h"
+
+
 
 @interface AppDelegate ()
 
@@ -44,14 +50,9 @@
 //    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //    self.window.backgroundColor = [UIColor whiteColor];
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    BaseNavigationController *firstNav = [[BaseNavigationController alloc] initWithRootViewController:[[HomeViewController alloc]init]];
-//    UITabBarController *tabBarVC = [UITabBarController new];
-//    tabBarVC.viewControllers = @[firstNav];
-    self.window.rootViewController = firstNav;
+    [self setRootViewController:NO];
     
-//    self.window.rootViewController = [ViewController new];
-//    [self setNavBarAppearence];
+    
     
     
     // 刷新率
@@ -70,6 +71,69 @@
     
     
 }
+
+
+/// 设置根控制器
+/// @param isToLogin 是否到登录页面
+-(void)setRootViewController:(BOOL)isToLogin {
+    
+//    if ([AppModel sharedInstance].isLogined) {
+    if (!isToLogin) {
+        [self.window.layer addAnimation:self.animation forKey:nil];
+        self.window.rootViewController = [[NSClassFromString(@"MXVTabBarController") alloc] init];
+    } else {
+
+        if (![AppModel sharedInstance].isLogined) {
+            UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+            LoginViewController *vc = [[LoginViewController alloc] init];
+            MXVNavController *nav = [[MXVNavController alloc] initWithRootViewController:vc];
+            nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            [rootViewController presentViewController:nav animated:YES completion:nil];
+            return;
+        }
+
+//        LoginViewController *vc =  [[LoginViewController alloc] init];
+//        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
+    }
+    
+    
+    /*
+    
+    // 没有tabbar
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    BaseNavigationController *firstNav = [[BaseNavigationController alloc] initWithRootViewController:[[HomeViewController alloc]init]];
+//    UITabBarController *tabBarVC = [UITabBarController new];
+//    tabBarVC.viewControllers = @[firstNav];
+    self.window.rootViewController = firstNav;
+    
+    */
+}
+
+/**
+ 退出登录
+ */
+- (void)logOut {
+    
+    [AppModel sharedInstance].token = nil;
+    [AppModel sharedInstance].isLogined = NO;
+    [AppModel sharedInstance].user_info = [UserInfo new];
+    [[AppModel sharedInstance] saveAppModel];
+    
+    __weak __typeof(self)weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(),^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf setRootViewController:NO];
+    });
+}
+- (CATransition *)animation {
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.3;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    animation.type =  @"cube";
+    animation.subtype = kCATransitionFromTop;
+    return animation;
+}
+
 
 
 - (void)setNavBarAppearence

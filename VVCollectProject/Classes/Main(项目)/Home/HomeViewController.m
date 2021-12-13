@@ -202,10 +202,10 @@ dispatch_async(dispatch_get_main_queue(), block);\
     [super viewWillAppear:animated];
     
     // Resets styling
-    self.navigationController.navigationBar.titleTextAttributes = nil;
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"f8f8f8"];;
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+//    self.navigationController.navigationBar.titleTextAttributes = nil;
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"f8f8f8"];;
+//    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
 
