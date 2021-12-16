@@ -803,14 +803,16 @@
 
 -(BJSendPokerView *)playerSendPokerView {
     if (!_playerSendPokerView) {
-        _playerSendPokerView = [[BJSendPokerView alloc] initWithFrame:CGRectMake(20, 10, mxwScreenWidth()/2-20*2, 200)];
+        _playerSendPokerView = [[BJSendPokerView alloc] initWithFrame:CGRectMake(20, mxwStatusNavBarHeight()+10, mxwScreenWidth()/2-20*2, 200)];
         _playerSendPokerView.nameLabel.text = @"Player";
+        
+//        _playerSendPokerView.backgroundColor = [UIColor redColor];
     }
     return _playerSendPokerView;
 }
 -(BJSendPokerView *)bankerSendPokerView {
     if (!_bankerSendPokerView) {
-        _bankerSendPokerView = [[BJSendPokerView alloc] initWithFrame:CGRectMake(20+mxwScreenWidth()/2, 10, mxwScreenWidth()/2-20*2, 200)];
+        _bankerSendPokerView = [[BJSendPokerView alloc] initWithFrame:CGRectMake(20+mxwScreenWidth()/2, mxwStatusNavBarHeight()+10, mxwScreenWidth()/2-20*2, 200)];
         _bankerSendPokerView.nameLabel.text = @"Banker";
     }
     return _bankerSendPokerView;
