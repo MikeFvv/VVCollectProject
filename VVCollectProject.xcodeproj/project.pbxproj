@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 267B11492345B901003FEF3B /* PrintBeautifulLog.m */; };
-		26F65B92236C623D00CCB41E /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F65B90236C623D00CCB41E /* MBProgressHUD+JDragon.bundle */; };
-		26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */; };
 		2742F252255AA1D9001848EF /* NSString+RegexCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742F251255AA1D9001848EF /* NSString+RegexCategory.m */; };
 		2754458123FD4A130012DC60 /* InjectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754457F23FD4A120012DC60 /* InjectionManager.m */; };
 		2754458223FD4A130012DC60 /* InjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754458023FD4A120012DC60 /* InjectionIIIHelper.m */; };
@@ -44,6 +42,8 @@
 		84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C8D275E9220006C2906 /* UIView+getTopContorller.m */; };
 		84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C90275E9221006C2906 /* UIViewController+MXW.m */; };
 		84568C95275E9228006C2906 /* NSUserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C93275E9227006C2906 /* NSUserDefaultsManager.m */; };
+		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
+		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
@@ -180,9 +180,6 @@
 		0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VVCollectProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		267B11482345B900003FEF3B /* PrintBeautifulLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintBeautifulLog.h; sourceTree = "<group>"; };
 		267B11492345B901003FEF3B /* PrintBeautifulLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintBeautifulLog.m; sourceTree = "<group>"; };
-		26F65B8F236C623D00CCB41E /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
-		26F65B90236C623D00CCB41E /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
-		26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
 		270BA24723F2950700EABF58 /* MMPropertyCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMPropertyCodingBlock.h; sourceTree = "<group>"; };
 		270BA24823F2B12F00EABF58 /* MMOtherCodingBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMOtherCodingBlock.h; sourceTree = "<group>"; };
 		2742F250255AA1D9001848EF /* NSString+RegexCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexCategory.h"; sourceTree = "<group>"; };
@@ -251,6 +248,9 @@
 		84568C90275E9221006C2906 /* UIViewController+MXW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MXW.m"; sourceTree = "<group>"; };
 		84568C93275E9227006C2906 /* NSUserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserDefaultsManager.m; sourceTree = "<group>"; };
 		84568C94275E9228006C2906 /* NSUserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserDefaultsManager.h; sourceTree = "<group>"; };
+		848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
+		848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
+		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
 		84A59209273D9B240071D524 /* MXWAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdapter.h; sourceTree = "<group>"; };
 		84A5920A273D9B240071D524 /* MXWAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdapter.m; sourceTree = "<group>"; };
 		84A59213273D9FA30071D524 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
@@ -508,16 +508,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		26F65B8E236C623D00CCB41E /* MBProgressHUD+JDragon */ = {
-			isa = PBXGroup;
-			children = (
-				26F65B8F236C623D00CCB41E /* MBProgressHUD+JDragon.h */,
-				26F65B90236C623D00CCB41E /* MBProgressHUD+JDragon.bundle */,
-				26F65B91236C623D00CCB41E /* MBProgressHUD+JDragon.m */,
-			);
-			path = "MBProgressHUD+JDragon";
-			sourceTree = "<group>";
-		};
 		270BA24623F294B200EABF58 /* CodeSnippet(代码块) */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,6 +705,16 @@
 				657C99BC22F036BB00CE0BF4 /* Masonry(UI约束) */,
 			);
 			path = "展示、用法";
+			sourceTree = "<group>";
+		};
+		848EE77A276BBE2F0016CD8A /* MBProgressHUD+JDragon */ = {
+			isa = PBXGroup;
+			children = (
+				848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */,
+				848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */,
+				848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */,
+			);
+			path = "MBProgressHUD+JDragon";
 			sourceTree = "<group>";
 		};
 		84A5920F273D9ED50071D524 /* UIImage */ = {
@@ -1001,9 +1001,9 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				848EE77A276BBE2F0016CD8A /* MBProgressHUD+JDragon */,
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				276C92182691631100377224 /* Encryption */,
-				26F65B8E236C623D00CCB41E /* MBProgressHUD+JDragon */,
 				A0D55E2A221D9B0300D7E3B0 /* RepeatPush */,
 				A034FDA92216DEA800081EE2 /* YYFPSLabel.h */,
 				A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */,
@@ -1448,11 +1448,11 @@
 				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
 				84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
+				848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */,
 				84B85E6727655394009AC598 /* game_back_750x1334.jpg in Resources */,
 				84B85DF42762745D009AC598 /* 程序通讯协议v1.26.docx in Resources */,
 				84B85DF72762745D009AC598 /* 开发调试指南v1.26.docx in Resources */,
 				84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */,
-				26F65B92236C623D00CCB41E /* MBProgressHUD+JDragon.bundle in Resources */,
 				84568C86275E874D006C2906 /* README.md in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
@@ -1601,7 +1601,6 @@
 				84B85E7B2766F5F2009AC598 /* MXVNavController.m in Sources */,
 				84B85E882766F6F4009AC598 /* UserInfo.m in Sources */,
 				84B85E5427640736009AC598 /* ThreeAI.m in Sources */,
-				26F65B93236C623D00CCB41E /* MBProgressHUD+JDragon.m in Sources */,
 				276C918E26915DFC00377224 /* MXWTypeConversionManager.m in Sources */,
 				A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */,
 				A011E13322A65A5800A10869 /* UIResponder+Router.m in Sources */,
@@ -1641,6 +1640,7 @@
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
+				848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */,
 				276C91D1269160C500377224 /* FileHelper.m in Sources */,
 				84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
