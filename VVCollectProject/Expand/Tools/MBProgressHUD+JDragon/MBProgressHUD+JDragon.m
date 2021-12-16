@@ -10,64 +10,74 @@
 
 @implementation MBProgressHUD (JDragon)
 
-+ (MBProgressHUD*)createMBProgressHUDviewWithMessage:(NSString *)message isWindiw:(BOOL)isWindow
++ (MBProgressHUD*)createMBProgressHUDviewWithMessage:(NSString*)message isWindiw:(BOOL)isWindow
 {
     UIView  *view = isWindow? (UIView*)[UIApplication sharedApplication].delegate.window:[self getCurrentUIVC].view;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.labelText=message?message:@"加载中.....";
-    hud.labelFont=[UIFont systemFontOfSize:15];
-    hud.removeFromSuperViewOnHide = YES;
-    hud.dimBackground = NO;
+//    hud.label.text = message?message:@"加载中.....";
+//    hud.label.font = [UIFont systemFontOfSize:15];
+//    hud.removeFromSuperViewOnHide = YES;
+    
+    
+    hud.contentColor = [UIColor whiteColor];  // mike<<<MBProgressHUD
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.color = [UIColor colorWithHex:@"#213246" alpha:0.90];
+    
+    // Set the determinate mode to show task progress.
+    hud.mode = MBProgressHUDModeDeterminate;
+    
+    hud.label.text = message?message:@"加载中.....";
+    
     return hud;
 }
 #pragma mark-------------------- show Tip----------------------------
 
-+ (void)showTipMessageInWindow:(NSString *)message
++ (void)showTipMessageInWindow:(NSString*)message
 {
     [self showTipMessage:message isWindow:true timer:2];
 }
-+ (void)showTipMessageInView:(NSString *)message
++ (void)showTipMessageInView:(NSString*)message
 {
     [self showTipMessage:message isWindow:false timer:2];
 }
-+ (void)showTipMessageInWindow:(NSString *)message timer:(int)aTimer
++ (void)showTipMessageInWindow:(NSString*)message timer:(int)aTimer
 {
     [self showTipMessage:message isWindow:true timer:aTimer];
 }
-+ (void)showTipMessageInView:(NSString *)message timer:(int)aTimer
++ (void)showTipMessageInView:(NSString*)message timer:(int)aTimer
 {
     [self showTipMessage:message isWindow:false timer:aTimer];
 }
-+ (void)showTipMessage:(NSString *)message isWindow:(BOOL)isWindow timer:(int)aTimer
++ (void)showTipMessage:(NSString*)message isWindow:(BOOL)isWindow timer:(int)aTimer
 {
     MBProgressHUD *hud = [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
     hud.mode = MBProgressHUDModeText;
-    [hud hide:YES afterDelay:aTimer];
+    [hud hideAnimated:YES afterDelay:aTimer];
 }
 #pragma mark-------------------- show Activity----------------------------
 
-+ (void)showActivityMessageInWindow:(NSString *)message
++ (void)showActivityMessageInWindow:(NSString*)message
 {
     [self showActivityMessage:message isWindow:true timer:0];
 }
-+ (void)showActivityMessageInView:(NSString *)message
++ (void)showActivityMessageInView:(NSString*)message
 {
     [self showActivityMessage:message isWindow:false timer:0];
 }
-+ (void)showActivityMessageInWindow:(NSString *)message timer:(int)aTimer
++ (void)showActivityMessageInWindow:(NSString*)message timer:(int)aTimer
 {
     [self showActivityMessage:message isWindow:true timer:aTimer];
 }
-+ (void)showActivityMessageInView:(NSString *)message timer:(int)aTimer
++ (void)showActivityMessageInView:(NSString*)message timer:(int)aTimer
 {
     [self showActivityMessage:message isWindow:false timer:aTimer];
 }
-+ (void)showActivityMessage:(NSString *)message isWindow:(BOOL)isWindow timer:(int)aTimer
++ (void)showActivityMessage:(NSString*)message isWindow:(BOOL)isWindow timer:(int)aTimer
 {
     MBProgressHUD *hud  =  [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
     hud.mode = MBProgressHUDModeIndeterminate;
     if (aTimer>0) {
-        [hud hide:YES afterDelay:aTimer];
+        [hud hideAnimated:YES afterDelay:aTimer];
     }
 }
 #pragma mark-------------------- show Image----------------------------
@@ -106,14 +116,14 @@
     MBProgressHUD *hud  =  [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconName]];
     hud.mode = MBProgressHUDModeCustomView;
-    [hud hide:YES afterDelay:2];
+    [hud hideAnimated:YES afterDelay:2];
     
 }
 + (void)hideHUD
 {
     UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
-    [self hideAllHUDsForView:winView animated:YES];
-    [self hideAllHUDsForView:[self getCurrentUIVC].view animated:YES];
+    [self hideHUDForView:winView animated:YES];
+    [self hideHUDForView:[self getCurrentUIVC].view animated:YES];
 }
 #pragma mark --- 获取当前Window试图---------
 //获取当前屏幕显示的viewcontroller

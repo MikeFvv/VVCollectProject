@@ -146,6 +146,9 @@
 
 #pragma mark - 自动运行
 - (void)onAutoAction:(UIButton *)sender {
+    
+    [MBProgressHUD showActivityMessageInView:@"正在自动运行..."];
+    
     self.isAutoRun = YES;
     self.autoTotalIndex = 0;
     self.autoTotalIndex = self.boardNumTextField.text.integerValue;
@@ -181,8 +184,13 @@
 
 
 -(void)startCard {
-    [self getPlayerOneCardLogic];
-    [self bankerLogic];
+    if (self.isAutoRun) {
+        [self autoAIPlayerLogic];
+    } else {
+        [self getPlayerOneCardLogic];
+        [self bankerLogic];
+    }
+    
     NSLog(@"11");
 }
 
@@ -257,7 +265,12 @@
         }
     }
     
-    [self bankerLogic];
+    if (self.isAutoRun) {
+        [self autoAIBankerLogic];
+    } else {
+        [self bankerLogic];
+    }
+    
 }
 
 
@@ -336,6 +349,8 @@
         } else {
             [self resultStatisticsContinuous];
             self.trendView.model = self.resultDataArray;
+            
+            [MBProgressHUD hideHUD];
         }
     } else {
         [self resultStatisticsContinuous];
@@ -366,7 +381,7 @@
     }
     
     if (self.playershandofCardsArray.count == 1) {
-        [self bankerLogic];
+        [self autoAIBankerLogic];
         return;
     }
 
@@ -446,7 +461,7 @@
         }
         [self resultHandler];
     } else {
-        [self bankerLogic];
+        [self autoAIBankerLogic];
     }
 
 }
