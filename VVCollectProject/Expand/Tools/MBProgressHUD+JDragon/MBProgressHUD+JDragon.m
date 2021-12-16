@@ -14,9 +14,9 @@
 {
     UIView  *view = isWindow? (UIView*)[UIApplication sharedApplication].delegate.window:[self getCurrentUIVC].view;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-//    hud.label.text = message?message:@"加载中.....";
-//    hud.label.font = [UIFont systemFontOfSize:15];
-//    hud.removeFromSuperViewOnHide = YES;
+    //    hud.label.text = message?message:@"加载中.....";
+    //    hud.label.font = [UIFont systemFontOfSize:15];
+    //    hud.removeFromSuperViewOnHide = YES;
     
     
     hud.contentColor = [UIColor whiteColor];  // mike<<<MBProgressHUD
@@ -146,11 +146,19 @@
     //1、通过present弹出VC，appRootVC.presentedViewController不为nil
     if (appRootVC.presentedViewController) {
         nextResponder = appRootVC.presentedViewController;
-    }else{
+    } else {
         //2、通过navigationcontroller弹出VC
         //        NSLog(@"subviews == %@",[window subviews]);
-        UIView *frontView = [[window subviews] objectAtIndex:0];
-        nextResponder = [frontView nextResponder];
+//        UIView *frontView = [[window subviews] objectAtIndex:0];
+//
+//       NSInteger eee = [window subviews].count;
+//        for (UIView *subView in [window subviews]) {
+//            NSLog(@"11");
+//        }
+//
+//        nextResponder = [frontView nextResponder];
+        
+        nextResponder = appRootVC;
     }
     return nextResponder;
 }
@@ -158,7 +166,7 @@
 +(UINavigationController*)getCurrentNaVC
 {
     
-    UIViewController  *viewVC = (UIViewController*)[ self getCurrentWindowVC ];
+    UIViewController  *viewVC = (UIViewController*)[self getCurrentWindowVC];
     UINavigationController  *naVC;
     if ([viewVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController  *tabbar = (UITabBarController*)viewVC;
@@ -168,23 +176,21 @@
                 naVC = (UINavigationController*)naVC.presentedViewController;
             }
         }
-    }else
-        if ([viewVC isKindOfClass:[UINavigationController class]]) {
-            
-            naVC  = (UINavigationController*)viewVC;
-            if (naVC.presentedViewController) {
-                while (naVC.presentedViewController) {
-                    naVC = (UINavigationController*)naVC.presentedViewController;
-                }
+    } else if ([viewVC isKindOfClass:[UINavigationController class]]) {
+        
+        naVC  = (UINavigationController*)viewVC;
+        if (naVC.presentedViewController) {
+            while (naVC.presentedViewController) {
+                naVC = (UINavigationController*)naVC.presentedViewController;
             }
-        }else
-            if ([viewVC isKindOfClass:[UIViewController class]])
-            {
-                if (viewVC.navigationController) {
-                    return viewVC.navigationController;
-                }
-                return  (UINavigationController*)viewVC;
+        }
+    } else if ([viewVC isKindOfClass:[UIViewController class]])
+        {
+            if (viewVC.navigationController) {
+                return viewVC.navigationController;
             }
+            return  (UINavigationController*)viewVC;
+        }
     return naVC;
 }
 
@@ -196,11 +202,9 @@
         cc =  na.viewControllers.lastObject;
         
         if (cc.childViewControllers.count>0) {
-            
             cc = [[self class] getSubUIVCWithVC:cc];
         }
-    }else
-    {
+    } else {
         cc = (UIViewController*)na;
     }
     return cc;
@@ -210,10 +214,8 @@
     UIViewController   *cc;
     cc =  vc.childViewControllers.lastObject;
     if (cc.childViewControllers>0) {
-        
         [[self class] getSubUIVCWithVC:cc];
-    }else
-    {
+    } else {
         return cc;
     }
     return cc;
