@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CardDataSourceModel.h"
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXWPokerView : UIView
 
 /// 数据模型
-@property (nonatomic, copy) PlayCardModel *model;
+@property (nonatomic, copy) PokerCardModel *model;
 
 /// 来源类型  默认 21点   1 百家乐
 @property (nonatomic, assign) NSInteger fromType;

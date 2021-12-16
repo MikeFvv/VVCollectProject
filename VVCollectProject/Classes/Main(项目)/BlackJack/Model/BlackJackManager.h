@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

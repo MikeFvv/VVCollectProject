@@ -4,8 +4,8 @@
 
 
 
-
-@interface PlayCardModel : NSObject
+// 每张牌模型
+@interface PokerCardModel : NSObject
 
 /// 花色符号  ♦️
 @property (nonatomic, copy) NSString *suitSymbol;

@@ -7,7 +7,7 @@
 //
 
 #import "BlackJackCell.h"
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 #import "VVFunctionManager.h"
 
 
@@ -207,90 +207,89 @@
     }];
 }
 
-
-- (void)setModel:(id)model {
+- (void)setModel:(BJWinOrLoseResultModel *)model {
     
-    NSDictionary *dict = (NSDictionary *)model;
-    NSArray *playerArray       = (NSArray *)[dict objectForKey:@"PlayerArray"];
-    NSArray *bankerArray       = (NSArray *)[dict objectForKey:@"BankerArray"];
-    NSString *winType       = [[dict objectForKey:@"WinType"] stringValue];
-    
-    NSInteger playerNum = 0;
-    BOOL isPlayerA = NO;
-    NSMutableString *playerStr = [NSMutableString string];
-    for (NSInteger i = 0; i < playerArray.count; i++) {
-        PlayCardModel *model = playerArray[i];
-        [playerStr appendString:model.cardText];
-        playerNum = playerNum + model.cardValue;
-        if (model.cardValue == 1) {
-            isPlayerA = YES;
-        }
-    }
-    
-    if (isPlayerA && (playerNum + 10 <= 21)) {
-        playerNum = playerNum + 10;
-    }
-    
-    NSInteger bankerNum = 0;
-    BOOL isBankerA = NO;
-    NSMutableString *bankerStr = [NSMutableString string];
-    for (NSInteger j = 0; j < bankerArray.count; j++) {
-        PlayCardModel *model = bankerArray[j];
-        [bankerStr appendString:model.cardText];
-        bankerNum = bankerNum + model.cardValue;
-        if (model.cardValue == 1) {
-            isBankerA = YES;
-        }
-    }
-    
-    if (isBankerA && (bankerNum + 10 <= 21)) {
-        bankerNum = bankerNum + 10;
-    }
-    
-    self.playerLabel.text = playerStr;
-    self.bankerLabel.text = bankerStr;
-    self.playerOrbankerOrTieLabel.text = [self bankerOrPlayerOrTie:winType];
-
-    
-    if ([winType integerValue] == 1) {
-        self.playerOrbankerOrTieLabel.backgroundColor = [UIColor redColor];
-    } else if ([winType integerValue] == 2) {
-        self.playerOrbankerOrTieLabel.backgroundColor = [UIColor blueColor];
-    } else {
-        self.playerOrbankerOrTieLabel.backgroundColor = [UIColor greenColor];
-    }
-    
-    
-    // 爆牌
-    if ([[dict objectForKey:@"PlayerBust"] boolValue]) {
-        self.bustLabel.hidden = NO;
-        self.bustLabel.backgroundColor = [UIColor blueColor];
-    } else if ([[dict objectForKey:@"BankerBust"] boolValue]) {
-        self.bustLabel.hidden = NO;
-        self.bustLabel.backgroundColor = [UIColor redColor];
-    } else {
-        self.bustLabel.hidden = YES;
-    }
-    
-    if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
-        self.playerPairView.hidden = NO;
-    } else {
-        self.playerPairView.hidden = YES;
-    }
-
-    self.pointsNumLabel.text = [NSString stringWithFormat:@"%zd - %zd", playerNum, bankerNum];
-    if (isPlayerA || isBankerA) {
-        self.ALabel.hidden = NO;
-    } else {
-       self.ALabel.hidden = YES;
-    }
-    
-    // 加倍标示
-    if ([[dict objectForKey:@"isDoubleOne"] boolValue]) {
-        self.doubleLabel.hidden = NO;
-    } else {
-        self.doubleLabel.hidden = YES;
-    }
+//    NSDictionary *dict = (NSDictionary *)model;
+//    NSArray *playerArray       = (NSArray *)[dict objectForKey:@"PlayerArray"];
+//    NSArray *bankerArray       = (NSArray *)[dict objectForKey:@"BankerArray"];
+//    NSString *winType       = [[dict objectForKey:@"WinType"] stringValue];
+//
+//    NSInteger playerNum = 0;
+//    BOOL isPlayerA = NO;
+//    NSMutableString *playerStr = [NSMutableString string];
+//    for (NSInteger i = 0; i < playerArray.count; i++) {
+//        PokerCardModel *model = playerArray[i];
+//        [playerStr appendString:model.cardText];
+//        playerNum = playerNum + model.cardValue;
+//        if (model.cardValue == 1) {
+//            isPlayerA = YES;
+//        }
+//    }
+//
+//    if (isPlayerA && (playerNum + 10 <= 21)) {
+//        playerNum = playerNum + 10;
+//    }
+//
+//    NSInteger bankerNum = 0;
+//    BOOL isBankerA = NO;
+//    NSMutableString *bankerStr = [NSMutableString string];
+//    for (NSInteger j = 0; j < bankerArray.count; j++) {
+//        PokerCardModel *model = bankerArray[j];
+//        [bankerStr appendString:model.cardText];
+//        bankerNum = bankerNum + model.cardValue;
+//        if (model.cardValue == 1) {
+//            isBankerA = YES;
+//        }
+//    }
+//
+//    if (isBankerA && (bankerNum + 10 <= 21)) {
+//        bankerNum = bankerNum + 10;
+//    }
+//
+//    self.playerLabel.text = playerStr;
+//    self.bankerLabel.text = bankerStr;
+//    self.playerOrbankerOrTieLabel.text = [self bankerOrPlayerOrTie:winType];
+//
+//
+//    if ([winType integerValue] == 1) {
+//        self.playerOrbankerOrTieLabel.backgroundColor = [UIColor redColor];
+//    } else if ([winType integerValue] == 2) {
+//        self.playerOrbankerOrTieLabel.backgroundColor = [UIColor blueColor];
+//    } else {
+//        self.playerOrbankerOrTieLabel.backgroundColor = [UIColor greenColor];
+//    }
+//
+//
+//    // 爆牌
+//    if ([[dict objectForKey:@"PlayerBust"] boolValue]) {
+//        self.bustLabel.hidden = NO;
+//        self.bustLabel.backgroundColor = [UIColor blueColor];
+//    } else if ([[dict objectForKey:@"BankerBust"] boolValue]) {
+//        self.bustLabel.hidden = NO;
+//        self.bustLabel.backgroundColor = [UIColor redColor];
+//    } else {
+//        self.bustLabel.hidden = YES;
+//    }
+//
+//    if ([[dict objectForKey:@"isPlayerPair"] boolValue]) {
+//        self.playerPairView.hidden = NO;
+//    } else {
+//        self.playerPairView.hidden = YES;
+//    }
+//
+//    self.pointsNumLabel.text = [NSString stringWithFormat:@"%zd - %zd", playerNum, bankerNum];
+//    if (isPlayerA || isBankerA) {
+//        self.ALabel.hidden = NO;
+//    } else {
+//       self.ALabel.hidden = YES;
+//    }
+//
+//    // 加倍标示
+//    if ([[dict objectForKey:@"isDoubleOne"] boolValue]) {
+//        self.doubleLabel.hidden = NO;
+//    } else {
+//        self.doubleLabel.hidden = YES;
+//    }
 }
 
 

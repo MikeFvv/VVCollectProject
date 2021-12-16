@@ -44,13 +44,14 @@
 #import "BJClub.h"
 #import "BJSpade.h"
 #import "CardDataSourceModel.h"
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 #import "BaccaratCollectionView.h"
 #import "BJDetailsController.h"
 #import "VVFunctionManager.h"
 #import "MXWPokerView.h"
 #import "BJSendPokerView.h"
 #import "BlackJackManager.h"
+#import "BJWinOrLoseResultModel.h"
 
 #define kFontSizeLabel 20
 //#define kFontName  @"Futura"
@@ -89,7 +90,7 @@
 /// 初始数据
 @property (strong, nonatomic) NSMutableArray *blackjackDataArray;
 /// 全部盘数结果
-@property (strong, nonatomic) NSMutableArray<NSMutableDictionary *> *resultDataArray;
+@property (strong, nonatomic) NSMutableArray<BJWinOrLoseResultModel *> *resultDataArray;
 
 // 是否有出现过A
 @property (nonatomic, assign) BOOL isPlayer_A;
@@ -229,21 +230,45 @@
 
 
 
+/// 发牌器
+/// @param isPlayer 是否玩家  YES 玩家  NO 庄家
+- (void)sendCardMethodIsP:(BOOL)isPlayer {
+    
+    PokerCardModel *nextCard = (PokerCardModel *)self.blackjackDataArray.firstObject;
+    [self.blackjackDataArray removeObjectAtIndex:0];
+    if (isPlayer) {
+        [self.playershandofCardsArray addObject:nextCard];
+        
+        // 计算结果
+        self.playerTotal = self.playerTotal + nextCard.cardValue;
+        if (nextCard.alterValue > 0) {
+            self.isPlayer_A = YES;
+        }
+        
+        if (!self.isAutoRun) {
+            self.playerSendPokerView.sendCardDataArray = self.playershandofCardsArray;
+        }
+        
+    } else {
+        [self.bankershandofCardsArray addObject:nextCard];
+    
+        // 计算结果
+        self.bankerTotal = self.bankerTotal + nextCard.cardValue;
+        if (nextCard.alterValue > 0) {
+            self.isBanker_A = YES;
+        }
+        
+        if (!self.isAutoRun) {
+            self.bankerSendPokerView.sendCardDataArray = self.bankershandofCardsArray;
+        }
+    }
+}
 
 #pragma mark - 玩家拿牌(玩家Hit)
 - (void)getPlayerOneCardLogic {
     self.isAutoRun = NO;
-    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.playershandofCardsArray addObject:nextCard];
-    [self.blackjackDataArray removeObjectAtIndex:0];
     
-    self.playerSendPokerView.sendCardDataArray = self.playershandofCardsArray;
-    
-    // 计算结果
-    self.playerTotal = self.playerTotal + nextCard.cardValue;
-    if (nextCard.alterValue > 0) {
-        self.isPlayer_A = YES;
-    }
+    [self sendCardMethodIsP:YES];
 
 
     if (self.playershandofCardsArray.count >= 2 && self.playerTotal > 21) {
@@ -256,15 +281,7 @@
 #pragma mark - 手动Banker发牌
 - (void)bankerLogic {
     
-    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.bankershandofCardsArray addObject:nextCard];
-    [self.blackjackDataArray removeObjectAtIndex:0];
-    self.bankerSendPokerView.sendCardDataArray = self.bankershandofCardsArray;
-    
-    self.bankerTotal = self.bankerTotal + nextCard.cardValue;
-    if (nextCard.alterValue > 0) {
-        self.isBanker_A = YES;
-    }
+    [self sendCardMethodIsP:NO];
     
     if (self.bankershandofCardsArray.count == 1) {
         [self getPlayerOneCardLogic];
@@ -320,64 +337,9 @@
 - (void)resultHandler {
     //TODO: Pay bet amount.  // TODO：支付下注金额。
     
-    NSInteger playerShighestHand = 0;
-    NSInteger bankerShighestHand = 0;
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    if (self.playerTotal > 21) {
-        playerShighestHand = 0;
-        [dict setObject:@(1) forKey:@"PlayerBust"];
-    } else {
-        playerShighestHand = self.playerTotal;
-    }
-    
-    
-    if (self.bankerTotal > 21 && self.playerTotal <= 21) {
-        bankerShighestHand = 0;
-        [dict setObject:@(1) forKey:@"BankerBust"];
-    } else {
-        bankerShighestHand = self.bankerTotal;
-    }
-    
-    if (playerShighestHand > bankerShighestHand) {  // Player
-        
-        if (!self.isAutoRun) {
-            self.resultlLabel.text = @"Player Win";
-            self.resultlLabel.backgroundColor = [UIColor blueColor];
-        }
-        
-        [dict setObject:@(2) forKey:@"WinType"];
-    } else if (bankerShighestHand > playerShighestHand) {  // Banker
-        
-        if (!self.isAutoRun) {
-            self.resultlLabel.text = @"Banker Win";
-            self.resultlLabel.backgroundColor = [UIColor redColor];
-        }
-        
-        [dict setObject:@(1) forKey:@"WinType"];
-    } else if (playerShighestHand == bankerShighestHand) {  // TIE
-        
-        if (!self.isAutoRun) {
-            self.resultlLabel.text = @"TIE";
-            self.resultlLabel.backgroundColor = [UIColor greenColor];
-        }
-        
-        [dict setObject:@(0) forKey:@"WinType"];
-    }
-    
-    
-    // 加倍标示
-    if (self.isDoubleOne) {
-        [dict setObject:@(YES) forKey:@"isDoubleOne"];
-    }
-    
-    // 注意 如果直接保存， 会全部更换为目前的key对应的值  copy 解决
-    [dict setObject:[self.playershandofCardsArray copy] forKey:@"PlayerArray"];
-    [dict setObject:[self.bankershandofCardsArray copy] forKey:@"BankerArray"];
-    
-    [self.resultDataArray addObject:dict];
-    
+    BJWinOrLoseResultModel *resultModel = [[BJWinOrLoseResultModel alloc] init];
+    [resultModel blackJackResultComputer:self.playershandofCardsArray bankerArray:self.bankershandofCardsArray isPlayerDoubleOne:self.isDoubleOne];
+    [self.resultDataArray addObject:resultModel];
     
     [self endThisRun];
     
@@ -389,13 +351,13 @@
             self.autoTotalIndex--;
             [self resetPlay];
         } else {
-            [self resultStatisticsContinuous];
+//            [self resultStatisticsContinuous];
             self.trendView.model = self.resultDataArray;
             
             [MBProgressHUD hideHUD];
         }
     } else {
-        [self resultStatisticsContinuous];
+//        [self resultStatisticsContinuous];
         self.trendView.model = self.resultDataArray;
         
         self.hitButton.enabled = NO;
@@ -514,16 +476,7 @@
 #pragma mark - 自动->玩家逻辑  玩家Hit
 - (void)autoAIPlayerLogic {
 
-    //TODO: Handle 'Split' condition  TODO：处理“拆分”状态
-    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.playershandofCardsArray addObject:nextCard];
-    [self.blackjackDataArray removeObjectAtIndex:0];
-
-    // 计算结果
-    self.playerTotal = self.playerTotal + nextCard.cardValue;
-    if (nextCard.alterValue > 0) {
-        self.isPlayer_A = YES;
-    }
+    [self sendCardMethodIsP:YES];
     
     if (self.playershandofCardsArray.count == 1) {
         [self autoAIBankerLogic];
@@ -576,15 +529,7 @@
 #pragma mark - 自动-> Banker发牌
 - (void)autoAIBankerLogic {
 
-    PlayCardModel *nextCard = (PlayCardModel *)self.blackjackDataArray.firstObject;
-    [self.bankershandofCardsArray addObject:nextCard];
-    [self.blackjackDataArray removeObjectAtIndex:0];
-
-    self.bankerTotal = self.bankerTotal + nextCard.cardValue;
-    // A 判断
-    if (nextCard.cardValue == 1) {
-        self.isBanker_A = YES;
-    }
+    [self sendCardMethodIsP:NO];
 
     if (self.bankershandofCardsArray.count == 1) {
         [self autoAIPlayerLogic];
