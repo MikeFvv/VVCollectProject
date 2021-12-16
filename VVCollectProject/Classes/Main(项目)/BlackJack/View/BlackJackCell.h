@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BJWinOrLoseResultModel.h"
 
 @interface BlackJackCell : UITableViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
                        reusableId:(NSString *)ID;
 // strong注释
-@property (nonatomic,strong) id model;
+@property (nonatomic,strong) BJWinOrLoseResultModel *model;
 @property (nonatomic, strong) UILabel *indexLabel;
 
 @end

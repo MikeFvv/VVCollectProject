@@ -31,7 +31,7 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
     return self;
 }
 
-- (void)setSendCardDataArray:(NSMutableArray<PlayCardModel *> *)sendCardDataArray {
+- (void)setSendCardDataArray:(NSMutableArray<PokerCardModel *> *)sendCardDataArray {
     _sendCardDataArray = sendCardDataArray;
     
     [self.collectionView reloadData];
@@ -40,11 +40,13 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
     [self calculateNumberPoints];
 }
 
+
+/// 计算点数
 - (void)calculateNumberPoints {
     NSInteger totalPoints = 0;
     NSInteger totalAlterValue = 0;
     BOOL isfirstA = NO;
-    for (PlayCardModel *model in self.sendCardDataArray) {
+    for (PokerCardModel *model in self.sendCardDataArray) {
         BOOL isCurrent = YES;
         if (model.alterValue == 11 && !isfirstA) {
             isfirstA = YES;
@@ -103,7 +105,7 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
         return cell;
     }
     NSInteger index = indexPath.row > 2 ? indexPath.row-1 : indexPath.row;
-    PlayCardModel *model = (PlayCardModel *)self.sendCardDataArray[index];
+    PokerCardModel *model = (PokerCardModel *)self.sendCardDataArray[index];
     cell.model = model;
     
     return cell;

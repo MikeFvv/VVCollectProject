@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (nonatomic, assign) NSInteger emptyDataIndex;
 //
-@property (nonatomic,strong) NSMutableArray<PlayCardModel *> *sendCardDataArray;
+@property (nonatomic,strong) NSMutableArray<PokerCardModel *> *sendCardDataArray;
 
 @end
 

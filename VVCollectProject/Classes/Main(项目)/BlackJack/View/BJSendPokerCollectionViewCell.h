@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BJSendPokerCollectionViewCell : UICollectionViewCell
 
 /// 设置模型数据
-@property (nonatomic, strong) PlayCardModel *model;
+@property (nonatomic, strong) PokerCardModel *model;
 
 - (void)clearDataContent;
 

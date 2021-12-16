@@ -1,7 +1,7 @@
 
 
 #import "CardDataSourceModel.h"
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 #import "VVFunctionManager.h"
 
 
@@ -60,7 +60,7 @@
             
             for (int valueIndex = 0; valueIndex < 13; valueIndex++)
             {
-                PlayCardModel *aCard = [[PlayCardModel alloc] init];
+                PokerCardModel *aCard = [[PokerCardModel alloc] init];
                 aCard.suitSymbol = [suitsAsSymbols objectAtIndex:suitloopIndex];
                 aCard.suitText = [suitsAsText objectAtIndex:suitloopIndex];
                 

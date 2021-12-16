@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BJWinOrLoseResultModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BJDetailsController : UIViewController
 
-@property (strong, nonatomic) NSMutableArray *dataArray;
-
+@property (strong, nonatomic) NSMutableArray<BJWinOrLoseResultModel *> *dataArray;
 @end
 
 NS_ASSUME_NONNULL_END

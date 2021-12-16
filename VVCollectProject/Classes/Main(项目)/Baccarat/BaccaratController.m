@@ -1196,7 +1196,7 @@
         
         
         
-        PlayCardModel *cardModel = (PlayCardModel *)self.dataArray.firstObject;
+        PokerCardModel *cardModel = (PokerCardModel *)self.dataArray.firstObject;
         [self.dataArray removeObjectAtIndex:0];
         self.pokerTotalNum--;
         
@@ -1429,7 +1429,7 @@
 }
 
 #pragma mark -  发牌显示视图
-- (void)playerDealerDisplayView:(PlayCardModel *)carModel {
+- (void)playerDealerDisplayView:(PokerCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
@@ -1443,7 +1443,7 @@
         [self.playerStackView layoutIfNeeded];
     }];
 }
-- (void)player3DealerDisplayView:(PlayCardModel *)carModel {
+- (void)player3DealerDisplayView:(PokerCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
@@ -1456,7 +1456,7 @@
         view.frame = CGRectMake(0, 0, 55, 70);
     }];
 }
-- (void)bankerDealerDisplayView:(PlayCardModel *)carModel {
+- (void)bankerDealerDisplayView:(PokerCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }
@@ -1471,7 +1471,7 @@
     }];
 }
 
-- (void)banker3DealerDisplayView:(PlayCardModel *)carModel {
+- (void)banker3DealerDisplayView:(PokerCardModel *)carModel {
     if (self.isRunOverall) {
         return;
     }

@@ -38,7 +38,7 @@
     
 }
 
-- (void)setModel:(PlayCardModel *)model {
+- (void)setModel:(PokerCardModel *)model {
     _model = model;
     
     self.pokerTextLabel.text = model.cardStr;

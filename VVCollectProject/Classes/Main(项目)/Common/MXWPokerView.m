@@ -44,7 +44,7 @@
     self.pokerColorLabel.text = @"";
 }
 
-- (void)setModel:(PlayCardModel *)model {
+- (void)setModel:(PokerCardModel *)model {
     _model = model;
     
     

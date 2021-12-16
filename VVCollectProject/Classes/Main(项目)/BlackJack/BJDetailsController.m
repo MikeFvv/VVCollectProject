@@ -7,7 +7,7 @@
 //
 
 #import "BJDetailsController.h"
-#import "PlayCardModel.h"
+#import "PokerCardModel.h"
 #import "BlackJackCell.h"
 
 @interface BJDetailsController ()<UITableViewDataSource, UITableViewDelegate>
@@ -28,7 +28,7 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT - Height_NavBar) style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor redColor];
+        _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.dataSource = self;
         _tableView.delegate = self;
 //        self.tableView.tableHeaderView = self.headView;
@@ -38,7 +38,7 @@
 //            // Fallback on earlier versions
 //        }
         
-        _tableView.estimatedRowHeight = 45;
+        _tableView.estimatedRowHeight = 50;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         
@@ -74,5 +74,58 @@
     return 45;
 }
 
+
+// 节头和页脚信息。 如果您决定提供两者，则视图优先于标题  2个
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    // custom view for header. will be adjusted to default or specified header height
+    //标题的自定义视图。 将被调整为默认或指定的标题高度
+    UIView *backView = [[UIView alloc] init];
+    
+    
+    UILabel *titLabel = [[UILabel alloc] init];
+    titLabel.text = @"玩家牌型/庄家牌型";
+    titLabel.font = [UIFont systemFontOfSize:9];
+    titLabel.textColor = [UIColor darkGrayColor];
+    titLabel.textAlignment = NSTextAlignmentCenter;
+    [backView addSubview:titLabel];
+    
+    [titLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(backView.mas_centerY);
+        make.left.equalTo(backView.mas_left).offset(30);
+    }];
+    
+    
+
+    UILabel *dLabel = [[UILabel alloc] init];
+    dLabel.text = @"是否加倍";
+    dLabel.font = [UIFont systemFontOfSize:10];
+    dLabel.textColor = [UIColor darkGrayColor];
+    dLabel.textAlignment = NSTextAlignmentCenter;
+    [backView addSubview:dLabel];
+    
+    [dLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(backView.mas_centerY);
+        make.left.equalTo(backView.mas_centerX).offset(30);
+    }];
+    
+    
+    UILabel *aLabel = [[UILabel alloc] init];
+    aLabel.text = @"是否有A";
+    aLabel.font = [UIFont systemFontOfSize:10];
+    aLabel.textColor = [UIColor darkGrayColor];
+    aLabel.textAlignment = NSTextAlignmentCenter;
+    [backView addSubview:aLabel];
+    
+    [aLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(backView.mas_centerY);
+        make.left.equalTo(backView.mas_centerX).offset(100);
+    }];
+    
+    return backView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
+}
 
 @end
