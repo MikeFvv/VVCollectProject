@@ -193,8 +193,6 @@
 #pragma mark - 自动->运行
 - (void)onAutoAction:(UIButton *)sender {
     
-    [MBProgressHUD showActivityMessageInView:@"正在自动运行..."];
-    
     self.isAutoRun = YES;
     self.autoTotalIndex = 0;
     self.autoTotalIndex = self.boardNumTextField.text.integerValue;
@@ -476,6 +474,9 @@
 #pragma mark - 自动->玩家逻辑  玩家Hit
 - (void)autoAIPlayerLogic {
 
+    NSString *msg = [NSString stringWithFormat:@"正在自动运行...=%ld",self.autoTotalIndex];
+    [MBProgressHUD showActivityMessageInView:msg];
+    
     [self sendCardMethodIsP:YES];
     
     if (self.playershandofCardsArray.count == 1) {

@@ -9,7 +9,7 @@
 #import "BaccaratCollectionView.h"
 #import "BaccaratCollectionViewCell.h"
 #import "UIView+Extension.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 
 
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
@@ -44,7 +44,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 连续和的数量
 @property (nonatomic, assign) NSInteger tieNum;
 
-@property (nonatomic, strong) BaccaratModel *lastModel;
+@property (nonatomic, strong) BaccaratResultModel *lastModel;
 
 /// 记录一条路
 @property (nonatomic, strong) NSMutableArray *yiluArray;
@@ -136,7 +136,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /**
  和的处理
  */
-- (void)tieBezierPath:(BaccaratModel *)model {
+- (void)tieBezierPath:(BaccaratResultModel *)model {
     if (self.resultDataArray.count == 1) {
 //        CGFloat margin = 1;
         CGFloat w = 16;
@@ -195,7 +195,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 - (void)newCreatItems {
     
-    BaccaratModel *model = (BaccaratModel *)self.resultDataArray.lastObject;
+    BaccaratResultModel *model = (BaccaratResultModel *)self.resultDataArray.lastObject;
     
     if (model.winType == WinType_TIE) {
         [self tieBezierPath:model];
@@ -217,9 +217,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     [self.scrollView addSubview:label];
     
     
-    BaccaratModel *lastModel;
+    BaccaratResultModel *lastModel;
     if (self.resultDataArray.count >= 2) {
-        lastModel = (BaccaratModel *)self.resultDataArray[self.resultDataArray.count-2];
+        lastModel = (BaccaratResultModel *)self.resultDataArray[self.resultDataArray.count-2];
     }
     
     if (model.winType == WinType_Banker) {
@@ -318,7 +318,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 // 对子
-- (void)pairView:(BaccaratModel *)model label:(UILabel *)label {
+- (void)pairView:(BaccaratResultModel *)model label:(UILabel *)label {
     CGFloat circleViewWidht = 7;
     if (model.isBankerPair) {
         UIView *bankerPairView = [[UIView alloc] init];
@@ -350,7 +350,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 
-- (NSString *)winTypeDict:(BaccaratModel *)model {
+- (NSString *)winTypeDict:(BaccaratResultModel *)model {
     NSString *text;
     if (model.winType == WinType_Banker) {
         text = @"B";
@@ -468,7 +468,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     BaccaratCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellBaccaratCollectionViewId forIndexPath:indexPath];
-    BaccaratModel *model = (BaccaratModel *)self.resultDataArray[indexPath.row];
+    BaccaratResultModel *model = (BaccaratResultModel *)self.resultDataArray[indexPath.row];
     cell.model = model;
     return cell;
 }
@@ -515,7 +515,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     self.scrollView.contentSize = CGSizeMake(1000, 0);
     for (int i = 0; i < self.resultDataArray.count; i++) {
-        BaccaratModel *model = (BaccaratModel *)self.resultDataArray[i];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.resultDataArray[i];
         
         if (model.winType == WinType_TIE && i != 0) {
             // 线的路径
@@ -556,9 +556,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         
         
         
-        BaccaratModel *lastModel;
+        BaccaratResultModel *lastModel;
         if (i >= 1) {
-            lastModel = (BaccaratModel *)self.resultDataArray[i-1];
+            lastModel = (BaccaratResultModel *)self.resultDataArray[i-1];
         }
         
         if (model.winType == WinType_Banker) {

@@ -1,0 +1,59 @@
+//
+//  BaccaratModel.h
+//  VVCollectProject
+//
+//  Created by pt c on 2019/9/10.
+//  Copyright © 2019 Mike. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "PokerCardModel.h"
+
+// 输赢类型
+typedef NS_ENUM(NSInteger, WinType) {
+    WinType_TIE = 0,   // 和
+    WinType_Banker = 1,   // 庄赢
+    WinType_Player = 2,    // 闲赢(玩家)
+};
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface BaccaratResultModel : NSObject
+
+/// 0 Tie   1 banker   2 player
+@property (nonatomic, assign) WinType winType;
+
+/// banker 点数
+@property (nonatomic, assign) NSInteger bankerTotalPoints;
+/// player 点数
+@property (nonatomic, assign) NSInteger playerTotalPoints;
+
+
+/// 玩家牌型数组
+@property (nonatomic, strong) NSArray<PokerCardModel *> *playerArray;
+/// 庄家牌型数组
+@property (nonatomic, strong) NSArray<PokerCardModel *> *bankerArray;
+
+
+/// 是否庄对
+@property (nonatomic, assign) BOOL isBankerPair;
+/// 是否闲对
+@property (nonatomic, assign) BOOL isPlayerPair;
+/// 是否超级6
+@property (nonatomic, assign) BOOL isSuperSix;
+
+
+/// 发牌局数
+@property (nonatomic, assign) NSInteger pokerCount;
+/// 每局下注金额
+@property (nonatomic, assign) NSInteger betMoney;
+
+
+/// 计算庄闲结果
+/// @param playerArray 玩家牌
+/// @param bankerArray 庄家牌
+-(void)baccaratResultComputer:(NSMutableArray<PokerCardModel *> *)playerArray bankerArray:(NSMutableArray<PokerCardModel *> *)bankerArray;
+
+@end
+
+NS_ASSUME_NONNULL_END

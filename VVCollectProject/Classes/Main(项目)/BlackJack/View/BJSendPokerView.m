@@ -9,7 +9,7 @@
 #import "BJSendPokerView.h"
 #import "BJSendPokerCollectionViewCell.h"
 #import "UIView+Extension.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 
 
 static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectionViewCell";

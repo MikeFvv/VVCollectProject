@@ -32,7 +32,7 @@
 		65813236231D396900A3BBFE /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813235231D396900A3BBFE /* UIView+Extension.m */; };
 		65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */; };
 		659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659E139C22E732DE00E9570E /* BugCollectionController.m */; };
-		65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCBA0723277D3F00D89C4F /* BaccaratModel.m */; };
+		65DCBA0823277D3F00D89C4F /* BaccaratResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCBA0723277D3F00D89C4F /* BaccaratResultModel.m */; };
 		84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C7C275E824D006C2906 /* MXWAdModel.m */; };
 		84568C82275E8255006C2906 /* MXWAdTimerAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C7E275E8254006C2906 /* MXWAdTimerAlertView.m */; };
 		84568C83275E8255006C2906 /* MXWBaiJiaShareAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C80275E8255006C2906 /* MXWBaiJiaShareAlert.m */; };
@@ -45,6 +45,9 @@
 		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
 		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */; };
+		848EE785276C82930016CD8A /* BAnalyzeRoadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */; };
+		848EE788276C86EF0016CD8A /* BaccaratComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE787276C86EF0016CD8A /* BaccaratComputer.m */; };
+		848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE78A276CA9B40016CD8A /* BShowPokerView.m */; };
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
@@ -231,8 +234,8 @@
 		65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratDaLuLabel.m; sourceTree = "<group>"; };
 		659E139B22E732DE00E9570E /* BugCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugCollectionController.h; sourceTree = "<group>"; };
 		659E139C22E732DE00E9570E /* BugCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugCollectionController.m; sourceTree = "<group>"; };
-		65DCBA0623277D3F00D89C4F /* BaccaratModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratModel.h; sourceTree = "<group>"; };
-		65DCBA0723277D3F00D89C4F /* BaccaratModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratModel.m; sourceTree = "<group>"; };
+		65DCBA0623277D3F00D89C4F /* BaccaratResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratResultModel.h; sourceTree = "<group>"; };
+		65DCBA0723277D3F00D89C4F /* BaccaratResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratResultModel.m; sourceTree = "<group>"; };
 		84568C7B275E824D006C2906 /* MXWAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdModel.h; sourceTree = "<group>"; };
 		84568C7C275E824D006C2906 /* MXWAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdModel.m; sourceTree = "<group>"; };
 		84568C7E275E8254006C2906 /* MXWAdTimerAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdTimerAlertView.m; sourceTree = "<group>"; };
@@ -254,6 +257,12 @@
 		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
 		848EE780276BD6B70016CD8A /* BJWinOrLoseResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BJWinOrLoseResultModel.h; sourceTree = "<group>"; };
 		848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJWinOrLoseResultModel.m; sourceTree = "<group>"; };
+		848EE783276C82930016CD8A /* BAnalyzeRoadMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAnalyzeRoadMapView.h; sourceTree = "<group>"; };
+		848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BAnalyzeRoadMapView.m; sourceTree = "<group>"; };
+		848EE786276C86EF0016CD8A /* BaccaratComputer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratComputer.h; sourceTree = "<group>"; };
+		848EE787276C86EF0016CD8A /* BaccaratComputer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratComputer.m; sourceTree = "<group>"; };
+		848EE789276CA9B40016CD8A /* BShowPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BShowPokerView.h; sourceTree = "<group>"; };
+		848EE78A276CA9B40016CD8A /* BShowPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BShowPokerView.m; sourceTree = "<group>"; };
 		84A59209273D9B240071D524 /* MXWAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdapter.h; sourceTree = "<group>"; };
 		84A5920A273D9B240071D524 /* MXWAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdapter.m; sourceTree = "<group>"; };
 		84A59213273D9FA30071D524 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
@@ -610,6 +619,10 @@
 				A0CBDD6622204AA700E7E21F /* BaccaratCell.m */,
 				65813237231D886E00A3BBFE /* BaccaratDaLuLabel.h */,
 				65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */,
+				848EE783276C82930016CD8A /* BAnalyzeRoadMapView.h */,
+				848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */,
+				848EE789276CA9B40016CD8A /* BShowPokerView.h */,
+				848EE78A276CA9B40016CD8A /* BShowPokerView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -626,8 +639,10 @@
 		65DCBA0523277D1F00D89C4F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				65DCBA0623277D3F00D89C4F /* BaccaratModel.h */,
-				65DCBA0723277D3F00D89C4F /* BaccaratModel.m */,
+				65DCBA0623277D3F00D89C4F /* BaccaratResultModel.h */,
+				65DCBA0723277D3F00D89C4F /* BaccaratResultModel.m */,
+				848EE786276C86EF0016CD8A /* BaccaratComputer.h */,
+				848EE787276C86EF0016CD8A /* BaccaratComputer.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1530,14 +1545,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848EE788276C86EF0016CD8A /* BaccaratComputer.m in Sources */,
 				84B85EA427672388009AC598 /* NSAttrViewController.m in Sources */,
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
 				84B85E912766FB0C009AC598 /* FunViewController.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
 				84B85E802766F5F2009AC598 /* MXVTabBarController.m in Sources */,
+				848EE785276C82930016CD8A /* BAnalyzeRoadMapView.m in Sources */,
 				84B85EA527672388009AC598 /* NextViewController.m in Sources */,
 				84B85E5527640736009AC598 /* LessAI.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
+				848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
 				276C91D42691610400377224 /* MFHTimeManager.m in Sources */,
@@ -1597,7 +1615,7 @@
 				84B85E0227629315009AC598 /* CardGroupComparator.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				84B85E5327640736009AC598 /* MoreAI.m in Sources */,
-				65DCBA0823277D3F00D89C4F /* BaccaratModel.m in Sources */,
+				65DCBA0823277D3F00D89C4F /* BaccaratResultModel.m in Sources */,
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,

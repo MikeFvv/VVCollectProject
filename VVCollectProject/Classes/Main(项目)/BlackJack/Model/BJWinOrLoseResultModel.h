@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 每局牌结果
 @interface BJWinOrLoseResultModel : NSObject
 
+
+@property (nonatomic, assign) WinType winType;
+
 /// 玩家牌型数组
 @property (nonatomic, strong) NSArray<PokerCardModel *> *playerArray;
 /// 玩家是否有A
@@ -46,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger bankerTotal;
 
 
-@property (nonatomic, assign) WinType winType;
+
 
 
 

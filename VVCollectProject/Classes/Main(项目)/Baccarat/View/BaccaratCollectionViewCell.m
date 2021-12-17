@@ -7,7 +7,7 @@
 //
 
 #import "BaccaratCollectionViewCell.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 
 @interface BaccaratCollectionViewCell ()
 
@@ -98,8 +98,8 @@
 }
 
 - (void)setModel:(id)model {
-    BaccaratModel *bModel;
-    if ([model isKindOfClass:[BaccaratModel class]]) {
+    BaccaratResultModel *bModel;
+    if ([model isKindOfClass:[BaccaratResultModel class]]) {
         bModel = model;
     } else {
         return;
@@ -114,15 +114,6 @@
     } else {
         self.bankerOrPlayerOrTieLabel.text = @"T";
         self.backgroundColor = [UIColor greenColor];
-    }
-    
-    
-    
-    // 爆牌
-    if (bModel.isPlayerBust) {
-        self.bankerOrPlayerOrTieLabel.text = @"BB";
-    } else if (bModel.isBankerBust) {
-         self.bankerOrPlayerOrTieLabel.text = @"PB";
     }
     
     if (bModel.isSuperSix) {
