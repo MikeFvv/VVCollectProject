@@ -1177,11 +1177,16 @@
         } else if (i == 4) {
             banker2 = cardModel.bCardValue;
             [bankerArray addObject:cardModel];
+            
+            playerTotalPoints = (player1 + player2) % 10;
+            bankerTotalPoints = (banker1 + banker2) % 10;
         }
         
         
-        playerTotalPoints = (player1 + player2) % 10;
-        bankerTotalPoints = (banker1 + banker2) % 10;
+        
+        if (playerTotalPoints< 6 && bankerTotalPoints ==  7) {
+            NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
+        }
         
         if (i == 4) {
             if (playerTotalPoints >= 8 ||  bankerTotalPoints >= 8) {
@@ -1210,6 +1215,10 @@
                 break;
             } else if (bankerTotalPoints == 6 && (player3 != 6 && player3 != 7)) {
                 break;
+            } else if (bankerTotalPoints == 7) {
+                break;
+            } else {
+                NSLog(@"继续发牌");
             }
         } else if (i == 6) {
             if (bankerTotalPoints < 6) {
