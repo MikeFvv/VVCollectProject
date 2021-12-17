@@ -26,14 +26,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 @property (nonatomic,strong) NSMutableArray *xl_DataArray;
 @property (nonatomic,strong) NSMutableArray *yyl_DataArray;
 
-
-/// 大路
 @property (nonatomic, strong) UIScrollView *dalu_ScrollView;
-/// 大眼路
 @property (nonatomic, strong) UIScrollView *dyzl_ScrollView;
-/// 小路
 @property (nonatomic, strong) UIScrollView *xl_ScrollView;
-/// 小强路
 @property (nonatomic, strong) UIScrollView *yyl_ScrollView;
 
 
@@ -62,7 +57,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 @property (nonatomic, strong) BaccaratResultModel *lastModel;
 
 /// 记录一条路
-@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *yiluArray;
+@property (nonatomic, strong) NSMutableArray *yiluArray;
 /// 记录所有大路路子
 @property (nonatomic, strong) NSMutableArray<NSArray *> *daluResultDataArray;
 
@@ -125,7 +120,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         //        self.longNum = 0;
         //        [self creatItems];
         
-        [self daLu_createItems];
+        
+        
+        [self newCreatItems];
     } else {
         NSLog(@"1");
     }
@@ -189,7 +186,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     return _yyl_ScrollView;
 }
 
-
 /**
  和的处理
  */
@@ -246,147 +242,18 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         [self.lastLbl addSubview:tieNumLabel];
         tieNumLabel.text = [NSString stringWithFormat:@"%ld",self.tieNum];
     }
-    
     // 对子
-    if (model.isPlayerPair || model.isBankerPair) {
-        [self pairView:model label:self.lastLbl];
-    }
+    [self pairView:model label:self.lastLbl];
 }
 
-#pragma mark -  大路
-- (void)daLu_createItems {
+- (void)newCreatItems {
     
     BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray.lastObject;
     
     if (model.winType == WinType_TIE) {
-            [self tieBezierPath:model];
-            return;
+        [self tieBezierPath:model];
+        return;
     }
-    
-    CGFloat margin = 1;
-    CGFloat w = 16;
-    CGFloat h = 16;
-    CGFloat x = 0;
-    CGFloat y = 0;
-    
-    UILabel *label = [[UILabel alloc] init];
-    label.layer.masksToBounds = YES;
-    label.font = [UIFont boldSystemFontOfSize:14];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.layer.cornerRadius = w/2;
-    [self.dalu_ScrollView addSubview:label];
-    
-    
-    BaccaratResultModel *lastModel;
-    if (self.dalu_DataArray.count >= 2) {
-        lastModel = (BaccaratResultModel *)self.dalu_DataArray[self.dalu_DataArray.count-2];
-    }
-    
-    if (model.winType == WinType_Banker) {
-        if (model.isSuperSix) {
-            label.text = @"6";
-            label.textColor = [UIColor whiteColor];
-        }
-        label.backgroundColor = [UIColor redColor];
-    } else if (model.winType == WinType_Player) {
-        label.backgroundColor = [UIColor blueColor];
-    } else {
-        label.backgroundColor = [UIColor greenColor];
-    }
-    
-    // 对子
-    if (model.isPlayerPair || model.isBankerPair) {
-        [self pairView:model label:label];
-    }
-   
-    if (self.dalu_DataArray.count == 1) {
-        label.frame = CGRectMake(x, y, w, h);
-        self.longNum = 1;
-        [self.yiluArray addObject:model];
-    } else {
-        
-        BOOL isLong = NO;
-        if (model.winType == self.lastModel.winType || self.lastModel.winType == WinType_TIE) {
-            isLong = YES;
-        }
-        if (isLong) {
-            // 计算最大可使用空白格数
-            NSInteger maxBlankColumns = 6;
-            CGFloat lastLabelX = CGRectGetMaxX(self.frontLastLabel.frame);
-            CGFloat lastLabelY = CGRectGetMinY(self.frontLastLabel.frame);
-            if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.lastLbl.frame)) {
-                maxBlankColumns = lastLabelY/(w +margin);
-            }
-            
-            // 记录连续相同的结果个数
-            self.longNum += 1;
-            if (self.longNum <= maxBlankColumns) {
-                self.longMinX = self.lastLbl.x;
-                x = self.lastLbl.x;
-                label.frame = CGRectMake(x, CGRectGetMaxY(self.lastLbl.frame) + margin, w, h);
-            } else {
-                x = CGRectGetMaxX(self.lastLbl.frame) + margin;
-                label.frame = CGRectMake(x, self.lastLbl.y, w, h);
-            }
-            
-            if (x > self.maxXValue) {
-                self.maxXValue = x;
-            }
-            [self.yiluArray addObject:model];
-        } else {
-            
-            // 开头第一个
-            if (self.yiluArray.count > 0) {
-                [self.daluResultDataArray addObject:self.yiluArray];
-                self.yiluArray = nil;
-                self.frontLastLabel = self.lastLbl;
-            }
-            
-            y = 0;
-            // 最顶上的长龙时处理 极端情况
-            CGFloat lastLabelY = CGRectGetMinY(self.frontLastLabel.frame);
-            if (lastLabelY == 0) {
-                CGFloat lastLabelX = CGRectGetMaxX(self.frontLastLabel.frame);
-                x = lastLabelX + margin;
-            } else {
-                x = self.longMinX + w + margin;
-            }
-            
-            if (x > self.maxXValue) {
-                self.maxXValue = x;
-            }
-            label.frame = CGRectMake(x, y, w, h);
-            // 相同开奖结果清空
-            self.longNum = 1;
-            [self.yiluArray addObject:model];
-            self.longMinX = CGRectGetMinX(label.frame);
-        }
-    }
-    
-    if (self.maxXValue + w + margin > (self.bounds.size.width - 50)){
-        if ((self.maxXValue + w + margin) != (CGRectGetMaxX(self.lastLbl.frame) + margin)) {
-            // 移动位置
-            [UIView animateWithDuration:0.1 animations:^{
-                [self.dalu_ScrollView setContentOffset:CGPointMake(self.maxXValue + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
-            }];
-        }
-    }
-    
-    
-    self.lastLbl = label;
-    self.lastModel = model;
-    
-    [self daYanLu_createItems];
-}
-
-
-#pragma mark -  大眼路
-/// 大眼路
-- (void)daYanLu_createItems {
-    
-    
-    NSArray<BaccaratResultModel *> *daluArray = (NSArray *)self.daluResultDataArray[1];
-    BaccaratResultModel *model = daluArray[2];
     
     CGFloat margin = 1;
     CGFloat w = 16;
@@ -421,10 +288,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     
     // 对子
-    if (model.isPlayerPair || model.isBankerPair) {
-        [self pairView:model label:label];
-    }
-   
+    [self pairView:model label:label];
+    
+    
     if (self.dalu_DataArray.count == 1) {
         label.frame = CGRectMake(x, y, w, h);
         self.longNum = 1;
@@ -503,8 +369,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     self.lastModel = model;
     
 }
-
-
 
 // 对子
 - (void)pairView:(BaccaratResultModel *)model label:(UILabel *)label {
@@ -550,8 +414,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     return text;
 }
-
-
 
 
 #pragma mark - 首先创建一个collectionView

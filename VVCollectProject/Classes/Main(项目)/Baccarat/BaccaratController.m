@@ -397,7 +397,7 @@
     
     UIButton *startButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10, kMarginHeight, 50, kBtnHeight)];
     startButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [startButton setTitle:@"自动全盘" forState:UIControlStateNormal];
+    [startButton setTitle:@"全盘" forState:UIControlStateNormal];
     [startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     startButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
@@ -407,7 +407,7 @@
     
     
     UIButton *startOneButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10, kMarginHeight, 80, kBtnHeight)];
-    [startOneButton setTitle:@"发牌" forState:UIControlStateNormal];
+    [startOneButton setTitle:@"开始一局" forState:UIControlStateNormal];
     startButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
     [startOneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [startOneButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
