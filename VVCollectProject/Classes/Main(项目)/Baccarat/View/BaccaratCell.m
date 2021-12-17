@@ -7,7 +7,7 @@
 //
 
 #import "BaccaratCell.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 #import "VVFunctionManager.h"
 
 @interface BaccaratCell()
@@ -117,21 +117,22 @@
 
 
 - (void)setModel:(id)model {
-    BaccaratModel *bModel;
-    if ([model isKindOfClass:[BaccaratModel class]]) {
+    BaccaratResultModel *bModel;
+    if ([model isKindOfClass:[BaccaratResultModel class]]) {
         bModel = model;
     } else {
         return;
     }
     _betMoneyLabel.text = [NSString stringWithFormat:@"%ld", bModel.betMoney];
     _indexLabel.text =  [NSString stringWithFormat:@"%ld", bModel.pokerCount];
-    NSString *playerStr = [NSString stringWithFormat:@"P: %ld点 %@  %@  %@", bModel.playerPointsNum,  [VVFunctionManager pokerCharacter: bModel.player1], [VVFunctionManager pokerCharacter: bModel.player2], bModel.player3.length > 0 ? [VVFunctionManager pokerCharacter: [bModel.player3 integerValue]] : @""];
     
+//    NSString *playerStr = [NSString stringWithFormat:@"P: %ld点 %@  %@  %@", bModel.playerTotalPoints,  [VVFunctionManager pokerCharacter: bModel.player1], [VVFunctionManager pokerCharacter: bModel.player2], [VVFunctionManager pokerCharacter: [bModel.player3 integerValue]] : @""];
+//
+//
+//    NSString *bankerStr = [NSString stringWithFormat:@"B: %ld点 %@  %@  %@", bModel.bankerTotalPoints, [VVFunctionManager pokerCharacter: bModel.banker1], [VVFunctionManager pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [VVFunctionManager pokerCharacter: [bModel.banker3 integerValue]] : @""];
     
-    NSString *bankerStr = [NSString stringWithFormat:@"B: %ld点 %@  %@  %@", bModel.bankerPointsNum, [VVFunctionManager pokerCharacter: bModel.banker1], [VVFunctionManager pokerCharacter: bModel.banker2], bModel.banker3.length > 0 ? [VVFunctionManager pokerCharacter: [bModel.banker3 integerValue]] : @""];
-    
-    self.playerLabel.text = playerStr;
-    self.bankerLabel.text = bankerStr;
+//    self.playerLabel.text = playerStr;
+//    self.bankerLabel.text = bankerStr;
     
     NSString *resultStr;
     if (bModel.winType == WinType_Banker) {

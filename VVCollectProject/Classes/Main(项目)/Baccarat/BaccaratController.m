@@ -13,10 +13,11 @@
 #import "PointListController.h"
 #import <MBProgressHUD.h>
 #import "BaccaratConfigController.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 #import "BaccaratRoadMapView.h"
 #import "CardDataSourceModel.h"
-#import "MXWPokerView.h"
+#import "BAnalyzeRoadMapView.h"
+#import "BShowPokerView.h"
 
 
 #define kBtnHeight 35
@@ -67,10 +68,10 @@
 /// 发牌局数
 @property (nonatomic, assign) NSInteger pokerCount;
 
-/// 闲局数
-@property (nonatomic, assign) NSInteger playerCount;
-/// 庄局数
-@property (nonatomic, assign) NSInteger bankerCount;
+/// 闲总局数
+@property (nonatomic, assign) NSInteger playerTotalCount;
+/// 庄总局数
+@property (nonatomic, assign) NSInteger bankerTotalCount;
 
 /// 闲对局数
 @property (nonatomic, assign) NSInteger playerPairCount;
@@ -84,9 +85,6 @@
 /// 和局
 @property (nonatomic, assign) NSInteger tieCount;
 
-
-
-//@property (nonatomic, strong) UIView *trendView;
 @property (nonatomic, strong) BaccaratCollectionView *trendView;
 /// 大路
 @property (nonatomic, strong) BaccaratRoadMapView *roadmapView;
@@ -95,16 +93,11 @@
 
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray *resultDataArray;
-/// 大路数据
-//@property (nonatomic, strong) NSMutableArray *daluResultDataArray;
 
-
-///
-@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) UILabel *pokerCountLabel;
-@property (nonatomic, strong) UILabel *bankerCountLabel;
-@property (nonatomic, strong) UILabel *playerCountLabel;
+@property (nonatomic, strong) UILabel *bankerTotalCountLabel;
+@property (nonatomic, strong) UILabel *playerTotalCountLabel;
 @property (nonatomic, strong) UILabel *tieCountLabel;
 @property (nonatomic, strong) UILabel *bankerPairCountLabel;
 @property (nonatomic, strong) UILabel *playerPairCountLabel;
@@ -116,14 +109,8 @@
 @property (nonatomic, strong) UILabel *bbbb;
 @property (nonatomic, strong) UILabel *gongLabel;
 
-@property (nonatomic, strong) UIView *playerBackView;
-@property (nonatomic, strong) UIView *player3BackView;
-@property (nonatomic, strong) UIView *bankerBackView;
-@property (nonatomic, strong) UIView *banker3BackView;
-@property (nonatomic, strong) UIStackView *playerStackView;
-@property (nonatomic, strong) UIStackView *bankerStackView;
-/// 定时器
-@property (nonatomic, strong) NSTimer *dealerTimer;
+
+
 
 
 /// 买庄
@@ -132,6 +119,8 @@
 @property (nonatomic, strong) UIButton *buyPlayerBtn;
 /// 本局赢的类型  0 和  1 庄  2 闲
 @property (nonatomic, assign) NSInteger currentWinType;
+
+
 
 
 
@@ -160,22 +149,18 @@
 /// 计算出公的张数
 @property (nonatomic, assign) NSInteger gongCount;
 
-@property (nonatomic, assign) NSInteger jjjjjjj;
-/// 是否运行全盘
-@property (nonatomic, assign) BOOL isRunOverall;
-
-// ******* grm 指路图 *******
-
-@property (nonatomic, strong) UILabel *grm_bankerLabel;
-@property (nonatomic, strong) UILabel *grm_playerLabel;
-@property (nonatomic, strong) UIView *grm_dyzl_bankerView;
-@property (nonatomic, strong) UIView *grm_dyzl_playerView;
-@property (nonatomic, strong) UIView *grm_xl_bankerView;
-@property (nonatomic, strong) UIView *grm_xl_playerView;
-@property (nonatomic, strong) UILabel *grm_yyl_bankerLabel;
-@property (nonatomic, strong) UILabel *grm_yyl_playerLabel;
-
+/// 是否自动运行全部
+@property (nonatomic, assign) BOOL isAutoRunAll;
 @property (strong, nonatomic) CardDataSourceModel *baccaratDataModel;
+
+/// 分析路图
+@property (nonatomic, strong) BAnalyzeRoadMapView *analyzeRoadMapView;
+/// 显示牌型视图
+@property (nonatomic, strong) BShowPokerView *showPokerView;
+
+
+/// *** 测试时使用 ***
+@property (nonatomic, assign) NSInteger testIndex;
 
 @end
 
@@ -199,8 +184,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.jjjjjjj = 0;
-    self.isRunOverall = NO;
+    self.testIndex = 0;
+    self.isAutoRunAll = NO;
     
     [self setupNavUI];
     [self createUI];
@@ -242,15 +227,14 @@
     
     self.pokerTotalNum = self.dataArray.count;
     self.pokerCount = 0;
-    self.playerCount = 0;
-    self.bankerCount = 0;
+    self.playerTotalCount = 0;
+    self.bankerTotalCount = 0;
     self.playerPairCount = 0;
     self.bankerPairCount = 0;
     self.superSixCount = 0;
     self.tieCount = 0;
     self.gongCount = 0;
     self.resultDataArray = [NSMutableArray array];
-    //    self.daluResultDataArray = [NSMutableArray array];
     self.bankerPlayerSinglePairCount = 0;
     self.buyType = -1;
 }
@@ -293,7 +277,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self pressStop];
+
 }
 
 - (void)createUI {
@@ -316,14 +300,21 @@
     
     [self setTopView];
     [self setBottomView];
-    /// 扑克牌视图
-    [self playingCardsView];
+    
     [self roadMapView];
     // 统计视图
     [self textStatisticsView];
-    [self setGuideRoadMap];
     
+    BShowPokerView *showPokerView = [[BShowPokerView alloc] initWithFrame:CGRectMake(30, 350, mxwScreenWidth()-30*2, 150)];
+    [self.view addSubview:showPokerView];
+    _showPokerView = showPokerView;
+    
+    BAnalyzeRoadMapView *analyzeRoadMapView = [[BAnalyzeRoadMapView alloc] initWithFrame:CGRectMake(300, 550, 70, 135)];
+    [self.view addSubview:analyzeRoadMapView];
+    _analyzeRoadMapView = analyzeRoadMapView;
 }
+
+
 // 路子图
 - (void)roadMapView {
     // 大路
@@ -373,76 +364,7 @@
     
 }
 
-- (void)playingCardsView {
-    
-    UIView *playerBackView = [[UIView alloc] init];
-    playerBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:playerBackView];
-    _playerBackView = playerBackView;
-    
-    [playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.view.mas_centerY).offset(20);
-        make.left.equalTo(self.view.mas_left).offset(50);
-        make.size.mas_equalTo(CGSizeMake(120, 70));
-    }];
-    
-    UIView *player3BackView = [[UIView alloc] init];
-    player3BackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:player3BackView];
-    _player3BackView = player3BackView;
-    
-    [player3BackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(playerBackView.mas_bottom).offset(5);
-        make.centerX.equalTo(playerBackView.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(55, 70));
-    }];
-    
-    _playerStackView = [[UIStackView alloc] init];
-    //子控件的布局方向
-    _playerStackView.axis = UILayoutConstraintAxisHorizontal;
-    _playerStackView.distribution = UIStackViewDistributionFillEqually;
-    _playerStackView.spacing = 10;
-    _playerStackView.alignment = UIStackViewAlignmentFill;
-    [playerBackView addSubview:_playerStackView];
-    [_playerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.equalTo(playerBackView);
-    }];
-    
-    
-    
-    UIView *bankerBackView = [[UIView alloc] init];
-    bankerBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:bankerBackView];
-    _bankerBackView = bankerBackView;
-    
-    [bankerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(playerBackView.mas_centerY);
-        make.right.equalTo(self.view.mas_right).offset(-50);
-        make.size.mas_equalTo(CGSizeMake(120, 70));
-    }];
-    
-    UIView *banker3BackView = [[UIView alloc] init];
-    banker3BackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:banker3BackView];
-    _banker3BackView = banker3BackView;
-    
-    [banker3BackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bankerBackView.mas_bottom).offset(5);
-        make.centerX.equalTo(bankerBackView.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(55, 70));
-    }];
-    
-    _bankerStackView = [[UIStackView alloc] init];
-    //子控件的布局方向
-    _bankerStackView.axis = UILayoutConstraintAxisHorizontal;
-    _bankerStackView.distribution = UIStackViewDistributionFillEqually;
-    _bankerStackView.spacing = 10;
-    _bankerStackView.alignment = UIStackViewAlignmentFill;
-    [bankerBackView addSubview:_bankerStackView];
-    [_bankerStackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.equalTo(bankerBackView);
-    }];
-}
+
 
 - (void)setBottomView {
     
@@ -480,7 +402,7 @@
     [startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     startButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     startButton.layer.cornerRadius = 5;
-    [startButton addTarget:self action:@selector(onStartButton) forControlEvents:UIControlEventTouchUpInside];
+    [startButton addTarget:self action:@selector(onStartAllButton:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:startButton];
     
     
@@ -491,7 +413,7 @@
     [startOneButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     startOneButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
     startOneButton.layer.cornerRadius = 5;
-    [startOneButton addTarget:self action:@selector(onStartOneButton) forControlEvents:UIControlEventTouchUpInside];
+    [startOneButton addTarget:self action:@selector(onStartOneButton:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:startOneButton];
     
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10, kMarginHeight, 50, kBtnHeight)];
@@ -629,7 +551,7 @@
         return;
     }
     self.buyType = 1;
-    [self onStartOneButton];
+    [self onStartOneButton:nil];
 }
 #pragma mark - 买闲
 - (void)onBuyPlayerBtn {
@@ -638,7 +560,7 @@
         return;
     }
     self.buyType = 2;
-    [self onStartOneButton];
+    [self onStartOneButton:nil];
 }
 
 #pragma mark - 消键盘
@@ -659,30 +581,30 @@
         make.size.mas_equalTo(CGSizeMake(kSCREEN_WIDTH - 10*2, 350));
     }];
     
-    UILabel *bankerCountLabel = [[UILabel alloc] init];
-    bankerCountLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
-    bankerCountLabel.numberOfLines = 0;
-    //    bankerCountLabel.text = @"庄赢";
-    bankerCountLabel.textColor = [UIColor darkGrayColor];
-    [backView addSubview:bankerCountLabel];
-    _bankerCountLabel = bankerCountLabel;
+    UILabel *bankerTotalCountLabel = [[UILabel alloc] init];
+    bankerTotalCountLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
+    bankerTotalCountLabel.numberOfLines = 0;
+    //    bankerTotalCountLabel.text = @"庄赢";
+    bankerTotalCountLabel.textColor = [UIColor darkGrayColor];
+    [backView addSubview:bankerTotalCountLabel];
+    _bankerTotalCountLabel = bankerTotalCountLabel;
     
-    [bankerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [bankerTotalCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backView.mas_left);
         make.top.equalTo(backView.mas_top);
     }];
     
-    UILabel *playerCountLabel = [[UILabel alloc] init];
-    playerCountLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
-    playerCountLabel.numberOfLines = 0;
-    //    playerCountLabel.text = @"闲赢";
-    playerCountLabel.textColor = [UIColor darkGrayColor];
-    [backView addSubview:playerCountLabel];
-    _playerCountLabel = playerCountLabel;
+    UILabel *playerTotalCountLabel = [[UILabel alloc] init];
+    playerTotalCountLabel.font = [UIFont systemFontOfSize:kLabelFontSize];
+    playerTotalCountLabel.numberOfLines = 0;
+    //    playerTotalCountLabel.text = @"闲赢";
+    playerTotalCountLabel.textColor = [UIColor darkGrayColor];
+    [backView addSubview:playerTotalCountLabel];
+    _playerTotalCountLabel = playerTotalCountLabel;
     
-    [playerCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [playerTotalCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backView.mas_left);
-        make.top.equalTo(bankerCountLabel.mas_bottom);
+        make.top.equalTo(bankerTotalCountLabel.mas_bottom);
     }];
     
     UILabel *tieCountLabel = [[UILabel alloc] init];
@@ -695,7 +617,7 @@
     
     [tieCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backView.mas_left);
-        make.top.equalTo(playerCountLabel.mas_bottom);
+        make.top.equalTo(playerTotalCountLabel.mas_bottom);
     }];
     
     UILabel *bankerPairCountLabel = [[UILabel alloc] init];
@@ -849,24 +771,25 @@
     self.trendView.model = self.resultDataArray;
     self.roadmapView.model = self.resultDataArray;
     [self resultStatisticsText];
-    //    [self.tableView reloadData];
 }
 
 #pragma mark -  开始一局
-- (void)onStartOneButton {
+- (void)onStartOneButton:(UIButton *)sender {
     [self.view endEditing:YES];
     
+    [self.showPokerView removeStackView];
     //    self.betMoneyTextField.text = 0;
     
     if (self.pokerTotalNum < 36) {  // 停止发牌
-        self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld  已结束", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
+        [MBProgressHUD showTipMessageInWindow:@"本桌已结束"];
+        self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld  已结束", self.pokerCount, self.pokerTotalNum, self.bankerTotalCount - self.playerTotalCount];
         self.buyBankerBtn.backgroundColor = [UIColor lightGrayColor];
         self.buyPlayerBtn.backgroundColor = [UIColor lightGrayColor];
         return;
     }
     
     self.pokerCount++;
-    self.jjjjjjj++;
+    self.testIndex++;
     [self oncePoker];
     //    [self daluCalculationMethod];
     
@@ -874,15 +797,14 @@
     self.roadmapView.model = self.resultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
-    //    [self.tableView reloadData];
 }
 
 #pragma mark -  全盘
 /**
  全盘
  */
-- (void)onStartButton {
-    self.isRunOverall = YES;
+- (void)onStartAllButton:(UIButton *)sender {
+    self.isAutoRunAll = YES;
     // 记录当前时间
     float start = CACurrentMediaTime();
     
@@ -893,7 +815,6 @@
     
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
-    //    [self.tableView reloadData];
     
     
     
@@ -957,7 +878,7 @@
         return;
     }
     
-    BaccaratModel *firstModel = (BaccaratModel *)self.resultDataArray.firstObject;
+    BaccaratResultModel *firstModel = (BaccaratResultModel *)self.resultDataArray.firstObject;
     compareChar       = [NSString stringWithFormat:@"%ld", firstModel.winType];  // 从第一个字符开始比较
     longestContinChar = compareChar;
     
@@ -971,7 +892,7 @@
     
     for (NSInteger indexFlag = 1; indexFlag < self.resultDataArray.count; indexFlag++) {
         
-        BaccaratModel *model = (BaccaratModel *)self.resultDataArray[indexFlag];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.resultDataArray[indexFlag];
         NSString *tempStrWinType       = [NSString stringWithFormat:@"%ld", model.winType];; //
         BOOL tempIsBankerPair       = model.isBankerPair;
         BOOL tempIsPlayerPair       = model.isPlayerPair;
@@ -979,7 +900,7 @@
         
         // 与前6局关系
         if (indexFlag >= 6) {
-            BaccaratModel *front6SameCountModel = (BaccaratModel *)self.resultDataArray[indexFlag - 6];
+            BaccaratResultModel *front6SameCountModel = (BaccaratResultModel *)self.resultDataArray[indexFlag - 6];
             NSString *tempFront6SameCountDict       = [NSString stringWithFormat:@"%ld", front6SameCountModel.winType];
             if ([tempStrWinType isEqualToString:tempFront6SameCountDict]) {
                 self.front6SameCount++;
@@ -1067,7 +988,7 @@
         
         
         if (indexFlag > self.intervalNum) {
-            BaccaratModel *modelII = (BaccaratModel *)self.resultDataArray[indexFlag - self.intervalNum];
+            BaccaratResultModel *modelII = (BaccaratResultModel *)self.resultDataArray[indexFlag - self.intervalNum];
             NSString *tempStrWinTypeII       =  [NSString stringWithFormat:@"%ld", modelII.winType]; //
             BOOL tempIsBankerPairII       = modelII.isBankerPair;
             BOOL tempIsPlayerPairII       = modelII.isPlayerPair;
@@ -1126,8 +1047,8 @@
     self.maxLabel.text = [NSString stringWithFormat:@"最高:%ld", self.maxBetTotalMoney];
     self.minLabel.text = [NSString stringWithFormat:@"最低:%ld", self.minBetTotalMoney];
     
-    self.bankerCountLabel.text = [NSString stringWithFormat:@"BANKER %ld  Win  %ld", self.bankerCount, (self.bankerCount - self.playerCount) * self.betMoney - self.superSixCount * self.betMoney/2];
-    self.playerCountLabel.text = [NSString stringWithFormat:@"PLAYER  %ld  Win  %ld", self.playerCount, (self.playerCount-self.bankerCount) * self.betMoney];
+    self.bankerTotalCountLabel.text = [NSString stringWithFormat:@"BANKER %ld  Win  %ld", self.bankerTotalCount, (self.bankerTotalCount - self.playerTotalCount) * self.betMoney - self.superSixCount * self.betMoney/2];
+    self.playerTotalCountLabel.text = [NSString stringWithFormat:@"PLAYER  %ld  Win  %ld", self.playerTotalCount, (self.playerTotalCount-self.bankerTotalCount) * self.betMoney];
     self.tieCountLabel.text = [NSString stringWithFormat:@"TIE          %ld  平均 %ld", self.tieCount, self.tieCount ? self.pokerCount/self.tieCount : 0];
     
     //连续局数 * betMoney * 11 - （总局数 - 连续的局数 = 跟之前出的局数 * 2 * betMoney） = 盈利
@@ -1137,7 +1058,7 @@
     self.playerPairCountLabel.text = [NSString stringWithFormat:@"PLAYER PAIR  %ld  平均 %ld  间隔%ld局统计数 %ld", self.playerPairCount, self.playerPairCount ? self.pokerCount/self.playerPairCount : 0,self.intervalNum, self.bankerPairOrplayerPairIntervalCount];
     
     self.superSixCountLabel.text = [NSString stringWithFormat:@"SUPER6          %ld  平均 %ld  连续%ld", self.superSixCount, self.superSixCount ? self.pokerCount/self.superSixCount : 0, self.superSixContinuousCount];
-    self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld", self.pokerCount, self.pokerTotalNum, self.bankerCount - self.playerCount];
+    self.pokerCountLabel.text = [NSString stringWithFormat:@"GAME  %ld  剩余%ld张牌  庄闲相差 %ld", self.pokerCount, self.pokerTotalNum, self.bankerTotalCount - self.playerTotalCount];
     
     // 计算跟买的盈亏金额
     // 总局数 - 跳转的局数 - Tie - 第一局 = 连续局数 * 2000 - 跳转输的钱 *2000 = 盈利
@@ -1177,14 +1098,18 @@
     // 闲
     NSInteger player1 = 0;
     NSInteger player2 = 0;
-    NSString *player3;
+    NSInteger player3 = 0;
     // 庄
     NSInteger banker1 = 0;
     NSInteger banker2 = 0;
-    NSString *banker3;
+    NSInteger banker3 = 0;
+    
     // 庄闲点数
-    NSInteger playerPointsNum = 0;
-    NSInteger bankerPointsNum = 0;
+    NSInteger playerTotalPoints = 0;
+    NSInteger bankerTotalPoints = 0;
+    
+    NSMutableArray<PokerCardModel *> *playerArray = [NSMutableArray array];
+    NSMutableArray<PokerCardModel *> *bankerArray = [NSMutableArray array];
     
     for (NSInteger i = 1; i <= 6; i++) {
         
@@ -1201,21 +1126,21 @@
         self.pokerTotalNum--;
         
         
-        //        if (self.jjjjjjj > 22) {   // 测试使用  增加长庄长闲
+        //        if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
         //            numStr = @"7";
         //        }
         //         numStr = @"7";
         //        if (i == 5) {
         //
-        //            if (self.jjjjjjj < 5) {
+        //            if (self.testIndex < 5) {
         //                numStr = @"10";
-        //            } else if (self.jjjjjjj > 10) {
+        //            } else if (self.testIndex > 10) {
         //
-        //                if (self.jjjjjjj > 18) {
-        //                    if (self.jjjjjjj > 27) {
-        //                        if (self.jjjjjjj > 36) {
-        //                            if (self.jjjjjjj > 45) {
-        //                                if (self.jjjjjjj > 54) {
+        //                if (self.testIndex > 18) {
+        //                    if (self.testIndex > 27) {
+        //                        if (self.testIndex > 36) {
+        //                            if (self.testIndex > 45) {
+        //                                if (self.testIndex > 54) {
         //                                    numStr = @"1";
         //                                } else {
         //                                    numStr = @"8";
@@ -1240,102 +1165,107 @@
         
         
         if (i == 1) {
-            [self playerDealerDisplayView:cardModel];
-            player1 = cardModel.cardSizeValue;
+            player1 = cardModel.bCardValue;
+            
+            [playerArray addObject:cardModel];
         } else if (i == 2) {
-            [self bankerDealerDisplayView:cardModel];
-            banker1 = cardModel.cardSizeValue;
+            banker1 = cardModel.bCardValue;
+            [bankerArray addObject:cardModel];
         } else if (i == 3) {
-            [self playerDealerDisplayView:cardModel];
-            player2 = cardModel.cardSizeValue;
+            player2 = cardModel.bCardValue;
+            [playerArray addObject:cardModel];
         } else if (i == 4) {
-            [self bankerDealerDisplayView:cardModel];
-            banker2 = cardModel.cardSizeValue;
+            banker2 = cardModel.bCardValue;
+            [bankerArray addObject:cardModel];
         }
         
         
-        NSInteger tempPlayer1 = player1 >= 10 ? 0 : player1;
-        NSInteger tempPlayer2 = player2 >= 10 ? 0 : player2;
-        
-        NSInteger tempBanker1 = banker1 >= 10 ? 0 : banker1;
-        NSInteger tempBanker2 = banker2 >= 10 ? 0 : banker2;
-        
-        playerPointsNum = tempPlayer1 + tempPlayer2 >= 10 ? tempPlayer1 + tempPlayer2 - 10 : tempPlayer1 + tempPlayer2;
-        bankerPointsNum = tempBanker1 + tempBanker2 >= 10 ? tempBanker1 + tempBanker2 - 10 : tempBanker1 + tempBanker2;
+        playerTotalPoints = (player1 + player2) % 10;
+        bankerTotalPoints = (banker1 + banker2) % 10;
         
         if (i == 4) {
-            if (playerPointsNum >= 8 ||  bankerPointsNum >= 8) {
+            if (playerTotalPoints >= 8 ||  bankerTotalPoints >= 8) {
                 break;
             }
-            if (playerPointsNum >= 6 && bankerPointsNum >= 6) {
+            if (playerTotalPoints >= 6 && bankerTotalPoints >= 6) {
                 break;
             }
         } else if (i == 5) {
-            if (playerPointsNum < 6) {
-                player3 = [NSString stringWithFormat:@"%zd",cardModel.cardSizeValue];
-                [self player3DealerDisplayView:cardModel];
+            if (playerTotalPoints < 6) {
+                player3 = cardModel.bCardValue;
+                [playerArray addObject:cardModel];
             } else {
-                if (bankerPointsNum < 6) {
-                    banker3 = [NSString stringWithFormat:@"%zd",cardModel.cardSizeValue];
-                    [self banker3DealerDisplayView:cardModel];
+                if (bankerTotalPoints < 6) {
+                    banker3 = cardModel.bCardValue;
+                    [bankerArray addObject:cardModel];
                     break;
                 }
             }
             
-            NSInteger tempPlayer3 = player3.integerValue >= 10 ? 0 : player3.integerValue;
-            if (bankerPointsNum == 3 && tempPlayer3 == 8) {
+            if (bankerTotalPoints == 3 && player3 == 8) {
                 break;
-            } else if (bankerPointsNum == 4 && (tempPlayer3 == 8 || tempPlayer3 == 9 || tempPlayer3 == 0 || tempPlayer3 == 1)) {
+            } else if (bankerTotalPoints == 4 && (player3 == 8 || player3 == 9 || player3 == 0 || player3 == 1)) {
                 break;
-            } else if (bankerPointsNum == 5 && (tempPlayer3 == 8 || tempPlayer3 == 9 || tempPlayer3 == 0 || tempPlayer3 == 1 || tempPlayer3 == 2 || tempPlayer3 == 3)) {
+            } else if (bankerTotalPoints == 5 && (player3 == 8 || player3 == 9 || player3 == 0 || player3 == 1 || player3 == 2 || player3 == 3)) {
                 break;
-            } else if (bankerPointsNum == 6 && (tempPlayer3 != 6 && tempPlayer3 != 7)) {
+            } else if (bankerTotalPoints == 6 && (player3 != 6 && player3 != 7)) {
                 break;
             }
         } else if (i == 6) {
-            if (bankerPointsNum <= 6) {
-                banker3 = [NSString stringWithFormat:@"%zd",cardModel.cardSizeValue];
-                [self banker3DealerDisplayView:cardModel];
+            if (bankerTotalPoints < 6) {
+                banker3 = cardModel.bCardValue;
+                [bankerArray addObject:cardModel];
+            } else if (bankerTotalPoints == 6 && (player3 == 6 || player3 == 7)) {
+                banker3 = cardModel.bCardValue;
+                [bankerArray addObject:cardModel];
+            } else {
+                NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
             }
+            
         }
     }
     
     
-    NSInteger tempPlayer3 = player3.integerValue >= 10 ? 0 : player3.integerValue;
-    NSInteger tempBanker3 = banker3.integerValue >= 10 ? 0 : banker3.integerValue;
-    playerPointsNum = (playerPointsNum + tempPlayer3) >= 10 ? playerPointsNum + tempPlayer3 - 10 : playerPointsNum + tempPlayer3;
-    bankerPointsNum = (bankerPointsNum + tempBanker3) >= 10 ? bankerPointsNum + tempBanker3 - 10 : bankerPointsNum + tempBanker3;
     
-    BaccaratModel *model =  [[BaccaratModel alloc] init];
+    
+    playerTotalPoints = (playerTotalPoints + player3) % 10;
+    bankerTotalPoints = (bankerTotalPoints + banker3) % 10;
+    
+    BaccaratResultModel *bResultModel =  [[BaccaratResultModel alloc] init];
+    [bResultModel baccaratResultComputer:playerArray bankerArray:bankerArray];
+    /// 显示所有牌例
+    self.showPokerView.resultModel = bResultModel;
+    
     // 判断庄闲 输赢
     NSString *win;
-    if (playerPointsNum < bankerPointsNum) {
-        if (bankerPointsNum == 6) {  // Super6
+    if (bResultModel.winType == WinType_TIE) {
+        win = @"✅";
+        self.tieCount++;
+        self.currentWinType = 0;
+    } else if (bResultModel.winType == WinType_Banker) {
+        if (bResultModel.isSuperSix) {
             win = @"🔴🔸";
             self.superSixCount++;
-            model.isSuperSix = YES;
-            
             // 下注
             if (self.buyType == 1) {
                 self.betTotalMoney = self.betTotalMoney + self.betMoneyTextField.text.integerValue/2;
             } else {
                 self.betTotalMoney = self.betTotalMoney - self.betMoneyTextField.text.integerValue;
             }
-            
         } else {
             win = @"🔴";
-            
             if (self.buyType == 1) {
                 self.betTotalMoney = self.betTotalMoney + self.betMoneyTextField.text.integerValue;
             } else {
                 self.betTotalMoney = self.betTotalMoney - self.betMoneyTextField.text.integerValue;
             }
         }
+        
         self.currentWinType = 1;
-        self.bankerCount++;
-    } else if (playerPointsNum > bankerPointsNum) {
+        self.bankerTotalCount++;
+    } else {
         win = @"🅿️";
-        self.playerCount++;
+        self.playerTotalCount++;
         self.currentWinType = 2;
         
         if (self.buyType == 2) {
@@ -1343,14 +1273,6 @@
         } else {
             self.betTotalMoney = self.betTotalMoney - self.betMoneyTextField.text.integerValue;
         }
-        
-    } else if (playerPointsNum == bankerPointsNum) {
-        win = @"✅";
-        self.tieCount++;
-        self.currentWinType = 0;
-    } else {
-        [self showMessage:@"本局判断错误， 请查看列表原因"];
-        return;
     }
     
     if (self.betTotalMoney > self.maxBetTotalMoney) {
@@ -1359,166 +1281,50 @@
         self.minBetTotalMoney = self.betTotalMoney;
     }
     
-    model.betMoney = self.betMoneyTextField.text.integerValue;
-    model.winType = self.currentWinType;
+    bResultModel.betMoney = self.betMoneyTextField.text.integerValue;
+    bResultModel.pokerCount = self.pokerCount;
     
-    // Pair
-    if (player1 == player2) {
-        win = [NSString stringWithFormat:@"%@🔹", win];
-        self.playerPairCount++;
-        model.isPlayerPair = YES;
-    }
-    if (banker1 == banker2) {
-        win = [NSString stringWithFormat:@"%@🔺", win];
-        self.bankerPairCount++;
-        model.isBankerPair = YES;
-    }
-    
-    if (player1 == player2 || banker1 == banker2) {
+    if (bResultModel.isPlayerPair) {
         self.bankerPlayerSinglePairCount++;
     }
     
-    model.player1 = player1;
-    model.player2 = player2;
-    model.player3 = player3 == nil ? @"" : player3;
+    if (bResultModel.isBankerPair) {
+        self.bankerPlayerSinglePairCount++;
+    }
     
-    model.banker1 = banker1;
-    model.banker2 = banker2;
-    model.banker3 = banker3  == nil ? @"" : banker3;
-    
-    model.playerPointsNum = playerPointsNum;
-    model.bankerPointsNum = bankerPointsNum;
-    model.pokerCount = self.pokerCount;
-    
-    [self.resultDataArray addObject:model];
+    [self.resultDataArray addObject:bResultModel];
     
     // 计算公的张数
-    if (player1 >= 10) {
+    if (player1 == 0) {
         self.gongCount++;
     }
-    if (player2 >= 10) {
+    if (player2 == 0) {
         self.gongCount++;
     }
-    if (player3 && player3.integerValue >= 10) {
-        self.gongCount++;
-    }
-    if (banker1 >= 10) {
-        self.gongCount++;
-    }
-    if (banker2 >= 10) {
-        self.gongCount++;
-    }
-    if (banker3 && banker3.integerValue >= 10) {
+    if (player3 == 0) {
         self.gongCount++;
     }
     
-    
-    NSLog(@"Player: %ld点 %ld  %ld  %@  - Banker: %ld点 %d  %ld  %@ =%@",playerPointsNum, player1, player2, player3.length > 0 ? player3 : @"",   bankerPointsNum, banker1, banker2, banker3.length > 0 ? banker3 : @"", win);
-    
-    if (!self.isRunOverall) {
-        _dealerTimer=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeStackView) userInfo:nil repeats:YES];
+    if (banker1 == 0) {
+        self.gongCount++;
     }
-    
-}
-
--(void)pressStop {
-    if (_dealerTimer!=nil) {
-        //停止计时器
-        [_dealerTimer invalidate];
+    if (banker2 == 0) {
+        self.gongCount++;
     }
-}
-
-#pragma mark -  发牌显示视图
-- (void)playerDealerDisplayView:(PokerCardModel *)carModel {
-    if (self.isRunOverall) {
-        return;
-    }
-    
-    MXWPokerView *view = [[MXWPokerView alloc] init];
-    view.fromType = 1;
-    view.model = carModel;
-    
-    [self.playerStackView addArrangedSubview:view];
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.playerStackView layoutIfNeeded];
-    }];
-}
-- (void)player3DealerDisplayView:(PokerCardModel *)carModel {
-    if (self.isRunOverall) {
-        return;
-    }
-    MXWPokerView *view = [[MXWPokerView alloc] init];
-    view.fromType = 1;
-    view.model = carModel;
-    
-    [self.player3BackView addSubview:view];
-    [UIView animateWithDuration:1.0 animations:^{
-        view.frame = CGRectMake(0, 0, 55, 70);
-    }];
-}
-- (void)bankerDealerDisplayView:(PokerCardModel *)carModel {
-    if (self.isRunOverall) {
-        return;
-    }
-    
-    MXWPokerView *view = [[MXWPokerView alloc] init];
-    view.fromType = 1;
-    view.model = carModel;
-    
-    [self.bankerStackView addArrangedSubview:view];
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.bankerStackView layoutIfNeeded];
-    }];
-}
-
-- (void)banker3DealerDisplayView:(PokerCardModel *)carModel {
-    if (self.isRunOverall) {
-        return;
-    }
-    MXWPokerView *view = [[MXWPokerView alloc] init];
-    view.fromType = 1;
-    view.model = carModel;
-    
-    [self.banker3BackView addSubview:view];
-    [UIView animateWithDuration:1.0 animations:^{
-        view.frame = CGRectMake(0, 0, 55, 70);
-    }];
-}
-- (void)removeStackView {
-    
-    for (NSInteger i = 0; i < [self.playerStackView subviews].count; i++) {
-        MXWPokerView *viewLabel = [self.playerStackView subviews][i];
-        [viewLabel dataClear];
-        [self.playerStackView removeArrangedSubview:viewLabel];
-    }
-    while (self.player3BackView.subviews.count) {
-        [self.player3BackView.subviews.lastObject removeFromSuperview];
+    if (banker3 == 10) {
+        self.gongCount++;
     }
     
     
-    for (NSInteger j = 0; j < [self.bankerStackView subviews].count; j++) {
-        MXWPokerView *viewLabel = [self.bankerStackView subviews][j];
-        [viewLabel dataClear];
-        [self.bankerStackView removeArrangedSubview:viewLabel];
-    }
-    while (self.banker3BackView.subviews.count) {
-        [self.banker3BackView.subviews.lastObject removeFromSuperview];
-    }
+    NSLog(@"Player: %ld点 %ld  %ld  %ld  - Banker: %ld点 %d  %ld  %ld =%@",playerTotalPoints, player1, player2, player3,  bankerTotalPoints, banker1, banker2, banker3, win);
     
-    [self pressStop];
+    
 }
 
 
 
-#pragma mark -  Baccarat大路算法
-- (void)daluCalculationMethod {
-    //    NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
-    //    if (self.currentWinType != 0 || (self.currentWinType == 0 && self.daluResultDataArray.count == 0)) {
-    //        [dict setObject:@(self.currentWinType) forKey:@"winType"];
-    //    }
-    //
-    //    [self.daluResultDataArray addObject:dict];
-}
+
+
 
 //#pragma mark -  Baccarat大路算法
 - (void)sd11 {
@@ -1602,255 +1408,7 @@
     return btn;
 }
 
-- (void)setGuideRoadMap {
-    
-    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 135)];
-    guideRoadMapBackView.backgroundColor = [UIColor whiteColor];
-    guideRoadMapBackView.layer.cornerRadius = 5;
-    guideRoadMapBackView.layer.masksToBounds = YES;
-    guideRoadMapBackView.layer.borderWidth = 1;
-    guideRoadMapBackView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [self.view addSubview:guideRoadMapBackView];
-    
-    [self.view addSubview:guideRoadMapBackView];
-    [self.view bringSubviewToFront:guideRoadMapBackView];
-    
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
-                                                    
-                                                    initWithTarget:self
-                                                    
-                                                    action:@selector(handlePan:)];
-    
-    [guideRoadMapBackView addGestureRecognizer:panGestureRecognizer];
-    
-    
-    CGFloat lineSpacing = 30;
-     CGFloat widht = 18;
-    
-    UIView *line1View = [[UIView alloc] init];
-    line1View.backgroundColor = [UIColor purpleColor];
-    [guideRoadMapBackView addSubview:line1View];
-    
-    [line1View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(guideRoadMapBackView.mas_top).offset(lineSpacing);
-        make.left.equalTo(guideRoadMapBackView.mas_left).offset(7);
-        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-7);
-        make.height.mas_equalTo(2);
-    }];
-    
-    UIView *line2View = [[UIView alloc] init];
-    line2View.backgroundColor = [UIColor grayColor];
-    [guideRoadMapBackView addSubview:line2View];
-    
-    [line2View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(line1View.mas_bottom).offset(lineSpacing);
-        make.left.equalTo(line1View.mas_left);
-        make.right.equalTo(line1View.mas_right);
-        make.height.mas_equalTo(1);
-    }];
-    
-    UIView *line3View = [[UIView alloc] init];
-    line3View.backgroundColor = [UIColor grayColor];
-    [guideRoadMapBackView addSubview:line3View];
-    
-    [line3View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(line2View.mas_bottom).offset(lineSpacing);
-        make.left.equalTo(line1View.mas_left);
-        make.right.equalTo(line1View.mas_right);
-        make.height.mas_equalTo(1);
-    }];
-    
-    UIView *line4View = [[UIView alloc] init];
-    line4View.backgroundColor = [UIColor grayColor];
-    [guideRoadMapBackView addSubview:line4View];
-    
-    [line4View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(line3View.mas_bottom).offset(lineSpacing);
-        make.left.equalTo(line1View.mas_left);
-        make.right.equalTo(line1View.mas_right);
-        make.height.mas_equalTo(1);
-    }];
-    
-    /// *** 1 ***
-    UILabel *grm_bankerLabel = [UILabel new];
-    grm_bankerLabel.layer.cornerRadius = widht/2;
-    grm_bankerLabel.layer.masksToBounds = YES;
-    grm_bankerLabel.backgroundColor = [UIColor redColor];
-    [guideRoadMapBackView addSubview:grm_bankerLabel];
-    grm_bankerLabel.text = @"B";
-    grm_bankerLabel.textAlignment = NSTextAlignmentCenter;
-    grm_bankerLabel.font = [UIFont boldSystemFontOfSize:16];
-    grm_bankerLabel.textColor = [UIColor whiteColor];
-    _grm_bankerLabel = grm_bankerLabel;
-    
-    [grm_bankerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(guideRoadMapBackView.mas_left).offset(10);
-        make.bottom.equalTo(line1View.mas_top).offset(-3);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    UILabel *grm_playerLabel = [UILabel new];
-    grm_playerLabel.layer.cornerRadius = widht/2;
-    grm_playerLabel.layer.masksToBounds = YES;
-    grm_playerLabel.backgroundColor = [UIColor blueColor];
-    [guideRoadMapBackView addSubview:grm_playerLabel];
-    grm_playerLabel.text = @"P";
-    grm_playerLabel.textAlignment = NSTextAlignmentCenter;
-    grm_playerLabel.font = [UIFont boldSystemFontOfSize:16];
-    grm_playerLabel.textColor = [UIColor whiteColor];
-    _grm_playerLabel = grm_playerLabel;
-    
-    [grm_playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-10);
-        make.centerY.equalTo(grm_bankerLabel.mas_centerY);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    /// *** 2 ***
-    UIView *grm_dyzl_bankerView = [UIView new];
-    grm_dyzl_bankerView.layer.cornerRadius = widht/2;
-    grm_dyzl_bankerView.layer.masksToBounds = YES;
-    grm_dyzl_bankerView.layer.borderWidth = 3.6;
-    grm_dyzl_bankerView.layer.borderColor = [UIColor redColor].CGColor;
-    [guideRoadMapBackView addSubview:grm_dyzl_bankerView];
-    _grm_dyzl_bankerView = grm_dyzl_bankerView;
-    
-    [grm_dyzl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(grm_bankerLabel.mas_left);
-        make.bottom.equalTo(line2View.mas_top).offset(-3);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    UIView *grm_dyzl_playerView = [UIView new];
-    grm_dyzl_playerView.layer.cornerRadius = widht/2;
-    grm_dyzl_playerView.layer.masksToBounds = YES;
-    grm_dyzl_playerView.layer.borderWidth = 4;
-    grm_dyzl_playerView.layer.borderColor = [UIColor blueColor].CGColor;
-    [guideRoadMapBackView addSubview:grm_dyzl_playerView];
-    _grm_dyzl_playerView = grm_dyzl_playerView;
-    
-    [grm_dyzl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(grm_playerLabel.mas_right);
-        make.centerY.equalTo(grm_dyzl_bankerView.mas_centerY);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    /// *** 3 ***
-    UIView *grm_xl_bankerView = [UIView new];
-    grm_xl_bankerView.layer.cornerRadius = widht/2;
-    grm_xl_bankerView.layer.masksToBounds = YES;
-    grm_xl_bankerView.backgroundColor = [UIColor redColor];
-    [guideRoadMapBackView addSubview:grm_xl_bankerView];
-    _grm_xl_bankerView = grm_xl_bankerView;
-    
-    [grm_xl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(grm_bankerLabel.mas_left);
-        make.bottom.equalTo(line3View.mas_top).offset(-3);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    UIView *grm_xl_playerView = [UIView new];
-    grm_xl_playerView.layer.cornerRadius = widht/2;
-    grm_xl_playerView.layer.masksToBounds = YES;
-    grm_xl_playerView.backgroundColor = [UIColor blueColor];
-    [guideRoadMapBackView addSubview:grm_xl_playerView];
-    _grm_xl_playerView = grm_xl_playerView;
-    
-    [grm_xl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(grm_playerLabel.mas_right);
-        make.centerY.equalTo(grm_xl_bankerView.mas_centerY);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    /// *** 4 ***
-    UIView *grm_yyl_bankerView = [UIView new];
-    grm_yyl_bankerView.backgroundColor = [UIColor clearColor];
-    [guideRoadMapBackView addSubview:grm_yyl_bankerView];
 
-    [grm_yyl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(grm_bankerLabel.mas_left);
-        make.bottom.equalTo(line4View.mas_top).offset(-3);
-        make.size.mas_equalTo(widht);
-    }];
-
-    UIView *grm_yyl_playerView = [UIView new];
-    grm_yyl_playerView.backgroundColor = [UIColor clearColor];
-    [guideRoadMapBackView addSubview:grm_yyl_playerView];
-
-    [grm_yyl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(grm_playerLabel.mas_right);
-        make.centerY.equalTo(grm_yyl_bankerView.mas_centerY);
-        make.size.mas_equalTo(widht);
-    }];
-    
-    
-    // 线的路径
-    UIBezierPath *linePath = [UIBezierPath bezierPath];
-    // 起点
-    [linePath moveToPoint:CGPointMake(widht, 0)];
-    // 其他点
-    [linePath addLineToPoint:CGPointMake(0, widht)];
-    
-    CAShapeLayer *lineLayer = [CAShapeLayer layer];
-    lineLayer.lineWidth = 3;
-    lineLayer.strokeColor = [UIColor redColor].CGColor;
-    lineLayer.path = linePath.CGPath;
-    lineLayer.fillColor = nil;
-    [grm_yyl_bankerView.layer addSublayer:lineLayer];
-    
-    
-    // 线的路径
-    UIBezierPath *linePath2 = [UIBezierPath bezierPath];
-    // 起点
-    [linePath2 moveToPoint:CGPointMake(widht, 0)];
-    // 其他点
-    [linePath2 addLineToPoint:CGPointMake(0, widht)];
-    
-    CAShapeLayer *lineLayer2 = [CAShapeLayer layer];
-    lineLayer2.lineWidth = 3;
-    lineLayer2.strokeColor = [UIColor blueColor].CGColor;
-    lineLayer2.path = linePath.CGPath;
-    lineLayer2.fillColor = nil;
-    [grm_yyl_playerView.layer addSublayer:lineLayer2];
- 
-}
-
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer{
-    
-    CGPoint translation = [recognizer translationInView:self.view];
-    
-    CGFloat centerX=recognizer.view.center.x+ translation.x;
-    CGFloat centerY=recognizer.view.center.y+ translation.y;
-    CGFloat thecenterX=0;
-    CGFloat thecenterY=0;
-    recognizer.view.center=CGPointMake(centerX,
-                                       
-                                       recognizer.view.center.y+ translation.y);
-    
-    [recognizer setTranslation:CGPointZero inView:self.view];
-    
-    if(recognizer.state==UIGestureRecognizerStateEnded|| recognizer.state==UIGestureRecognizerStateCancelled) {
-        
-        if(centerX>kSCREEN_WIDTH/2) {
-            thecenterX=kSCREEN_WIDTH-70/2;
-        } else {
-            thecenterX=70/2;
-        }
-        
-        if (centerY>kSCREEN_HEIGHT-Height_NavBar) {
-            thecenterY=kSCREEN_HEIGHT-Height_NavBar;
-        } else if (centerY<Height_NavBar) {
-            thecenterY=Height_NavBar;
-        } else {
-            thecenterY = recognizer.view.center.y+ translation.y;
-        }
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            recognizer.view.center=CGPointMake(thecenterX,thecenterY);
-        }];
-        
-    }
-}
 
 @end
 

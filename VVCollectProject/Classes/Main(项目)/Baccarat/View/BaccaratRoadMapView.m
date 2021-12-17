@@ -9,7 +9,7 @@
 #import "BaccaratRoadMapView.h"
 #import "BaccaratCollectionViewCell.h"
 #import "UIView+Extension.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 
 
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
@@ -54,7 +54,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 连续和的数量
 @property (nonatomic, assign) NSInteger tieNum;
 
-@property (nonatomic, strong) BaccaratModel *lastModel;
+@property (nonatomic, strong) BaccaratResultModel *lastModel;
 
 /// 记录一条路
 @property (nonatomic, strong) NSMutableArray *yiluArray;
@@ -189,7 +189,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /**
  和的处理
  */
-- (void)tieBezierPath:(BaccaratModel *)model {
+- (void)tieBezierPath:(BaccaratResultModel *)model {
     if (self.dalu_DataArray.count == 1) {
         //        CGFloat margin = 1;
         CGFloat w = 16;
@@ -248,7 +248,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 - (void)newCreatItems {
     
-    BaccaratModel *model = (BaccaratModel *)self.dalu_DataArray.lastObject;
+    BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray.lastObject;
     
     if (model.winType == WinType_TIE) {
         [self tieBezierPath:model];
@@ -270,9 +270,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     [self.dalu_ScrollView addSubview:label];
     
     
-    BaccaratModel *lastModel;
+    BaccaratResultModel *lastModel;
     if (self.dalu_DataArray.count >= 2) {
-        lastModel = (BaccaratModel *)self.dalu_DataArray[self.dalu_DataArray.count-2];
+        lastModel = (BaccaratResultModel *)self.dalu_DataArray[self.dalu_DataArray.count-2];
     }
     
     if (model.winType == WinType_Banker) {
@@ -371,7 +371,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 // 对子
-- (void)pairView:(BaccaratModel *)model label:(UILabel *)label {
+- (void)pairView:(BaccaratResultModel *)model label:(UILabel *)label {
     CGFloat circleViewWidht = 7;
     if (model.isBankerPair) {
         UIView *bankerPairView = [[UIView alloc] init];
@@ -403,7 +403,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 
-- (NSString *)winTypeDict:(BaccaratModel *)model {
+- (NSString *)winTypeDict:(BaccaratResultModel *)model {
     NSString *text;
     if (model.winType == WinType_Banker) {
         text = @"B";
@@ -534,22 +534,22 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 {
     if (collectionView == self.collectionView) {
         BaccaratCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellBaccaratCollectionViewId forIndexPath:indexPath];
-        BaccaratModel *model = (BaccaratModel *)self.dalu_DataArray[indexPath.row];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray[indexPath.row];
         cell.model = model;
         return cell;
     } else if (collectionView == self.collectionView2) {
         BaccaratCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellBaccaratCollectionViewId forIndexPath:indexPath];
-        BaccaratModel *model = (BaccaratModel *)self.dalu_DataArray[indexPath.row];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray[indexPath.row];
         cell.model = model;
         return cell;
     } else if (collectionView == self.collectionView3) {
         BaccaratCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellBaccaratCollectionViewId forIndexPath:indexPath];
-        BaccaratModel *model = (BaccaratModel *)self.dalu_DataArray[indexPath.row];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray[indexPath.row];
         cell.model = model;
         return cell;
     } else {
         BaccaratCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellBaccaratCollectionViewId forIndexPath:indexPath];
-        BaccaratModel *model = (BaccaratModel *)self.dalu_DataArray[indexPath.row];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray[indexPath.row];
         cell.model = model;
         return cell;
     }
@@ -598,7 +598,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     self.dalu_ScrollView.contentSize = CGSizeMake(1000, 0);
     for (int i = 0; i < self.dalu_DataArray.count; i++) {
-        BaccaratModel *model = (BaccaratModel *)self.dalu_DataArray[i];
+        BaccaratResultModel *model = (BaccaratResultModel *)self.dalu_DataArray[i];
         
         if (model.winType == WinType_TIE && i != 0) {
             // 线的路径
@@ -639,9 +639,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         
         
         
-        BaccaratModel *lastModel;
+        BaccaratResultModel *lastModel;
         if (i >= 1) {
-            lastModel = (BaccaratModel *)self.dalu_DataArray[i-1];
+            lastModel = (BaccaratResultModel *)self.dalu_DataArray[i-1];
         }
         
         if (model.winType == WinType_Banker) {

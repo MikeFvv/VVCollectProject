@@ -7,7 +7,7 @@
 //
 
 #import "BJSendPokerCollectionViewCell.h"
-#import "BaccaratModel.h"
+#import "BaccaratResultModel.h"
 
 @interface BJSendPokerCollectionViewCell ()
 @property (nonatomic, strong) UIView *backView;
