@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^HeadClickBlock)(NSInteger index);
 
+/// *** 大路 ***
 @interface BaccaratRoadMapView : UIView
 
 @property (nonatomic, copy) HeadClickBlock headClickBlock;
