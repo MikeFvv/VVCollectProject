@@ -3,7 +3,7 @@
 //  VVCollectProject
 //
 //  Created by lvan Lewis on 2019/9/19.
-//  Copyright © 2019 Mike. All rights reserved. aa
+//  Copyright © 2019 Mike. All rights reserved.
 //
 
 #import "BaccaratRoadMapView.h"
