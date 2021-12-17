@@ -12,6 +12,23 @@
 #import "BaccaratResultModel.h"
 
 
+
+// 下三路颜色类型
+typedef NS_ENUM(NSInteger, MapColorType) {
+    ColorType_Red = 0,   // 红色
+    ColorType_Blue = 1,   // 蓝色
+};
+
+
+
+// https://wgm8.com/szh-fate-in-the-cards-understanding-baccarat-trends-part-2/
+// *** 珠盘路 ***
+//同样，红色代表庄家，蓝色代表闲家，绿色代表和局。
+//第一个标记出现在珠盘的左上角，然后开始竖直向下排，六格填满后就转到第二列，第二列填满后转到第三列，以此类推。
+//与大路不同，和局单独占据一格。
+
+
+
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
 
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
@@ -27,13 +44,15 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 @property (nonatomic,strong) NSMutableArray *yyl_DataArray;
 
 
+
+
 /// 大路
 @property (nonatomic, strong) UIScrollView *dalu_ScrollView;
 /// 大眼路
 @property (nonatomic, strong) UIScrollView *dyzl_ScrollView;
 /// 小路
 @property (nonatomic, strong) UIScrollView *xl_ScrollView;
-/// 小强路
+/// 曱甴路(小强路)
 @property (nonatomic, strong) UIScrollView *yyl_ScrollView;
 
 
@@ -303,6 +322,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         label.frame = CGRectMake(x, y, w, h);
         self.longNum = 1;
         [self.yiluArray addObject:model];
+        [self.daluResultDataArray addObject:self.yiluArray];
     } else {
         
         BOOL isLong = NO;
@@ -337,7 +357,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
             
             // 开头第一个
             if (self.yiluArray.count > 0) {
-                [self.daluResultDataArray addObject:self.yiluArray];
+                
                 self.yiluArray = nil;
                 self.frontLastLabel = self.lastLbl;
             }
@@ -359,6 +379,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
             // 相同开奖结果清空
             self.longNum = 1;
             [self.yiluArray addObject:model];
+            [self.daluResultDataArray addObject:self.yiluArray];
             self.longMinX = CGRectGetMinX(label.frame);
         }
     }
@@ -376,7 +397,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     self.lastLbl = label;
     self.lastModel = model;
     
-    [self daYanLu_createItems];
+    
+//    [self daYanLu_createItems];
 }
 
 
@@ -384,9 +406,29 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 大眼路
 - (void)daYanLu_createItems {
     
+    // *** 大眼路规则 ***
+    // 大眼仔开始及对应位：第二列对第一列.第三列对第二列.第四列对第三列.第五列对第四列.如此类推。
+    // 大眼仔：是从大路第二列(第一口不计)第二口开始向第一列第二口对(第一列不管开几多口庄或闲，是不写红蓝笔，只供大眼仔对应写红或蓝)。
+    // (大眼仔开始的第一口)大路第二列.向下开闲，向左望第一列有对，写红。
     
-    NSArray<BaccaratResultModel *> *daluArray = (NSArray *)self.daluResultDataArray[1];
-    BaccaratResultModel *model = daluArray[2];
+    
+//    小路开始及对应位：第三列对第一列.第四列对第二列.第五列对第三列.第六列对第四列.如此类推。
+//    曱甴路开始及对应位：第四列对第一列.第五列对第二列.第六列对第三列.第七列对第四列.如此类推。
+
+    
+    
+    
+    if (self.daluResultDataArray.count < 2) {
+        return;
+    }
+    
+    NSArray<BaccaratResultModel *> *currentColArray = (NSArray *)self.daluResultDataArray.lastObject;
+    
+    if (self.daluResultDataArray.count == 2 && currentColArray.count == 1) {
+        return;
+    }
+    
+    BaccaratResultModel *model = currentColArray.lastObject;   // 当前的
     
     CGFloat margin = 1;
     CGFloat w = 16;
@@ -394,45 +436,42 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     CGFloat x = 0;
     CGFloat y = 0;
     
-    self.tieNum = 0;
+    
     UILabel *label = [[UILabel alloc] init];
     label.layer.masksToBounds = YES;
     label.font = [UIFont boldSystemFontOfSize:14];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.cornerRadius = w/2;
-    [self.dalu_ScrollView addSubview:label];
+    [self.dyzl_ScrollView addSubview:label];
     
-    
-    BaccaratResultModel *lastModel;
-    if (self.dalu_DataArray.count >= 2) {
-        lastModel = (BaccaratResultModel *)self.dalu_DataArray[self.dalu_DataArray.count-2];
-    }
-    
-    if (model.winType == WinType_Banker) {
-        if (model.isSuperSix) {
-            label.text = @"6";
-            label.textColor = [UIColor whiteColor];
-        }
-        label.backgroundColor = [UIColor redColor];
-    } else if (model.winType == WinType_Player) {
-        label.backgroundColor = [UIColor blueColor];
-    } else {
-        label.backgroundColor = [UIColor greenColor];
-    }
-    
-    // 对子
-    if (model.isPlayerPair || model.isBankerPair) {
-        [self pairView:model label:label];
-    }
+    // 前一列
+    NSArray *frontColArray = (NSArray *)self.daluResultDataArray[self.daluResultDataArray.count-2];
    
-    if (self.dalu_DataArray.count == 1) {
+    
+    MapColorType colorType = 0;
+    if (currentColArray.count == 1) {
+        // 路头牌
+        
+        // 前2列
+        NSArray *frontTwoColArray = (NSArray *)self.daluResultDataArray[self.daluResultDataArray.count-3];
+        // 假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
+        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count];
+        colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
+    } else {
+        // 路中牌
+        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count frontColumnNum:frontColArray.count];
+    }
+    
+    
+    
+    if (self.daluResultDataArray.count == 1) {
         label.frame = CGRectMake(x, y, w, h);
         self.longNum = 1;
         [self.yiluArray addObject:model];
     } else {
         
         BOOL isLong = NO;
-        if (model.winType == self.lastModel.winType || self.lastModel.winType == WinType_TIE) {
+        if (model.winType == self.lastModel.winType) {
             isLong = YES;
         }
         if (isLong) {
@@ -463,7 +502,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
             
             // 开头第一个
             if (self.yiluArray.count > 0) {
-                [self.daluResultDataArray addObject:self.yiluArray];
                 self.yiluArray = nil;
                 self.frontLastLabel = self.lastLbl;
             }
@@ -493,7 +531,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         if ((self.maxXValue + w + margin) != (CGRectGetMaxX(self.lastLbl.frame) + margin)) {
             // 移动位置
             [UIView animateWithDuration:0.1 animations:^{
-                [self.dalu_ScrollView setContentOffset:CGPointMake(self.maxXValue + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
+                [self.dyzl_ScrollView setContentOffset:CGPointMake(self.maxXValue + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
             }];
         }
     }
@@ -504,6 +542,20 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
 }
 
+
+- (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum frontColumnNum:(NSInteger)frontColumnNum {
+    MapColorType mapColorType = 0;
+    if (currentColumnNum <= frontColumnNum) {   // 当前列小于等于前一列 「标红」  // -路中牌
+        mapColorType = ColorType_Red;
+    } else if (currentColumnNum -1 == frontColumnNum) {  // 当前列大于前一列 1个 「标蓝」  // -路中牌
+        mapColorType = ColorType_Blue;
+    } else if (currentColumnNum -1 > frontColumnNum) {  // 当前列大于前一列 2个及以上 「标红」  长闲长庄  // -路中牌
+        mapColorType = ColorType_Red;
+    } else {
+        NSLog(@"🔴🔴🔴未知🔴🔴🔴");
+    }
+    return mapColorType;
+}
 
 
 // 对子
