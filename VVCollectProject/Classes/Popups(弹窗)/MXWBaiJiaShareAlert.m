@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *contentImgView;
 ///二维码
-@property (nonatomic,strong) UIImageView *qrCodeIcon;
+@property (nonatomic, strong) UIImageView *qrCodeIcon;
 
 @end
 

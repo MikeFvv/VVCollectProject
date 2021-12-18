@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaccaratCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic,strong) id model;
+@property (nonatomic, strong) id model;
 
 @end
 

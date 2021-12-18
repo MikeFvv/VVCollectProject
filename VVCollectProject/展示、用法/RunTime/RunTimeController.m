@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UIButton *myButton;
 
 // <#strong注释#>
-@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 
 @end

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
                        reusableId:(NSString *)ID;
 
 // strong注释
-@property (nonatomic,strong) id model;
+@property (nonatomic, strong) id model;
 
 @end
 

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaccaratCom.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 

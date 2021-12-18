@@ -18,6 +18,9 @@
 #import "CardDataSourceModel.h"
 #import "BAnalyzeRoadMapView.h"
 #import "BShowPokerView.h"
+#import "BaccaratCom.h"
+#import "FunctionManager.h"
+#import "WMDragView.h"
 
 
 #define kBtnHeight 35
@@ -162,6 +165,9 @@
 /// *** 测试时使用 ***
 @property (nonatomic, assign) NSInteger testIndex;
 
+
+@property(nonatomic,strong) WMDragView *dragView;
+
 @end
 
 @implementation BaccaratController
@@ -184,6 +190,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 允许屏幕旋转
+//    AppDelegate *appdelegete = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    appdelegete.allowRotation = YES;
+    [FunctionManager interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+    
     self.testIndex = 0;
     self.isAutoRunAll = NO;
     
@@ -192,7 +203,16 @@
     [self initData];
     
     self.title = [NSString stringWithFormat:@"%ld", self.betTotalMoney];
+    
+    
+    [self setFloatingBackBtnView];
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [FunctionManager interfaceOrientation:UIInterfaceOrientationPortrait];
+}
+
 
 
 
@@ -1095,6 +1115,8 @@
 
 #pragma mark -  Baccarat庄闲算法
 - (void)oncePoker {
+    
+    NSString  *numStr = nil;
     // 闲
     NSInteger player1 = 0;
     NSInteger player2 = 0;
@@ -1126,42 +1148,46 @@
         self.pokerTotalNum--;
         
         
-        //        if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
-        //            numStr = @"7";
-        //        }
-        //         numStr = @"7";
-        //        if (i == 5) {
-        //
-        //            if (self.testIndex < 5) {
-        //                numStr = @"10";
-        //            } else if (self.testIndex > 10) {
-        //
-        //                if (self.testIndex > 18) {
-        //                    if (self.testIndex > 27) {
-        //                        if (self.testIndex > 36) {
-        //                            if (self.testIndex > 45) {
-        //                                if (self.testIndex > 54) {
-        //                                    numStr = @"1";
-        //                                } else {
-        //                                    numStr = @"8";
-        //                                }
-        //                            } else {
-        //                                numStr = @"1";
-        //                            }
-        //                        } else {
-        //                            numStr = @"8";
-        //                        }
-        //                    } else {
-        //                        numStr = @"1";
-        //                    }
-        //                } else {
-        //                    numStr = @"8";
-        //                }
-        //
-        //            } else {
-        //                numStr = @"1";
-        //            }
-        //        }
+                if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
+                    numStr = @"7";
+                }
+        
+                 numStr = @"7";
+        
+                if (i == 5) {
+        
+                    if (self.testIndex < 5) {
+                        numStr = @"10";
+                    } else if (self.testIndex > 10) {
+        
+                        if (self.testIndex > 18) {
+                            if (self.testIndex > 27) {
+                                if (self.testIndex > 36) {
+                                    if (self.testIndex > 45) {
+                                        if (self.testIndex > 54) {
+                                            numStr = @"1";
+                                        } else {
+                                            numStr = @"8";
+                                        }
+                                    } else {
+                                        numStr = @"1";
+                                    }
+                                } else {
+                                    numStr = @"8";
+                                }
+                            } else {
+                                numStr = @"1";
+                            }
+                        } else {
+                            numStr = @"8";
+                        }
+        
+                    } else {
+                        numStr = @"1";
+                    }
+                }
+        
+        cardModel.bCardValue = [numStr integerValue];
         
         
         if (i == 1) {
@@ -1417,6 +1443,45 @@
     return btn;
 }
 
+
+
+#pragma mark -  浮动按钮
+- (void)setFloatingBackBtnView {
+    CGFloat widthDr = 45;
+    self.dragView = [[WMDragView alloc] initWithFrame:CGRectMake(0, 0, widthDr, widthDr)];
+    [self.dragView.button setBackgroundImage:[UIImage imageNamed:@"game_back_btn"] forState:UIControlStateNormal];
+    self.dragView.button.backgroundColor = [UIColor clearColor];
+    self.dragView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.dragView];
+    
+    CGFloat widthX = self.view.bounds.size.width >= 812.0 ? 44 : 0;
+    CGRect rectDr = CGRectMake(widthX, 30, widthDr, widthDr);
+    self.dragView.frame = rectDr;
+    
+    //    self.dragView.layer.cornerRadius = width/2;
+    //    self.dragView.layer.masksToBounds = YES;
+    //    self.dragView.layer.borderWidth = 1;
+    //    self.dragView.layer.borderColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:0.5].CGColor;
+    
+    __weak typeof(self) weakSelf = self;
+    self.dragView.clickDragViewBlock = ^(WMDragView *dragView){
+        
+        [weakSelf.navigationController popViewControllerAnimated:true];
+        //        [weakSelf.navigationController popViewControllerAnimated:true];
+    };
+    
+    self.dragView.beginDragBlock = ^(WMDragView *dragView) {
+        DLog(@"开始拖曳");
+    };
+    
+    self.dragView.endDragBlock = ^(WMDragView *dragView) {
+        DLog(@"结束拖曳");
+    };
+    
+    self.dragView.duringDragBlock = ^(WMDragView *dragView) {
+        DLog(@"拖曳中...");
+    };
+}
 
 
 @end
