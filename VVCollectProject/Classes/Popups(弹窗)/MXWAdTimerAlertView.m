@@ -24,9 +24,9 @@
     UIButton        *cancelBtn;
     NSString        *placeHolderImgStr;
 }
-@property (nonatomic,strong)UIScrollView *scrollView;
+@property (nonatomic, strong)UIScrollView *scrollView;
 @property (nonatomic, assign)NSInteger    itemsCount;
-@property (nonatomic,strong)NSArray      *adDataList;
+@property (nonatomic, strong)NSArray      *adDataList;
 @property (nonatomic, assign)BOOL         hiddenPageControl;
 @end
 

@@ -18,7 +18,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 @interface BaccaratCollectionView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UICollectionView *collectionView;
 //
-@property (nonatomic,strong) NSMutableArray *resultDataArray;
+@property (nonatomic, strong) NSMutableArray *resultDataArray;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 

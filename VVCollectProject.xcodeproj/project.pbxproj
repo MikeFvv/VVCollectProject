@@ -48,6 +48,8 @@
 		848EE785276C82930016CD8A /* BAnalyzeRoadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */; };
 		848EE788276C86EF0016CD8A /* BaccaratComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE787276C86EF0016CD8A /* BaccaratComputer.m */; };
 		848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE78A276CA9B40016CD8A /* BShowPokerView.m */; };
+		848EE78E276E4A710016CD8A /* BaccaratXiaSanLuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE78D276E4A710016CD8A /* BaccaratXiaSanLuView.m */; };
+		848EE793276E5A4C0016CD8A /* WMDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE791276E5A4C0016CD8A /* WMDragView.m */; };
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
@@ -263,6 +265,11 @@
 		848EE787276C86EF0016CD8A /* BaccaratComputer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratComputer.m; sourceTree = "<group>"; };
 		848EE789276CA9B40016CD8A /* BShowPokerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BShowPokerView.h; sourceTree = "<group>"; };
 		848EE78A276CA9B40016CD8A /* BShowPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BShowPokerView.m; sourceTree = "<group>"; };
+		848EE78C276E4A710016CD8A /* BaccaratXiaSanLuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratXiaSanLuView.h; sourceTree = "<group>"; };
+		848EE78D276E4A710016CD8A /* BaccaratXiaSanLuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratXiaSanLuView.m; sourceTree = "<group>"; };
+		848EE78F276E4BDA0016CD8A /* BaccaratCom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCom.h; sourceTree = "<group>"; };
+		848EE791276E5A4C0016CD8A /* WMDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDragView.m; sourceTree = "<group>"; };
+		848EE792276E5A4C0016CD8A /* WMDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDragView.h; sourceTree = "<group>"; };
 		84A59209273D9B240071D524 /* MXWAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdapter.h; sourceTree = "<group>"; };
 		84A5920A273D9B240071D524 /* MXWAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdapter.m; sourceTree = "<group>"; };
 		84A59213273D9FA30071D524 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
@@ -609,6 +616,8 @@
 		6523E53622EDD42400D304D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				848EE78C276E4A710016CD8A /* BaccaratXiaSanLuView.h */,
+				848EE78D276E4A710016CD8A /* BaccaratXiaSanLuView.m */,
 				40E822FD2332BB240035B246 /* BaccaratRoadMapView.h */,
 				40E822FE2332BB240035B246 /* BaccaratRoadMapView.m */,
 				A0BCD7B72221ACF800BB3A9C /* BaccaratCollectionView.h */,
@@ -733,6 +742,15 @@
 				848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */,
 			);
 			path = "MBProgressHUD+JDragon";
+			sourceTree = "<group>";
+		};
+		848EE790276E5A4C0016CD8A /* WMDragView */ = {
+			isa = PBXGroup;
+			children = (
+				848EE792276E5A4C0016CD8A /* WMDragView.h */,
+				848EE791276E5A4C0016CD8A /* WMDragView.m */,
+			);
+			path = WMDragView;
 			sourceTree = "<group>";
 		};
 		84A5920F273D9ED50071D524 /* UIImage */ = {
@@ -1021,6 +1039,7 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				848EE790276E5A4C0016CD8A /* WMDragView */,
 				848EE77A276BBE2F0016CD8A /* MBProgressHUD+JDragon */,
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				276C92182691631100377224 /* Encryption */,
@@ -1309,6 +1328,7 @@
 		A0D55E2B221DAFA200D7E3B0 /* Baccarat */ = {
 			isa = PBXGroup;
 			children = (
+				848EE78F276E4BDA0016CD8A /* BaccaratCom.h */,
 				65DCBA0523277D1F00D89C4F /* Model */,
 				6523E53622EDD42400D304D3 /* View */,
 				A0D55E2C221DAFB500D7E3B0 /* BaccaratController.h */,
@@ -1550,6 +1570,7 @@
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
 				84B85E912766FB0C009AC598 /* FunViewController.m in Sources */,
 				A0F4B42E22A79F28003B82F5 /* TestVS.m in Sources */,
+				848EE78E276E4A710016CD8A /* BaccaratXiaSanLuView.m in Sources */,
 				84B85E802766F5F2009AC598 /* MXVTabBarController.m in Sources */,
 				848EE785276C82930016CD8A /* BAnalyzeRoadMapView.m in Sources */,
 				84B85EA527672388009AC598 /* NextViewController.m in Sources */,
@@ -1584,6 +1605,7 @@
 				A0BCD7B92221ACF800BB3A9C /* BaccaratCollectionView.m in Sources */,
 				40E822FF2332BB240035B246 /* BaccaratRoadMapView.m in Sources */,
 				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
+				848EE793276E5A4C0016CD8A /* WMDragView.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
 				84B85E7E2766F5F2009AC598 /* MXVTabBar.m in Sources */,
 				A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */,

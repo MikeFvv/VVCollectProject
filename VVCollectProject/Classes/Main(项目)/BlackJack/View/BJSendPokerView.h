@@ -13,13 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BJSendPokerView : UIView
 /// 玩家名称
-@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
 /// 点数 or Other 字符显示
-@property (nonatomic,strong) UILabel *totalPointsLabel;
+@property (nonatomic, strong) UILabel *totalPointsLabel;
 
 //@property (nonatomic, assign) NSInteger emptyDataIndex;
 //
-@property (nonatomic,strong) NSMutableArray<PokerCardModel *> *sendCardDataArray;
+@property (nonatomic, strong) NSMutableArray<PokerCardModel *> *sendCardDataArray;
 
 @end
 

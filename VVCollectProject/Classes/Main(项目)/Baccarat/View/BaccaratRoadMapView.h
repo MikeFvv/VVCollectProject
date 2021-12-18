@@ -19,7 +19,7 @@ typedef void (^HeadClickBlock)(NSInteger index);
 
 + (BaccaratRoadMapView *)headViewWithModel:(id)model;
 
-@property (nonatomic,strong) id model;
+@property (nonatomic, strong) id model;
 // 路类型  0 庄闲路  1  大路
 @property (nonatomic, assign) NSInteger roadType;
 
