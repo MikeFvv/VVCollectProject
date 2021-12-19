@@ -13,7 +13,7 @@
 typedef NS_ENUM(NSInteger, MapColorType) {
     ColorType_Undefined = 0,   // 未知
     ColorType_Red = 1,   // 蓝色
-    ColorType_Blue = 1,   // 蓝色
+    ColorType_Blue = 2,   // 蓝色
 };
 
 // 下三路 路图类型
