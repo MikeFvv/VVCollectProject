@@ -53,7 +53,7 @@
     _nameMLabel.layer.masksToBounds = YES;
     _nameMLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_nameMLabel];
-    _nameMLabel.font = [UIFont boldSystemFontOfSize:14];
+    _nameMLabel.font = [UIFont boldSystemFontOfSize:12];
     _nameMLabel.textColor = [UIColor whiteColor];
     _nameMLabel.backgroundColor =[UIColor redColor];
     
@@ -65,7 +65,7 @@
     
     _titleLabel = [UILabel new];
     _titleLabel.text = @"B";
-    _titleLabel.font = [UIFont systemFontOfSize:14];
+    _titleLabel.font = [UIFont systemFontOfSize:10];
     _titleLabel.textColor = [UIColor blackColor];
     [self.contentView addSubview:_titleLabel];
     
@@ -76,12 +76,12 @@
     
     _countLabel = [UILabel new];
     _countLabel.text = @"10";
-    _countLabel.font = [UIFont boldSystemFontOfSize:14];
+    _countLabel.font = [UIFont boldSystemFontOfSize:12];
     _countLabel.textColor = [UIColor blackColor];
     [self.contentView addSubview:_countLabel];
     
     [_countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView.mas_right).offset(-10);
+        make.right.equalTo(self.contentView.mas_right).offset(-5);
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     

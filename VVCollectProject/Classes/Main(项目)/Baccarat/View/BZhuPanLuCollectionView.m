@@ -76,7 +76,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     layout.minimumLineSpacing = 1;
     
     //每个分区的四边间距UIEdgeInsetsMake
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     //
     // 设置Item的估计大小,用于动态设置item的大小，结合自动布局（self-sizing-cell）
     //layout.estimatedItemSize = CGSizeMake(<#CGFloat width#>, <#CGFloat height#>);
@@ -89,9 +89,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     // 设置尾视图尺寸大小
     //layout.footerReferenceSize = CGSizeMake(<#CGFloat width#>, <#CGFloat height#>);
-    //
-    // 设置分区(组)的EdgeInset（四边距）
-    //layout.sectionInset = UIEdgeInsetsMake(<#CGFloat top#>, <#CGFloat left#>, <#CGFloat bottom#>, <#CGFloat right#>);
+    
     //
     // 设置分区的头视图和尾视图是否始终固定在屏幕上边和下边
     //        layout.sectionFootersPinToVisibleBounds = YES;
@@ -166,7 +164,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(1, 1, 1, 1);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 #pragma mark --UICollectionViewDelegate 代理

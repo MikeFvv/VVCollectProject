@@ -9,6 +9,9 @@
 #import "BAnalyzeRoadMapView.h"
 #import "BGameRecordsCell.h"
 
+//static const int kAnalyzeRoadMapView_Width = 70;
+
+
 @interface BAnalyzeRoadMapView ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UIView *leftView;
 @property (nonatomic, strong) UIView *rightView;
@@ -69,7 +72,7 @@
     [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backView.mas_left).offset(0);
         make.top.equalTo(backView.mas_top).offset(0);
-        make.width.mas_equalTo(self.frame.size.width-70);
+        make.width.mas_equalTo(self.frame.size.width-75);
         make.bottom.equalTo(backView.mas_bottom).offset(0);
     }];
     
@@ -93,7 +96,7 @@
 #pragma mark - xxUITableView
 - (UITableView *)leftTableView {
     if (!_leftTableView) {
-        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-70, self.frame.size.height-20) style:UITableViewStylePlain];
+        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-75, self.frame.size.height-20) style:UITableViewStylePlain];
         _leftTableView.backgroundColor = [UIColor whiteColor];
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
