@@ -15,8 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaccaratXiaSanLuView : UIView
 /// 路图类型
 @property (nonatomic, assign) RoadMapType roadMapType;
-@property (nonatomic, strong) NSMutableArray *dyl_DataArray;
-@property (nonatomic, strong) id model;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 

@@ -14,7 +14,7 @@
 #import <MBProgressHUD.h>
 #import "BaccaratConfigController.h"
 #import "BaccaratResultModel.h"
-#import "BaccaratRoadMapView.h"
+#import "BBigRoadMapView.h"
 #import "CardDataSourceModel.h"
 #import "BAnalyzeRoadMapView.h"
 #import "BShowPokerView.h"
@@ -40,7 +40,7 @@
 #define kAddWidth 60
 
 
-@interface BaccaratController ()
+@interface BaccaratController ()<BBigRoadMapViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
@@ -98,7 +98,7 @@
 /// 珠盘路
 @property (nonatomic, strong) BZhuPanLuCollectionView *trendView;
 /// 大路
-@property (nonatomic, strong) BaccaratRoadMapView *roadmapView;
+@property (nonatomic, strong) BBigRoadMapView *bigRoadMapView;
 /// 大眼路
 @property (nonatomic, strong) BaccaratXiaSanLuView *dylXiaSanLuView;
 /// 小路
@@ -289,7 +289,13 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
+#pragma mark -  BBigRoadMapViewDelegate 下三路数据
+- (void)getXSLData:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray {
+    
+    self.dylXiaSanLuView.dataArray = dylDataArray;
+    self.xlXiaSanLuView.dataArray = xlDataArray;
+    self.xqlXiaSanLuView.dataArray = xqlDataArray;
+}
 
 - (void)createUI {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -395,16 +401,17 @@
     
     // ********* 右边 *********
     // 大路
-    BaccaratRoadMapView *roadmapView = [[BaccaratRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 0, halfWidth - kMarginWidth*2, 100)];
+    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 0, halfWidth - kMarginWidth*2, 100)];
     //    trendView.backgroundColor = [UIColor redColor];
-    roadmapView.layer.borderWidth = 1;
-    roadmapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:roadmapView];
-    _roadmapView = roadmapView;
+    bigRoadMapView.layer.borderWidth = 1;
+    bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    bigRoadMapView.delegate = self;
+    [self.contentView addSubview:bigRoadMapView];
+    _bigRoadMapView = bigRoadMapView;
     
     
     BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 100*1, halfWidth - kMarginWidth*2, 100)];
-    dylXiaSanLuView.roadMapType = 1;
+    dylXiaSanLuView.roadMapType = RoadMapType_DYL;
     //    trendView.backgroundColor = [UIColor redColor];
     dylXiaSanLuView.layer.borderWidth = 1;
     dylXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -413,7 +420,7 @@
 
 
     BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 100*2, halfWidth - kMarginWidth*2, 100)];
-    xlXiaSanLuView.roadMapType = 1;
+    xlXiaSanLuView.roadMapType = RoadMapType_XL;
     //    trendView.backgroundColor = [UIColor redColor];
     xlXiaSanLuView.layer.borderWidth = 1;
     xlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -421,7 +428,7 @@
     _xlXiaSanLuView = xlXiaSanLuView;
 
     BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 100*3, halfWidth - kMarginWidth*2, 100)];
-    xqlXiaSanLuView.roadMapType = 1;
+    xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
     //    trendView.backgroundColor = [UIColor redColor];
     xqlXiaSanLuView.layer.borderWidth = 1;
     xqlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -764,7 +771,7 @@
     
     [self initData];
     self.trendView.model = self.resultDataArray;
-    self.roadmapView.model = self.resultDataArray;
+    self.bigRoadMapView.model = self.resultDataArray;
     [self resultStatisticsText];
 }
 
@@ -789,7 +796,7 @@
     //    [self daluCalculationMethod];
     
     self.trendView.model = self.resultDataArray;
-    self.roadmapView.model = self.resultDataArray;
+    self.bigRoadMapView.model = self.resultDataArray;
     [self resultStatisticsContinuous];
     [self resultStatisticsText];
 }
@@ -805,7 +812,7 @@
     
     [self opening];
     self.trendView.model = self.resultDataArray;
-    self.roadmapView.model = self.resultDataArray;
+    self.bigRoadMapView.model = self.resultDataArray;
     //    [self resultStatisticsContinuous];
     
     [self resultStatisticsContinuous];
@@ -1111,46 +1118,46 @@
         self.pokerTotalNum--;
         
         
-                if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
-                    numStr = @"7";
-                }
-        
-                 numStr = @"7";
-        
-                if (i == 5) {
-        
-                    if (self.testIndex < 5) {
-                        numStr = @"10";
-                    } else if (self.testIndex > 10) {
-        
-                        if (self.testIndex > 18) {
-                            if (self.testIndex > 27) {
-                                if (self.testIndex > 36) {
-                                    if (self.testIndex > 45) {
-                                        if (self.testIndex > 54) {
-                                            numStr = @"1";
-                                        } else {
-                                            numStr = @"8";
-                                        }
-                                    } else {
-                                        numStr = @"1";
-                                    }
-                                } else {
-                                    numStr = @"8";
-                                }
-                            } else {
-                                numStr = @"1";
-                            }
-                        } else {
-                            numStr = @"8";
-                        }
-        
-                    } else {
-                        numStr = @"1";
-                    }
-                }
-        
-        cardModel.bCardValue = [numStr integerValue];
+//                if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
+//                    numStr = @"7";
+//                }
+//
+//                 numStr = @"7";
+//
+//                if (i == 5) {
+//
+//                    if (self.testIndex < 5) {
+//                        numStr = @"10";
+//                    } else if (self.testIndex > 10) {
+//
+//                        if (self.testIndex > 18) {
+//                            if (self.testIndex > 27) {
+//                                if (self.testIndex > 36) {
+//                                    if (self.testIndex > 45) {
+//                                        if (self.testIndex > 54) {
+//                                            numStr = @"1";
+//                                        } else {
+//                                            numStr = @"8";
+//                                        }
+//                                    } else {
+//                                        numStr = @"1";
+//                                    }
+//                                } else {
+//                                    numStr = @"8";
+//                                }
+//                            } else {
+//                                numStr = @"1";
+//                            }
+//                        } else {
+//                            numStr = @"8";
+//                        }
+//
+//                    } else {
+//                        numStr = @"1";
+//                    }
+//                }
+//
+//        cardModel.bCardValue = [numStr integerValue];
         
         
         if (i == 1) {

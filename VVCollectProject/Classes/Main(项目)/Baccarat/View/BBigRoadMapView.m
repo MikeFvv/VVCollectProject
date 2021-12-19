@@ -6,7 +6,7 @@
 //  Copyright © 2019 Mike. All rights reserved.
 //
 
-#import "BaccaratRoadMapView.h"
+#import "BBigRoadMapView.h"
 #import "BaccaratCollectionViewCell.h"
 #import "UIView+Extension.h"
 #import "BaccaratResultModel.h"
@@ -24,7 +24,7 @@
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
 
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
-@interface BaccaratRoadMapView ()
+@interface BBigRoadMapView ()
 //
 @property (nonatomic, strong) NSMutableArray *daLu_DataArray;
 
@@ -58,10 +58,12 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 
 @property (nonatomic, strong) NSMutableArray *dyl_DataArray;
+@property (nonatomic, strong) NSMutableArray *xl_DataArray;
+@property (nonatomic, strong) NSMutableArray *xql_DataArray;
 
 @end
 
-@implementation BaccaratRoadMapView
+@implementation BBigRoadMapView
 
 
 
@@ -240,7 +242,27 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     self.daLu_lastModel = model;
     
     
-    [self daYanLu_ComputerData];
+    MapColorType dyl_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_DYL];
+    if (dyl_colorType != ColorType_Undefined) {
+        [self.dyl_DataArray addObject:@(dyl_colorType)];
+    }
+    
+    
+    MapColorType xl_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_XL];
+    if (xl_colorType != ColorType_Undefined) {
+        [self.xl_DataArray addObject:@(xl_colorType)];
+    }
+    MapColorType xql_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_XQL];
+    if (xql_colorType != ColorType_Undefined) {
+        [self.xql_DataArray addObject:@(xql_colorType)];
+    }
+    
+    
+    if ([self.delegate respondsToSelector:@selector(getXSLData:xlDataArray:xqlDataArray:)]) {
+        
+        [self.delegate getXSLData:self.dyl_DataArray xlDataArray:self.xl_DataArray xqlDataArray:self.xql_DataArray];
+    }
+    
 }
 
 
@@ -267,7 +289,10 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 
 #pragma mark -  算法数据
-- (void)daYanLu_ComputerData {
+/// 获得下三路 数据
+/// @param daLu_ColDataArray 大路列数据
+/// @param roadMapType 下三路 类型
+- (MapColorType)xsl_ComputerData:(NSMutableArray *)daLu_ColDataArray roadMapType:(RoadMapType)roadMapType {
     // *** 大眼路规则 ***
     // 大眼仔开始及对应位：第二列对第一列.第三列对第二列.第四列对第三列.第五列对第四列.如此类推。
     // 大眼仔：是从大路第二列(第一口不计)第二口开始向第一列第二口对(第一列不管开几多口庄或闲，是不写红蓝笔，只供大眼仔对应写红或蓝)。
@@ -277,42 +302,52 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     //    小路开始及对应位：第三列对第一列.第四列对第二列.第五列对第三列.第六列对第四列.如此类推。
     //    曱甴路开始及对应位：第四列对第一列.第五列对第二列.第六列对第三列.第七列对第四列.如此类推。
     
-    if (self.daLu_ColDataArray.count < 2) {
-        return;
+    NSInteger startColumn = 0;
+    if (roadMapType == RoadMapType_DYL) {
+        startColumn = 2;
+    } else if (roadMapType == RoadMapType_XL) {
+        startColumn = 3;
+    } else if (roadMapType == RoadMapType_XQL) {
+        startColumn = 4;
     }
     
-    NSArray<BaccaratResultModel *> *currentColArray = (NSArray *)self.daLu_ColDataArray.lastObject;
+    if (daLu_ColDataArray.count < startColumn) {
+        return ColorType_Undefined;
+    }
     
-    if (self.daLu_ColDataArray.count == 2 && currentColArray.count == 1) {
-        return;
+    NSArray *currentColArray = (NSArray *)daLu_ColDataArray.lastObject;
+    
+    if (daLu_ColDataArray.count == startColumn && currentColArray.count == 1) {
+        return ColorType_Undefined;
     }
     
     // 前一列
-    NSArray *frontColArray = (NSArray *)self.daLu_ColDataArray[self.daLu_ColDataArray.count-2];
+    NSArray *frontColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-2];
     
     
     MapColorType colorType = 0;
     if (currentColArray.count == 1) {
         // 路头牌
-        
         // 前2列
-        NSArray *frontTwoColArray = (NSArray *)self.daLu_ColDataArray[self.daLu_ColDataArray.count-3];
+        NSArray *frontTwoColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-(startColumn+1)];
         // 假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
-        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count];
+        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+(startColumn-1) frontColumnNum:frontTwoColArray.count];
         colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
     } else {
         // 路中牌
         colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count frontColumnNum:frontColArray.count];
     }
     
-    [self.dyl_DataArray addObject:@(colorType)];
-    
-    //    [self daYanLu_createItems];
+    return colorType;
 }
 
 
+
+/// 判断是 红蓝
+/// @param currentColumnNum 当前列数量
+/// @param frontColumnNum 前一列列数量
 - (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum frontColumnNum:(NSInteger)frontColumnNum {
-    MapColorType mapColorType = 0;
+    MapColorType mapColorType = ColorType_Undefined;
     if (currentColumnNum <= frontColumnNum) {   // 当前列小于等于前一列 「标红」  // -路中牌
         mapColorType = ColorType_Red;
     } else if (currentColumnNum -1 == frontColumnNum) {  // 当前列大于前一列 1个 「标蓝」  // -路中牌
@@ -324,6 +359,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     return mapColorType;
 }
+
 
 
 
@@ -440,6 +476,19 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         _dyl_DataArray = [NSMutableArray array];
     }
     return _dyl_DataArray;
+}
+- (NSMutableArray *)xl_DataArray {
+    if (!_xl_DataArray) {
+        _xl_DataArray = [NSMutableArray array];
+    }
+    return _xl_DataArray;
+}
+
+- (NSMutableArray *)xql_DataArray {
+    if (!_xql_DataArray) {
+        _xql_DataArray = [NSMutableArray array];
+    }
+    return _xql_DataArray;
 }
 
 - (NSMutableArray *)oneColArray {

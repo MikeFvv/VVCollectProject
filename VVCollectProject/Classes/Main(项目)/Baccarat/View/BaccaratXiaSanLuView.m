@@ -57,9 +57,13 @@
     [self addSubview:self.xsl_ScrollView];
 }
 
-- (void)setModel:(id)model {
-    _model = model;
-    self.xsl_DataArray = [NSMutableArray arrayWithArray:(NSArray *)model];
+- (void)setDataArray:(NSArray *)dataArray {
+    _dataArray = dataArray;
+    
+    if (!dataArray || dataArray.count == 0) {
+        return;
+    }
+    self.xsl_DataArray = [NSMutableArray arrayWithArray:dataArray];
     [self xsl_createItems];
     
     NSLog(@"1");
@@ -76,21 +80,56 @@
     CGFloat y = 0;
     
     
-    
     UILabel *label = [[UILabel alloc] init];
-    label.layer.masksToBounds = YES;
-    label.font = [UIFont boldSystemFontOfSize:14];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.layer.cornerRadius = w/2;
+    CAShapeLayer *lineLayer = nil;
+    if (self.roadMapType == RoadMapType_DYL) {
+        label.layer.cornerRadius = w/2;
+        label.layer.masksToBounds = YES;
+        label.layer.borderWidth = 3.6;
+        
+    } else if (self.roadMapType == RoadMapType_XL) {
+        label.layer.cornerRadius = w/2;
+        label.layer.masksToBounds = YES;
+        
+    } else if (self.roadMapType == RoadMapType_XQL) {
+        // 线的路径
+        UIBezierPath *linePath = [UIBezierPath bezierPath];
+        // 起点
+        [linePath moveToPoint:CGPointMake(w, 0)];
+        // 其他点
+        [linePath addLineToPoint:CGPointMake(0, w)];
+        
+        CAShapeLayer *templineLayer = [CAShapeLayer layer];
+        templineLayer.lineWidth = 3;
+        templineLayer.path = linePath.CGPath;
+        templineLayer.fillColor = nil;
+        [label.layer addSublayer:templineLayer];
+        lineLayer = templineLayer;
+    }
+    
     [self.xsl_ScrollView addSubview:label];
+    
     
     
     MapColorType colorType = [self.xsl_DataArray.lastObject integerValue];
     
     if (colorType == ColorType_Red) {
-        label.backgroundColor = [UIColor redColor];
+        
+        if (self.roadMapType == RoadMapType_DYL) {
+            label.layer.borderColor = [UIColor redColor].CGColor;
+        } else if (self.roadMapType == RoadMapType_XL) {
+            label.backgroundColor = [UIColor redColor];
+        } else if (self.roadMapType == RoadMapType_XQL) {
+            lineLayer.strokeColor = [UIColor redColor].CGColor;
+        }
     } else if (colorType == ColorType_Blue) {
-        label.backgroundColor = [UIColor blueColor];
+        if (self.roadMapType == RoadMapType_DYL) {
+            label.layer.borderColor = [UIColor blueColor].CGColor;
+        } else if (self.roadMapType == RoadMapType_XL) {
+            label.backgroundColor = [UIColor blueColor];
+        } else if (self.roadMapType == RoadMapType_XQL) {
+            lineLayer.strokeColor = [UIColor blueColor].CGColor;
+        }
     } else {
         NSLog(@"🔴🔴🔴未知🔴🔴🔴");
     }
