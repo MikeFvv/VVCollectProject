@@ -7,8 +7,23 @@
 //
 
 #import "BAnalyzeRoadMapView.h"
+#import "BGameRecordsCell.h"
 
-@interface BAnalyzeRoadMapView ()
+@interface BAnalyzeRoadMapView ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, strong) UIView *leftView;
+@property (nonatomic, strong) UIView *rightView;
+@property (nonatomic, strong) UITableView *leftTableView;
+
+// ******* 左边统计图 *******
+@property (nonatomic, strong) UILabel *pokerCountLabel;
+@property (nonatomic, strong) UILabel *bankerTotalCountLabel;
+@property (nonatomic, strong) UILabel *playerTotalCountLabel;
+@property (nonatomic, strong) UILabel *tieCountLabel;
+@property (nonatomic, strong) UILabel *bankerPairCountLabel;
+@property (nonatomic, strong) UILabel *playerPairCountLabel;
+@property (nonatomic, strong) UILabel *superSixCountLabel;
+
+
 // ******* grm 指路图 *******
 // *** 庄 ***
 @property (nonatomic, strong) UILabel *grm_bankerLabel;
@@ -36,28 +51,104 @@
 
 - (void)createUI {
     
-    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    UIView *backView = [[UIView alloc] init];
+    backView.backgroundColor = [UIColor redColor];
+    backView.layer.borderWidth = 1;
+    backView.layer.borderColor = [UIColor greenColor].CGColor;
+    [self addSubview:backView];
+    
+    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self);
+    }];
+    
+    UIView *leftView = [[UIView alloc] init];
+    leftView.backgroundColor = [UIColor whiteColor];
+    [backView addSubview:leftView];
+    _leftView = leftView;
+    
+    [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(backView.mas_left).offset(0);
+        make.top.equalTo(backView.mas_top).offset(0);
+        make.width.mas_equalTo(self.frame.size.width-70);
+        make.bottom.equalTo(backView.mas_bottom).offset(0);
+    }];
+    
+    UIView *rightView = [[UIView alloc] init];
+    rightView.backgroundColor = [UIColor cyanColor];
+    [backView addSubview:rightView];
+    _rightView = rightView;
+    
+    [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(backView.mas_right).offset(0);
+        make.top.equalTo(backView.mas_top).offset(0);
+        make.width.mas_equalTo(70);
+        make.bottom.equalTo(backView.mas_bottom).offset(0);
+    }];
+    
+    [self gameRecordsView];
+    [self analyzeRoadMapView];
+}
+
+
+#pragma mark - xxUITableView
+- (UITableView *)leftTableView {
+    if (!_leftTableView) {
+        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-70, self.frame.size.height-20) style:UITableViewStylePlain];
+        _leftTableView.backgroundColor = [UIColor whiteColor];
+        _leftTableView.dataSource = self;
+        _leftTableView.delegate = self;
+        //        _leftTableView.tableHeaderView = self.headView;
+        //        _leftTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        
+        _leftTableView.rowHeight = 23;   // 行高
+        _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;  // 去掉分割线
+        _leftTableView.estimatedRowHeight = 0;
+        _leftTableView.estimatedSectionHeaderHeight = 0;
+        _leftTableView.estimatedSectionFooterHeight = 0;
+    }
+    return _leftTableView;
+}
+
+
+#pragma mark - UITableViewDataSource
+//返回列表每个分组section拥有cell行数
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 6;
+}
+
+//配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BGameRecordsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BGameRecordsCell"];
+    if(cell == nil) {
+        cell = [BGameRecordsCell cellWithTableView:tableView reusableId:@"BGameRecordsCell"];
+    }
+    
+    return cell;
+}
+
+
+/// 统计庄闲图  游戏记录
+- (void)gameRecordsView {
+    [self.leftView addSubview:self.leftTableView];
+}
+
+
+
+
+/// 分析问路图
+- (void)analyzeRoadMapView {
+    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 135)];
     guideRoadMapBackView.backgroundColor = [UIColor whiteColor];
     guideRoadMapBackView.layer.cornerRadius = 5;
     guideRoadMapBackView.layer.masksToBounds = YES;
     guideRoadMapBackView.layer.borderWidth = 1;
     guideRoadMapBackView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [self addSubview:guideRoadMapBackView];
-    
-    [self addSubview:guideRoadMapBackView];
-    [self bringSubviewToFront:guideRoadMapBackView];
-    
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
-                                                    
-                                                    initWithTarget:self
-                                                    
-                                                    action:@selector(handlePan:)];
-    
-    [guideRoadMapBackView addGestureRecognizer:panGestureRecognizer];
+    [self.rightView addSubview:guideRoadMapBackView];
     
     
     CGFloat lineSpacing = 30;
-     CGFloat widht = 18;
+    CGFloat widht = 18;
     
     UIView *line1View = [[UIView alloc] init];
     line1View.backgroundColor = [UIColor purpleColor];
@@ -198,17 +289,17 @@
     UIView *grm_yyl_bankerView = [UIView new];
     grm_yyl_bankerView.backgroundColor = [UIColor clearColor];
     [guideRoadMapBackView addSubview:grm_yyl_bankerView];
-
+    
     [grm_yyl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(grm_bankerLabel.mas_left);
         make.bottom.equalTo(line4View.mas_top).offset(-3);
         make.size.mas_equalTo(widht);
     }];
-
+    
     UIView *grm_yyl_playerView = [UIView new];
     grm_yyl_playerView.backgroundColor = [UIColor clearColor];
     [guideRoadMapBackView addSubview:grm_yyl_playerView];
-
+    
     [grm_yyl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(grm_playerLabel.mas_right);
         make.centerY.equalTo(grm_yyl_bankerView.mas_centerY);
@@ -244,44 +335,6 @@
     lineLayer2.path = linePath.CGPath;
     lineLayer2.fillColor = nil;
     [grm_yyl_playerView.layer addSublayer:lineLayer2];
- 
-}
-
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer{
-    
-    CGPoint translation = [recognizer translationInView:self];
-    
-    CGFloat centerX=recognizer.view.center.x+ translation.x;
-    CGFloat centerY=recognizer.view.center.y+ translation.y;
-    CGFloat thecenterX=0;
-    CGFloat thecenterY=0;
-    recognizer.view.center=CGPointMake(centerX,
-                                       
-                                       recognizer.view.center.y+ translation.y);
-    
-    [recognizer setTranslation:CGPointZero inView:self];
-    
-    if(recognizer.state==UIGestureRecognizerStateEnded|| recognizer.state==UIGestureRecognizerStateCancelled) {
-        
-        if(centerX>kSCREEN_WIDTH/2) {
-            thecenterX=kSCREEN_WIDTH-70/2;
-        } else {
-            thecenterX=70/2;
-        }
-        
-        if (centerY>kSCREEN_HEIGHT-Height_NavBar) {
-            thecenterY=kSCREEN_HEIGHT-Height_NavBar;
-        } else if (centerY<Height_NavBar) {
-            thecenterY=Height_NavBar;
-        } else {
-            thecenterY = recognizer.view.center.y+ translation.y;
-        }
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            recognizer.view.center=CGPointMake(thecenterX,thecenterY);
-        }];
-        
-    }
 }
 
 @end
