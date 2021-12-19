@@ -1,8 +1,8 @@
 //
-//  BAnalyzeRoadMapView.h
+//  BaccaratChipsView.h
 //  VVCollectProject
 //
-//  Created by Admin on 2021/12/17.
+//  Created by Admin on 2021/12/19.
 //  Copyright © 2021 Mike. All rights reserved.
 //
 
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 分析路图  分析问路图 统计庄闲图
-@interface BAnalyzeRoadMapView : UIView
+/// 筹码视图
+@interface ChipsView : UIView
 
 @end
 

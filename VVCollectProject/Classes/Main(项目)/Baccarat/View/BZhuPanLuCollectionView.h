@@ -16,14 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^HeadClickBlock)(NSInteger index);
 
-@interface BaccaratCollectionView : UIView
+@interface BZhuPanLuCollectionView : UIView
 
 @property (nonatomic, copy) HeadClickBlock headClickBlock;
 
-+ (BaccaratCollectionView *)headViewWithModel:(id)model;
-
 @property (nonatomic, strong) id model;
-// 路类型  0 庄闲路  1  大路
+// 路类型  0 庄闲路
 @property (nonatomic, assign) NSInteger roadType;
 
 

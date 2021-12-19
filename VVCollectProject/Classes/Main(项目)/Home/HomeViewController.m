@@ -21,6 +21,8 @@
 #import "UIImage+Extension.h"
 #import "UIView+Function.h"
 
+#import "FunctionManager.h"
+
 
 #define dispatch_main_async_safe(block)\
 if ([NSThread isMainThread]) {\
@@ -488,6 +490,10 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
+        
+        // 允许屏幕旋转
+        [FunctionManager interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+        
         BaccaratController *vc = [[BaccaratController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } else if (indexPath.row == 1) {

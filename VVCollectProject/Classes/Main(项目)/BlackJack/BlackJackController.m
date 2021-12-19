@@ -45,7 +45,7 @@
 #import "BJSpade.h"
 #import "CardDataSourceModel.h"
 #import "PokerCardModel.h"
-#import "BaccaratCollectionView.h"
+#import "BZhuPanLuCollectionView.h"
 #import "BJDetailsController.h"
 #import "VVFunctionManager.h"
 #import "MXWPokerView.h"
@@ -78,7 +78,7 @@
 @property (strong, nonatomic) UILabel *resultTwoLabel;
 @property (strong, nonatomic) UILabel *resultThreeLabel;
 
-@property (nonatomic, strong) BaccaratCollectionView *trendView;
+@property (nonatomic, strong) BZhuPanLuCollectionView *trendView;
 @property (nonatomic, strong) UITextField *boardNumTextField;
 
 /// 玩家总点数
@@ -668,7 +668,7 @@
     resetButton.layer.cornerRadius = 5;
     [btnBackView addSubview:resetButton];
 
-    BaccaratCollectionView *trendView = [[BaccaratCollectionView alloc] initWithFrame:CGRectMake(20, 450, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
+    BZhuPanLuCollectionView *trendView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(20, 450, [UIScreen mainScreen].bounds.size.width - 20*2, kTrendViewHeight)];
     //    trendView.backgroundColor = [UIColor redColor];
     trendView.layer.borderWidth = 1;
     trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;

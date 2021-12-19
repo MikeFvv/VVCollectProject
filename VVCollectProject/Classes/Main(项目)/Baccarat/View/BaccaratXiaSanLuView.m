@@ -162,7 +162,7 @@
 
 - (UIScrollView *)dyl_ScrollView {
     if (!_dyl_ScrollView) {
-        _dyl_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 100+10, self.frame.size.width, 100)];
+        _dyl_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 100)];
         _dyl_ScrollView.delegate = self;
         _dyl_ScrollView.backgroundColor = [UIColor whiteColor];
         _dyl_ScrollView.contentSize = CGSizeMake(1000, 0);
@@ -171,7 +171,7 @@
         _dyl_maxXValue = 0;
         _dyl_longNum = 0;
         
-        _dyl_ScrollView.backgroundColor = [UIColor greenColor];
+        _dyl_ScrollView.backgroundColor = [UIColor randomColor];
     }
     return _dyl_ScrollView;
 }
