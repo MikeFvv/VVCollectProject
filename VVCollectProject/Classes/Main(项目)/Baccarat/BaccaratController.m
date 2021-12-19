@@ -111,7 +111,7 @@
 
    
 /// 结果数据
-@property (nonatomic, strong) NSMutableArray *resultDataArray;
+@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *resultDataArray;
 
 
 
@@ -396,7 +396,6 @@
     // ********* 右边 *********
     // 大路
     BaccaratRoadMapView *roadmapView = [[BaccaratRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 0, halfWidth - kMarginWidth*2, 100)];
-    roadmapView.roadType = 1;
     //    trendView.backgroundColor = [UIColor redColor];
     roadmapView.layer.borderWidth = 1;
     roadmapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;

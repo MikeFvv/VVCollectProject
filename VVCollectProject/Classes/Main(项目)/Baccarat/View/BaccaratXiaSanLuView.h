@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 路图类型
 @property (nonatomic, assign) RoadMapType roadMapType;
 @property (nonatomic, strong) NSMutableArray *dyl_DataArray;
-
+@property (nonatomic, strong) id model;
 
 @end
 
