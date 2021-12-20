@@ -302,40 +302,45 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     //    小路开始及对应位：第三列对第一列.第四列对第二列.第五列对第三列.第六列对第四列.如此类推。
     //    曱甴路开始及对应位：第四列对第一列.第五列对第二列.第六列对第三列.第七列对第四列.如此类推。
     
-    NSInteger startColumn = 0;
+    
+    NSInteger spacingColumn = 0;  // 间距列数量
     if (roadMapType == RoadMapType_DYL) {
-        startColumn = 2;
+        spacingColumn = 2;
     } else if (roadMapType == RoadMapType_XL) {
-        startColumn = 3;
+        spacingColumn = 3;
     } else if (roadMapType == RoadMapType_XQL) {
-        startColumn = 4;
+        spacingColumn = 4;
     }
     
-    if (daLu_ColDataArray.count < startColumn) {
+    if (daLu_ColDataArray.count < spacingColumn) {
         return ColorType_Undefined;
     }
     
+    // 当前列
     NSArray *currentColArray = (NSArray *)daLu_ColDataArray.lastObject;
     
-    if (daLu_ColDataArray.count == startColumn && currentColArray.count == 1) {
+    if (daLu_ColDataArray.count == spacingColumn && currentColArray.count == 1) {
         return ColorType_Undefined;
     }
     
-    // 前一列
-    NSArray *frontColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-2];
+    // 比较列
+    NSArray *frontColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-spacingColumn];
     
     
     MapColorType colorType = 0;
-    if (currentColArray.count == 1) {
-        // 路头牌
-        // 前2列
-        NSArray *frontTwoColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-(startColumn+1)];
-        // 假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
-        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+(startColumn-1) frontColumnNum:frontTwoColArray.count];
-        colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
+    if (currentColArray.count == 1) { // 路头牌 第一个
+        // 比较列 前一列
+        NSArray *frontTwoColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-(spacingColumn+1)];
+        // 🅰️
+        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count frontColumnNum:frontTwoColArray.count isFirst:YES];
+        
+        // 🅱️假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
+//        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count isFirst:NO];
+//        colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
+        
     } else {
         // 路中牌
-        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count frontColumnNum:frontColArray.count];
+        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count frontColumnNum:frontColArray.count isFirst:NO];
     }
     
     return colorType;
@@ -346,20 +351,31 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 判断是 红蓝
 /// @param currentColumnNum 当前列数量
 /// @param frontColumnNum 前一列列数量
-- (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum frontColumnNum:(NSInteger)frontColumnNum {
+- (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum frontColumnNum:(NSInteger)frontColumnNum isFirst:(BOOL)isFirst {
     
-    // ❗️❗️❗️下三路口决：有对写红，无对写蓝，齐脚跳写红，突脚跳写蓝，突脚连写红。(突脚连-是指长庄或长闲)❗️❗️❗️
+    // ❗️❗️❗️🅰️-(按照这个方法) 下三路口决：有对写红，无对写蓝，齐脚跳写红，突脚跳写蓝，突脚连写红。(突脚连-是指长庄或长闲)❗️❗️❗️
     
     MapColorType mapColorType = ColorType_Undefined;
-    if (currentColumnNum <= frontColumnNum) {   // 当前列小于等于前一列 「标红」  // -路中牌
-        mapColorType = ColorType_Red;
-    } else if (currentColumnNum -1 == frontColumnNum) {  // 当前列大于前一列 1个 「标蓝」  // -路中牌
-        mapColorType = ColorType_Blue;
-    } else if (currentColumnNum -1 > frontColumnNum) {  // 当前列大于前一列 2个及以上 「标红」  长闲长庄  // -路中牌
-        mapColorType = ColorType_Red;
+    if (isFirst) {
+        if (currentColumnNum == frontColumnNum) {  // 🅰️齐脚跳写红  🅱️「路头牌」「标红」
+            mapColorType = ColorType_Red;
+        } else if (currentColumnNum < frontColumnNum || currentColumnNum > frontColumnNum) {  // 🅰️突脚跳写蓝  🅱️「路头牌」「标蓝」
+            mapColorType = ColorType_Blue;
+        } else {
+            NSLog(@"🔴🔴🔴未知 MapColorType 1🔴🔴🔴");
+        }
     } else {
-        NSLog(@"🔴🔴🔴未知🔴🔴🔴");
+        if (currentColumnNum <= frontColumnNum) {   // 🅰️有对写红 🅱️「路中牌」当前列小于等于前一列 「标红」
+            mapColorType = ColorType_Red;
+        } else if (currentColumnNum - frontColumnNum == 1) {  // 🅰️无对写蓝 🅱️「路中牌」 当前列大于前一列 1个 「标蓝」
+            mapColorType = ColorType_Blue;
+        } else if (currentColumnNum - frontColumnNum >= 2) {  // 🅰️突脚连-是指长庄或长闲  🅱️「路中牌」 当前列大于前一列 2个及以上 长闲长庄 「标红」
+            mapColorType = ColorType_Red;
+        } else {
+            NSLog(@"🔴🔴🔴未知 MapColorType 2🔴🔴🔴");
+        }
     }
+      
     return mapColorType;
 }
 
@@ -501,7 +517,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     return _oneColArray;
 }
 
-- (NSMutableArray *)daLu_ColDataArray{
+- (NSMutableArray *)daLu_ColDataArray {
     if (!_daLu_ColDataArray) {
         _daLu_ColDataArray = [NSMutableArray array];
     }
