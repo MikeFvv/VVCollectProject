@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaccaratResultModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol BBigRoadMapViewDelegate <NSObject>
 @optional
-- (void)getXSLData:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray;
+- (void)getXSLDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray dylDataArray:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray;
 
 @end
 

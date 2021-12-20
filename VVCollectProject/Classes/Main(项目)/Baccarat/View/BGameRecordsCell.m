@@ -87,7 +87,7 @@
     
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = [UIColor darkGrayColor];
+    lineView.backgroundColor = [UIColor lightGrayColor];
     [self addSubview:lineView];
     
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaccaratCom.h"
+#import "BaccaratResultModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// 分析路图  分析问路图 统计庄闲图
 @interface BAnalyzeRoadMapView : UIView
+
+@property (nonatomic, strong) BaccaratResultModel *currentModel;
+/// 问路图数据
+@property (nonatomic, strong) NSArray *wenLuDataArray;
 
 @end
 

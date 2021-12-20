@@ -29,17 +29,20 @@
 
 // ******* grm 指路图 *******
 // *** 庄 ***
-@property (nonatomic, strong) UILabel *grm_bankerLabel;
-@property (nonatomic, strong) UIView *grm_dyzl_bankerView;
-@property (nonatomic, strong) UIView *grm_xl_bankerView;
-@property (nonatomic, strong) UILabel *grm_yyl_bankerLabel;
+@property (nonatomic, strong) UILabel *wlt_bankerLabel;
+@property (nonatomic, strong) UIView *wlt_dyl_bankerView;
+@property (nonatomic, strong) UIView *wlt_xl_bankerView;
+@property (nonatomic, strong) UILabel *wlt_xql_bankerLabel;
+@property (nonatomic, strong) CAShapeLayer *playerLineLayer;
 
 // *** 闲 ***
-@property (nonatomic, strong) UILabel *grm_playerLabel;
-@property (nonatomic, strong) UIView *grm_dyzl_playerView;
-@property (nonatomic, strong) UIView *grm_xl_playerView;
-@property (nonatomic, strong) UILabel *grm_yyl_playerLabel;
+@property (nonatomic, strong) UILabel *wlt_playerLabel;
+@property (nonatomic, strong) UIView *wlt_dyl_playerView;
+@property (nonatomic, strong) UIView *wlt_xl_playerView;
+@property (nonatomic, strong) UILabel *wlt_xql_playerLabel;
+@property (nonatomic, strong) CAShapeLayer *bankerLineLayer;
 
+   
 @end
 
 @implementation BAnalyzeRoadMapView
@@ -52,10 +55,53 @@
     return self;
 }
 
+- (void)setWenLuDataArray:(NSArray *)wenLuDataArray {
+    _wenLuDataArray = wenLuDataArray;
+    if (!wenLuDataArray || wenLuDataArray.count == 0) {
+        return;
+    }
+    
+    NSLog(@"11");
+    
+    for (NSInteger index = 0; index < wenLuDataArray.count; index++) {
+        MapColorType colorType = [wenLuDataArray[index] integerValue];
+        
+        UIColor *bankerColor = nil;
+        UIColor *playerColor = nil;
+        if (self.currentModel.winType == WinType_Banker) {  // 需要判断当前的庄或闲 如果是闲取反
+             bankerColor = colorType == ColorType_Red ? [UIColor redColor] : [UIColor blueColor];
+             playerColor = colorType == ColorType_Red ? [UIColor blueColor] : [UIColor redColor];
+        } else {
+            bankerColor = colorType == ColorType_Red ? [UIColor blueColor] : [UIColor redColor];
+            playerColor = colorType == ColorType_Red ? [UIColor redColor] : [UIColor blueColor];
+        }
+        
+        if (index == 0) {
+            self.wlt_dyl_bankerView.hidden = NO;
+            self.wlt_dyl_playerView.hidden = NO;
+            self.wlt_dyl_bankerView.layer.borderColor = bankerColor.CGColor;
+            self.wlt_dyl_playerView.layer.borderColor = playerColor.CGColor;
+        } else if (index == 1) {
+            self.wlt_xl_bankerView.hidden = NO;
+            self.wlt_xl_playerView.hidden = NO;
+            self.wlt_xl_bankerView.backgroundColor = bankerColor;
+            self.wlt_xl_playerView.backgroundColor = playerColor;
+        } else if (index == 2) {
+            self.bankerLineLayer.hidden = NO;
+            self.playerLineLayer.hidden = NO;
+            self.bankerLineLayer.strokeColor = bankerColor.CGColor;
+            self.playerLineLayer.strokeColor = playerColor.CGColor;
+        } else {
+            NSLog(@"🔴🔴🔴未知 BAnalyzeRoadMapView setWenLuDataArray 🔴🔴🔴");
+        }
+    }
+    
+}
+
 - (void)createUI {
     
     UIView *backView = [[UIView alloc] init];
-    backView.backgroundColor = [UIColor redColor];
+    backView.backgroundColor = [UIColor cyanColor];
     backView.layer.borderWidth = 1;
     backView.layer.borderColor = [UIColor greenColor].CGColor;
     [self addSubview:backView];
@@ -65,7 +111,7 @@
     }];
     
     UIView *leftView = [[UIView alloc] init];
-    leftView.backgroundColor = [UIColor whiteColor];
+    leftView.backgroundColor = [UIColor clearColor];
     [backView addSubview:leftView];
     _leftView = leftView;
     
@@ -77,14 +123,14 @@
     }];
     
     UIView *rightView = [[UIView alloc] init];
-    rightView.backgroundColor = [UIColor cyanColor];
+    rightView.backgroundColor = [UIColor clearColor];
     [backView addSubview:rightView];
     _rightView = rightView;
     
     [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(backView.mas_right).offset(0);
         make.top.equalTo(backView.mas_top).offset(0);
-        make.width.mas_equalTo(70);
+        make.width.mas_equalTo(71); // +1
         make.bottom.equalTo(backView.mas_bottom).offset(0);
     }];
     
@@ -96,14 +142,14 @@
 #pragma mark - xxUITableView
 - (UITableView *)leftTableView {
     if (!_leftTableView) {
-        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-75, self.frame.size.height-20) style:UITableViewStylePlain];
+        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-76, self.frame.size.height-10) style:UITableViewStylePlain];
         _leftTableView.backgroundColor = [UIColor whiteColor];
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
         //        _leftTableView.tableHeaderView = self.headView;
         //        _leftTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         
-        _leftTableView.rowHeight = 23;   // 行高
+        _leftTableView.rowHeight = 20;   // 行高
         _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;  // 去掉分割线
         _leftTableView.estimatedRowHeight = 0;
         _leftTableView.estimatedSectionHeaderHeight = 0;
@@ -141,7 +187,7 @@
 
 /// 分析问路图
 - (void)analyzeRoadMapView {
-    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 135)];
+    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 112+10)];
     guideRoadMapBackView.backgroundColor = [UIColor whiteColor];
     guideRoadMapBackView.layer.cornerRadius = 5;
     guideRoadMapBackView.layer.masksToBounds = YES;
@@ -150,7 +196,7 @@
     [self.rightView addSubview:guideRoadMapBackView];
     
     
-    CGFloat lineSpacing = 30;
+    CGFloat lineSpacing = 28;
     CGFloat widht = 18;
     
     UIView *line1View = [[UIView alloc] init];
@@ -198,114 +244,118 @@
     }];
     
     /// *** 1 ***
-    UILabel *grm_bankerLabel = [UILabel new];
-    grm_bankerLabel.layer.cornerRadius = widht/2;
-    grm_bankerLabel.layer.masksToBounds = YES;
-    grm_bankerLabel.backgroundColor = [UIColor redColor];
-    [guideRoadMapBackView addSubview:grm_bankerLabel];
-    grm_bankerLabel.text = @"B";
-    grm_bankerLabel.textAlignment = NSTextAlignmentCenter;
-    grm_bankerLabel.font = [UIFont boldSystemFontOfSize:16];
-    grm_bankerLabel.textColor = [UIColor whiteColor];
-    _grm_bankerLabel = grm_bankerLabel;
+    UILabel *wlt_bankerLabel = [UILabel new];
+    wlt_bankerLabel.layer.cornerRadius = widht/2;
+    wlt_bankerLabel.layer.masksToBounds = YES;
+    wlt_bankerLabel.backgroundColor = [UIColor redColor];
+    [guideRoadMapBackView addSubview:wlt_bankerLabel];
+    wlt_bankerLabel.text = @"B";
+    wlt_bankerLabel.textAlignment = NSTextAlignmentCenter;
+    wlt_bankerLabel.font = [UIFont boldSystemFontOfSize:16];
+    wlt_bankerLabel.textColor = [UIColor whiteColor];
+    _wlt_bankerLabel = wlt_bankerLabel;
     
-    [grm_bankerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [wlt_bankerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(guideRoadMapBackView.mas_left).offset(10);
         make.bottom.equalTo(line1View.mas_top).offset(-3);
         make.size.mas_equalTo(widht);
     }];
     
-    UILabel *grm_playerLabel = [UILabel new];
-    grm_playerLabel.layer.cornerRadius = widht/2;
-    grm_playerLabel.layer.masksToBounds = YES;
-    grm_playerLabel.backgroundColor = [UIColor blueColor];
-    [guideRoadMapBackView addSubview:grm_playerLabel];
-    grm_playerLabel.text = @"P";
-    grm_playerLabel.textAlignment = NSTextAlignmentCenter;
-    grm_playerLabel.font = [UIFont boldSystemFontOfSize:16];
-    grm_playerLabel.textColor = [UIColor whiteColor];
-    _grm_playerLabel = grm_playerLabel;
+    UILabel *wlt_playerLabel = [UILabel new];
+    wlt_playerLabel.layer.cornerRadius = widht/2;
+    wlt_playerLabel.layer.masksToBounds = YES;
+    wlt_playerLabel.backgroundColor = [UIColor blueColor];
+    [guideRoadMapBackView addSubview:wlt_playerLabel];
+    wlt_playerLabel.text = @"P";
+    wlt_playerLabel.textAlignment = NSTextAlignmentCenter;
+    wlt_playerLabel.font = [UIFont boldSystemFontOfSize:16];
+    wlt_playerLabel.textColor = [UIColor whiteColor];
+    _wlt_playerLabel = wlt_playerLabel;
     
-    [grm_playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [wlt_playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(guideRoadMapBackView.mas_right).offset(-10);
-        make.centerY.equalTo(grm_bankerLabel.mas_centerY);
+        make.centerY.equalTo(wlt_bankerLabel.mas_centerY);
         make.size.mas_equalTo(widht);
     }];
     
     /// *** 2 ***
-    UIView *grm_dyzl_bankerView = [UIView new];
-    grm_dyzl_bankerView.layer.cornerRadius = widht/2;
-    grm_dyzl_bankerView.layer.masksToBounds = YES;
-    grm_dyzl_bankerView.layer.borderWidth = 3.6;
-    grm_dyzl_bankerView.layer.borderColor = [UIColor redColor].CGColor;
-    [guideRoadMapBackView addSubview:grm_dyzl_bankerView];
-    _grm_dyzl_bankerView = grm_dyzl_bankerView;
+    UIView *wlt_dyl_bankerView = [UIView new];
+    wlt_dyl_bankerView.layer.cornerRadius = widht/2;
+    wlt_dyl_bankerView.layer.masksToBounds = YES;
+    wlt_dyl_bankerView.layer.borderWidth = 3.6;
+    wlt_dyl_bankerView.layer.borderColor = [UIColor redColor].CGColor;
+    wlt_dyl_bankerView.hidden = YES;
+    [guideRoadMapBackView addSubview:wlt_dyl_bankerView];
+    _wlt_dyl_bankerView = wlt_dyl_bankerView;
     
-    [grm_dyzl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(grm_bankerLabel.mas_left);
+    [wlt_dyl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(wlt_bankerLabel.mas_left);
         make.bottom.equalTo(line2View.mas_top).offset(-3);
         make.size.mas_equalTo(widht);
     }];
     
-    UIView *grm_dyzl_playerView = [UIView new];
-    grm_dyzl_playerView.layer.cornerRadius = widht/2;
-    grm_dyzl_playerView.layer.masksToBounds = YES;
-    grm_dyzl_playerView.layer.borderWidth = 4;
-    grm_dyzl_playerView.layer.borderColor = [UIColor blueColor].CGColor;
-    [guideRoadMapBackView addSubview:grm_dyzl_playerView];
-    _grm_dyzl_playerView = grm_dyzl_playerView;
+    UIView *wlt_dyl_playerView = [UIView new];
+    wlt_dyl_playerView.layer.cornerRadius = widht/2;
+    wlt_dyl_playerView.layer.masksToBounds = YES;
+    wlt_dyl_playerView.layer.borderWidth = 4;
+    wlt_dyl_playerView.layer.borderColor = [UIColor blueColor].CGColor;
+    wlt_dyl_playerView.hidden = YES;
+    [guideRoadMapBackView addSubview:wlt_dyl_playerView];
+    _wlt_dyl_playerView = wlt_dyl_playerView;
     
-    [grm_dyzl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(grm_playerLabel.mas_right);
-        make.centerY.equalTo(grm_dyzl_bankerView.mas_centerY);
+    [wlt_dyl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(wlt_playerLabel.mas_right);
+        make.centerY.equalTo(wlt_dyl_bankerView.mas_centerY);
         make.size.mas_equalTo(widht);
     }];
     
     /// *** 3 ***
-    UIView *grm_xl_bankerView = [UIView new];
-    grm_xl_bankerView.layer.cornerRadius = widht/2;
-    grm_xl_bankerView.layer.masksToBounds = YES;
-    grm_xl_bankerView.backgroundColor = [UIColor redColor];
-    [guideRoadMapBackView addSubview:grm_xl_bankerView];
-    _grm_xl_bankerView = grm_xl_bankerView;
+    UIView *wlt_xl_bankerView = [UIView new];
+    wlt_xl_bankerView.layer.cornerRadius = widht/2;
+    wlt_xl_bankerView.layer.masksToBounds = YES;
+    wlt_xl_bankerView.backgroundColor = [UIColor redColor];
+    wlt_xl_bankerView.hidden = YES;
+    [guideRoadMapBackView addSubview:wlt_xl_bankerView];
+    _wlt_xl_bankerView = wlt_xl_bankerView;
     
-    [grm_xl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(grm_bankerLabel.mas_left);
+    [wlt_xl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(wlt_bankerLabel.mas_left);
         make.bottom.equalTo(line3View.mas_top).offset(-3);
         make.size.mas_equalTo(widht);
     }];
     
-    UIView *grm_xl_playerView = [UIView new];
-    grm_xl_playerView.layer.cornerRadius = widht/2;
-    grm_xl_playerView.layer.masksToBounds = YES;
-    grm_xl_playerView.backgroundColor = [UIColor blueColor];
-    [guideRoadMapBackView addSubview:grm_xl_playerView];
-    _grm_xl_playerView = grm_xl_playerView;
+    UIView *wlt_xl_playerView = [UIView new];
+    wlt_xl_playerView.layer.cornerRadius = widht/2;
+    wlt_xl_playerView.layer.masksToBounds = YES;
+    wlt_xl_playerView.backgroundColor = [UIColor blueColor];
+    wlt_xl_playerView.hidden = YES;
+    [guideRoadMapBackView addSubview:wlt_xl_playerView];
+    _wlt_xl_playerView = wlt_xl_playerView;
     
-    [grm_xl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(grm_playerLabel.mas_right);
-        make.centerY.equalTo(grm_xl_bankerView.mas_centerY);
+    [wlt_xl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(wlt_playerLabel.mas_right);
+        make.centerY.equalTo(wlt_xl_bankerView.mas_centerY);
         make.size.mas_equalTo(widht);
     }];
     
     /// *** 4 ***
-    UIView *grm_yyl_bankerView = [UIView new];
-    grm_yyl_bankerView.backgroundColor = [UIColor clearColor];
-    [guideRoadMapBackView addSubview:grm_yyl_bankerView];
+    UIView *wlt_xql_bankerView = [UIView new];
+    wlt_xql_bankerView.backgroundColor = [UIColor clearColor];
+    [guideRoadMapBackView addSubview:wlt_xql_bankerView];
     
-    [grm_yyl_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(grm_bankerLabel.mas_left);
+    [wlt_xql_bankerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(wlt_bankerLabel.mas_left);
         make.bottom.equalTo(line4View.mas_top).offset(-3);
         make.size.mas_equalTo(widht);
     }];
     
-    UIView *grm_yyl_playerView = [UIView new];
-    grm_yyl_playerView.backgroundColor = [UIColor clearColor];
-    [guideRoadMapBackView addSubview:grm_yyl_playerView];
+    UIView *wlt_xql_playerView = [UIView new];
+    wlt_xql_playerView.backgroundColor = [UIColor clearColor];
+    [guideRoadMapBackView addSubview:wlt_xql_playerView];
     
-    [grm_yyl_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(grm_playerLabel.mas_right);
-        make.centerY.equalTo(grm_yyl_bankerView.mas_centerY);
+    [wlt_xql_playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(wlt_playerLabel.mas_right);
+        make.centerY.equalTo(wlt_xql_bankerView.mas_centerY);
         make.size.mas_equalTo(widht);
     }];
     
@@ -322,7 +372,9 @@
     lineLayer.strokeColor = [UIColor redColor].CGColor;
     lineLayer.path = linePath.CGPath;
     lineLayer.fillColor = nil;
-    [grm_yyl_bankerView.layer addSublayer:lineLayer];
+    lineLayer.hidden = YES;
+    [wlt_xql_bankerView.layer addSublayer:lineLayer];
+    _bankerLineLayer = lineLayer;
     
     
     // 线的路径
@@ -337,7 +389,9 @@
     lineLayer2.strokeColor = [UIColor blueColor].CGColor;
     lineLayer2.path = linePath.CGPath;
     lineLayer2.fillColor = nil;
-    [grm_yyl_playerView.layer addSublayer:lineLayer2];
+    lineLayer2.hidden = YES;
+    [wlt_xql_playerView.layer addSublayer:lineLayer2];
+    _playerLineLayer = lineLayer2;
 }
 
 @end

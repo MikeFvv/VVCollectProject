@@ -290,7 +290,10 @@
 }
 
 #pragma mark -  BBigRoadMapViewDelegate 下三路数据
-- (void)getXSLData:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray {
+- (void)getXSLDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray dylDataArray:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray {
+    
+    self.analyzeRoadMapView.currentModel = currentModel;
+    self.analyzeRoadMapView.wenLuDataArray = wenLuDataArray;
     
     self.dylXiaSanLuView.dataArray = dylDataArray;
     self.xlXiaSanLuView.dataArray = xlDataArray;
@@ -401,7 +404,7 @@
     
     // ********* 右边 *********
     // 大路
-    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 0, halfWidth - kMarginWidth*2, 100)];
+    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 1*1, halfWidth - kAddWidth-10, 95+1)];
     //    trendView.backgroundColor = [UIColor redColor];
     bigRoadMapView.layer.borderWidth = 1;
     bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -410,7 +413,7 @@
     _bigRoadMapView = bigRoadMapView;
     
     
-    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 100*1, halfWidth - kMarginWidth*2, 100)];
+    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 96+1*2, halfWidth - kAddWidth-10, 77+1)];
     dylXiaSanLuView.roadMapType = RoadMapType_DYL;
     //    trendView.backgroundColor = [UIColor redColor];
     dylXiaSanLuView.layer.borderWidth = 1;
@@ -419,7 +422,7 @@
     _dylXiaSanLuView = dylXiaSanLuView;
 
 
-    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 100*2, halfWidth - kMarginWidth*2, 100)];
+    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 96+78*1+1*3, halfWidth - kAddWidth-10, 77+1)];
     xlXiaSanLuView.roadMapType = RoadMapType_XL;
     //    trendView.backgroundColor = [UIColor redColor];
     xlXiaSanLuView.layer.borderWidth = 1;
@@ -427,7 +430,7 @@
     [self.contentView addSubview:xlXiaSanLuView];
     _xlXiaSanLuView = xlXiaSanLuView;
 
-    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 100*3, halfWidth - kMarginWidth*2, 100)];
+    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 96+78*2+1*4, halfWidth - kAddWidth-10, 77+1)];
     xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
     //    trendView.backgroundColor = [UIColor redColor];
     xqlXiaSanLuView.layer.borderWidth = 1;

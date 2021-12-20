@@ -100,7 +100,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
      设置collectionView的位置
      */
     CGFloat height = self.frame.size.height;
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */
     _collectionView.collectionViewLayout = layout;
