@@ -347,6 +347,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// @param currentColumnNum 当前列数量
 /// @param frontColumnNum 前一列列数量
 - (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum frontColumnNum:(NSInteger)frontColumnNum {
+    
+    // ❗️❗️❗️下三路口决：有对写红，无对写蓝，齐脚跳写红，突脚跳写蓝，突脚连写红。(突脚连-是指长庄或长闲)❗️❗️❗️
+    
     MapColorType mapColorType = ColorType_Undefined;
     if (currentColumnNum <= frontColumnNum) {   // 当前列小于等于前一列 「标红」  // -路中牌
         mapColorType = ColorType_Red;
