@@ -9,6 +9,8 @@
 #import "BaccaratXiaSanLuView.h"
 #import "UIView+Extension.h"
 
+static const int kItemSizeWidth = 12;
+
 @interface BaccaratXiaSanLuView ()
 
 /// 下三路
@@ -74,8 +76,8 @@
 - (void)xsl_createItems {
     
     CGFloat margin = 1;
-    CGFloat w = 16;
-    CGFloat h = 16;
+    CGFloat w = kItemSizeWidth;
+    CGFloat h = w;
     CGFloat x = 0;
     CGFloat y = 0;
     
@@ -85,7 +87,7 @@
     if (self.roadMapType == RoadMapType_DYL) {
         label.layer.cornerRadius = w/2;
         label.layer.masksToBounds = YES;
-        label.layer.borderWidth = 3.6;
+        label.layer.borderWidth = 3.0;
         
     } else if (self.roadMapType == RoadMapType_XL) {
         label.layer.cornerRadius = w/2;
@@ -95,9 +97,9 @@
         // 线的路径
         UIBezierPath *linePath = [UIBezierPath bezierPath];
         // 起点
-        [linePath moveToPoint:CGPointMake(w, 0)];
+        [linePath moveToPoint:CGPointMake(w, 1.0)];
         // 其他点
-        [linePath addLineToPoint:CGPointMake(0, w)];
+        [linePath addLineToPoint:CGPointMake(1.0, w)];
         
         CAShapeLayer *templineLayer = [CAShapeLayer layer];
         templineLayer.lineWidth = 3;
@@ -241,7 +243,7 @@
 - (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
     
     UILabel *tempLabel = nil;
-    CGFloat minY = (16 +1) * 6;
+    CGFloat minY = (kItemSizeWidth +1) * 6;
     for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
         CGFloat oldX = CGRectGetMaxX(label.frame);
         CGFloat oldY = CGRectGetMaxY(label.frame);
@@ -259,7 +261,7 @@
 
 - (UIScrollView *)xsl_ScrollView {
     if (!_xsl_ScrollView) {
-        _xsl_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 100)];
+        _xsl_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _xsl_ScrollView.delegate = self;
         _xsl_ScrollView.backgroundColor = [UIColor whiteColor];
         _xsl_ScrollView.contentSize = CGSizeMake(1000, 0);

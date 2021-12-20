@@ -8,13 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PokerCardModel.h"
+#import "BaccaratCom.h"
 
-// 输赢类型
-typedef NS_ENUM(NSInteger, WinType) {
-    WinType_TIE = 0,   // 和
-    WinType_Banker = 1,   // 庄赢
-    WinType_Player = 2,    // 闲赢(玩家)
-};
 
 NS_ASSUME_NONNULL_BEGIN
 

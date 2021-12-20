@@ -9,7 +9,7 @@
 #import "BBigRoadMapView.h"
 #import "BaccaratCollectionViewCell.h"
 #import "UIView+Extension.h"
-#import "BaccaratResultModel.h"
+
 #import "BaccaratCom.h"
 
 
@@ -19,7 +19,7 @@
 //第一个标记出现在珠盘的左上角，然后开始竖直向下排，六格填满后就转到第二列，第二列填满后转到第三列，以此类推。
 //与大路不同，和局单独占据一格。
 
-
+static const int kItemSizeWidth = 15;
 
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
 
@@ -60,6 +60,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 @property (nonatomic, strong) NSMutableArray *dyl_DataArray;
 @property (nonatomic, strong) NSMutableArray *xl_DataArray;
 @property (nonatomic, strong) NSMutableArray *xql_DataArray;
+@property (nonatomic, strong) NSMutableArray *wenLu_DataArray;
 
 @end
 
@@ -91,6 +92,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (void)setModel:(id)model {
     _model = model;
     self.daLu_DataArray = [NSMutableArray arrayWithArray:(NSArray *)model];
+    self.wenLu_DataArray = [NSMutableArray array];
     [self daLu_createItems];
     
     NSLog(@"1");
@@ -105,13 +107,22 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     BaccaratResultModel *model = (BaccaratResultModel *)self.daLu_DataArray.lastObject;
     
     if (model.winType == WinType_TIE) {
+        
+        if (self.daLu_DataArray.count == 1) {  // 第一个和特殊处理
+            self.currentLongNum = 1;
+            [self.oneColArray addObject:model];
+            [self.daLu_ColDataArray addObject:self.oneColArray];
+        }
+        
+        self.tieNum++;
         [self tieBezierPath:model];
         return;
     }
+    self.tieNum = 0;
     
     CGFloat margin = 1;
-    CGFloat w = 16;
-    CGFloat h = 16;
+    CGFloat w = kItemSizeWidth;
+    CGFloat h = w;
     CGFloat x = 0;
     CGFloat y = 0;
     
@@ -247,44 +258,22 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         [self.dyl_DataArray addObject:@(dyl_colorType)];
     }
     
-    
     MapColorType xl_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_XL];
     if (xl_colorType != ColorType_Undefined) {
         [self.xl_DataArray addObject:@(xl_colorType)];
     }
+    
     MapColorType xql_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_XQL];
     if (xql_colorType != ColorType_Undefined) {
         [self.xql_DataArray addObject:@(xql_colorType)];
     }
     
     
-    if ([self.delegate respondsToSelector:@selector(getXSLData:xlDataArray:xqlDataArray:)]) {
+    if ([self.delegate respondsToSelector:@selector(getXSLDataWithCurrentModel:wenLuDataArray:dylDataArray:xlDataArray:xqlDataArray:)]) {
         
-        [self.delegate getXSLData:self.dyl_DataArray xlDataArray:self.xl_DataArray xqlDataArray:self.xql_DataArray];
+        [self.delegate getXSLDataWithCurrentModel:self.daLu_lastModel wenLuDataArray:self.wenLu_DataArray dylDataArray:self.dyl_DataArray xlDataArray:self.xl_DataArray xqlDataArray:self.xql_DataArray];
     }
     
-}
-
-
-/// 获得最小的Y 值 Label
-/// @param currentColX 当前X值
-- (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
-    
-    UILabel *tempLabel = nil;
-    CGFloat minY = (16 +1) * 6;
-    for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
-        CGFloat oldX = CGRectGetMaxX(label.frame);
-        CGFloat oldY = CGRectGetMaxY(label.frame);
-        if (oldX >= currentColX) {  // 大于等于当前 X
-            if (oldY < minY) {
-                minY = oldY;
-                tempLabel = label;  // 记录这个Label
-            }
-        } else {  // 否则移除小于当前的X 值Label
-            [self.allBigColLastLabelArray removeObject:label];
-        }
-    }
-    return tempLabel;
 }
 
 
@@ -303,7 +292,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     //    曱甴路开始及对应位：第四列对第一列.第五列对第二列.第六列对第三列.第七列对第四列.如此类推。
     
     
-    NSInteger spacingColumn = 0;  // 间距列数量
+    NSInteger spacingColumn = 0;  // 列开始数量
     if (roadMapType == RoadMapType_DYL) {
         spacingColumn = 2;
     } else if (roadMapType == RoadMapType_XL) {
@@ -315,24 +304,30 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     if (daLu_ColDataArray.count < spacingColumn) {
         return ColorType_Undefined;
     }
-    
     // 当前列
     NSArray *currentColArray = (NSArray *)daLu_ColDataArray.lastObject;
+    // 比较列
+    NSArray *compareColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-spacingColumn];
+    
+    // ****** 庄问路（指路图） 预计下一把的功能******
+    MapColorType wenLuColorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count+1 compareColumnNum:compareColArray.count isFirst:NO];
+    [self.wenLu_DataArray addObject:@(wenLuColorType)];
+    
     
     if (daLu_ColDataArray.count == spacingColumn && currentColArray.count == 1) {
         return ColorType_Undefined;
     }
-    
-    // 比较列
-    NSArray *frontColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-spacingColumn];
     
     
     MapColorType colorType = 0;
     if (currentColArray.count == 1) { // 路头牌 第一个
         // 比较列 前一列
         NSArray *frontTwoColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-(spacingColumn+1)];
+        
+        // 路头牌 当前列 的 前一列
+        NSArray *lastColTwoColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-(1+1)];
         // 🅰️
-        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count frontColumnNum:frontTwoColArray.count isFirst:YES];
+        colorType = [self getDaYanLuColorCurrentColumnNum:lastColTwoColArray.count compareColumnNum:frontTwoColArray.count isFirst:YES];
         
         // 🅱️假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
 //        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count isFirst:NO];
@@ -340,8 +335,10 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         
     } else {
         // 路中牌
-        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count frontColumnNum:frontColArray.count isFirst:NO];
+        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count compareColumnNum:compareColArray.count isFirst:NO];
     }
+    
+    
     
     return colorType;
 }
@@ -350,26 +347,28 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 /// 判断是 红蓝
 /// @param currentColumnNum 当前列数量
-/// @param frontColumnNum 前一列列数量
-- (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum frontColumnNum:(NSInteger)frontColumnNum isFirst:(BOOL)isFirst {
+/// @param compareColumnNum  比较列 列数量
+- (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum compareColumnNum:(NSInteger)compareColumnNum isFirst:(BOOL)isFirst {
     
     // ❗️❗️❗️🅰️-(按照这个方法) 下三路口决：有对写红，无对写蓝，齐脚跳写红，突脚跳写蓝，突脚连写红。(突脚连-是指长庄或长闲)❗️❗️❗️
+    // 下三路共有五句口诀：
+    // 有对画红、无对画蓝、齐脚跳画红、突脚跳画蓝、突脚连画红。
     
     MapColorType mapColorType = ColorType_Undefined;
     if (isFirst) {
-        if (currentColumnNum == frontColumnNum) {  // 🅰️齐脚跳写红  🅱️「路头牌」「标红」
+        if (currentColumnNum == compareColumnNum) {  // 🅰️齐脚跳写红  🅱️「路头牌」「标红」
             mapColorType = ColorType_Red;
-        } else if (currentColumnNum < frontColumnNum || currentColumnNum > frontColumnNum) {  // 🅰️突脚跳写蓝  🅱️「路头牌」「标蓝」
+        } else if (currentColumnNum < compareColumnNum || currentColumnNum > compareColumnNum) {  // 🅰️突脚跳写蓝  🅱️「路头牌」「标蓝」
             mapColorType = ColorType_Blue;
         } else {
             NSLog(@"🔴🔴🔴未知 MapColorType 1🔴🔴🔴");
         }
     } else {
-        if (currentColumnNum <= frontColumnNum) {   // 🅰️有对写红 🅱️「路中牌」当前列小于等于前一列 「标红」
+        if (currentColumnNum <= compareColumnNum) {   // 🅰️有对写红 🅱️「路中牌」当前列小于等于比较列 「标红」
             mapColorType = ColorType_Red;
-        } else if (currentColumnNum - frontColumnNum == 1) {  // 🅰️无对写蓝 🅱️「路中牌」 当前列大于前一列 1个 「标蓝」
+        } else if (currentColumnNum - compareColumnNum == 1) {  // 🅰️无对写蓝 🅱️「路中牌」 当前列大于比较列 1个 「标蓝」
             mapColorType = ColorType_Blue;
-        } else if (currentColumnNum - frontColumnNum >= 2) {  // 🅰️突脚连-是指长庄或长闲  🅱️「路中牌」 当前列大于前一列 2个及以上 长闲长庄 「标红」
+        } else if (currentColumnNum - compareColumnNum >= 2) {  // 🅰️突脚连-是指长庄或长闲  🅱️「路中牌」 当前列大于比较列 2个及以上 长闲长庄 「标红」
             mapColorType = ColorType_Red;
         } else {
             NSLog(@"🔴🔴🔴未知 MapColorType 2🔴🔴🔴");
@@ -381,10 +380,36 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 
 
+/// 获得最小的Y 值 Label
+/// @param currentColX 当前X值
+- (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
+    
+    UILabel *tempLabel = nil;
+    CGFloat minY = (kItemSizeWidth +1) * 6;
+    for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
+        CGFloat oldX = CGRectGetMaxX(label.frame);
+        CGFloat oldY = CGRectGetMaxY(label.frame);
+        if (oldX >= currentColX) {  // 大于等于当前 X
+            if (oldY < minY) {
+                minY = oldY;
+                tempLabel = label;  // 记录这个Label
+            }
+        } else {  // 否则移除小于当前的X 值Label
+            [self.allBigColLastLabelArray removeObject:label];
+        }
+    }
+    return tempLabel;
+}
+
+
+
+
+
+
 
 - (UIScrollView *)daLu_ScrollView {
     if (!_daLu_ScrollView) {
-        _daLu_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 100)];
+        _daLu_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _daLu_ScrollView.delegate = self;
         _daLu_ScrollView.backgroundColor = [UIColor whiteColor];
         _daLu_ScrollView.contentSize = CGSizeMake(1000, 0);
@@ -400,7 +425,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (void)tieBezierPath:(BaccaratResultModel *)model {
     if (self.daLu_DataArray.count == 1) {
         //        CGFloat margin = 1;
-        CGFloat w = 16;
+        CGFloat w = kItemSizeWidth;
         CGFloat h = w;
         CGFloat x = 0;
         CGFloat y = 0;
@@ -424,18 +449,18 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 线的路径
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     // 起点
-    [linePath moveToPoint:CGPointMake(16, 0)];
+    [linePath moveToPoint:CGPointMake(kItemSizeWidth, 0)];
     // 其他点
-    [linePath addLineToPoint:CGPointMake(0, 16)];
+    [linePath addLineToPoint:CGPointMake(0, kItemSizeWidth)];
     
     CAShapeLayer *lineLayer = [CAShapeLayer layer];
-    lineLayer.lineWidth = 1.5;
+    lineLayer.lineWidth = 2.0;
     lineLayer.strokeColor = [UIColor greenColor].CGColor;
     lineLayer.path = linePath.CGPath;
     lineLayer.fillColor = nil;
     [self.daLu_lastLabel.layer addSublayer:lineLayer];
     
-    self.tieNum++;
+    
     if (self.tieNum != 1) {
         for (UILabel *view in self.daLu_lastLabel.subviews) {
             if (view.tag == 5577) {

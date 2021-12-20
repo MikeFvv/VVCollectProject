@@ -9,6 +9,14 @@
 #ifndef BaccaratCom_h
 #define BaccaratCom_h
 
+
+// 输赢类型
+typedef NS_ENUM(NSInteger, WinType) {
+    WinType_TIE = 0,   // 和
+    WinType_Banker = 1,   // 庄赢
+    WinType_Player = 2,    // 闲赢(玩家)
+};
+
 // 下三路颜色类型
 typedef NS_ENUM(NSInteger, MapColorType) {
     ColorType_Undefined = 0,   // 未知
