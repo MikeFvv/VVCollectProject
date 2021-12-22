@@ -29,32 +29,46 @@
     [self loadViewControllers];
     
     //添加突出按钮：（替换原位置Item，若不使用此句话，显示原item）
-//    [self addUpperButtonIndex:1];
+    //    [self addUpperButtonIndex:1];
     
     //通过注册 KVO 来观察选择器的改变，同时切换突出按钮 对属性赋值改的时候进行响应
-//    [self addObserver:self forKeyPath:@"selectedIndex" options:NSKeyValueObservingOptionNew context:nil];
+    //    [self addObserver:self forKeyPath:@"selectedIndex" options:NSKeyValueObservingOptionNew context:nil];
     
     // 跳转 tabbar 通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpTabbarIndex:) name:@"jumpTabbarIndex" object:nil];
     
     // 发送Tabbar通知
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpTabbarIndex" object: @{@"index":@"3"}];
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpTabbarIndex" object: @{@"index":@"3"}];
     
-
+    
     // 发送跳转 tabbar 通知
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kJumpTabbarIndex object: @{@"index":@"3"}];
-//    });
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:kJumpTabbarIndex object: @{@"index":@"3"}];
+    //    });
 }
+
+
+- (UIImage *)imageWithColor:(UIColor *)color {
+   CGRect rect = CGRectMake(0.0f,0.0f, 1.0f,1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context =UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+   CGContextFillRect(context, rect);
+    UIImage *image =UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+   return image;
+}
+
+
 
 - (void)jumpTabbarIndex:(NSNotification *)notification
 {
     NSDictionary *dict = (NSDictionary *)notification.object;
-     
-     if (dict) {
+    
+    if (dict) {
         NSInteger index = [dict[@"index"] integerValue];
-         self.selectedIndex = index;
-     }
+        self.selectedIndex = index;
+    }
 }
 
 
@@ -63,10 +77,10 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     //改变的内容: [change objectForKey:@"new"]、change 要改变的属性 keyPath
-//    NSLog(@"--->change: %@",change);
+    //    NSLog(@"--->change: %@",change);
     NSLog(@"--->_upperIndex: %ld",_upperIndex);
-//    NSLog(@"--->new: %ld \n ",[[change objectForKey:@"new"] integerValue]);
-
+    //    NSLog(@"--->new: %ld \n ",[[change objectForKey:@"new"] integerValue]);
+    
     if ([keyPath isEqualToString:@"selectedIndex"])
     {
         if (_upperIndex == [[change objectForKey:@"new"] integerValue]) {
@@ -80,12 +94,12 @@
 #pragma mark- UITabBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-//    NSLog(@"---> getCurrentVC_CC = %@",[[Common getCurrentVC] class]);
-//    NSLog(@"---> selectedIndex_11 = %ld",self.selectedIndex);
+    //    NSLog(@"---> getCurrentVC_CC = %@",[[Common getCurrentVC] class]);
+    //    NSLog(@"---> selectedIndex_11 = %ld",self.selectedIndex);
     //不可选
-//    if (viewController == self.viewControllers[3]) {
-//        return NO;
-//    }
+    //    if (viewController == self.viewControllers[3]) {
+    //        return NO;
+    //    }
     return YES;
     
 }
@@ -95,23 +109,23 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     
     //NSLog(@"--> _upperIndex = %ld ",self.upperIndex);
-//    NSLog(@"--> didSelect = %ld \n ",self.selectedIndex);
-//    if (self.selectedIndex==2) {
-//        [self tabBarController:tabBarController shouldSelectViewController:viewController];
-//    }
-//    // 换页和 突出按钮 button的状态关联上
-//    if (self.selectedIndex==_upperIndex) {
-//        self.mxvTabBar.UpperBtn.selected=YES;
-//    }else{
-//        self.mxvTabBar.UpperBtn.selected=NO;
-//    }
-//
-//    if (self.selectedIndex == 2 || self.selectedIndex == 3) {
-//        if (![AppModel sharedInstance].isLogined) {
-//            AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-//            [delegate setRootViewController:YES];
-//        }
-//    }
+    //    NSLog(@"--> didSelect = %ld \n ",self.selectedIndex);
+    //    if (self.selectedIndex==2) {
+    //        [self tabBarController:tabBarController shouldSelectViewController:viewController];
+    //    }
+    //    // 换页和 突出按钮 button的状态关联上
+    //    if (self.selectedIndex==_upperIndex) {
+    //        self.mxvTabBar.UpperBtn.selected=YES;
+    //    }else{
+    //        self.mxvTabBar.UpperBtn.selected=NO;
+    //    }
+    //
+    //    if (self.selectedIndex == 2 || self.selectedIndex == 3) {
+    //        if (![AppModel sharedInstance].isLogined) {
+    //            AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    //            [delegate setRootViewController:YES];
+    //        }
+    //    }
 }
 
 #pragma mark- UITabBarDelegate
@@ -123,7 +137,7 @@
 #pragma mark- 装载子视图控制器
 
 - (void)loadViewControllers {
-
+    
     //1.
     HomeViewController *v1 = [[HomeViewController alloc] init];
     
@@ -138,7 +152,7 @@
     MXVNavController* navRootVC_2 = [[MXVNavController alloc] initWithRootViewController:v2];
     MXVNavController* navRootVC_3 = [[MXVNavController alloc] initWithRootViewController:v3];
     MXVNavController* navRootVC_4 = [[MXVNavController alloc] initWithRootViewController:v4];
-
+    
     self.viewControllers = @[navRootVC_1,
                              navRootVC_2,
                              navRootVC_3,
@@ -147,7 +161,7 @@
     UITabBarItem *tabBarItem_1 =[self getTabBarItemOfNavController:navRootVC_1  myVC:v1 title:@"首页"
                                                      normolImgName:@"tabbar_home_normal"
                                                      selectImgName:@"tabbar_home_press"];
-   
+    
     UITabBarItem *tabBarItem_2 =[self getTabBarItemOfNavController: navRootVC_2 myVC: v2 title:@"功能示例"
                                                      normolImgName:@"tabbar_info_normal"
                                                      selectImgName:@"tabbar_info_press"];
@@ -162,9 +176,9 @@
     // 调整tabbar
     [self setUpTabBar];
     self.mxvTabBar.items = @[tabBarItem_1,
-                            tabBarItem_2,
-                            tabBarItem_3,
-                            tabBarItem_4];
+                             tabBarItem_2,
+                             tabBarItem_3,
+                             tabBarItem_4];
     //设置默认 显示项
     self.mxvTabBar.selectedItem = tabBarItem_1;
     /**
@@ -178,8 +192,33 @@
 - (void)setUpTabBar {
     // 设置背景   （有效）、设置代理
     self.mxvTabBar = [[MXVTabBar alloc] init];
-    self.mxvTabBar.barTintColor = [UIColor whiteColor];
+//    self.mxvTabBar.barTintColor = [UIColor whiteColor];
     self.mxvTabBar.delegate = self;
+    
+    // iOS 13 tabbar背景透明化和去掉分割线
+    if (@available(iOS 13, *)) {
+        UITabBarAppearance *appearance = [self.tabBar.standardAppearance copy];
+        
+//        appearance.backgroundImage = [self imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+//        appearance.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
+        
+        appearance.backgroundImage = [UIImage imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+        appearance.shadowImage = [UIImage imageWithColor:[UIColor clearColor]];
+        
+        
+       
+        
+        // 官方文档写的是 重置背景和阴影为透明
+        [appearance configureWithTransparentBackground];
+        self.mxvTabBar.standardAppearance = appearance;
+        
+    } else {
+        self.mxvTabBar.backgroundImage = [UIImage new];
+        self.mxvTabBar.shadowImage = [UIImage new];
+        
+//        self.mxvTabBar.backgroundImage = [self imageWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.5]];
+//        self.mxvTabBar.shadowImage = [UIImage new];
+    }
 }
 
 - (UITabBarItem *)getTabBarItemOfNavController:(UINavigationController *)navVC
@@ -189,10 +228,10 @@
                                  selectImgName:(NSString *)selectImgName    {
     myVC.title = title;
     myVC.tabBarItem.title= title;
-
+    
     UIImage *normolImg = [UIImage imageNamed:normolImgName];
     UIImage *selectImg = [UIImage imageNamed:selectImgName];
-
+    
     navVC.tabBarItem.image         = [normolImg imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     navVC.tabBarItem.selectedImage = [selectImg imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
@@ -200,7 +239,7 @@
                                                NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
     [navVC.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],
                                                NSForegroundColorAttributeName:[UIColor blueColor]} forState:UIControlStateSelected];
-    //设置导航 标题    
+    //设置导航 标题
     [navVC.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                  [UIColor blackColor],NSForegroundColorAttributeName,
                                                  [UIFont boldSystemFontOfSize:17],NSFontAttributeName, nil]];
@@ -242,7 +281,7 @@
     self.mxvTabBar.UpperBtn.center = CGPointMake(itemWidth * (upperIndex+ 0.5), self.mxvTabBar.frame.size.height/2-10);
     self.mxvTabBar.UpperBtn.backgroundColor = [UIColor clearColor];
     [self.mxvTabBar addSubview:self.mxvTabBar.UpperBtn];
-
+    
 }
 #pragma mark- UpperBtn 的点击响应
 -(void)pressChange:(id)sender {

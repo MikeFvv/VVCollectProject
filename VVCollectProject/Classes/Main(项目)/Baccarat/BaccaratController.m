@@ -32,7 +32,7 @@
 #define kMarginHeight 10
 // 边距
 #define kMarginWidth 15
-#define kTrendViewHeight 138
+#define kTrendViewHeight 130
 #define kLabelFontSize 12
 
 #define kColorAlpha 0.9
@@ -198,6 +198,11 @@
     
     
     [self setFloatingBackBtnView];
+    
+    
+    
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -262,7 +267,7 @@
 {
     if (!_dataArray) {
         
-        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 8;
+        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 16;
         _dataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.baccaratDataModel.sortedDeckArray pokerPairsNum:num]];
     }
     return _dataArray;
@@ -301,7 +306,7 @@
 }
 
 - (void)createUI {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     CGFloat halfWidth = self.view.frame.size.width/2;
     
@@ -336,7 +341,14 @@
 }
 
 - (void)createLeftView {
-    CGFloat leftW = mxwScreenWidth() > 812.0 ? 40 : 0;
+    
+//    CGFloat navst = mxwStatusHeight();
+    
+    CGFloat leftW =  IS_NOTCHED_SCREEN ? getNotchScreenHeight-16 : 0;
+    
+    
+    
+    
     CGFloat halfWidth = self.view.frame.size.width/2;
     CGFloat leftVWidht = halfWidth + kAddWidth-leftW -2;
     
@@ -356,11 +368,11 @@
     [leftBgView addSubview:betView];
     
     //筹码视图
-    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(0, 90+140, 300, 50)];
+    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(0, mxwScreenHeight()-kTrendViewHeight-50, 300, 50)];
     [leftBgView addSubview:chipsView];
     _chipsView = chipsView;
     
-    UIButton *startOneButton = [[UIButton alloc] initWithFrame:CGRectMake(350, 90+140+5, 100, 45)];
+    UIButton *startOneButton = [[UIButton alloc] initWithFrame:CGRectMake(350, mxwScreenHeight()-kTrendViewHeight-45, 100, 45)];
     [startOneButton setTitle:@"发牌" forState:UIControlStateNormal];
     startOneButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
     [startOneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -10,6 +10,8 @@
 #define PrefixHeader_pch
 
 #import "Macros.h"
+#import "MXWCommonDefines.h"
+#import "MXWHelper.h"
 #import "VVAdaptUI.h"
 #import "MBProgressHUD+JDragon.h"
 #import "UIResponder+Router.h"
@@ -30,6 +32,7 @@
 #import "ComCardManager.h"
 #import "Poker.h"
 #import "CardConstants.h"
+#import "UIAlertView+Blocks.h"
 
 
 

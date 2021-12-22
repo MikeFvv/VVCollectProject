@@ -29,7 +29,7 @@
     
     UILabel *ttLabel = [[UILabel alloc] init];
     ttLabel.text = @"请下注";
-    ttLabel.font = [UIFont boldSystemFontOfSize:26];
+    ttLabel.font = [UIFont boldSystemFontOfSize:20];
     ttLabel.textColor = [UIColor whiteColor];
     ttLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:ttLabel];
