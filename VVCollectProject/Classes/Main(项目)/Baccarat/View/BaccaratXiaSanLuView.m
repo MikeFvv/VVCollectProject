@@ -10,9 +10,12 @@
 #import "UIView+Extension.h"
 
 static const int kItemSizeWidth = 12;
+static const int kTotalGridsNum = 300;
 
-@interface BaccaratXiaSanLuView ()
+@interface BaccaratXiaSanLuView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
+/// 空白网格视图
+@property (nonatomic, strong) UICollectionView *blankGridCollectionView;
 /// 下三路
 @property (nonatomic, strong) UIScrollView *xsl_ScrollView;
 
@@ -41,9 +44,10 @@ static const int kItemSizeWidth = 12;
 
 @implementation BaccaratXiaSanLuView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        [self createBlankGridView];
         [self initData];
         [self createUI];
     }
@@ -227,6 +231,7 @@ static const int kItemSizeWidth = 12;
             // 移动位置
             [UIView animateWithDuration:0.1 animations:^{
                 [self.xsl_ScrollView setContentOffset:CGPointMake(self.allColMaxLabelX + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
+                [self.blankGridCollectionView setContentOffset:CGPointMake(self.allColMaxLabelX + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
             }];
         }
     }
@@ -259,17 +264,107 @@ static const int kItemSizeWidth = 12;
     return tempLabel;
 }
 
+
+
+
+
+
+#pragma mark - 首先创建一个collectionView
+- (void)createBlankGridView {
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    
+    // 设置每个item的大小
+    layout.itemSize = CGSizeMake(kItemSizeWidth+1, kItemSizeWidth+1);
+    
+    // 设置列间距
+    layout.minimumInteritemSpacing = 0;
+    
+    // 设置行间距
+    layout.minimumLineSpacing = 0;
+    
+    //每个分区的四边间距UIEdgeInsetsMake
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    // 设置布局方向(滚动方向)
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    CGFloat height = (kItemSizeWidth+1) * 6;
+    _blankGridCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
+    
+    /** mainCollectionView 的布局(必须实现的) */
+    _blankGridCollectionView.collectionViewLayout = layout;
+    
+    //mainCollectionView 的背景色
+    _blankGridCollectionView.backgroundColor = [UIColor whiteColor];
+    
+    //禁止滚动
+    //_collectionView.scrollEnabled = NO;
+    
+    //设置代理协议
+    _blankGridCollectionView.delegate = self;
+    
+    //设置数据源协议
+    _blankGridCollectionView.dataSource = self;
+    // 滚动条
+    _blankGridCollectionView.showsVerticalScrollIndicator = NO;
+    _blankGridCollectionView.showsHorizontalScrollIndicator = NO;
+    
+    if (@available(iOS 11.0, *)) {  //ooo<<< 有偏移距离  去掉
+        _blankGridCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    
+    [_blankGridCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    [self addSubview:_blankGridCollectionView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat contentOffsetX = scrollView.contentOffset.x;
+     if (contentOffsetX > 0) {
+         [self.blankGridCollectionView setContentOffset:CGPointMake(contentOffsetX, 0) animated:NO];
+    }
+}
+
+#pragma mark -- UICollectionViewDataSource 数据源
+
+//定义展示的UICollectionViewCell的个数
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return kTotalGridsNum+12;
+}
+//每个UICollectionView展示的内容
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+    
+    UIColor *color = [UIColor colorWithHex:@"880A1E" alpha:0.2];
+    cell.layer.borderWidth = 0.2;
+    cell.layer.borderColor = color.CGColor;
+    
+    return cell;
+}
+
+
+
+
 - (UIScrollView *)xsl_ScrollView {
     if (!_xsl_ScrollView) {
         _xsl_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _xsl_ScrollView.delegate = self;
-        _xsl_ScrollView.backgroundColor = [UIColor whiteColor];
-        _xsl_ScrollView.contentSize = CGSizeMake(1000, 0);
+        _xsl_ScrollView.backgroundColor = [UIColor clearColor];
+        _xsl_ScrollView.contentSize = CGSizeMake((kItemSizeWidth+1)*(kTotalGridsNum/6), 0);
         _xsl_ScrollView.layer.borderWidth = 1;
         _xsl_ScrollView.layer.borderColor = [UIColor redColor].CGColor;
+        // 禁止弹簧效果
+        _xsl_ScrollView.bounces = NO;
+        // 滚动条
+        _xsl_ScrollView.showsVerticalScrollIndicator = NO;
+        _xsl_ScrollView.showsHorizontalScrollIndicator = NO;
     }
     return _xsl_ScrollView;
 }
+
 
 - (NSMutableArray *)xsl_DataArray {
     if (!_xsl_DataArray) {

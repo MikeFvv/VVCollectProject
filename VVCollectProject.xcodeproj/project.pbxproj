@@ -58,6 +58,14 @@
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
+		84A8D9C6277225C200695055 /* MXWNotchScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9C5277225C200695055 /* MXWNotchScreen.m */; };
+		84A8D9CA2772326200695055 /* MXWHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9C92772326200695055 /* MXWHelper.m */; };
+		84A8D9CE2772579A00695055 /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9CD2772579A00695055 /* CustomIOSAlertView.m */; };
+		84A8D9D12772580F00695055 /* CustomIOSAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9D02772580F00695055 /* CustomIOSAlertViewController.m */; };
+		84A8D9EF27725C9600695055 /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9E627725C9500695055 /* RIButtonItem.m */; };
+		84A8D9F027725C9600695055 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9E727725C9500695055 /* UIAlertView+Blocks.m */; };
+		84A8D9F127725C9600695055 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9E927725C9500695055 /* UIActionSheet+Blocks.m */; };
+		84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9F627725CC400695055 /* UIAlertViewBlocksController.m */; };
 		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
 		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
@@ -291,6 +299,23 @@
 		84A59214273D9FA30071D524 /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		84A59217273DA1D70071D524 /* UIView+Function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Function.h"; sourceTree = "<group>"; };
 		84A59218273DA1D70071D524 /* UIView+Function.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Function.m"; sourceTree = "<group>"; };
+		84A8D9C4277225C200695055 /* MXWNotchScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWNotchScreen.h; sourceTree = "<group>"; };
+		84A8D9C5277225C200695055 /* MXWNotchScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWNotchScreen.m; sourceTree = "<group>"; };
+		84A8D9C7277226BE00695055 /* MXWCommonDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWCommonDefines.h; sourceTree = "<group>"; };
+		84A8D9C82772326200695055 /* MXWHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXWHelper.h; sourceTree = "<group>"; };
+		84A8D9C92772326200695055 /* MXWHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWHelper.m; sourceTree = "<group>"; };
+		84A8D9CC2772579A00695055 /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
+		84A8D9CD2772579A00695055 /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		84A8D9CF2772580F00695055 /* CustomIOSAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertViewController.h; sourceTree = "<group>"; };
+		84A8D9D02772580F00695055 /* CustomIOSAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertViewController.m; sourceTree = "<group>"; };
+		84A8D9E627725C9500695055 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
+		84A8D9E727725C9500695055 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		84A8D9E827725C9500695055 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
+		84A8D9E927725C9500695055 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
+		84A8D9EA27725C9600695055 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		84A8D9ED27725C9600695055 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		84A8D9F527725CC400695055 /* UIAlertViewBlocksController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertViewBlocksController.h; sourceTree = "<group>"; };
+		84A8D9F627725CC400695055 /* UIAlertViewBlocksController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIAlertViewBlocksController.m; sourceTree = "<group>"; };
 		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
 		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
 		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
@@ -804,6 +829,28 @@
 			path = UIView;
 			sourceTree = "<group>";
 		};
+		84A8D9CB2772579A00695055 /* CustomIOSAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				84A8D9CC2772579A00695055 /* CustomIOSAlertView.h */,
+				84A8D9CD2772579A00695055 /* CustomIOSAlertView.m */,
+			);
+			path = CustomIOSAlertView;
+			sourceTree = "<group>";
+		};
+		84A8D9E527725C8B00695055 /* UIAlertView+Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				84A8D9E827725C9500695055 /* RIButtonItem.h */,
+				84A8D9E627725C9500695055 /* RIButtonItem.m */,
+				84A8D9EA27725C9600695055 /* UIActionSheet+Blocks.h */,
+				84A8D9E927725C9500695055 /* UIActionSheet+Blocks.m */,
+				84A8D9ED27725C9600695055 /* UIAlertView+Blocks.h */,
+				84A8D9E727725C9500695055 /* UIAlertView+Blocks.m */,
+			);
+			path = "UIAlertView+Blocks";
+			sourceTree = "<group>";
+		};
 		84B85DD22761CB1F009AC598 /* Holdem(德州) */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,10 +1005,14 @@
 		84B85E8D2766FAE7009AC598 /* Fun(功能示例) */ = {
 			isa = PBXGroup;
 			children = (
+				84A8D9CF2772580F00695055 /* CustomIOSAlertViewController.h */,
+				84A8D9D02772580F00695055 /* CustomIOSAlertViewController.m */,
 				84B85EA62767238C009AC598 /* NSAttributedString */,
 				84B85E9927671F96009AC598 /* Model */,
 				84B85E8F2766FB0C009AC598 /* FunViewController.h */,
 				84B85E902766FB0C009AC598 /* FunViewController.m */,
+				84A8D9F527725CC400695055 /* UIAlertViewBlocksController.h */,
+				84A8D9F627725CC400695055 /* UIAlertViewBlocksController.m */,
 			);
 			path = "Fun(功能示例)";
 			sourceTree = "<group>";
@@ -1064,6 +1115,8 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				84A8D9E527725C8B00695055 /* UIAlertView+Blocks */,
+				84A8D9CB2772579A00695055 /* CustomIOSAlertView */,
 				848EE790276E5A4C0016CD8A /* WMDragView */,
 				848EE77A276BBE2F0016CD8A /* MBProgressHUD+JDragon */,
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
@@ -1118,6 +1171,11 @@
 				A0BF4F55223BD2400038422F /* VVAdaptUI.h */,
 				84A59209273D9B240071D524 /* MXWAdapter.h */,
 				84A5920A273D9B240071D524 /* MXWAdapter.m */,
+				84A8D9C4277225C200695055 /* MXWNotchScreen.h */,
+				84A8D9C5277225C200695055 /* MXWNotchScreen.m */,
+				84A8D9C7277226BE00695055 /* MXWCommonDefines.h */,
+				84A8D9C82772326200695055 /* MXWHelper.h */,
+				84A8D9C92772326200695055 /* MXWHelper.m */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -1601,6 +1659,7 @@
 				84B85EA527672388009AC598 /* NextViewController.m in Sources */,
 				84B85E5527640736009AC598 /* LessAI.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
+				84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */,
 				848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
@@ -1614,6 +1673,7 @@
 				84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */,
 				84B85DE827626B7E009AC598 /* BetRecord.m in Sources */,
 				84B85E5127640736009AC598 /* ProbAI.m in Sources */,
+				84A8D9CE2772579A00695055 /* CustomIOSAlertView.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
 				84BDC7822761840A0045354D /* PokerCardModel.m in Sources */,
 				276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */,
@@ -1628,6 +1688,7 @@
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				84B85E9C27671FA5009AC598 /* FunModel.m in Sources */,
 				848EE796276E64270016CD8A /* BGameRecordsCell.m in Sources */,
+				84A8D9F027725C9600695055 /* UIAlertView+Blocks.m in Sources */,
 				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BZhuPanLuCollectionView.m in Sources */,
 				40E822FF2332BB240035B246 /* BBigRoadMapView.m in Sources */,
@@ -1666,6 +1727,7 @@
 				84B85E5327640736009AC598 /* MoreAI.m in Sources */,
 				65DCBA0823277D3F00D89C4F /* BaccaratResultModel.m in Sources */,
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
+				84A8D9EF27725C9600695055 /* RIButtonItem.m in Sources */,
 				848EE799276E7AFA0016CD8A /* ChipsView.m in Sources */,
 				848EE7A2276E8BCF0016CD8A /* ChipsModel.m in Sources */,
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
@@ -1679,6 +1741,7 @@
 				A0BE49A4224772B400CDBE43 /* NetworkIndicatorView.m in Sources */,
 				A011E13322A65A5800A10869 /* UIResponder+Router.m in Sources */,
 				A0F91FD2222ECCB500C4EE9C /* PhysicalCard.m in Sources */,
+				84A8D9C6277225C200695055 /* MXWNotchScreen.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
@@ -1688,6 +1751,7 @@
 				277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */,
 				6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
+				84A8D9CA2772326200695055 /* MXWHelper.m in Sources */,
 				84B85E632764AE8C009AC598 /* BJSendPokerCollectionViewCell.m in Sources */,
 				848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */,
 				84B85E6E2766DCBC009AC598 /* NSAttributedStringManager.m in Sources */,
@@ -1712,6 +1776,7 @@
 				84568C8B275E8D13006C2906 /* FunctionManager.m in Sources */,
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				84B85DE22762667F009AC598 /* Poker.m in Sources */,
+				84A8D9F127725C9600695055 /* UIActionSheet+Blocks.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
@@ -1720,6 +1785,7 @@
 				84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
 				84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */,
+				84A8D9D12772580F00695055 /* CustomIOSAlertViewController.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,
 				848EE79F276E8B780016CD8A /* ChipsCollectionViewCell.m in Sources */,
 				84B85E852766F6E3009AC598 /* AppModel.m in Sources */,

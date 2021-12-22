@@ -20,11 +20,16 @@
 //与大路不同，和局单独占据一格。
 
 static const int kItemSizeWidth = 15;
+static const int kTotalGridsNum = 300;
+
 
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
 
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
-@interface BBigRoadMapView ()
+@interface BBigRoadMapView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+/// 空白网格视图
+@property (nonatomic, strong) UICollectionView *blankGridCollectionView;
 //
 @property (nonatomic, strong) NSMutableArray *daLu_DataArray;
 
@@ -71,6 +76,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        [self createBlankGridView];
         [self initData];
         [self createUI];
     }
@@ -245,6 +251,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
             // 移动位置
             [UIView animateWithDuration:0.1 animations:^{
                 [self.daLu_ScrollView setContentOffset:CGPointMake(self.allColMaxLabelX + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
+                [self.blankGridCollectionView setContentOffset:CGPointMake(self.allColMaxLabelX + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
             }];
         }
     }
@@ -411,10 +418,15 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     if (!_daLu_ScrollView) {
         _daLu_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _daLu_ScrollView.delegate = self;
-        _daLu_ScrollView.backgroundColor = [UIColor whiteColor];
-        _daLu_ScrollView.contentSize = CGSizeMake(1000, 0);
+        _daLu_ScrollView.backgroundColor = [UIColor clearColor];
+        _daLu_ScrollView.contentSize = CGSizeMake((kItemSizeWidth+1)*(kTotalGridsNum/6), 0);
         _daLu_ScrollView.layer.borderWidth = 1;
         _daLu_ScrollView.layer.borderColor = [UIColor redColor].CGColor;
+        // 禁止弹簧效果
+        _daLu_ScrollView.bounces = NO;
+        // 滚动条
+        _daLu_ScrollView.showsVerticalScrollIndicator = NO;
+        _daLu_ScrollView.showsHorizontalScrollIndicator = NO;
     }
     return _daLu_ScrollView;
 }
@@ -515,6 +527,92 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 
+
+
+
+
+
+#pragma mark - 首先创建一个collectionView
+- (void)createBlankGridView {
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    
+    // 设置每个item的大小
+    layout.itemSize = CGSizeMake(kItemSizeWidth+1, kItemSizeWidth+1);
+    
+    // 设置列间距
+    layout.minimumInteritemSpacing = 0;
+    
+    // 设置行间距
+    layout.minimumLineSpacing = 0;
+    
+    //每个分区的四边间距UIEdgeInsetsMake
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    // 设置布局方向(滚动方向)
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    CGFloat height = (kItemSizeWidth+1) * 6;
+    _blankGridCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
+    
+    /** mainCollectionView 的布局(必须实现的) */
+    _blankGridCollectionView.collectionViewLayout = layout;
+    
+    //mainCollectionView 的背景色
+    _blankGridCollectionView.backgroundColor = [UIColor whiteColor];
+    
+    //禁止滚动
+    //_collectionView.scrollEnabled = NO;
+    
+    //设置代理协议
+    _blankGridCollectionView.delegate = self;
+    
+    //设置数据源协议
+    _blankGridCollectionView.dataSource = self;
+    // 滚动条
+    _blankGridCollectionView.showsVerticalScrollIndicator = NO;
+    _blankGridCollectionView.showsHorizontalScrollIndicator = NO;
+    
+    if (@available(iOS 11.0, *)) {  //ooo<<< 有偏移距离  去掉
+        _blankGridCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    
+    [_blankGridCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    [self addSubview:_blankGridCollectionView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat contentOffsetX = scrollView.contentOffset.x;
+     if (contentOffsetX > 0) {
+         [self.blankGridCollectionView setContentOffset:CGPointMake(contentOffsetX, 0) animated:NO];
+    }
+}
+
+#pragma mark -- UICollectionViewDataSource 数据源
+
+//定义展示的UICollectionViewCell的个数
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return kTotalGridsNum+12;
+}
+//每个UICollectionView展示的内容
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+    
+    UIColor *color = [UIColor colorWithHex:@"880A1E" alpha:0.2];
+    cell.layer.borderWidth = 0.2;
+    cell.layer.borderColor = color.CGColor;
+    
+    return cell;
+}
+
+
+
+
+
+
 - (NSMutableArray *)dyl_DataArray {
     if (!_dyl_DataArray) {
         _dyl_DataArray = [NSMutableArray array];
@@ -554,6 +652,11 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     return _allBigColLastLabelArray;
 }
+
+
+
+
+
 
 
 @end

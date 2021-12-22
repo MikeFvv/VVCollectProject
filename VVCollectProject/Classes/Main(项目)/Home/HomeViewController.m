@@ -61,7 +61,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //    [self createUI];
+        [self createUI];
     
     //    [self navigationBar];
     //    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
@@ -74,7 +74,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
     self.title = @"Applications";
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:NULL];
     
-    self.tableView.tableFooterView = [UIView new];
+    
     
     //    self.searchDisplayController.searchResultsTableView.emptyDataSetSource = self;
     //    self.searchDisplayController.searchResultsTableView.emptyDataSetDelegate = self;
@@ -84,7 +84,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
     NSString *path = [[NSBundle mainBundle] pathForResource:@"applications" ofType:@"json"];
     self.applications = [Application applicationsFromJSONAtPath:path];
     
-    [self.view addSubview:self.tableView];
+    
     //    [self searchBarInit];
     
     // nav按钮  nav文字
@@ -120,6 +120,13 @@ dispatch_async(dispatch_get_main_queue(), block);\
     // 延时执行
     [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:2.0f];
     
+    
+    
+    CGFloat leftH = getNotchScreenHeight;
+    CGFloat leftHH = StatusBarHeight;
+    CGSize leftSize = ScreenNativeBoundsSize;
+    
+    NSLog(@"11");
 }
 
 - (void)repeatDelay {
@@ -238,10 +245,15 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)createUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    label.text = @"测试";
-    label.backgroundColor = [UIColor redColor];
-    [self.view addSubview:label];
+    self.tableView.tableFooterView = [UIView new];
+    [self.view addSubview:self.tableView];
+    
+    
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+//    label.text = @"测试";
+//    label.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:label];
+
 }
 
 - (void)initUI2 {
@@ -422,7 +434,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (UITableView *)tableView {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width , [UIScreen mainScreen].bounds.size.height - kiPhoneX_Top_Height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -mxwTabBarHeight()) style:UITableViewStylePlain];
         //        _tableView.backgroundColor = [UIColor whiteColor];
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
