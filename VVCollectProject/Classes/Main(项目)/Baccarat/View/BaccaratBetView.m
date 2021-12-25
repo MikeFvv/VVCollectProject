@@ -45,7 +45,7 @@
     backView.backgroundColor = [UIColor greenColor];
     backView.layer.borderWidth = 1.0;
     backView.layer.masksToBounds = YES;
-    backView.layer.cornerRadius = 20;
+    backView.layer.cornerRadius = 10;
     backView.layer.borderColor = [UIColor colorWithHex:@"D1CC68"].CGColor;
     [self addSubview:backView];
     
@@ -56,7 +56,7 @@
     
     
     CGFloat widhtBtn = self.frame.size.width/4;
-    NSInteger fontSize = 22;
+    NSInteger fontSize = 20;
     
     
     UIButton *playerPairBtn = [[UIButton alloc] init];
@@ -100,7 +100,7 @@
     }];
     
     UIButton *superSixBtn = [[UIButton alloc] init];
-    [superSixBtn setTitle:@"SuperSix\n1:12" forState:UIControlStateNormal];
+    [superSixBtn setTitle:@"S-Six\n1:12" forState:UIControlStateNormal];
     [superSixBtn addTarget:self action:@selector(confirmBtn:) forControlEvents:UIControlEventTouchUpInside];
     superSixBtn.titleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
     [superSixBtn setTitleColor:[UIColor colorWithHex:@"D1CC68"] forState:UIControlStateNormal];
@@ -165,7 +165,7 @@
     
     
     UIButton *bankerBtn = [[UIButton alloc] init];
-    [bankerBtn setTitle:@"庄\n1:0.95" forState:UIControlStateNormal];
+    [bankerBtn setTitle:@"庄\n1:1" forState:UIControlStateNormal];
     [bankerBtn addTarget:self action:@selector(confirmBtn:) forControlEvents:UIControlEventTouchUpInside];
     bankerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
     [bankerBtn setTitleColor:[UIColor colorWithHex:@"D1CC68"] forState:UIControlStateNormal];

@@ -39,8 +39,10 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 - (NSArray *)dataArray {
     if (!_dataArray) {
         
-        NSArray *tempArray = @[@{@"money": @(100), @"moneyStr": @"100", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(500), @"moneyStr": @"500", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+//        @{@"money": @(100), @"moneyStr": @"100", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+//        @{@"money": @(500), @"moneyStr": @"500", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+        
+        NSArray *tempArray = @[
                        @{@"money": @(1000), @"moneyStr": @"1000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
                        @{@"money": @(5000), @"moneyStr": @"5000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
                        @{@"money": @(10000), @"moneyStr": @"1万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},

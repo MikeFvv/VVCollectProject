@@ -11,6 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BGameRecordsCell : UITableViewCell
+@property (nonatomic, strong) UILabel *nameMLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *countLabel;
+
 + (instancetype)cellWithTableView:(UITableView *)tableView
                        reusableId:(NSString *)ID;
 @end

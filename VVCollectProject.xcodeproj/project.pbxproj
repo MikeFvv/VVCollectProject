@@ -66,6 +66,8 @@
 		84A8D9F027725C9600695055 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9E727725C9500695055 /* UIAlertView+Blocks.m */; };
 		84A8D9F127725C9600695055 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9E927725C9500695055 /* UIActionSheet+Blocks.m */; };
 		84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D9F627725CC400695055 /* UIAlertViewBlocksController.m */; };
+		84A8DD772777BC8C00695055 /* BBBetMaxMinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DD762777BC8C00695055 /* BBBetMaxMinView.m */; };
+		84A8DD7A2777C32800695055 /* BGameStatisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DD792777C32800695055 /* BGameStatisticsModel.m */; };
 		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
 		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
@@ -316,6 +318,10 @@
 		84A8D9ED27725C9600695055 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		84A8D9F527725CC400695055 /* UIAlertViewBlocksController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertViewBlocksController.h; sourceTree = "<group>"; };
 		84A8D9F627725CC400695055 /* UIAlertViewBlocksController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIAlertViewBlocksController.m; sourceTree = "<group>"; };
+		84A8DD752777BC8C00695055 /* BBBetMaxMinView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBBetMaxMinView.h; sourceTree = "<group>"; };
+		84A8DD762777BC8C00695055 /* BBBetMaxMinView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBBetMaxMinView.m; sourceTree = "<group>"; };
+		84A8DD782777C32800695055 /* BGameStatisticsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGameStatisticsModel.h; sourceTree = "<group>"; };
+		84A8DD792777C32800695055 /* BGameStatisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGameStatisticsModel.m; sourceTree = "<group>"; };
 		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
 		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
 		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
@@ -680,6 +686,8 @@
 				848EE79E276E8B780016CD8A /* ChipsCollectionViewCell.m */,
 				848EE79A276E7B610016CD8A /* BaccaratBetView.h */,
 				848EE79B276E7B610016CD8A /* BaccaratBetView.m */,
+				84A8DD752777BC8C00695055 /* BBBetMaxMinView.h */,
+				84A8DD762777BC8C00695055 /* BBBetMaxMinView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -702,6 +710,8 @@
 				848EE787276C86EF0016CD8A /* BaccaratComputer.m */,
 				848EE7A0276E8BCF0016CD8A /* ChipsModel.h */,
 				848EE7A1276E8BCF0016CD8A /* ChipsModel.m */,
+				84A8DD782777C32800695055 /* BGameStatisticsModel.h */,
+				84A8DD792777C32800695055 /* BGameStatisticsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1695,6 +1705,7 @@
 				A011E13622A65BC300A10869 /* UIButton+countDown.m in Sources */,
 				848EE793276E5A4C0016CD8A /* WMDragView.m in Sources */,
 				A0C5148C21EE2E4F00E2F89D /* JPLoader.m in Sources */,
+				84A8DD7A2777C32800695055 /* BGameStatisticsModel.m in Sources */,
 				84B85E7E2766F5F2009AC598 /* MXVTabBar.m in Sources */,
 				A0DCEF5E2236A773002FF19C /* BJDetailsController.m in Sources */,
 				A0C5148F21EE2EB800E2F89D /* JSPatchCode.m in Sources */,
@@ -1744,6 +1755,7 @@
 				84A8D9C6277225C200695055 /* MXWNotchScreen.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */,
+				84A8DD772777BC8C00695055 /* BBBetMaxMinView.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
 				A0C5148821EE2E4F00E2F89D /* zip.c in Sources */,
 				A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */,

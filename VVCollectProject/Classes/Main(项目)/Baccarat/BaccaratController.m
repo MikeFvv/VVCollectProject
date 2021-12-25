@@ -24,6 +24,7 @@
 #import "BaccaratBetView.h"
 #import "BaccaratXiaSanLuView.h"
 #import "ChipsView.h"
+#import "BBBetMaxMinView.h"
 
 
 #define kBtnHeight 35
@@ -32,7 +33,7 @@
 #define kMarginHeight 10
 // 边距
 #define kMarginWidth 15
-#define kTrendViewHeight 130
+
 #define kLabelFontSize 12
 
 #define kColorAlpha 0.9
@@ -267,7 +268,7 @@
 {
     if (!_dataArray) {
         
-        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 16;
+        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 8;
         _dataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.baccaratDataModel.sortedDeckArray pokerPairsNum:num]];
     }
     return _dataArray;
@@ -333,8 +334,8 @@
     [self setTopView];
     // 底部按钮功能
     [self setBottomView];
-    // 路子图
-    [self roadMapView];
+    // 右边路子图
+    [self rightRoadMapView];
     // 统计视图
 //    [self textStatisticsView];
     
@@ -409,14 +410,23 @@
 }
 
 /// 路子图
-- (void)roadMapView {
+- (void)rightRoadMapView {
     
     CGFloat halfWidth = self.view.frame.size.width/2;
     CGFloat height = self.view.frame.size.height/2;
     
     // ********* 右边 *********
+    // 最小下注 最大下注
+    CGFloat betViewHeight = 40;
+    BBBetMaxMinView *betMaxMinView = [[BBBetMaxMinView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 1*1, halfWidth - kAddWidth-10, betViewHeight)];
+    betMaxMinView.layer.borderWidth = 1;
+    betMaxMinView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:betMaxMinView];
+    
+    
     // 大路
-    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 1*1, halfWidth - kAddWidth-10, 95+1)];
+    CGFloat daluHeight = (kDLItemSizeWidth+1)*6+1;
+    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+1*1, halfWidth - kAddWidth-10, daluHeight)];
     //    trendView.backgroundColor = [UIColor redColor];
     bigRoadMapView.layer.borderWidth = 1;
     bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -424,8 +434,9 @@
     [self.contentView addSubview:bigRoadMapView];
     _bigRoadMapView = bigRoadMapView;
     
-    
-    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 96+1*2, halfWidth - kAddWidth-10, 77+1)];
+    // *** 下三路 ***
+   CGFloat xiasanluHeight = (kItemSizeWidth+1)*6+1;
+    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+1*2, halfWidth - kAddWidth-10, xiasanluHeight)];
     dylXiaSanLuView.roadMapType = RoadMapType_DYL;
     //    trendView.backgroundColor = [UIColor redColor];
     dylXiaSanLuView.layer.borderWidth = 1;
@@ -433,8 +444,8 @@
     [self.contentView addSubview:dylXiaSanLuView];
     _dylXiaSanLuView = dylXiaSanLuView;
 
-
-    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 96+78*1+1*3, halfWidth - kAddWidth-10, 77+1)];
+    
+    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*1+1*3, halfWidth - kAddWidth-10, xiasanluHeight)];
     xlXiaSanLuView.roadMapType = RoadMapType_XL;
     //    trendView.backgroundColor = [UIColor redColor];
     xlXiaSanLuView.layer.borderWidth = 1;
@@ -442,7 +453,7 @@
     [self.contentView addSubview:xlXiaSanLuView];
     _xlXiaSanLuView = xlXiaSanLuView;
 
-    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 96+78*2+1*4, halfWidth - kAddWidth-10, 77+1)];
+    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*2+1*4, halfWidth - kAddWidth-10, xiasanluHeight)];
     xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
     //    trendView.backgroundColor = [UIColor redColor];
     xqlXiaSanLuView.layer.borderWidth = 1;
