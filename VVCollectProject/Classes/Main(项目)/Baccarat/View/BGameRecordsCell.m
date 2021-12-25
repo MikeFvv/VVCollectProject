@@ -12,10 +12,6 @@
 
 @interface BGameRecordsCell()
 
-@property (nonatomic, strong) UILabel *nameMLabel;
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *countLabel;
-
 @end
 
 @implementation BGameRecordsCell
@@ -49,7 +45,7 @@
     
     _nameMLabel = [UILabel new];
     _nameMLabel.text = @"B";
-    _nameMLabel.layer.cornerRadius = 16/2;
+    _nameMLabel.layer.cornerRadius = 14/2;
     _nameMLabel.layer.masksToBounds = YES;
     _nameMLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_nameMLabel];
@@ -60,17 +56,17 @@
     [_nameMLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(5);
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.size.mas_equalTo(16);
+        make.size.mas_equalTo(14);
     }];
     
     _titleLabel = [UILabel new];
-    _titleLabel.text = @"B";
-    _titleLabel.font = [UIFont systemFontOfSize:10];
+    _titleLabel.text = @"Banker";
+    _titleLabel.font = [UIFont systemFontOfSize:8];
     _titleLabel.textColor = [UIColor blackColor];
     [self.contentView addSubview:_titleLabel];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_nameMLabel.mas_right).offset(5);
+        make.left.equalTo(_nameMLabel.mas_right).offset(0);
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     

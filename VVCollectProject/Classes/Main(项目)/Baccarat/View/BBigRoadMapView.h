@@ -22,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) id model;
 @property (nonatomic, weak) id<BBigRoadMapViewDelegate> delegate;
-
+/// 是否显示和
+@property (nonatomic, assign) BOOL isShowTie;
 @end
 
 NS_ASSUME_NONNULL_END

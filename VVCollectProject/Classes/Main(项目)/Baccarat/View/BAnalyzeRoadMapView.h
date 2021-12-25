@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaccaratCom.h"
 #import "BaccaratResultModel.h"
+#import "BGameStatisticsModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) BaccaratResultModel *currentModel;
 /// 问路图数据
 @property (nonatomic, strong) NSArray *wenLuDataArray;
+
+@property (nonatomic, strong) BGameStatisticsModel *gameStatisticsModel;
 
 @end
 

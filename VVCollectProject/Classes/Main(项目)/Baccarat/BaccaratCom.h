@@ -33,5 +33,15 @@ typedef NS_ENUM(NSInteger, RoadMapType) {
 };
 
 
+/// 下三路 Size
+static const int kItemSizeWidth = 10;
+/// 大路 Size
+static const int kDLItemSizeWidth = 14;
+/// 珠盘路 Size
+static const int kZPLItemSizeWidth = 17;
+/// 总网格数量
+static const int kTotalGridsNum = 300;
+/// 分析视图高度
+static const int kTrendViewHeight = 120;
 
 #endif /* BaccaratCom_h */

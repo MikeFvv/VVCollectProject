@@ -9,6 +9,7 @@
 #import "BAnalyzeRoadMapView.h"
 #import "BGameRecordsCell.h"
 
+
 //static const int kAnalyzeRoadMapView_Width = 70;
 
 
@@ -142,14 +143,14 @@
 #pragma mark - xxUITableView
 - (UITableView *)leftTableView {
     if (!_leftTableView) {
-        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-76, self.frame.size.height-10) style:UITableViewStylePlain];
+        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-76, self.frame.size.height-1) style:UITableViewStylePlain];
         _leftTableView.backgroundColor = [UIColor whiteColor];
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
         //        _leftTableView.tableHeaderView = self.headView;
         //        _leftTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         
-        _leftTableView.rowHeight = 20;   // 行高
+        _leftTableView.rowHeight = 18;   // 行高
         _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;  // 去掉分割线
         _leftTableView.estimatedRowHeight = 0;
         _leftTableView.estimatedSectionHeaderHeight = 0;
@@ -163,7 +164,7 @@
 //返回列表每个分组section拥有cell行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 6;
+    return 7;
 }
 
 //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
@@ -171,6 +172,44 @@
     BGameRecordsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BGameRecordsCell"];
     if(cell == nil) {
         cell = [BGameRecordsCell cellWithTableView:tableView reusableId:@"BGameRecordsCell"];
+    }
+    
+    
+    if (indexPath.row == 0) {
+        cell.nameMLabel.backgroundColor = [UIColor redColor];
+        cell.nameMLabel.text = @"B";
+        cell.titleLabel.text = @"BANKER";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.bankerNum];
+    } else if (indexPath.row == 1) {
+        cell.nameMLabel.backgroundColor = [UIColor blueColor];
+        cell.nameMLabel.text = @"P";
+        cell.titleLabel.text = @"PLAYER";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.playerNum];
+    } else if (indexPath.row == 2) {
+        cell.nameMLabel.backgroundColor = [UIColor greenColor];
+        cell.nameMLabel.text = @"T";
+        cell.titleLabel.text = @"TIE";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.tieNum];
+    } else if (indexPath.row == 3) {
+        cell.nameMLabel.backgroundColor = [UIColor yellowColor];
+        cell.nameMLabel.text = @"B";
+        cell.titleLabel.text = @"B PAIR";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.bankerPairNum];
+    } else if (indexPath.row == 4) {
+        cell.nameMLabel.backgroundColor = [UIColor yellowColor];
+        cell.nameMLabel.text = @"P";
+        cell.titleLabel.text = @"P PAIR";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.playerPairNum];
+    } else if (indexPath.row == 5) {
+        cell.nameMLabel.backgroundColor = [UIColor yellowColor];
+        cell.nameMLabel.text = @"6";
+        cell.titleLabel.text = @"SUPER";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.superNum];
+    } else if (indexPath.row == 6) {
+        cell.nameMLabel.backgroundColor = [UIColor colorWithHex:@"6A0222"]; //深红色
+        cell.nameMLabel.text = @"G";
+        cell.titleLabel.text = @"GAME";
+        cell.countLabel.text = [NSString stringWithFormat:@"%ld",self.gameStatisticsModel.gameNum];
     }
     
     return cell;
@@ -187,7 +226,7 @@
 
 /// 分析问路图
 - (void)analyzeRoadMapView {
-    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 112+10)];
+    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, kTrendViewHeight-1)];
     guideRoadMapBackView.backgroundColor = [UIColor whiteColor];
     guideRoadMapBackView.layer.cornerRadius = 5;
     guideRoadMapBackView.layer.masksToBounds = YES;
@@ -196,8 +235,8 @@
     [self.rightView addSubview:guideRoadMapBackView];
     
     
-    CGFloat lineSpacing = 28;
-    CGFloat widht = 18;
+    CGFloat lineSpacing = 26;
+    CGFloat widht = kZPLItemSizeWidth;
     
     UIView *line1View = [[UIView alloc] init];
     line1View.backgroundColor = [UIColor purpleColor];

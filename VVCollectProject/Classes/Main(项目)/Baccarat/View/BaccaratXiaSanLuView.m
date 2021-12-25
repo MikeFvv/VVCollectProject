@@ -9,8 +9,7 @@
 #import "BaccaratXiaSanLuView.h"
 #import "UIView+Extension.h"
 
-static const int kItemSizeWidth = 12;
-static const int kTotalGridsNum = 300;
+
 
 @interface BaccaratXiaSanLuView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -141,90 +140,85 @@ static const int kTotalGridsNum = 300;
     }
     
     
-    if (self.xsl_DataArray.count == 1) {
-        label.frame = CGRectMake(x, y, w, h);
-        self.currentLongNum = 1;
+    
+    BOOL isLong = NO;
+    if (colorType == self.xsl_lastModel) {
+        isLong = YES;
+    }
+    if (isLong) {
+        // 计算最大可使用空白格数
+        NSInteger maxBlankColumns = 6;
+        
+        //            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
+        //            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
+        
+        UILabel *tailLabel = [self getMinYLabelColX:self.currentColMinX];
+        tailLabel = tailLabel ? tailLabel : self.frontColLastLabel;
+        CGFloat lastLabelX = CGRectGetMaxX(tailLabel.frame);
+        CGFloat lastLabelY = CGRectGetMinY(tailLabel.frame);
+        
+        
+        if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.xsl_lastLabel.frame)) {
+            maxBlankColumns = lastLabelY/(w +margin);
+        }
+        
+        // 记录连续相同的结果个数
+        self.currentLongNum += 1;
+        if (self.currentLongNum <= maxBlankColumns) {  // 长龙向下
+            self.currentColMinX = self.xsl_lastLabel.x;
+            x = self.xsl_lastLabel.x;
+            label.frame = CGRectMake(x, CGRectGetMaxY(self.xsl_lastLabel.frame) + margin, w, h);
+            
+        } else {
+            // 长龙拐弯
+            x = CGRectGetMaxX(self.xsl_lastLabel.frame) + margin;
+            label.frame = CGRectMake(x, self.xsl_lastLabel.y, w, h);
+            
+            
+            if (CGRectGetMinY(label.frame) == 0) {  // 极端特殊情况下，第一行长龙，需要把初始值矫正
+                self.currentColMinX = CGRectGetMinX(label.frame);
+            }
+        }
+        
+        if (x > self.allColMaxLabelX) {
+            self.allColMaxLabelX = x;
+        }
         [self.oneColArray addObject:@(colorType)];
     } else {
         
-        BOOL isLong = NO;
-        if (colorType == self.xsl_lastModel) {
-            isLong = YES;
-        }
-        if (isLong) {
-            // 计算最大可使用空白格数
-            NSInteger maxBlankColumns = 6;
-            
-            //            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
-            //            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
-            
-            UILabel *tailLabel = [self getMinYLabelColX:self.currentColMinX];
-            tailLabel = tailLabel ? tailLabel : self.frontColLastLabel;
-            CGFloat lastLabelX = CGRectGetMaxX(tailLabel.frame);
-            CGFloat lastLabelY = CGRectGetMinY(tailLabel.frame);
-            
-            
-            if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.xsl_lastLabel.frame)) {
-                maxBlankColumns = lastLabelY/(w +margin);
-            }
-            
-            // 记录连续相同的结果个数
-            self.currentLongNum += 1;
-            if (self.currentLongNum <= maxBlankColumns) {  // 长龙向下
-                self.currentColMinX = self.xsl_lastLabel.x;
-                x = self.xsl_lastLabel.x;
-                label.frame = CGRectMake(x, CGRectGetMaxY(self.xsl_lastLabel.frame) + margin, w, h);
-                
-            } else {
-                // 长龙拐弯
-                x = CGRectGetMaxX(self.xsl_lastLabel.frame) + margin;
-                label.frame = CGRectMake(x, self.xsl_lastLabel.y, w, h);
-                
-                
-                if (CGRectGetMinY(label.frame) == 0) {  // 极端特殊情况下，第一行长龙，需要把初始值矫正
-                    self.currentColMinX = CGRectGetMinX(label.frame);
-                }
-            }
-            
-            if (x > self.allColMaxLabelX) {
-                self.allColMaxLabelX = x;
-            }
-            [self.oneColArray addObject:@(colorType)];
+        // *** 开头第一个 ***
+        
+        self.oneColArray = nil;
+        // 前一列最后一个 Label
+        self.frontColLastLabel = self.xsl_lastLabel;
+        
+        
+        y = 0;
+        // 最顶上的长龙时处理 极端情况
+        CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
+        if (lastLabelY == 0) {
+            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
+            x = lastLabelX + margin;
         } else {
-            
-            // *** 开头第一个 ***
-            
-            self.oneColArray = nil;
-            // 前一列最后一个 Label
-            self.frontColLastLabel = self.xsl_lastLabel;
-            
-            
-            y = 0;
-            // 最顶上的长龙时处理 极端情况
-            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
-            if (lastLabelY == 0) {
-                CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
-                x = lastLabelX + margin;
-            } else {
-                x = self.currentColMinX + w + margin;
-            }
-            
-            if (x > self.allColMaxLabelX) {
-                self.allColMaxLabelX = x;
-            }
-            label.frame = CGRectMake(x, y, w, h);
-            // 相同开奖结果清空
-            self.currentLongNum = 1;
-            [self.oneColArray addObject:@(colorType)];
-            self.currentColMinX = CGRectGetMinX(label.frame);
-            
-            // 把前一列大于等于当前X值的最后一个Label 记录
-            if (CGRectGetMaxX(self.xsl_lastLabel.frame) >= CGRectGetMaxX(label.frame)) {
-                [self.allBigColLastLabelArray addObject:self.xsl_lastLabel];
-            }
-            
+            x = self.currentColMinX + w + margin;
         }
+        
+        if (x > self.allColMaxLabelX) {
+            self.allColMaxLabelX = x;
+        }
+        label.frame = CGRectMake(x, y, w, h);
+        // 相同开奖结果清空
+        self.currentLongNum = 1;
+        [self.oneColArray addObject:@(colorType)];
+        self.currentColMinX = CGRectGetMinX(label.frame);
+        
+        // 把前一列大于等于当前X值的最后一个Label 记录
+        if (CGRectGetMaxX(self.xsl_lastLabel.frame) >= CGRectGetMaxX(label.frame)) {
+            [self.allBigColLastLabelArray addObject:self.xsl_lastLabel];
+        }
+        
     }
+    
     
     if (self.allColMaxLabelX + w + margin > (self.bounds.size.width - 50)){ // 下三路闲庄路X大于整个屏幕时往后自动移动位置，好观看
         if ((self.allColMaxLabelX + w + margin) != (CGRectGetMaxX(self.xsl_lastLabel.frame) + margin)) {
@@ -321,8 +315,8 @@ static const int kTotalGridsNum = 300;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat contentOffsetX = scrollView.contentOffset.x;
-     if (contentOffsetX > 0) {
-         [self.blankGridCollectionView setContentOffset:CGPointMake(contentOffsetX, 0) animated:NO];
+    if (contentOffsetX > 0) {
+        [self.blankGridCollectionView setContentOffset:CGPointMake(contentOffsetX, 0) animated:NO];
     }
 }
 

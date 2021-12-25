@@ -19,8 +19,7 @@
 //第一个标记出现在珠盘的左上角，然后开始竖直向下排，六格填满后就转到第二列，第二列填满后转到第三列，以此类推。
 //与大路不同，和局单独占据一格。
 
-static const int kItemSizeWidth = 15;
-static const int kTotalGridsNum = 300;
+
 
 
 static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewCell";
@@ -127,7 +126,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     self.tieNum = 0;
     
     CGFloat margin = 1;
-    CGFloat w = kItemSizeWidth;
+    CGFloat w = kDLItemSizeWidth;
     CGFloat h = w;
     CGFloat x = 0;
     CGFloat y = 0;
@@ -159,92 +158,88 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         [self pairView:model label:label];
     }
     
-    if (self.daLu_DataArray.count == 1) {
+    
+    BOOL isLong = NO;
+    // 本次是否和上次相同， 上次是否等于和
+    if (model.winType == self.daLu_lastModel.winType || self.daLu_lastModel.winType == WinType_TIE) {
+        isLong = YES;
+    }
+    
+    if (isLong) {
+        // 计算最大可使用空白格数
+        NSInteger maxBlankColumns = 6;
+        
+        //            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
+        //            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
+        
+        UILabel *tailLabel = [self getMinYLabelColX:self.currentColMinX];
+        tailLabel = tailLabel ? tailLabel : self.frontColLastLabel;
+        CGFloat lastLabelX = CGRectGetMaxX(tailLabel.frame);
+        CGFloat lastLabelY = CGRectGetMinY(tailLabel.frame);
+        
+        
+        if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.daLu_lastLabel.frame)) {
+            maxBlankColumns = lastLabelY/(w +margin);
+        }
+        
+        // 记录连续相同的结果个数
+        self.currentLongNum += 1;
+        if (self.currentLongNum <= maxBlankColumns) {  // 长龙向下
+            self.currentColMinX = self.daLu_lastLabel.x;
+            x = self.daLu_lastLabel.x;
+            label.frame = CGRectMake(x, CGRectGetMaxY(self.daLu_lastLabel.frame) + margin, w, h);
+            
+        } else {
+            // 长龙拐弯
+            x = CGRectGetMaxX(self.daLu_lastLabel.frame) + margin;
+            label.frame = CGRectMake(x, self.daLu_lastLabel.y, w, h);
+            
+            
+            if (CGRectGetMinY(label.frame) == 0) {  // 极端特殊情况下，第一行长龙，需要把初始值矫正
+                self.currentColMinX = CGRectGetMinX(label.frame);
+            }
+        }
+        
+        if (x > self.allColMaxLabelX) {
+            self.allColMaxLabelX = x;
+        }
+        [self.oneColArray addObject:model];
+    } else {
+        
+        // *** 开头第一个 ***
+        
+        self.oneColArray = nil;
+        // 前一列最后一个 Label
+        self.frontColLastLabel = self.daLu_lastLabel;
+        
+        
+        y = 0;
+        // 最顶上的长龙时处理 极端情况
+        CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
+        if (lastLabelY == 0) {
+            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
+            x = lastLabelX + margin;
+        } else {
+            x = self.currentColMinX + w + margin;
+        }
+        
+        if (x > self.allColMaxLabelX) {
+            self.allColMaxLabelX = x;
+        }
         label.frame = CGRectMake(x, y, w, h);
+        // 相同开奖结果清空
         self.currentLongNum = 1;
         [self.oneColArray addObject:model];
         [self.daLu_ColDataArray addObject:self.oneColArray];
-    } else {
+        self.currentColMinX = CGRectGetMinX(label.frame);
         
-        BOOL isLong = NO;
-        if (model.winType == self.daLu_lastModel.winType || self.daLu_lastModel.winType == WinType_TIE) {
-            isLong = YES;
+        // 把前一列大于等于当前X值的最后一个Label 记录
+        if (CGRectGetMaxX(self.daLu_lastLabel.frame) >= CGRectGetMaxX(label.frame)) {
+            [self.allBigColLastLabelArray addObject:self.daLu_lastLabel];
         }
-        if (isLong) {
-            // 计算最大可使用空白格数
-            NSInteger maxBlankColumns = 6;
-            
-            //            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
-            //            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
-            
-            UILabel *tailLabel = [self getMinYLabelColX:self.currentColMinX];
-            tailLabel = tailLabel ? tailLabel : self.frontColLastLabel;
-            CGFloat lastLabelX = CGRectGetMaxX(tailLabel.frame);
-            CGFloat lastLabelY = CGRectGetMinY(tailLabel.frame);
-            
-            
-            if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.daLu_lastLabel.frame)) {
-                maxBlankColumns = lastLabelY/(w +margin);
-            }
-            
-            // 记录连续相同的结果个数
-            self.currentLongNum += 1;
-            if (self.currentLongNum <= maxBlankColumns) {  // 长龙向下
-                self.currentColMinX = self.daLu_lastLabel.x;
-                x = self.daLu_lastLabel.x;
-                label.frame = CGRectMake(x, CGRectGetMaxY(self.daLu_lastLabel.frame) + margin, w, h);
-                
-            } else {
-                // 长龙拐弯
-                x = CGRectGetMaxX(self.daLu_lastLabel.frame) + margin;
-                label.frame = CGRectMake(x, self.daLu_lastLabel.y, w, h);
-                
-                
-                if (CGRectGetMinY(label.frame) == 0) {  // 极端特殊情况下，第一行长龙，需要把初始值矫正
-                    self.currentColMinX = CGRectGetMinX(label.frame);
-                }
-            }
-            
-            if (x > self.allColMaxLabelX) {
-                self.allColMaxLabelX = x;
-            }
-            [self.oneColArray addObject:model];
-        } else {
-            
-            // *** 开头第一个 ***
-            
-            self.oneColArray = nil;
-            // 前一列最后一个 Label
-            self.frontColLastLabel = self.daLu_lastLabel;
-            
-            
-            y = 0;
-            // 最顶上的长龙时处理 极端情况
-            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
-            if (lastLabelY == 0) {
-                CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
-                x = lastLabelX + margin;
-            } else {
-                x = self.currentColMinX + w + margin;
-            }
-            
-            if (x > self.allColMaxLabelX) {
-                self.allColMaxLabelX = x;
-            }
-            label.frame = CGRectMake(x, y, w, h);
-            // 相同开奖结果清空
-            self.currentLongNum = 1;
-            [self.oneColArray addObject:model];
-            [self.daLu_ColDataArray addObject:self.oneColArray];
-            self.currentColMinX = CGRectGetMinX(label.frame);
-            
-            // 把前一列大于等于当前X值的最后一个Label 记录
-            if (CGRectGetMaxX(self.daLu_lastLabel.frame) >= CGRectGetMaxX(label.frame)) {
-                [self.allBigColLastLabelArray addObject:self.daLu_lastLabel];
-            }
-            
-        }
+        
     }
+    
     
     if (self.allColMaxLabelX + w + margin > (self.bounds.size.width - 50)){ // 大路闲庄路X大于整个屏幕时往后自动移动位置，好观看
         if ((self.allColMaxLabelX + w + margin) != (CGRectGetMaxX(self.daLu_lastLabel.frame) + margin)) {
@@ -337,8 +332,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         colorType = [self getDaYanLuColorCurrentColumnNum:lastColTwoColArray.count compareColumnNum:frontTwoColArray.count isFirst:YES];
         
         // 🅱️假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
-//        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count isFirst:NO];
-//        colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
+        //        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count isFirst:NO];
+        //        colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
         
     } else {
         // 路中牌
@@ -381,7 +376,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
             NSLog(@"🔴🔴🔴未知 MapColorType 2🔴🔴🔴");
         }
     }
-      
+    
     return mapColorType;
 }
 
@@ -392,7 +387,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
     
     UILabel *tempLabel = nil;
-    CGFloat minY = (kItemSizeWidth +1) * 6;
+    CGFloat minY = (kDLItemSizeWidth +1) * 6;
     for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
         CGFloat oldX = CGRectGetMaxX(label.frame);
         CGFloat oldY = CGRectGetMaxY(label.frame);
@@ -419,7 +414,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         _daLu_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _daLu_ScrollView.delegate = self;
         _daLu_ScrollView.backgroundColor = [UIColor clearColor];
-        _daLu_ScrollView.contentSize = CGSizeMake((kItemSizeWidth+1)*(kTotalGridsNum/6), 0);
+        _daLu_ScrollView.contentSize = CGSizeMake((kDLItemSizeWidth+1)*(kTotalGridsNum/6), 0);
         _daLu_ScrollView.layer.borderWidth = 1;
         _daLu_ScrollView.layer.borderColor = [UIColor redColor].CGColor;
         // 禁止弹簧效果
@@ -437,7 +432,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (void)tieBezierPath:(BaccaratResultModel *)model {
     if (self.daLu_DataArray.count == 1) {
         //        CGFloat margin = 1;
-        CGFloat w = kItemSizeWidth;
+        CGFloat w = kDLItemSizeWidth;
         CGFloat h = w;
         CGFloat x = 0;
         CGFloat y = 0;
@@ -461,9 +456,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 线的路径
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     // 起点
-    [linePath moveToPoint:CGPointMake(kItemSizeWidth, 0)];
+    [linePath moveToPoint:CGPointMake(kDLItemSizeWidth, 0)];
     // 其他点
-    [linePath addLineToPoint:CGPointMake(0, kItemSizeWidth)];
+    [linePath addLineToPoint:CGPointMake(0, kDLItemSizeWidth)];
     
     CAShapeLayer *lineLayer = [CAShapeLayer layer];
     lineLayer.lineWidth = 2.0;
@@ -538,7 +533,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
     // 设置每个item的大小
-    layout.itemSize = CGSizeMake(kItemSizeWidth+1, kItemSizeWidth+1);
+    layout.itemSize = CGSizeMake(kDLItemSizeWidth+1, kDLItemSizeWidth+1);
     
     // 设置列间距
     layout.minimumInteritemSpacing = 0;
@@ -552,7 +547,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 设置布局方向(滚动方向)
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGFloat height = (kItemSizeWidth+1) * 6;
+    CGFloat height = (kDLItemSizeWidth+1) * 6;
     _blankGridCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */
@@ -584,8 +579,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat contentOffsetX = scrollView.contentOffset.x;
-     if (contentOffsetX > 0) {
-         [self.blankGridCollectionView setContentOffset:CGPointMake(contentOffsetX, 0) animated:NO];
+    if (contentOffsetX > 0) {
+        [self.blankGridCollectionView setContentOffset:CGPointMake(contentOffsetX, 0) animated:NO];
     }
 }
 
