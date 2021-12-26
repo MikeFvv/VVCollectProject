@@ -70,6 +70,31 @@
 		84A8DD7A2777C32800695055 /* BGameStatisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DD792777C32800695055 /* BGameStatisticsModel.m */; };
 		84A8DD7D2777E6D900695055 /* BBetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DD7C2777E6D900695055 /* BBetModel.m */; };
 		84A8DD802777F58300695055 /* BUserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DD7F2777F58300695055 /* BUserData.m */; };
+		84A8DEF32777FC8C00695055 /* GameLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DEC02777FC8C00695055 /* GameLoginViewController.xib */; };
+		84A8DEF42777FC8C00695055 /* GameLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEC22777FC8C00695055 /* GameLoginViewController.m */; };
+		84A8DEF52777FC8C00695055 /* CFVBoxPockerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEC52777FC8C00695055 /* CFVBoxPockerModel.m */; };
+		84A8DEF62777FC8C00695055 /* CFVHeGuanPockerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEC92777FC8C00695055 /* CFVHeGuanPockerModel.m */; };
+		84A8DEF72777FC8C00695055 /* CFVPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DECA2777FC8C00695055 /* CFVPlayerModel.m */; };
+		84A8DEF82777FC8C00695055 /* CFVWaitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DECC2777FC8C00695055 /* CFVWaitView.m */; };
+		84A8DEF92777FC8C00695055 /* CFVWaitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DECD2777FC8C00695055 /* CFVWaitView.xib */; };
+		84A8DEFA2777FC8C00695055 /* CFVIntergalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DECE2777FC8C00695055 /* CFVIntergalView.xib */; };
+		84A8DEFB2777FC8C00695055 /* CFVIntergalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DECF2777FC8C00695055 /* CFVIntergalView.m */; };
+		84A8DEFC2777FC8C00695055 /* CFVSkipPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DED22777FC8C00695055 /* CFVSkipPokerView.m */; };
+		84A8DEFD2777FC8C00695055 /* CFVCommonBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DED32777FC8C00695055 /* CFVCommonBottomView.xib */; };
+		84A8DEFE2777FC8C00695055 /* CFVCommonBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DED42777FC8C00695055 /* CFVCommonBottomView.m */; };
+		84A8DEFF2777FC8D00695055 /* CFVEndGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DED52777FC8C00695055 /* CFVEndGameView.m */; };
+		84A8DF002777FC8D00695055 /* CFVTopSingleShowPockerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DED72777FC8C00695055 /* CFVTopSingleShowPockerView.xib */; };
+		84A8DF012777FC8D00695055 /* CFVBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DED82777FC8C00695055 /* CFVBoxView.m */; };
+		84A8DF022777FC8D00695055 /* CFVSkipPokerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DEDA2777FC8C00695055 /* CFVSkipPokerView.xib */; };
+		84A8DF032777FC8D00695055 /* CFVTopSingleShowPockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEDD2777FC8C00695055 /* CFVTopSingleShowPockerView.m */; };
+		84A8DF042777FC8D00695055 /* CFVEndGameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DEDE2777FC8C00695055 /* CFVEndGameView.xib */; };
+		84A8DF052777FC8D00695055 /* CFVBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DEDF2777FC8C00695055 /* CFVBoxView.xib */; };
+		84A8DF062777FC8D00695055 /* CFVGameMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DEE22777FC8C00695055 /* CFVGameMainViewController.xib */; };
+		84A8DF072777FC8D00695055 /* CFVGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEE32777FC8C00695055 /* CFVGameCenterViewController.m */; };
+		84A8DF082777FC8D00695055 /* CFVGameMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEE62777FC8C00695055 /* CFVGameMainViewController.m */; };
+		84A8DF092777FC8D00695055 /* NSTimer+HICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEEE2777FC8C00695055 /* NSTimer+HICategory.m */; };
+		84A8DF0A2777FC8D00695055 /* UIView+CFVUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEEF2777FC8C00695055 /* UIView+CFVUIView.m */; };
+		84A8DF0B2777FC8D00695055 /* CFVFrameSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEF12777FC8C00695055 /* CFVFrameSetting.m */; };
 		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
 		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
@@ -328,6 +353,49 @@
 		84A8DD7C2777E6D900695055 /* BBetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBetModel.m; sourceTree = "<group>"; };
 		84A8DD7E2777F58300695055 /* BUserData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUserData.h; sourceTree = "<group>"; };
 		84A8DD7F2777F58300695055 /* BUserData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUserData.m; sourceTree = "<group>"; };
+		84A8DEC02777FC8C00695055 /* GameLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameLoginViewController.xib; sourceTree = "<group>"; };
+		84A8DEC12777FC8C00695055 /* GameLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoginViewController.h; sourceTree = "<group>"; };
+		84A8DEC22777FC8C00695055 /* GameLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLoginViewController.m; sourceTree = "<group>"; };
+		84A8DEC52777FC8C00695055 /* CFVBoxPockerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVBoxPockerModel.m; sourceTree = "<group>"; };
+		84A8DEC62777FC8C00695055 /* CFVHeGuanPockerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVHeGuanPockerModel.h; sourceTree = "<group>"; };
+		84A8DEC72777FC8C00695055 /* CFVPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVPlayerModel.h; sourceTree = "<group>"; };
+		84A8DEC82777FC8C00695055 /* CFVBoxPockerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVBoxPockerModel.h; sourceTree = "<group>"; };
+		84A8DEC92777FC8C00695055 /* CFVHeGuanPockerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVHeGuanPockerModel.m; sourceTree = "<group>"; };
+		84A8DECA2777FC8C00695055 /* CFVPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVPlayerModel.m; sourceTree = "<group>"; };
+		84A8DECC2777FC8C00695055 /* CFVWaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVWaitView.m; sourceTree = "<group>"; };
+		84A8DECD2777FC8C00695055 /* CFVWaitView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVWaitView.xib; sourceTree = "<group>"; };
+		84A8DECE2777FC8C00695055 /* CFVIntergalView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVIntergalView.xib; sourceTree = "<group>"; };
+		84A8DECF2777FC8C00695055 /* CFVIntergalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVIntergalView.m; sourceTree = "<group>"; };
+		84A8DED02777FC8C00695055 /* CFVBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVBoxView.h; sourceTree = "<group>"; };
+		84A8DED12777FC8C00695055 /* CFVTopSingleShowPockerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVTopSingleShowPockerView.h; sourceTree = "<group>"; };
+		84A8DED22777FC8C00695055 /* CFVSkipPokerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVSkipPokerView.m; sourceTree = "<group>"; };
+		84A8DED32777FC8C00695055 /* CFVCommonBottomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVCommonBottomView.xib; sourceTree = "<group>"; };
+		84A8DED42777FC8C00695055 /* CFVCommonBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVCommonBottomView.m; sourceTree = "<group>"; };
+		84A8DED52777FC8C00695055 /* CFVEndGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVEndGameView.m; sourceTree = "<group>"; };
+		84A8DED62777FC8C00695055 /* CFVWaitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVWaitView.h; sourceTree = "<group>"; };
+		84A8DED72777FC8C00695055 /* CFVTopSingleShowPockerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVTopSingleShowPockerView.xib; sourceTree = "<group>"; };
+		84A8DED82777FC8C00695055 /* CFVBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVBoxView.m; sourceTree = "<group>"; };
+		84A8DED92777FC8C00695055 /* CFVIntergalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVIntergalView.h; sourceTree = "<group>"; };
+		84A8DEDA2777FC8C00695055 /* CFVSkipPokerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVSkipPokerView.xib; sourceTree = "<group>"; };
+		84A8DEDB2777FC8C00695055 /* CFVCommonBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVCommonBottomView.h; sourceTree = "<group>"; };
+		84A8DEDC2777FC8C00695055 /* CFVSkipPokerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVSkipPokerView.h; sourceTree = "<group>"; };
+		84A8DEDD2777FC8C00695055 /* CFVTopSingleShowPockerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVTopSingleShowPockerView.m; sourceTree = "<group>"; };
+		84A8DEDE2777FC8C00695055 /* CFVEndGameView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVEndGameView.xib; sourceTree = "<group>"; };
+		84A8DEDF2777FC8C00695055 /* CFVBoxView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVBoxView.xib; sourceTree = "<group>"; };
+		84A8DEE02777FC8C00695055 /* CFVEndGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVEndGameView.h; sourceTree = "<group>"; };
+		84A8DEE22777FC8C00695055 /* CFVGameMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CFVGameMainViewController.xib; sourceTree = "<group>"; };
+		84A8DEE32777FC8C00695055 /* CFVGameCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVGameCenterViewController.m; sourceTree = "<group>"; };
+		84A8DEE42777FC8C00695055 /* CFVGameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVGameMainViewController.h; sourceTree = "<group>"; };
+		84A8DEE52777FC8C00695055 /* CFVGameCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVGameCenterViewController.h; sourceTree = "<group>"; };
+		84A8DEE62777FC8C00695055 /* CFVGameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVGameMainViewController.m; sourceTree = "<group>"; };
+		84A8DEE92777FC8C00695055 /* CFVDefineWithNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVDefineWithNotification.h; sourceTree = "<group>"; };
+		84A8DEEA2777FC8C00695055 /* CFVDefineWithUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVDefineWithUI.h; sourceTree = "<group>"; };
+		84A8DEEC2777FC8C00695055 /* NSTimer+HICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+HICategory.h"; sourceTree = "<group>"; };
+		84A8DEED2777FC8C00695055 /* UIView+CFVUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CFVUIView.h"; sourceTree = "<group>"; };
+		84A8DEEE2777FC8C00695055 /* NSTimer+HICategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+HICategory.m"; sourceTree = "<group>"; };
+		84A8DEEF2777FC8C00695055 /* UIView+CFVUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CFVUIView.m"; sourceTree = "<group>"; };
+		84A8DEF12777FC8C00695055 /* CFVFrameSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVFrameSetting.m; sourceTree = "<group>"; };
+		84A8DEF22777FC8C00695055 /* CFVFrameSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVFrameSetting.h; sourceTree = "<group>"; };
 		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
 		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
 		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
@@ -874,8 +942,139 @@
 		84A8DE6D2777F93500695055 /* 21点小游戏 */ = {
 			isa = PBXGroup;
 			children = (
+				84A8DEBD2777FC8C00695055 /* Class */,
+				84A8DEE72777FC8C00695055 /* Common */,
 			);
 			path = "21点小游戏";
+			sourceTree = "<group>";
+		};
+		84A8DEBD2777FC8C00695055 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEBE2777FC8C00695055 /* Welcome */,
+				84A8DEC32777FC8C00695055 /* Main */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		84A8DEBE2777FC8C00695055 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEBF2777FC8C00695055 /* Control */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		84A8DEBF2777FC8C00695055 /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEC02777FC8C00695055 /* GameLoginViewController.xib */,
+				84A8DEC12777FC8C00695055 /* GameLoginViewController.h */,
+				84A8DEC22777FC8C00695055 /* GameLoginViewController.m */,
+			);
+			path = Control;
+			sourceTree = "<group>";
+		};
+		84A8DEC32777FC8C00695055 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEC42777FC8C00695055 /* Model */,
+				84A8DECB2777FC8C00695055 /* View */,
+				84A8DEE12777FC8C00695055 /* Control */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		84A8DEC42777FC8C00695055 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEC52777FC8C00695055 /* CFVBoxPockerModel.m */,
+				84A8DEC62777FC8C00695055 /* CFVHeGuanPockerModel.h */,
+				84A8DEC72777FC8C00695055 /* CFVPlayerModel.h */,
+				84A8DEC82777FC8C00695055 /* CFVBoxPockerModel.h */,
+				84A8DEC92777FC8C00695055 /* CFVHeGuanPockerModel.m */,
+				84A8DECA2777FC8C00695055 /* CFVPlayerModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		84A8DECB2777FC8C00695055 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DECC2777FC8C00695055 /* CFVWaitView.m */,
+				84A8DECD2777FC8C00695055 /* CFVWaitView.xib */,
+				84A8DECE2777FC8C00695055 /* CFVIntergalView.xib */,
+				84A8DECF2777FC8C00695055 /* CFVIntergalView.m */,
+				84A8DED02777FC8C00695055 /* CFVBoxView.h */,
+				84A8DED12777FC8C00695055 /* CFVTopSingleShowPockerView.h */,
+				84A8DED22777FC8C00695055 /* CFVSkipPokerView.m */,
+				84A8DED32777FC8C00695055 /* CFVCommonBottomView.xib */,
+				84A8DED42777FC8C00695055 /* CFVCommonBottomView.m */,
+				84A8DED52777FC8C00695055 /* CFVEndGameView.m */,
+				84A8DED62777FC8C00695055 /* CFVWaitView.h */,
+				84A8DED72777FC8C00695055 /* CFVTopSingleShowPockerView.xib */,
+				84A8DED82777FC8C00695055 /* CFVBoxView.m */,
+				84A8DED92777FC8C00695055 /* CFVIntergalView.h */,
+				84A8DEDA2777FC8C00695055 /* CFVSkipPokerView.xib */,
+				84A8DEDB2777FC8C00695055 /* CFVCommonBottomView.h */,
+				84A8DEDC2777FC8C00695055 /* CFVSkipPokerView.h */,
+				84A8DEDD2777FC8C00695055 /* CFVTopSingleShowPockerView.m */,
+				84A8DEDE2777FC8C00695055 /* CFVEndGameView.xib */,
+				84A8DEDF2777FC8C00695055 /* CFVBoxView.xib */,
+				84A8DEE02777FC8C00695055 /* CFVEndGameView.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84A8DEE12777FC8C00695055 /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEE22777FC8C00695055 /* CFVGameMainViewController.xib */,
+				84A8DEE32777FC8C00695055 /* CFVGameCenterViewController.m */,
+				84A8DEE42777FC8C00695055 /* CFVGameMainViewController.h */,
+				84A8DEE52777FC8C00695055 /* CFVGameCenterViewController.h */,
+				84A8DEE62777FC8C00695055 /* CFVGameMainViewController.m */,
+			);
+			path = Control;
+			sourceTree = "<group>";
+		};
+		84A8DEE72777FC8C00695055 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEE82777FC8C00695055 /* Define */,
+				84A8DEEB2777FC8C00695055 /* Category */,
+				84A8DEF02777FC8C00695055 /* Frame */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		84A8DEE82777FC8C00695055 /* Define */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEE92777FC8C00695055 /* CFVDefineWithNotification.h */,
+				84A8DEEA2777FC8C00695055 /* CFVDefineWithUI.h */,
+			);
+			path = Define;
+			sourceTree = "<group>";
+		};
+		84A8DEEB2777FC8C00695055 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEEC2777FC8C00695055 /* NSTimer+HICategory.h */,
+				84A8DEED2777FC8C00695055 /* UIView+CFVUIView.h */,
+				84A8DEEE2777FC8C00695055 /* NSTimer+HICategory.m */,
+				84A8DEEF2777FC8C00695055 /* UIView+CFVUIView.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		84A8DEF02777FC8C00695055 /* Frame */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DEF12777FC8C00695055 /* CFVFrameSetting.m */,
+				84A8DEF22777FC8C00695055 /* CFVFrameSetting.h */,
+			);
+			path = Frame;
 			sourceTree = "<group>";
 		};
 		84B85DD22761CB1F009AC598 /* Holdem(德州) */ = {
@@ -1582,6 +1781,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A8DF062777FC8D00695055 /* CFVGameMainViewController.xib in Resources */,
+				84A8DEFD2777FC8C00695055 /* CFVCommonBottomView.xib in Resources */,
+				84A8DEF32777FC8C00695055 /* GameLoginViewController.xib in Resources */,
 				A0C5150621EE46CB00E2F89D /* main.js in Resources */,
 				84B85DF52762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx in Resources */,
 				A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */,
@@ -1592,14 +1794,20 @@
 				84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
 				848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */,
+				84A8DEF92777FC8C00695055 /* CFVWaitView.xib in Resources */,
+				84A8DEFA2777FC8C00695055 /* CFVIntergalView.xib in Resources */,
 				84B85E6727655394009AC598 /* game_back_750x1334.jpg in Resources */,
 				84B85DF42762745D009AC598 /* 程序通讯协议v1.26.docx in Resources */,
 				84B85DF72762745D009AC598 /* 开发调试指南v1.26.docx in Resources */,
+				84A8DF022777FC8D00695055 /* CFVSkipPokerView.xib in Resources */,
+				84A8DF052777FC8D00695055 /* CFVBoxView.xib in Resources */,
+				84A8DF042777FC8D00695055 /* CFVEndGameView.xib in Resources */,
 				84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */,
 				84568C86275E874D006C2906 /* README.md in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
 				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
 				84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */,
+				84A8DF002777FC8D00695055 /* CFVTopSingleShowPockerView.xib in Resources */,
 				84B85E6627655394009AC598 /* game_back_1242x2208.jpg in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
 			);
@@ -1669,6 +1877,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				848EE788276C86EF0016CD8A /* BaccaratComputer.m in Sources */,
+				84A8DF0A2777FC8D00695055 /* UIView+CFVUIView.m in Sources */,
+				84A8DF092777FC8D00695055 /* NSTimer+HICategory.m in Sources */,
 				84B85EA427672388009AC598 /* NSAttrViewController.m in Sources */,
 				276C92262691645500377224 /* VerifyHelper.m in Sources */,
 				84B85E912766FB0C009AC598 /* FunViewController.m in Sources */,
@@ -1678,6 +1888,7 @@
 				848EE785276C82930016CD8A /* BAnalyzeRoadMapView.m in Sources */,
 				84B85EA527672388009AC598 /* NextViewController.m in Sources */,
 				84B85E5527640736009AC598 /* LessAI.m in Sources */,
+				84A8DEFE2777FC8C00695055 /* CFVCommonBottomView.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */,
 				848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */,
@@ -1695,6 +1906,7 @@
 				84B85E5127640736009AC598 /* ProbAI.m in Sources */,
 				84A8D9CE2772579A00695055 /* CustomIOSAlertView.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
+				84A8DEFB2777FC8C00695055 /* CFVIntergalView.m in Sources */,
 				84BDC7822761840A0045354D /* PokerCardModel.m in Sources */,
 				276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
@@ -1702,12 +1914,14 @@
 				A0130DE221ECB78D007E845B /* NSDictionary+Log.m in Sources */,
 				2742F252255AA1D9001848EF /* NSString+RegexCategory.m in Sources */,
 				A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */,
+				84A8DEF42777FC8C00695055 /* GameLoginViewController.m in Sources */,
 				84B85E0527629400009AC598 /* SuperAI.m in Sources */,
 				276C921D2691633300377224 /* GTMBase64.m in Sources */,
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				84B85E9C27671FA5009AC598 /* FunModel.m in Sources */,
 				848EE796276E64270016CD8A /* BGameRecordsCell.m in Sources */,
+				84A8DF032777FC8D00695055 /* CFVTopSingleShowPockerView.m in Sources */,
 				84A8D9F027725C9600695055 /* UIAlertView+Blocks.m in Sources */,
 				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BZhuPanLuCollectionView.m in Sources */,
@@ -1742,12 +1956,14 @@
 				84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */,
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,
 				84B85DEE2762725D009AC598 /* CardGroup.m in Sources */,
+				84A8DF012777FC8D00695055 /* CFVBoxView.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
 				84B85E0227629315009AC598 /* CardGroupComparator.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				84B85E5327640736009AC598 /* MoreAI.m in Sources */,
 				65DCBA0823277D3F00D89C4F /* BaccaratResultModel.m in Sources */,
+				84A8DF0B2777FC8D00695055 /* CFVFrameSetting.m in Sources */,
 				A010CB552261BD8900618A52 /* HackerViewController.m in Sources */,
 				84A8D9EF27725C9600695055 /* RIButtonItem.m in Sources */,
 				848EE799276E7AFA0016CD8A /* ChipsView.m in Sources */,
@@ -1755,6 +1971,7 @@
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* CardDataSourceModel.m in Sources */,
+				84A8DEFF2777FC8D00695055 /* CFVEndGameView.m in Sources */,
 				A0F3E624220D75FA00755DBB /* RunTimeController.m in Sources */,
 				84B85E7B2766F5F2009AC598 /* MXVNavController.m in Sources */,
 				84B85E882766F6F4009AC598 /* UserInfo.m in Sources */,
@@ -1781,12 +1998,16 @@
 				84B85DDF2762660F009AC598 /* MaxCardComputer.m in Sources */,
 				84A59219273DA1D70071D524 /* UIView+Function.m in Sources */,
 				A0BCC30521E8BA6D00CEA8ED /* AppDelegate.m in Sources */,
+				84A8DF082777FC8D00695055 /* CFVGameMainViewController.m in Sources */,
 				84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */,
+				84A8DEF82777FC8C00695055 /* CFVWaitView.m in Sources */,
 				84568C82275E8255006C2906 /* MXWAdTimerAlertView.m in Sources */,
+				84A8DEF52777FC8C00695055 /* CFVBoxPockerModel.m in Sources */,
 				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
 				A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */,
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
+				84A8DEFC2777FC8C00695055 /* CFVSkipPokerView.m in Sources */,
 				27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */,
 				84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */,
 				84B85E942766FB14009AC598 /* AppViewController.m in Sources */,
@@ -1800,6 +2021,7 @@
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				84B85DE22762667F009AC598 /* Poker.m in Sources */,
 				84A8D9F127725C9600695055 /* UIActionSheet+Blocks.m in Sources */,
+				84A8DEF72777FC8C00695055 /* CFVPlayerModel.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
@@ -1807,6 +2029,8 @@
 				276C91D1269160C500377224 /* FileHelper.m in Sources */,
 				84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */,
 				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
+				84A8DF072777FC8D00695055 /* CFVGameCenterViewController.m in Sources */,
+				84A8DEF62777FC8C00695055 /* CFVHeGuanPockerModel.m in Sources */,
 				84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */,
 				84A8D9D12772580F00695055 /* CustomIOSAlertViewController.m in Sources */,
 				84A8DD7D2777E6D900695055 /* BBetModel.m in Sources */,
