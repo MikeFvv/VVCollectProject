@@ -9,7 +9,7 @@
 #import "ChipsView.h"
 #import "ChipsCollectionViewCell.h"
 #import "UIView+Extension.h"
-#import "ChipsModel.h"
+
 
 
 
@@ -19,7 +19,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 @interface ChipsView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UICollectionView *collectionView;
 //
-@property (nonatomic, strong) NSMutableArray<ChipsModel *> *dataArray;
+
 
 @end
 
@@ -31,26 +31,93 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     self = [super initWithFrame:frame];
     if (self) {
         [self initData];
+        [self createUI];
         [self initSubviews];
+        
     }
     return self;
+}
+
+
+- (void)onCancelBtn:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(cancelBetChipsBtnClick)]) {
+        [self.delegate cancelBetChipsBtnClick];
+    }
+}
+
+- (void)onSureButton:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(sureBetBtnClick)]) {
+        [self.delegate sureBetBtnClick];
+    }
+}
+
+- (void)createUI {
+    UIButton *cancelBtn = [[UIButton alloc] init];
+    [cancelBtn setTitle:@"取消注码" forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    cancelBtn.backgroundColor = [UIColor colorWithHex:@"259225" alpha:0.7];
+    cancelBtn.layer.cornerRadius = 5;
+    cancelBtn.layer.borderWidth = 2;
+    cancelBtn.layer.borderColor = [UIColor greenColor].CGColor;
+    [cancelBtn addTarget:self action:@selector(onCancelBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:cancelBtn];
+    
+    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_centerY);
+        make.left.equalTo(self.mas_left).offset(10);
+        make.size.mas_equalTo(CGSizeMake(100, 45));
+    }];
+    
+    
+    UIButton *sureButton = [[UIButton alloc] init];
+    [sureButton setTitle:@"确定下注" forState:UIControlStateNormal];
+    sureButton.titleLabel.font = [UIFont systemFontOfSize:20];
+    [sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sureButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    sureButton.backgroundColor = [UIColor colorWithHex:@"259225" alpha:0.7];
+    sureButton.layer.cornerRadius = 5;
+    sureButton.layer.borderWidth = 2;
+    sureButton.layer.borderColor = [UIColor greenColor].CGColor;
+    [sureButton addTarget:self action:@selector(onSureButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:sureButton];
+    
+    [sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(100, 45));
+    }];
+    
+    
+    
+}
+
+
+- (void)setDelegate:(id<ChipsViewDelegate>)delegate {
+    _delegate = delegate;
+    
+    // 设置默认选中第一个
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 - (NSArray *)dataArray {
     if (!_dataArray) {
         
-//        @{@"money": @(100), @"moneyStr": @"100", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-//        @{@"money": @(500), @"moneyStr": @"500", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+        //        @{@"money": @(100), @"moneyStr": @"100", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+        //        @{@"money": @(500), @"moneyStr": @"500", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
         
         NSArray *tempArray = @[
-                       @{@"money": @(1000), @"moneyStr": @"1000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(5000), @"moneyStr": @"5000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(10000), @"moneyStr": @"1万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(50000), @"moneyStr": @"5万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(100000), @"moneyStr": @"10万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(500000), @"moneyStr": @"50万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       @{@"money": @(1000000), @"moneyStr": @"100万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-                       ];
+            @{@"money": @(1000), @"moneyStr": @"1000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(5000), @"moneyStr": @"5000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(10000), @"moneyStr": @"1万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(50000), @"moneyStr": @"5万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(100000), @"moneyStr": @"10万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(500000), @"moneyStr": @"50万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(1000000), @"moneyStr": @"100万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+        ];
         
         _dataArray = [ChipsModel mj_objectArrayWithKeyValuesArray:tempArray];
         
@@ -114,7 +181,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
      设置collectionView的位置
      */
     CGFloat height = self.frame.size.height;
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(100+10*2, 0, self.frame.size.width-100*2-10*4, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */
     _collectionView.collectionViewLayout = layout;
@@ -149,6 +216,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     //[_collectionView registerClass:<#(nullable Class)#> forSupplementaryViewOfKind:<#(nonnull NSString *)#> withReuseIdentifier:<#(nonnull NSString *)#>];
     
     [self addSubview:self.collectionView];
+    
+    
 }
 
 #pragma mark -- UICollectionViewDataSource 数据源
@@ -187,8 +256,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor whiteColor];
+    if ([self.delegate respondsToSelector:@selector(chipsSelectedModel:)]) {
+        [self.delegate chipsSelectedModel:self.dataArray[indexPath.row]];
+    }
 }
 
 //返回这个UICollectionView是否可以被选择

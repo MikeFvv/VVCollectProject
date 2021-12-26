@@ -44,4 +44,7 @@ static const int kTotalGridsNum = 300;
 /// 分析视图高度
 static const int kTrendViewHeight = 120;
 
+/// 最大下注筹码
+static const int kMaxBetChipsNum = 2000000;
+
 #endif /* BaccaratCom_h */

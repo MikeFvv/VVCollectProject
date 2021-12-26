@@ -7,14 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaccaratResultModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// 游戏统计模型
 @interface BGameStatisticsModel : NSObject
-/// 庄家次数
+
+/// 牌的总张数
+@property (nonatomic, assign) NSInteger pokerTotalNum;
+/// 发牌局数
+@property (nonatomic, assign) NSInteger pokerCount;
+
+
+/// 庄家局数
 @property (nonatomic, assign) NSInteger bankerNum;
-/// 闲家次数
+/// 闲家局数
 @property (nonatomic, assign) NSInteger playerNum;
 /// 和局数
 @property (nonatomic, assign) NSInteger tieNum;
@@ -26,6 +35,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger superNum;
 /// 游戏总局数
 @property (nonatomic, assign) NSInteger gameNum;
+
+
+
+/// 上次下注金额
+@property (nonatomic, assign) NSInteger lastBetMoney;
+/// 上次输赢金额  有负数
+@property (nonatomic, assign) NSInteger lastLostWinMoney;
+
+///上次牌局
+@property (nonatomic, strong) BaccaratResultModel *lastResultModel;
 
 @end
 
