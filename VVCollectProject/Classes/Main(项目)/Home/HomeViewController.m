@@ -22,6 +22,7 @@
 #import "UIView+Function.h"
 
 #import "FunctionManager.h"
+//#import "GameLoginViewController.h"
 
 
 #define dispatch_main_async_safe(block)\
@@ -61,7 +62,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-        [self createUI];
+    [self createUI];
     
     //    [self navigationBar];
     //    // 导航栏 代码实现  代码实现，维护时可操作性强  可实现渐变色效果
@@ -91,7 +92,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"右边按钮" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
     // 字体颜色
     [rightBtn setTintColor:[UIColor redColor]
-     ];
+    ];
     // 字体大小
     [rightBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
     self.navigationItem.rightBarButtonItem = rightBtn;
@@ -106,16 +107,16 @@ dispatch_async(dispatch_get_main_queue(), block);\
     
     // 第一种场景：用NSString直接赋值
     NSString *originStr1 = [NSString stringWithFormat:@"hello,everyone"];
-
+    
     _strongStr = originStr1;
     _copyyStr = originStr1;
-        
+    
     NSLog(@"第一种场景：用NSString直接赋值");
     NSLog(@"               对象地址         对象指针地址        对象的值   ");
     NSLog(@"originStr: %p , %p , %@", originStr1, &originStr1, originStr1);
     NSLog(@"strongStr: %p , %p , %@", _strongStr, &_strongStr, _strongStr);
     NSLog(@" copyyStr: %p , %p , %@", _copyyStr, &_copyyStr, _copyyStr);
-
+    
     NSLog(@"111");
     // 延时执行
     [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:2.0f];
@@ -141,25 +142,25 @@ dispatch_async(dispatch_get_main_queue(), block);\
 #pragma mark - 两个数交换  不使用第三个变量，交换两个变量的值。
 - (void)twoNumberExchange {
     
-//    int a=5,b;
-//    b=(++a)+(++a);  // = 13
+    //    int a=5,b;
+    //    b=(++a)+(++a);  // = 13
     
-//    __block int i = 0;
-//    
-//    while (i<10000) {
-//        
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            i++;
-//        });
-//    }
-//        NSLog(@"i=%d",i);
+    //    __block int i = 0;
+    //
+    //    while (i<10000) {
+    //
+    //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    //            i++;
+    //        });
+    //    }
+    //        NSLog(@"i=%d",i);
     
     // 两个数交换
-//    int a = 5;
-//    int b = 10;
-//    a = a + b;
-//    b = a - b;
-//    a = a - b;
+    //    int a = 5;
+    //    int b = 10;
+    //    a = a + b;
+    //    b = a - b;
+    //    a = a - b;
 }
 
 - (void)fyStatusBarHUD {
@@ -211,10 +212,10 @@ dispatch_async(dispatch_get_main_queue(), block);\
     [super viewWillAppear:animated];
     
     // Resets styling
-//    self.navigationController.navigationBar.titleTextAttributes = nil;
-//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"f8f8f8"];;
-//    self.navigationController.navigationBar.translucent = NO;
-//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    //    self.navigationController.navigationBar.titleTextAttributes = nil;
+    //    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"f8f8f8"];;
+    //    self.navigationController.navigationBar.translucent = NO;
+    //    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
 
@@ -231,15 +232,15 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 -(void)jsScriptRun:(id)sender {
     
-//    ViewController *vc = [[ViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
+    //    ViewController *vc = [[ViewController alloc] init];
+    //    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
 -(void)goto_viewController {
     
-        ViewController *vc = [[ViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+    ViewController *vc = [[ViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)createUI {
@@ -249,11 +250,11 @@ dispatch_async(dispatch_get_main_queue(), block);\
     [self.view addSubview:self.tableView];
     
     
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-//    label.text = @"测试";
-//    label.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:label];
-
+    //    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    //    label.text = @"测试";
+    //    label.backgroundColor = [UIColor redColor];
+    //    [self.view addSubview:label];
+    
 }
 
 - (void)initUI2 {
@@ -511,16 +512,21 @@ dispatch_async(dispatch_get_main_queue(), block);\
     } else if (indexPath.row == 1) {
         BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    }  else if (indexPath.row == 3) {
+    }  else if (indexPath.row == 2) {
+//        GameLoginViewController *gameLoginVC = [[GameLoginViewController alloc]initWithNibName:@"GameLoginViewController" bundle:nil];
+//        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:gameLoginVC];
+//        [self presentViewController:rootNav animated:YES completion:nil];
+        
+    } else if (indexPath.row == 3) {
         HackerViewController *vc = [HackerViewController new];
         [self.navigationController pushViewController:vc animated:YES];
         
-    } else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 6) {
+    } else if (indexPath.row == 4 || indexPath.row == 6) {
         //        [self goto_ChatController];
         
         [self repeatDelay];
-//        [MBProgressHUD showActivityMessageInWindow:nil];
-//        [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
+        //        [MBProgressHUD showActivityMessageInWindow:nil];
+        //        [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
     } else if (indexPath.row == 5) {
         
         TestVS *vc = [TestVS new];

@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChipsModel.h"
+#import "BBetModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 /// 下注视图
 @interface BaccaratBetView : UIView
+@property (nonatomic, strong) ChipsModel *selectedModel;
+
+
+/// 取消下注筹码
+- (void)cancelBetChips;
 
 @end
 
