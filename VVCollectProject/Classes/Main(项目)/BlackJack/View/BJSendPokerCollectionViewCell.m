@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *pokerTextLabel;
 /// 扑克花色
 @property (nonatomic, strong) UILabel *pokerColorLabel;
+/// 扑克图片
+@property (nonatomic, strong) UIImageView *backImageView;
 
 
 @end
@@ -35,21 +37,21 @@
     self.backView.layer.borderWidth = 0;
     self.pokerTextLabel.text = @"";
     self.pokerColorLabel.text = @"";
-    
+    self.backImageView.image = [UIImage imageNamed:@""];
 }
 
 - (void)setModel:(PokerCardModel *)model {
     _model = model;
     
-    self.pokerTextLabel.text = model.cardStr;
-    self.pokerColorLabel.text = model.suitSymbol;
+    self.backImageView.image = [UIImage imageNamed:model.pokerImg];
     
-    [self setLabelColorTypp:self.model.colorTyp];
-    
-    
-    
-    self.backView.backgroundColor = [UIColor whiteColor];
-    self.backView.layer.borderWidth = 1;
+//    self.pokerTextLabel.text = model.cardStr;
+//    self.pokerColorLabel.text = model.suitSymbol;
+//
+//    [self setLabelColorTypp:self.model.colorTyp];
+//
+//    self.backView.backgroundColor = [UIColor whiteColor];
+//    self.backView.layer.borderWidth = 1;
 }
 
 - (void)setLabelColorTypp:(CardColorType)colorTyp {
@@ -88,32 +90,45 @@
         make.top.left.bottom.right.equalTo(self);
     }];
     
-    UILabel *pokerTextLabel = [[UILabel alloc] init];
-    pokerTextLabel.text = @"";
-    pokerTextLabel.font = [UIFont boldSystemFontOfSize:20];
-    pokerTextLabel.textColor = [UIColor blackColor];
-    pokerTextLabel.textAlignment = NSTextAlignmentCenter;
-    [backView addSubview:pokerTextLabel];
-    _pokerTextLabel = pokerTextLabel;
     
-    [pokerTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(backView.mas_top).offset(0);
-        make.centerX.equalTo(backView.mas_centerX);
+    UIImageView *backImageView = [[UIImageView alloc] init];
+    backImageView.image = [UIImage imageNamed:@""];
+    [backView addSubview:backImageView];
+    _backImageView = backImageView;
+    
+    [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(backView);
     }];
     
     
-    UILabel *pokerColorLabel = [[UILabel alloc] init];
-    pokerColorLabel.text = @"";
-    pokerColorLabel.font = [UIFont systemFontOfSize:20];
-    pokerColorLabel.textColor = [UIColor blackColor];
-    pokerColorLabel.textAlignment = NSTextAlignmentCenter;
-    [backView addSubview:pokerColorLabel];
-    _pokerColorLabel = pokerColorLabel;
     
-    [pokerColorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(backView.mas_bottom).offset(0);
-        make.centerX.equalTo(backView.mas_centerX);
-    }];
+    
+//    UILabel *pokerTextLabel = [[UILabel alloc] init];
+//    pokerTextLabel.text = @"";
+//    pokerTextLabel.font = [UIFont boldSystemFontOfSize:20];
+//    pokerTextLabel.textColor = [UIColor blackColor];
+//    pokerTextLabel.textAlignment = NSTextAlignmentCenter;
+//    [backView addSubview:pokerTextLabel];
+//    _pokerTextLabel = pokerTextLabel;
+//
+//    [pokerTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(backView.mas_top).offset(0);
+//        make.centerX.equalTo(backView.mas_centerX);
+//    }];
+//
+//
+//    UILabel *pokerColorLabel = [[UILabel alloc] init];
+//    pokerColorLabel.text = @"";
+//    pokerColorLabel.font = [UIFont systemFontOfSize:20];
+//    pokerColorLabel.textColor = [UIColor blackColor];
+//    pokerColorLabel.textAlignment = NSTextAlignmentCenter;
+//    [backView addSubview:pokerColorLabel];
+//    _pokerColorLabel = pokerColorLabel;
+//
+//    [pokerColorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(backView.mas_bottom).offset(0);
+//        make.centerX.equalTo(backView.mas_centerX);
+//    }];
     
 }
 

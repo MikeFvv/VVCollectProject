@@ -60,6 +60,8 @@
                 
                 aCard.cardSizeValue = valueIndex +1;
                 aCard.cardStr = [VVFunctionManager pokerCharacter:valueIndex+1];
+                aCard.pokerImg = [NSString stringWithFormat:@"chess_poker_%d_%d",suitloopIndex+1,valueIndex+1];
+                
                 
                 switch (valueIndex) {
                     case 0:

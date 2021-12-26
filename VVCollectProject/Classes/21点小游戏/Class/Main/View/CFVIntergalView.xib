@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,7 +70,7 @@
                                 <constraint firstAttribute="width" constant="30" id="e2k-7a-nWx"/>
                             </constraints>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="number01.png" translatesAutoresizingMaskIntoConstraints="NO" id="uok-dp-vCI">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="number_01.png" translatesAutoresizingMaskIntoConstraints="NO" id="uok-dp-vCI">
                             <rect key="frame" x="69.5" y="2" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="AAQ-cy-vwQ"/>
@@ -100,7 +98,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8M-ws-JvB" userLabel="secondView">
                     <rect key="frame" x="20" y="129.5" width="379" height="44"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="number03.png" translatesAutoresizingMaskIntoConstraints="NO" id="nqm-4V-kY5">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="number_03.png" translatesAutoresizingMaskIntoConstraints="NO" id="nqm-4V-kY5">
                             <rect key="frame" x="69.5" y="2" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="6xf-bS-2sW"/>
@@ -163,7 +161,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0K-vo-jh5">
                     <rect key="frame" x="20" y="173.5" width="379" height="44"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="number02.png" translatesAutoresizingMaskIntoConstraints="NO" id="3cX-jn-JmQ">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="number_02.png" translatesAutoresizingMaskIntoConstraints="NO" id="3cX-jn-JmQ">
                             <rect key="frame" x="69.5" y="2" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="2kq-rD-7XY"/>
@@ -224,6 +222,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="qqx-PS-Yjf" secondAttribute="bottom" constant="65" id="3LO-wt-KoN"/>
@@ -245,7 +244,6 @@
                 <constraint firstAttribute="trailing" secondItem="qqx-PS-Yjf" secondAttribute="trailing" id="zMc-b2-MVT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="backBtn" destination="zlp-gk-0Yd" id="RIs-r1-waS"/>
                 <outlet property="secondBaiIngertalNumImgView" destination="8YU-BD-NaJ" id="5N3-Ou-zg8"/>
@@ -271,9 +269,9 @@
         <image name="j_0.png" width="22" height="29"/>
         <image name="j_back.png" width="209" height="84"/>
         <image name="jifendik.png" width="936" height="356"/>
-        <image name="number01.png" width="60" height="48"/>
-        <image name="number02.png" width="60" height="48"/>
-        <image name="number03.png" width="60" height="47"/>
+        <image name="number_01.png" width="128" height="128"/>
+        <image name="number_02.png" width="128" height="128"/>
+        <image name="number_03.png" width="128" height="128"/>
         <image name="wodejifen.png" width="325" height="93"/>
     </resources>
 </document>
