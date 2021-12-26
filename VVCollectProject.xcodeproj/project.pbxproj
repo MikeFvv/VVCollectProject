@@ -95,6 +95,36 @@
 		84A8DF092777FC8D00695055 /* NSTimer+HICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEEE2777FC8C00695055 /* NSTimer+HICategory.m */; };
 		84A8DF0A2777FC8D00695055 /* UIView+CFVUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEEF2777FC8C00695055 /* UIView+CFVUIView.m */; };
 		84A8DF0B2777FC8D00695055 /* CFVFrameSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8DEF12777FC8C00695055 /* CFVFrameSetting.m */; };
+		84A8DF1A2777FD4500695055 /* dikuang01.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF0D2777FD4300695055 /* dikuang01.png */; };
+		84A8DF1B2777FD4500695055 /* chess_poker_0_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF0E2777FD4300695055 /* chess_poker_0_5.png */; };
+		84A8DF1C2777FD4500695055 /* desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF0F2777FD4400695055 /* desk.png */; };
+		84A8DF1D2777FD4500695055 /* bj.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF102777FD4400695055 /* bj.png */; };
+		84A8DF1E2777FD4500695055 /* 启动图.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF112777FD4400695055 /* 启动图.jpg */; };
+		84A8DF1F2777FD4500695055 /* dibu.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF122777FD4400695055 /* dibu.png */; };
+		84A8DF202777FD4500695055 /* hg.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF132777FD4400695055 /* hg.png */; };
+		84A8DF212777FD4500695055 /* ditu.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF142777FD4400695055 /* ditu.png */; };
+		84A8DF222777FD4500695055 /* fh.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF152777FD4400695055 /* fh.png */; };
+		84A8DF232777FD4500695055 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF162777FD4400695055 /* back.png */; };
+		84A8DF242777FD4500695055 /* guopai.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF172777FD4500695055 /* guopai.png */; };
+		84A8DF252777FD4500695055 /* 首页.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF182777FD4500695055 /* 首页.png */; };
+		84A8DF262777FD4500695055 /* heguan.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF192777FD4500695055 /* heguan.png */; };
+		84A8DF302777FD5D00695055 /* jilujifen.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF272777FD5C00695055 /* jilujifen.png */; };
+		84A8DF312777FD5D00695055 /* number01.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF282777FD5C00695055 /* number01.png */; };
+		84A8DF322777FD5D00695055 /* kaishi.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF292777FD5C00695055 /* kaishi.png */; };
+		84A8DF332777FD5D00695055 /* number02.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF2A2777FD5C00695055 /* number02.png */; };
+		84A8DF342777FD5D00695055 /* mainbj.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF2B2777FD5D00695055 /* mainbj.png */; };
+		84A8DF352777FD5D00695055 /* number03.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF2C2777FD5D00695055 /* number03.png */; };
+		84A8DF362777FD5D00695055 /* nidedefen.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF2D2777FD5D00695055 /* nidedefen.png */; };
+		84A8DF372777FD5D00695055 /* jifen.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF2E2777FD5D00695055 /* jifen.png */; };
+		84A8DF382777FD5D00695055 /* jifendik.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF2F2777FD5D00695055 /* jifendik.png */; };
+		84A8DF3B2777FD6E00695055 /* paizhuo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF392777FD6D00695055 /* paizhuo.png */; };
+		84A8DF3C2777FD6E00695055 /* pocker.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF3A2777FD6E00695055 /* pocker.png */; };
+		84A8DF432777FD7300695055 /* wodejifen.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF3D2777FD7300695055 /* wodejifen.png */; };
+		84A8DF442777FD7300695055 /* zailaiyiju.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF3E2777FD7300695055 /* zailaiyiju.png */; };
+		84A8DF452777FD7300695055 /* youxijieshu.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF3F2777FD7300695055 /* youxijieshu.png */; };
+		84A8DF462777FD7300695055 /* skipPocker.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF402777FD7300695055 /* skipPocker.png */; };
+		84A8DF472777FD7300695055 /* yaopai.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF412777FD7300695055 /* yaopai.png */; };
+		84A8DF482777FD7300695055 /* xinpai.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8DF422777FD7300695055 /* xinpai.png */; };
 		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
 		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
@@ -396,6 +426,36 @@
 		84A8DEEF2777FC8C00695055 /* UIView+CFVUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CFVUIView.m"; sourceTree = "<group>"; };
 		84A8DEF12777FC8C00695055 /* CFVFrameSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFVFrameSetting.m; sourceTree = "<group>"; };
 		84A8DEF22777FC8C00695055 /* CFVFrameSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFVFrameSetting.h; sourceTree = "<group>"; };
+		84A8DF0D2777FD4300695055 /* dikuang01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dikuang01.png; sourceTree = "<group>"; };
+		84A8DF0E2777FD4300695055 /* chess_poker_0_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chess_poker_0_5.png; sourceTree = "<group>"; };
+		84A8DF0F2777FD4400695055 /* desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desk.png; sourceTree = "<group>"; };
+		84A8DF102777FD4400695055 /* bj.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bj.png; sourceTree = "<group>"; };
+		84A8DF112777FD4400695055 /* 启动图.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "启动图.jpg"; sourceTree = "<group>"; };
+		84A8DF122777FD4400695055 /* dibu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dibu.png; sourceTree = "<group>"; };
+		84A8DF132777FD4400695055 /* hg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hg.png; sourceTree = "<group>"; };
+		84A8DF142777FD4400695055 /* ditu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ditu.png; sourceTree = "<group>"; };
+		84A8DF152777FD4400695055 /* fh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fh.png; sourceTree = "<group>"; };
+		84A8DF162777FD4400695055 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		84A8DF172777FD4500695055 /* guopai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guopai.png; sourceTree = "<group>"; };
+		84A8DF182777FD4500695055 /* 首页.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首页.png"; sourceTree = "<group>"; };
+		84A8DF192777FD4500695055 /* heguan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heguan.png; sourceTree = "<group>"; };
+		84A8DF272777FD5C00695055 /* jilujifen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jilujifen.png; sourceTree = "<group>"; };
+		84A8DF282777FD5C00695055 /* number01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = number01.png; sourceTree = "<group>"; };
+		84A8DF292777FD5C00695055 /* kaishi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kaishi.png; sourceTree = "<group>"; };
+		84A8DF2A2777FD5C00695055 /* number02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = number02.png; sourceTree = "<group>"; };
+		84A8DF2B2777FD5D00695055 /* mainbj.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainbj.png; sourceTree = "<group>"; };
+		84A8DF2C2777FD5D00695055 /* number03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = number03.png; sourceTree = "<group>"; };
+		84A8DF2D2777FD5D00695055 /* nidedefen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nidedefen.png; sourceTree = "<group>"; };
+		84A8DF2E2777FD5D00695055 /* jifen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jifen.png; sourceTree = "<group>"; };
+		84A8DF2F2777FD5D00695055 /* jifendik.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jifendik.png; sourceTree = "<group>"; };
+		84A8DF392777FD6D00695055 /* paizhuo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paizhuo.png; sourceTree = "<group>"; };
+		84A8DF3A2777FD6E00695055 /* pocker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pocker.png; sourceTree = "<group>"; };
+		84A8DF3D2777FD7300695055 /* wodejifen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wodejifen.png; sourceTree = "<group>"; };
+		84A8DF3E2777FD7300695055 /* zailaiyiju.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zailaiyiju.png; sourceTree = "<group>"; };
+		84A8DF3F2777FD7300695055 /* youxijieshu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youxijieshu.png; sourceTree = "<group>"; };
+		84A8DF402777FD7300695055 /* skipPocker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skipPocker.png; sourceTree = "<group>"; };
+		84A8DF412777FD7300695055 /* yaopai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yaopai.png; sourceTree = "<group>"; };
+		84A8DF422777FD7300695055 /* xinpai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xinpai.png; sourceTree = "<group>"; };
 		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
 		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
 		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
@@ -1077,6 +1137,43 @@
 			path = Frame;
 			sourceTree = "<group>";
 		};
+		84A8DF0C2777FD2700695055 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				84A8DF402777FD7300695055 /* skipPocker.png */,
+				84A8DF3D2777FD7300695055 /* wodejifen.png */,
+				84A8DF422777FD7300695055 /* xinpai.png */,
+				84A8DF412777FD7300695055 /* yaopai.png */,
+				84A8DF3F2777FD7300695055 /* youxijieshu.png */,
+				84A8DF3E2777FD7300695055 /* zailaiyiju.png */,
+				84A8DF112777FD4400695055 /* 启动图.jpg */,
+				84A8DF182777FD4500695055 /* 首页.png */,
+				84A8DF162777FD4400695055 /* back.png */,
+				84A8DF102777FD4400695055 /* bj.png */,
+				84A8DF0E2777FD4300695055 /* chess_poker_0_5.png */,
+				84A8DF0F2777FD4400695055 /* desk.png */,
+				84A8DF122777FD4400695055 /* dibu.png */,
+				84A8DF392777FD6D00695055 /* paizhuo.png */,
+				84A8DF3A2777FD6E00695055 /* pocker.png */,
+				84A8DF0D2777FD4300695055 /* dikuang01.png */,
+				84A8DF142777FD4400695055 /* ditu.png */,
+				84A8DF152777FD4400695055 /* fh.png */,
+				84A8DF172777FD4500695055 /* guopai.png */,
+				84A8DF192777FD4500695055 /* heguan.png */,
+				84A8DF132777FD4400695055 /* hg.png */,
+				84A8DF2E2777FD5D00695055 /* jifen.png */,
+				84A8DF2F2777FD5D00695055 /* jifendik.png */,
+				84A8DF272777FD5C00695055 /* jilujifen.png */,
+				84A8DF292777FD5C00695055 /* kaishi.png */,
+				84A8DF2B2777FD5D00695055 /* mainbj.png */,
+				84A8DF2D2777FD5D00695055 /* nidedefen.png */,
+				84A8DF282777FD5C00695055 /* number01.png */,
+				84A8DF2A2777FD5C00695055 /* number02.png */,
+				84A8DF2C2777FD5D00695055 /* number03.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		84B85DD22761CB1F009AC598 /* Holdem(德州) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1442,6 +1539,7 @@
 		A0130DFD21ECDC28007E845B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				84A8DF0C2777FD2700695055 /* Images */,
 				84B85E6527655394009AC598 /* game_back_750x1334.jpg */,
 				84B85E6427655394009AC598 /* game_back_1242x2208.jpg */,
 				A0BCD7A422216E3200BB3A9C /* applications.json */,
@@ -1782,33 +1880,63 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A8DF062777FC8D00695055 /* CFVGameMainViewController.xib in Resources */,
+				84A8DF462777FD7300695055 /* skipPocker.png in Resources */,
 				84A8DEFD2777FC8C00695055 /* CFVCommonBottomView.xib in Resources */,
+				84A8DF3B2777FD6E00695055 /* paizhuo.png in Resources */,
+				84A8DF382777FD5D00695055 /* jifendik.png in Resources */,
+				84A8DF342777FD5D00695055 /* mainbj.png in Resources */,
+				84A8DF1C2777FD4500695055 /* desk.png in Resources */,
 				84A8DEF32777FC8C00695055 /* GameLoginViewController.xib in Resources */,
 				A0C5150621EE46CB00E2F89D /* main.js in Resources */,
+				84A8DF212777FD4500695055 /* ditu.png in Resources */,
 				84B85DF52762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx in Resources */,
 				A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */,
 				84B85DF62762745D009AC598 /* 华为软件精英挑战赛赛制说明v1.26.docx in Resources */,
+				84A8DF202777FD4500695055 /* hg.png in Resources */,
+				84A8DF482777FD7300695055 /* xinpai.png in Resources */,
+				84A8DF252777FD4500695055 /* 首页.png in Resources */,
+				84A8DF242777FD4500695055 /* guopai.png in Resources */,
 				84568C88275E87C7006C2906 /* App注意事项.rtfd in Resources */,
 				A0BCC31021E8BA6F00CEA8ED /* LaunchScreen.storyboard in Resources */,
 				A0C5150821EE491600E2F89D /* DemoJS.js in Resources */,
+				84A8DF1F2777FD4500695055 /* dibu.png in Resources */,
+				84A8DF1D2777FD4500695055 /* bj.png in Resources */,
+				84A8DF262777FD4500695055 /* heguan.png in Resources */,
 				84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */,
+				84A8DF3C2777FD6E00695055 /* pocker.png in Resources */,
 				A0BCC30D21E8BA6F00CEA8ED /* Assets.xcassets in Resources */,
+				84A8DF452777FD7300695055 /* youxijieshu.png in Resources */,
 				848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */,
 				84A8DEF92777FC8C00695055 /* CFVWaitView.xib in Resources */,
 				84A8DEFA2777FC8C00695055 /* CFVIntergalView.xib in Resources */,
+				84A8DF1E2777FD4500695055 /* 启动图.jpg in Resources */,
 				84B85E6727655394009AC598 /* game_back_750x1334.jpg in Resources */,
 				84B85DF42762745D009AC598 /* 程序通讯协议v1.26.docx in Resources */,
 				84B85DF72762745D009AC598 /* 开发调试指南v1.26.docx in Resources */,
+				84A8DF372777FD5D00695055 /* jifen.png in Resources */,
+				84A8DF362777FD5D00695055 /* nidedefen.png in Resources */,
+				84A8DF1A2777FD4500695055 /* dikuang01.png in Resources */,
+				84A8DF222777FD4500695055 /* fh.png in Resources */,
+				84A8DF312777FD5D00695055 /* number01.png in Resources */,
 				84A8DF022777FC8D00695055 /* CFVSkipPokerView.xib in Resources */,
+				84A8DF302777FD5D00695055 /* jilujifen.png in Resources */,
 				84A8DF052777FC8D00695055 /* CFVBoxView.xib in Resources */,
 				84A8DF042777FC8D00695055 /* CFVEndGameView.xib in Resources */,
+				84A8DF442777FD7300695055 /* zailaiyiju.png in Resources */,
+				84A8DF332777FD5D00695055 /* number02.png in Resources */,
 				84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */,
 				84568C86275E874D006C2906 /* README.md in Resources */,
 				A0BCC30B21E8BA6D00CEA8ED /* Main.storyboard in Resources */,
+				84A8DF322777FD5D00695055 /* kaishi.png in Resources */,
+				84A8DF232777FD4500695055 /* back.png in Resources */,
 				A0BCD7A522216E3200BB3A9C /* applications.json in Resources */,
 				84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */,
+				84A8DF352777FD5D00695055 /* number03.png in Resources */,
+				84A8DF1B2777FD4500695055 /* chess_poker_0_5.png in Resources */,
 				84A8DF002777FC8D00695055 /* CFVTopSingleShowPockerView.xib in Resources */,
+				84A8DF432777FD7300695055 /* wodejifen.png in Resources */,
 				84B85E6627655394009AC598 /* game_back_1242x2208.jpg in Resources */,
+				84A8DF472777FD7300695055 /* yaopai.png in Resources */,
 				A0C5148521EE2E4F00E2F89D /* packer.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
