@@ -8,6 +8,7 @@
 
 #import "BaccaratCollectionViewCell.h"
 #import "BaccaratResultModel.h"
+#import "BJWinOrLoseResultModel.h"
 
 @interface BaccaratCollectionViewCell ()
 
@@ -73,8 +74,9 @@
     bankerPairView.backgroundColor = [UIColor colorWithRed:1.000 green:0.251 blue:0.251 alpha:1.000];
     bankerPairView.layer.cornerRadius = circleViewWidht/2;
     bankerPairView.layer.masksToBounds = YES;
-    _bankerPairView = bankerPairView;
+    bankerPairView.hidden = YES;
     [backView addSubview:bankerPairView];
+    _bankerPairView = bankerPairView;
     
     [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(backView.mas_top);
@@ -86,8 +88,9 @@
     playerPairView.backgroundColor = [UIColor colorWithRed:0.118 green:0.565 blue:1.000 alpha:1.000];
     playerPairView.layer.cornerRadius = circleViewWidht/2;
     playerPairView.layer.masksToBounds = YES;
-    _playerPairView = playerPairView;
+    playerPairView.hidden = YES;
     [backView addSubview:playerPairView];
+    _playerPairView = playerPairView;
     
     [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(backView.mas_bottom);
@@ -100,8 +103,9 @@
     superSixView.backgroundColor = [UIColor yellowColor];
     superSixView.layer.cornerRadius = circleViewWidht/2;
     superSixView.layer.masksToBounds = YES;
-    _superSixView = superSixView;
+    superSixView.hidden = YES;
     [backView addSubview:superSixView];
+    _superSixView = superSixView;
     
     [superSixView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(backView.mas_bottom);
@@ -111,41 +115,63 @@
 }
 
 - (void)setModel:(id)model {
-    BaccaratResultModel *bModel;
+    
     if ([model isKindOfClass:[BaccaratResultModel class]]) {
+        BaccaratResultModel *bModel;
         bModel = model;
+        
+        if (bModel.winType == WinType_Banker) {
+            self.bankerOrPlayerOrTieLabel.text = @"B";
+            self.backView.backgroundColor = [UIColor redColor];
+        } else if (bModel.winType == WinType_Player) {
+            self.bankerOrPlayerOrTieLabel.text = @"P";
+            self.backView.backgroundColor = [UIColor blueColor];
+        } else {
+            self.bankerOrPlayerOrTieLabel.text = @"T";
+            self.backView.backgroundColor = [UIColor greenColor];
+        }
+        
+        if (bModel.isSuperSix) {
+            self.superSixView.hidden = NO;
+        } else {
+            self.superSixView.hidden = YES;
+        }
+        
+        
+        if (bModel.isBankerPair) {
+            self.bankerPairView.hidden = NO;
+        } else {
+            self.bankerPairView.hidden = YES;
+        }
+        
+        if (bModel.isPlayerPair) {
+            self.playerPairView.hidden = NO;
+        } else {
+            self.playerPairView.hidden = YES;
+        }
+    } else if ([model isKindOfClass:[BJWinOrLoseResultModel class]]) {
+        BJWinOrLoseResultModel *bjModel;
+        bjModel = model;
+        
+        if (bjModel.winType == WinType_Banker) {
+            self.bankerOrPlayerOrTieLabel.text = @"B";
+            self.backView.backgroundColor = [UIColor redColor];
+        } else if (bjModel.winType == WinType_Player) {
+            self.bankerOrPlayerOrTieLabel.text = @"P";
+            self.backView.backgroundColor = [UIColor blueColor];
+        } else {
+            self.bankerOrPlayerOrTieLabel.text = @"T";
+            self.backView.backgroundColor = [UIColor greenColor];
+        }
+        
+        if (bjModel.isPlayerPair) {
+            self.playerPairView.hidden = NO;
+        } else {
+            self.playerPairView.hidden = YES;
+        }
+        
     } else {
         return;
-    }
-    
-    if (bModel.winType == WinType_Banker) {
-        self.bankerOrPlayerOrTieLabel.text = @"B";
-        self.backView.backgroundColor = [UIColor redColor];
-    } else if (bModel.winType == WinType_Player) {
-        self.bankerOrPlayerOrTieLabel.text = @"P";
-        self.backView.backgroundColor = [UIColor blueColor];
-    } else {
-        self.bankerOrPlayerOrTieLabel.text = @"T";
-        self.backView.backgroundColor = [UIColor greenColor];
-    }
-    
-    if (bModel.isSuperSix) {
-        self.superSixView.hidden = NO;
-    } else {
-        self.superSixView.hidden = YES;
-    }
-    
-    
-    if (bModel.isBankerPair) {
-        self.bankerPairView.hidden = NO;
-    } else {
-        self.bankerPairView.hidden = YES;
-    }
-    
-    if (bModel.isPlayerPair) {
-        self.playerPairView.hidden = NO;
-    } else {
-        self.playerPairView.hidden = YES;
     }
     
 }

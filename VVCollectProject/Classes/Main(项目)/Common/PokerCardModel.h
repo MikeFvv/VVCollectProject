@@ -23,5 +23,7 @@
 @property (nonatomic, copy) NSString *cardText;
 /// 计算点数    10-13也算0   （百家乐使用）
 @property (nonatomic, assign) NSInteger bCardValue;
+/// 扑克图片名称
+@property (nonatomic, copy) NSString *pokerImg;
 
 @end
