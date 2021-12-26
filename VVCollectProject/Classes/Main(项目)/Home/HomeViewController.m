@@ -22,7 +22,7 @@
 #import "UIView+Function.h"
 
 #import "FunctionManager.h"
-//#import "GameLoginViewController.h"
+#import "GameLoginViewController.h"
 
 
 #define dispatch_main_async_safe(block)\
@@ -513,9 +513,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
         BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }  else if (indexPath.row == 2) {
-//        GameLoginViewController *gameLoginVC = [[GameLoginViewController alloc]initWithNibName:@"GameLoginViewController" bundle:nil];
-//        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:gameLoginVC];
-//        [self presentViewController:rootNav animated:YES completion:nil];
+        GameLoginViewController *gameLoginVC = [[GameLoginViewController alloc]initWithNibName:@"GameLoginViewController" bundle:nil];
+        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:gameLoginVC];
+        [self presentViewController:rootNav animated:YES completion:nil];
         
     } else if (indexPath.row == 3) {
         HackerViewController *vc = [HackerViewController new];

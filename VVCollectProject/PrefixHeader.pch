@@ -36,7 +36,7 @@
 
 
 // 21点小游戏
-//#import "CFVDefineWithUI.h"
-//#import "CFVDefineWithNotification.h"
+#import "CFVDefineWithUI.h"
+#import "CFVDefineWithNotification.h"
 
 #endif /* PrefixHeader_pch */
