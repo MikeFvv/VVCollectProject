@@ -102,7 +102,7 @@
 - (void)createUI {
     
     UIView *backView = [[UIView alloc] init];
-    backView.backgroundColor = [UIColor cyanColor];
+    backView.backgroundColor = [UIColor colorWithHex:@"6A0222"];
     backView.layer.borderWidth = 1;
     backView.layer.borderColor = [UIColor greenColor].CGColor;
     [self addSubview:backView];
@@ -112,7 +112,7 @@
     }];
     
     UIView *leftView = [[UIView alloc] init];
-    leftView.backgroundColor = [UIColor clearColor];
+    leftView.backgroundColor = [UIColor whiteColor];
     [backView addSubview:leftView];
     _leftView = leftView;
     

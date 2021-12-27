@@ -39,6 +39,17 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 }
 
 
+- (void)showView:(UIView *)view {
+    [UIView transitionWithView:view
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                         self.hidden = NO;
+                    }
+                    completion:NULL];
+}
+
+
 - (void)onCancelBtn:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(cancelBetChipsBtnClick)]) {
         [self.delegate cancelBetChipsBtnClick];
@@ -52,6 +63,11 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 }
 
 - (void)createUI {
+    
+    self.backgroundColor = [UIColor redColor];
+    
+    // 。还有越过本局
+    
     UIButton *cancelBtn = [[UIButton alloc] init];
     [cancelBtn setTitle:@"取消注码" forState:UIControlStateNormal];
     cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];

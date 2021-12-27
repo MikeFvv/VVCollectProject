@@ -210,6 +210,8 @@
 		84A8E1FE2777FFE600695055 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8E18A2777FFE600695055 /* back.png */; };
 		84A8E1FF2777FFE600695055 /* xinpai.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A8E18B2777FFE600695055 /* xinpai.png */; };
 		84A8E2002777FFE600695055 /* 启动图.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84A8E18C2777FFE600695055 /* 启动图.jpg */; };
+		84A8E208277906A700695055 /* BUserChipssView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E207277906A700695055 /* BUserChipssView.m */; };
+		84A8E20B27790BC900695055 /* BPockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E20927790BC900695055 /* BPockerView.m */; };
 		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
 		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
@@ -626,6 +628,10 @@
 		84A8E18A2777FFE600695055 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		84A8E18B2777FFE600695055 /* xinpai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xinpai.png; sourceTree = "<group>"; };
 		84A8E18C2777FFE600695055 /* 启动图.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "启动图.jpg"; sourceTree = "<group>"; };
+		84A8E206277906A700695055 /* BUserChipssView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUserChipssView.h; sourceTree = "<group>"; };
+		84A8E207277906A700695055 /* BUserChipssView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUserChipssView.m; sourceTree = "<group>"; };
+		84A8E20927790BC900695055 /* BPockerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPockerView.m; sourceTree = "<group>"; };
+		84A8E20A27790BC900695055 /* BPockerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPockerView.h; sourceTree = "<group>"; };
 		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
 		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
 		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
@@ -984,6 +990,8 @@
 				848EE795276E64270016CD8A /* BGameRecordsCell.m */,
 				848EE789276CA9B40016CD8A /* BShowPokerView.h */,
 				848EE78A276CA9B40016CD8A /* BShowPokerView.m */,
+				84A8E20A27790BC900695055 /* BPockerView.h */,
+				84A8E20927790BC900695055 /* BPockerView.m */,
 				848EE79D276E8B780016CD8A /* ChipsCollectionViewCell.h */,
 				848EE79E276E8B780016CD8A /* ChipsCollectionViewCell.m */,
 				848EE797276E7AFA0016CD8A /* ChipsView.h */,
@@ -992,6 +1000,8 @@
 				848EE79B276E7B610016CD8A /* BaccaratBetView.m */,
 				84A8DD752777BC8C00695055 /* BBBetMaxMinView.h */,
 				84A8DD762777BC8C00695055 /* BBBetMaxMinView.m */,
+				84A8E206277906A700695055 /* BUserChipssView.h */,
+				84A8E207277906A700695055 /* BUserChipssView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2429,6 +2439,7 @@
 				84B85DE827626B7E009AC598 /* BetRecord.m in Sources */,
 				84B85E5127640736009AC598 /* ProbAI.m in Sources */,
 				84A8D9CE2772579A00695055 /* CustomIOSAlertView.m in Sources */,
+				84A8E20B27790BC900695055 /* BPockerView.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
 				84A8DEFB2777FC8C00695055 /* CFVIntergalView.m in Sources */,
 				84BDC7822761840A0045354D /* PokerCardModel.m in Sources */,
@@ -2536,6 +2547,7 @@
 				84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */,
 				84B85E942766FB14009AC598 /* AppViewController.m in Sources */,
 				84B85E972766FD21009AC598 /* LoginViewController.m in Sources */,
+				84A8E208277906A700695055 /* BUserChipssView.m in Sources */,
 				84B85E7F2766F5F2009AC598 /* MXVNavigationBarView.m in Sources */,
 				84B85DFF276291DD009AC598 /* PokerComparator.m in Sources */,
 				659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */,
