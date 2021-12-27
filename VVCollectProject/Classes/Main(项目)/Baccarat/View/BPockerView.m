@@ -24,6 +24,7 @@
         self.imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 //        _imgview1.backgroundColor = [UIColor redColor];
         _imgview1.image = [UIImage imageNamed:@"chess_poker_0_5.png"];
+        _imgview1.tag = 0;
         [self addSubview:_imgview1];
         
 //        self.imgview1.layer.cornerRadius = 10;
@@ -34,6 +35,7 @@
         // 牌的正面
         self.imgview2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 //        _imgview2.backgroundColor = [UIColor redColor];
+        _imgview2.tag = 1;
         _imgview2.image = [UIImage imageNamed:imageName];
         
         

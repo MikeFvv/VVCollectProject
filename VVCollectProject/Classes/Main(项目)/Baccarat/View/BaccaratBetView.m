@@ -83,12 +83,12 @@
             self.betModel.bankerPair_money = self.betModel.bankerPair_money + self.selectedModel.money;
         }
     } else if (sender.tag == 3005) { // 闲
-        if (self.betModel.player_money + self.selectedModel.money <= kMaxBetChipsNum) {
+        if (self.betModel.player_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.player_money + self.selectedModel.money >= kMinBetChipsNum) {
             self.playerLabel.text = [NSString stringWithFormat:@"%ld",[self.playerLabel.text integerValue] + self.selectedModel.money];
             self.betModel.player_money = self.betModel.player_money + self.selectedModel.money;
         }
     } else if (sender.tag == 3006) { // 庄
-        if (self.betModel.banker_money + self.selectedModel.money <= kMaxBetChipsNum) {
+        if (self.betModel.banker_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.banker_money + self.selectedModel.money >= kMinBetChipsNum) {
             self.bankerLabel.text = [NSString stringWithFormat:@"%ld",[self.bankerLabel.text integerValue] + self.selectedModel.money];
             self.betModel.banker_money = self.betModel.banker_money + self.selectedModel.money;
         }

@@ -44,6 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger betMoney;
 
 
+/// 一局牌的总张数
+@property (nonatomic, assign) NSInteger pokerTotalNum;
+
 /// 计算庄闲结果
 /// @param playerArray 玩家牌
 /// @param bankerArray 庄家牌

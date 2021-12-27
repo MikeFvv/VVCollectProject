@@ -42,7 +42,7 @@
     }];
     
     UIImageView *imgView = [[UIImageView alloc] init];
-    imgView.image = [UIImage imageNamed:@"test-11"];
+    imgView.image = [UIImage imageNamed:@"com_ph_avatar_2"];
     [self addSubview:imgView];
     _imgView = imgView;
     

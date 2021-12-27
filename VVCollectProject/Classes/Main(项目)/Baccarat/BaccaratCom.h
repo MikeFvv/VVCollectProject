@@ -46,5 +46,7 @@ static const int kTrendViewHeight = 120;
 
 /// 最大下注筹码
 static const int kMaxBetChipsNum = 2000000;
+/// 最小下注筹码
+static const int kMinBetChipsNum = 1000;
 
 #endif /* BaccaratCom_h */

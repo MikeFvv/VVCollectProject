@@ -60,6 +60,9 @@
         NSLog(@"🔴未知🔴");
     }
     
+    
+    self.pokerTotalNum = playerArray.count + bankerArray.count;
+    
 }
 
 @end

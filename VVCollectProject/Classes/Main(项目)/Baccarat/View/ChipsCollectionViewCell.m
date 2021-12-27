@@ -31,7 +31,7 @@
     _model = model;
     
     self.backImageView.image = [UIImage imageNamed:model.normal_chipsImg];
-    self.nameLabel.text = model.moneyStr;
+//    self.nameLabel.text = model.moneyStr;
 }
 -(void)setSelected:(BOOL)selected {
     [super setSelected:selected];
@@ -55,6 +55,7 @@
     
     UIImageView *backImageView = [[UIImageView alloc] init];
     backImageView.image = [UIImage imageNamed:@"imageName"];
+    backImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:backImageView];
     _backImageView = backImageView;
     
