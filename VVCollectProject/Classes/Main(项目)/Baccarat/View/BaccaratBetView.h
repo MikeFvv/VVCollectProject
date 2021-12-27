@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-/// 下注视图
+/// 下注庄闲视图
 @interface BaccaratBetView : UIView
 @property (nonatomic, strong) ChipsModel *selectedModel;
 

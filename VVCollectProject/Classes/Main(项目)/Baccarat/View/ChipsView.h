@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ChipsView : UIView
 @property (nonatomic, strong) NSMutableArray<ChipsModel *> *dataArray;
 @property (nonatomic, weak) id<ChipsViewDelegate> delegate;
+
+- (void)showView:(UIView *)view;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,10 +13,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol BShowPokerViewDelegate <NSObject>
+@optional
+/// 确定下注
+- (void)sureBetBtnClick;
+
+@end
+
 /// 展示牌型视图   扑克牌视图
 @interface BShowPokerView : UIView
 ///
 @property (nonatomic, strong) BaccaratResultModel *resultModel;
+@property (nonatomic, weak) id<BShowPokerViewDelegate> delegate;
 
 -(void)stopTimer;
 /// 移除视图

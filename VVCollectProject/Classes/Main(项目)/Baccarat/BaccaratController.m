@@ -26,6 +26,7 @@
 #import "ChipsView.h"
 #import "BBBetMaxMinView.h"
 #import "BGameStatisticsModel.h"
+#import "BUserChipssView.h"
 
 
 #define kBtnHeight 35
@@ -42,7 +43,7 @@
 #define kAddWidth 60
 
 
-@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate>
+@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate>
 
 @property (nonatomic, strong) UIView *contentView;
 //
@@ -67,6 +68,9 @@
 @property (nonatomic, strong) ChipsView *chipsView;
 /// 下注视图
 @property (nonatomic, strong) BaccaratBetView *bBetView;
+/// 用户筹码视图
+@property (nonatomic, strong) BUserChipssView *userChipssView;
+
 /// 分析路图
 @property (nonatomic, strong) BAnalyzeRoadMapView *analyzeRoadMapView;
 /// 显示牌型视图
@@ -192,6 +196,7 @@
 
 /// 确定下注
 - (void)sureBetBtnClick {
+    self.chipsView.hidden = YES;
     [self onStartOneButton];
 }
 /// 取消注码
@@ -260,15 +265,21 @@
     }];
     
     // 展示牌型视图
-    BShowPokerView *showPokerView = [[BShowPokerView alloc] initWithFrame:CGRectMake(30, 10, 360, 150)];
+    BShowPokerView *showPokerView = [[BShowPokerView alloc] initWithFrame:CGRectMake(70, 10, 360, 150)];
+    showPokerView.delegate = self;
     [leftBgView addSubview:showPokerView];
     _showPokerView = showPokerView;
     
     
-    //下注视图
-    BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(10, 90, halfWidth-60-20*2, 160)];
+    // 下注庄闲视图
+    BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(100, 120, halfWidth-60-20*2, 50*2+10+30)];
     [leftBgView addSubview:betView];
     _bBetView = betView;
+    
+    // 用户筹码视图
+    BUserChipssView *userChipssView = [[BUserChipssView alloc] initWithFrame:CGRectMake(35, 180, 60, 80)];
+    [leftBgView addSubview:userChipssView];
+    _userChipssView = userChipssView;
     
     
     //筹码视图
@@ -276,10 +287,6 @@
     chipsView.delegate = self;
     [self.view addSubview:chipsView];
     _chipsView = chipsView;
-    
-    
-    
-    
     
     // 珠盘路(庄闲路)
     BZhuPanLuCollectionView *trendView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
@@ -690,6 +697,8 @@
     
     [self.resultDataArray addObject:bResultModel];
     
+    
+    self.chipsView.hidden = NO;
 }
 
 

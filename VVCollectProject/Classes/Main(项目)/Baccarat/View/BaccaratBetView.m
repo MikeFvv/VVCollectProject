@@ -114,6 +114,10 @@
         make.height.mas_equalTo(30);
     }];
     
+   
+    CGFloat widhtBtn = self.frame.size.width/4;
+    CGFloat btnHeight = 50;
+    NSInteger fontSize = 20;
     
     UIView *backView = [[UIView alloc] init];
     backView.backgroundColor = [UIColor greenColor];
@@ -124,13 +128,9 @@
     [self addSubview:backView];
     
     [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ttLabel.mas_bottom).offset(0);
+        make.height.mas_equalTo(btnHeight*2+10);
         make.left.bottom.right.equalTo(self);
     }];
-    
-    
-    CGFloat widhtBtn = self.frame.size.width/4;
-    NSInteger fontSize = 20;
     
     
     UIButton *playerPairBtn = [[UIButton alloc] init];
@@ -150,7 +150,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.left.equalTo(backView.mas_left).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(btnHeight);
     }];
     
     
@@ -172,7 +172,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.left.equalTo(playerPairBtn.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(btnHeight);
     }];
     
     UIButton *superSixBtn = [[UIButton alloc] init];
@@ -194,7 +194,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.left.equalTo(tieBtn.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(btnHeight);
     }];
     
     UIButton *bankerPairBtn = [[UIButton alloc] init];
@@ -214,7 +214,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.right.equalTo(backView.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(btnHeight);
     }];
     
     
@@ -236,7 +236,7 @@
         make.top.equalTo(playerPairBtn.mas_bottom).offset(0);
         make.left.equalTo(backView.mas_left).offset(0);
         make.width.mas_equalTo(widhtBtn*2);
-        make.height.mas_equalTo(60);
+        make.height.mas_equalTo(btnHeight+10);
     }];
     
     
@@ -257,7 +257,7 @@
         make.top.equalTo(playerPairBtn.mas_bottom).offset(0);
         make.right.equalTo(backView.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn*2);
-        make.height.mas_equalTo(60);
+        make.height.mas_equalTo(btnHeight+10);
     }];
     
     
