@@ -203,6 +203,12 @@
 - (void)cancelBetChipsBtnClick {
     [self.bBetView cancelBetChips];
 }
+/// 翻牌结束
+- (void)endFlop {
+    self.chipsView.hidden = NO;
+    [self.bBetView cancelBetChips];
+}
+
 
 #pragma mark -  BBigRoadMapViewDelegate 下三路数据
 - (void)getXSLDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray dylDataArray:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray {
@@ -283,7 +289,7 @@
     
     
     //筹码视图
-    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2, 50)];
+    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2-60, 50)];
     chipsView.delegate = self;
     [self.view addSubview:chipsView];
     _chipsView = chipsView;
@@ -356,8 +362,6 @@
     [self.contentView addSubview:xqlXiaSanLuView];
     _xqlXiaSanLuView = xqlXiaSanLuView;
     
-    
-   
 }
 
 
@@ -398,8 +402,6 @@
     startButton.layer.cornerRadius = 5;
     [startButton addTarget:self action:@selector(onStartAllButton:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:startButton];
-    
-    
     
     
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10, kMarginHeight, 50, kBtnHeight)];
@@ -697,8 +699,6 @@
     
     [self.resultDataArray addObject:bResultModel];
     
-    
-    self.chipsView.hidden = NO;
 }
 
 

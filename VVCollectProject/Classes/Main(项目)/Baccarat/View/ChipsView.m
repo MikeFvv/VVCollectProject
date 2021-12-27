@@ -64,7 +64,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 
 - (void)createUI {
     
-    self.backgroundColor = [UIColor redColor];
+//    self.backgroundColor = [UIColor redColor];
     
     // 。还有越过本局
     
@@ -122,17 +122,18 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 - (NSArray *)dataArray {
     if (!_dataArray) {
         
-        //        @{@"money": @(100), @"moneyStr": @"100", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-        //        @{@"money": @(500), @"moneyStr": @"500", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-        
+                
+//        @{@"money": @(50000), @"moneyStr": @"5万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+//        @{@"money": @(100000), @"moneyStr": @"10万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+//        @{@"money": @(500000), @"moneyStr": @"50万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+//        @{@"money": @(1000000), @"moneyStr": @"100万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
         NSArray *tempArray = @[
-            @{@"money": @(1000), @"moneyStr": @"1000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-            @{@"money": @(5000), @"moneyStr": @"5000", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-            @{@"money": @(10000), @"moneyStr": @"1万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-            @{@"money": @(50000), @"moneyStr": @"5万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-            @{@"money": @(100000), @"moneyStr": @"10万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-            @{@"money": @(500000), @"moneyStr": @"50万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
-            @{@"money": @(1000000), @"moneyStr": @"100万", @"normal_chipsImg": @"game_bet_normal", @"selected_chipsImg": @"game_bet_selected"},
+            @{@"money": @(100), @"moneyStr": @"100", @"normal_chipsImg": @"chip_100", @"selected_chipsImg": @"chip_100"},
+            @{@"money": @(500), @"moneyStr": @"500", @"normal_chipsImg": @"chip_500", @"selected_chipsImg": @"chip_500"},
+            @{@"money": @(1000), @"moneyStr": @"1000", @"normal_chipsImg": @"chip_1000", @"selected_chipsImg": @"chip_1000"},
+            @{@"money": @(5000), @"moneyStr": @"5000", @"normal_chipsImg": @"chip_5000", @"selected_chipsImg": @"chip_5000"},
+            @{@"money": @(10000), @"moneyStr": @"1万", @"normal_chipsImg": @"chip_10000", @"selected_chipsImg": @"chip_10000"},
+            
         ];
         
         _dataArray = [ChipsModel mj_objectArrayWithKeyValuesArray:tempArray];
@@ -172,25 +173,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     
     //每个分区的四边间距UIEdgeInsetsMake
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    //
-    // 设置Item的估计大小,用于动态设置item的大小，结合自动布局（self-sizing-cell）
-    //layout.estimatedItemSize = CGSizeMake(<#CGFloat width#>, <#CGFloat height#>);
     
     // 设置布局方向(滚动方向)
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
-    // 设置头视图尺寸大小
-    //layout.headerReferenceSize = CGSizeMake(<#CGFloat width#>, <#CGFloat height#>);
-    
-    // 设置尾视图尺寸大小
-    //layout.footerReferenceSize = CGSizeMake(<#CGFloat width#>, <#CGFloat height#>);
-    //
-    // 设置分区(组)的EdgeInset（四边距）
-    //layout.sectionInset = UIEdgeInsetsMake(<#CGFloat top#>, <#CGFloat left#>, <#CGFloat bottom#>, <#CGFloat right#>);
-    //
-    // 设置分区的头视图和尾视图是否始终固定在屏幕上边和下边
-    //        layout.sectionFootersPinToVisibleBounds = YES;
-    //        layout.sectionHeadersPinToVisibleBounds = YES;
     
     /**
      初始化mainCollectionView
