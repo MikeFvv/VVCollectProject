@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 最后一次下注筹码  需要确定 对子 这些
 @property (nonatomic, assign) NSInteger last_money;
 
+/// 总下注金额
+@property (nonatomic, assign) NSInteger total_ben_money;
+
 @end
 
 NS_ASSUME_NONNULL_END

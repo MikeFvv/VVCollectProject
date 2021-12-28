@@ -56,6 +56,11 @@
     return self;
 }
 
+- (void)setGameStatisticsModel:(BGameStatisticsModel *)gameStatisticsModel {
+    _gameStatisticsModel = gameStatisticsModel;
+    [self.leftTableView reloadData];
+}
+
 - (void)setWenLuDataArray:(NSArray *)wenLuDataArray {
     _wenLuDataArray = wenLuDataArray;
     if (!wenLuDataArray || wenLuDataArray.count == 0) {

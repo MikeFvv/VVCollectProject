@@ -27,6 +27,8 @@
 #import "BBBetMaxMinView.h"
 #import "BGameStatisticsModel.h"
 #import "BUserChipssView.h"
+#import "BBetModel.h"
+#import "BUserData.h"
 
 
 #define kBtnHeight 35
@@ -43,7 +45,7 @@
 #define kAddWidth 60
 
 
-@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate>
+@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate>
 
 @property (nonatomic, strong) UIView *contentView;
 //
@@ -55,7 +57,7 @@
 
 
 /// 珠盘路
-@property (nonatomic, strong) BZhuPanLuCollectionView *trendView;
+@property (nonatomic, strong) BZhuPanLuCollectionView *zhuPanLuCollectionView;
 /// 大路
 @property (nonatomic, strong) BBigRoadMapView *bigRoadMapView;
 /// 大眼路
@@ -77,14 +79,17 @@
 @property (nonatomic, strong) BShowPokerView *showPokerView;
 
 
-
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *resultDataArray;
-
 @property (strong, nonatomic) CardDataSourceModel *baccaratDataModel;
+/// 选中的筹码
+@property (nonatomic, strong) ChipsModel *selectedModel;
+/// 下注金额
+@property (nonatomic, strong) BBetModel *betModel;
+
+
 /// 返回按钮
 @property(nonatomic,strong) WMDragView *backDragView;
-
 
 /// *** 测试时使用 ***
 @property (nonatomic, assign) NSInteger testIndex;
@@ -94,6 +99,8 @@
 
 
 @property(nonatomic,strong) BGameStatisticsModel *gameStatisticsModel;
+@property(nonatomic,strong) BUserData *bUserData;
+
 
 @end
 
@@ -145,15 +152,29 @@
                        @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
                        @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",
                        @"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"
-                       ];
+        ];
     }
+    
+    BUserData *bUserData = [[BUserData alloc] init];
+    _bUserData = bUserData;
+    bUserData.betTotalMoney = 30000;
+    bUserData.beforeBetTotalMoney = 30000;
+    
+    bUserData.perTableMaxTotalMoney = 30000;
+    bUserData.perTableMinTotalMoney = 30000;
+    
+    
+    
+    BBetModel *betModel = [[BBetModel alloc] init];
+    _betModel = betModel;
+    
     
     BGameStatisticsModel *gameStatisticsModel = [[BGameStatisticsModel alloc] init];
     gameStatisticsModel.pokerTotalNum = self.dataArray.count;
     _gameStatisticsModel = gameStatisticsModel;
     
     self.resultDataArray = [NSMutableArray array];
-
+    
 }
 
 - (NSMutableArray*)dataArray
@@ -191,6 +212,7 @@
 #pragma mark - ChipsViewDelegate 筹码选中
 - (void)chipsSelectedModel:(ChipsModel *)selectedModel {
     self.bBetView.selectedModel = selectedModel;
+    self.selectedModel = selectedModel;
     NSLog(@"111");
 }
 
@@ -202,12 +224,166 @@
 /// 取消注码
 - (void)cancelBetChipsBtnClick {
     [self.bBetView cancelBetChips];
+    
+    self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney;
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+    
+    self.betModel = nil;
+    self.betModel = [[BBetModel alloc] init];
 }
+
+#pragma mark -  翻牌结束
 /// 翻牌结束
 - (void)endFlop {
     self.chipsView.hidden = NO;
     [self.bBetView cancelBetChips];
+    [self calculationResults];
+    
+    self.betModel = nil;
+    self.betModel = [[BBetModel alloc] init];
+    
+    self.zhuPanLuCollectionView.model = self.resultDataArray;
+    self.bigRoadMapView.model = self.resultDataArray;
 }
+
+#pragma mark BaccaratBetViewDelegate
+/// 每次下注回调
+- (void)everyBetClick:(UIButton *)sender {
+    
+    if (sender.tag == 3001) { // 闲对
+        if (self.betModel.playerPair_money + self.selectedModel.money <= kMaxBetChipsNum) {
+            
+            self.betModel.playerPair_money = self.betModel.playerPair_money + self.selectedModel.money;
+        }
+    } else if (sender.tag == 3002) { // 和
+        if (self.betModel.tie_money + self.selectedModel.money <= kMaxBetChipsNum) {
+            self.betModel.tie_money = self.betModel.tie_money + self.selectedModel.money;
+        }
+    } else if (sender.tag == 3003) { // 超级6
+        if (self.betModel.superSix_money + self.selectedModel.money <= kMaxBetChipsNum) {
+            
+            self.betModel.superSix_money = self.betModel.superSix_money + self.selectedModel.money;
+        }
+    } else if (sender.tag == 3004) { // 庄对
+        if (self.betModel.bankerPair_money + self.selectedModel.money <= kMaxBetChipsNum) {
+            
+            self.betModel.bankerPair_money = self.betModel.bankerPair_money + self.selectedModel.money;
+        }
+    } else if (sender.tag == 3005) { // 闲
+        if (self.betModel.player_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.player_money + self.selectedModel.money >= kMinBetChipsNum) {
+            
+            self.betModel.player_money = self.betModel.player_money + self.selectedModel.money;
+        }
+    } else if (sender.tag == 3006) { // 庄
+        if (self.betModel.banker_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.banker_money + self.selectedModel.money >= kMinBetChipsNum) {
+            self.betModel.banker_money = self.betModel.banker_money + self.selectedModel.money;
+        }
+    }
+    
+    self.bBetView.betModel = self.betModel;
+    self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney - self.betModel.total_ben_money;
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+}
+
+/// 计算结果
+- (void)calculationResults {
+    
+    BaccaratResultModel *resultModel = self.resultDataArray.lastObject;
+    
+    self.gameStatisticsModel.pokerCount = self.resultDataArray.count;
+    self.gameStatisticsModel.gameNum = self.resultDataArray.count;
+    
+    if (resultModel.winType == WinType_Player) {
+        self.gameStatisticsModel.playerNum = self.gameStatisticsModel.playerNum +1;
+    } else if (resultModel.winType == WinType_Banker) {
+        self.gameStatisticsModel.bankerNum = self.gameStatisticsModel.bankerNum +1;
+    } else {
+        self.gameStatisticsModel.tieNum = self.gameStatisticsModel.tieNum +1;
+    }
+    
+    
+    if (resultModel.isPlayerPair) {
+        self.gameStatisticsModel.playerPairNum = self.gameStatisticsModel.playerPairNum +1;
+    }
+    if (resultModel.isBankerPair) {
+        self.gameStatisticsModel.bankerPairNum = self.gameStatisticsModel.bankerPairNum +1;
+    }
+    if (resultModel.isSuperSix) {
+        self.gameStatisticsModel.superNum = self.gameStatisticsModel.superNum +1;
+    }
+    
+    self.analyzeRoadMapView.gameStatisticsModel = self.gameStatisticsModel;
+    
+    
+    [self calculateWinAndLoseChips:resultModel];
+    
+}
+
+/// 计算输赢筹码
+/// @param resultModel 模型
+- (void)calculateWinAndLoseChips:(BaccaratResultModel *)resultModel {
+    // 上次下注记录
+    self.gameStatisticsModel.lastBetModel = self.betModel;
+    
+    if (resultModel.winType == WinType_Player) {
+        self.betModel.player_money = self.betModel.player_money *2;
+        self.betModel.banker_money = 0;
+        self.betModel.tie_money = 0;
+    } else if (resultModel.winType == WinType_Banker) {
+        self.betModel.player_money = 0;
+        if (resultModel.isSuperSix) {
+            self.betModel.banker_money = self.betModel.banker_money *1.5;
+        } else {
+            self.betModel.banker_money = self.betModel.banker_money *2;
+        }
+        self.betModel.tie_money = 0;
+    } else {
+        self.betModel.tie_money = self.betModel.tie_money *9;
+    }
+    
+    
+    if (resultModel.isPlayerPair) {
+        self.betModel.playerPair_money = self.betModel.playerPair_money *12;
+    } else {
+        self.betModel.playerPair_money = 0;
+    }
+    
+    if (resultModel.isBankerPair) {
+        self.betModel.bankerPair_money = self.betModel.bankerPair_money *12;
+    } else {
+        self.betModel.bankerPair_money = 0;
+    }
+    
+    if (resultModel.isSuperSix) {
+        self.betModel.superSix_money = self.betModel.superSix_money *13;
+    } else {
+        self.betModel.superSix_money = 0;
+    }
+    
+    
+    
+    
+    // 总金额
+    self.bUserData.betTotalMoney = self.bUserData.betTotalMoney + self.betModel.total_ben_money;
+    // 输赢金额
+    self.gameStatisticsModel.lastLoseWinMoney = self.bUserData.betTotalMoney - self.bUserData.beforeBetTotalMoney;
+    
+    self.bUserData.beforeBetTotalMoney = self.bUserData.betTotalMoney;
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+    
+    
+    
+    // 最低
+    if (self.bUserData.betTotalMoney < self.bUserData.perTableMinTotalMoney) {
+        self.bUserData.perTableMinTotalMoney = self.bUserData.betTotalMoney;
+    }
+    // 最高
+    if (self.bUserData.betTotalMoney > self.bUserData.perTableMaxTotalMoney) {
+        self.bUserData.perTableMaxTotalMoney = self.bUserData.betTotalMoney;
+    }
+}
+
+
 
 
 #pragma mark -  BBigRoadMapViewDelegate 下三路数据
@@ -239,7 +415,7 @@
     
     // ********* 左边 *********
     [self createLeftView];
-
+    
     // 底部按钮功能
     [self setBottomView];
     // 右边路子图
@@ -249,7 +425,7 @@
 
 - (void)createLeftView {
     
-//    CGFloat navst = mxwStatusHeight();
+    //    CGFloat navst = mxwStatusHeight();
     
     CGFloat leftW =  IS_NOTCHED_SCREEN ? getNotchScreenHeight-16 : 0;
     
@@ -279,6 +455,7 @@
     
     // 下注庄闲视图
     BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(100, 120, halfWidth-60-20*2, 50*2+10+30)];
+    betView.delegate = self;
     [leftBgView addSubview:betView];
     _bBetView = betView;
     
@@ -287,6 +464,7 @@
     [leftBgView addSubview:userChipssView];
     _userChipssView = userChipssView;
     
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
     
     //筹码视图
     ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2-60, 50)];
@@ -294,14 +472,16 @@
     [self.view addSubview:chipsView];
     _chipsView = chipsView;
     
+    
+    
     // 珠盘路(庄闲路)
-    BZhuPanLuCollectionView *trendView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
-    trendView.roadType = 0;
-    //    trendView.backgroundColor = [UIColor redColor];
-    trendView.layer.borderWidth = 1;
-    trendView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:trendView];
-    _trendView = trendView;
+    BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
+    zhuPanLuCollectionView.roadType = 0;
+    //    zhuPanLuCollectionView.backgroundColor = [UIColor redColor];
+    zhuPanLuCollectionView.layer.borderWidth = 1;
+    zhuPanLuCollectionView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:zhuPanLuCollectionView];
+    _zhuPanLuCollectionView = zhuPanLuCollectionView;
     
     
     // 分析问路图
@@ -328,7 +508,6 @@
     // 大路
     CGFloat daluHeight = (kDLItemSizeWidth+1)*6+1;
     BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+1*1, halfWidth - kAddWidth-10, daluHeight)];
-    //    trendView.backgroundColor = [UIColor redColor];
     bigRoadMapView.layer.borderWidth = 1;
     bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     bigRoadMapView.delegate = self;
@@ -336,27 +515,24 @@
     _bigRoadMapView = bigRoadMapView;
     
     // *** 下三路 ***
-   CGFloat xiasanluHeight = (kItemSizeWidth+1)*6+1;
+    CGFloat xiasanluHeight = (kItemSizeWidth+1)*6+1;
     BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+1*2, halfWidth - kAddWidth-10, xiasanluHeight)];
     dylXiaSanLuView.roadMapType = RoadMapType_DYL;
-    //    trendView.backgroundColor = [UIColor redColor];
     dylXiaSanLuView.layer.borderWidth = 1;
     dylXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.contentView addSubview:dylXiaSanLuView];
     _dylXiaSanLuView = dylXiaSanLuView;
-
+    
     
     BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*1+1*3, halfWidth - kAddWidth-10, xiasanluHeight)];
     xlXiaSanLuView.roadMapType = RoadMapType_XL;
-    //    trendView.backgroundColor = [UIColor redColor];
     xlXiaSanLuView.layer.borderWidth = 1;
     xlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.contentView addSubview:xlXiaSanLuView];
     _xlXiaSanLuView = xlXiaSanLuView;
-
+    
     BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*2+1*4, halfWidth - kAddWidth-10, xiasanluHeight)];
     xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
-    //    trendView.backgroundColor = [UIColor redColor];
     xqlXiaSanLuView.layer.borderWidth = 1;
     xqlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.contentView addSubview:xqlXiaSanLuView];
@@ -439,9 +615,9 @@
 - (void)onClearButton {
     
     [self initData];
-    self.trendView.model = self.resultDataArray;
+    self.zhuPanLuCollectionView.model = self.resultDataArray;
     self.bigRoadMapView.model = self.resultDataArray;
-
+    
 }
 
 #pragma mark -  开始一局
@@ -458,10 +634,6 @@
     self.gameStatisticsModel.pokerCount++;
     self.testIndex++;
     [self oncePoker];
-    //    [self daluCalculationMethod];
-    
-    self.trendView.model = self.resultDataArray;
-    self.bigRoadMapView.model = self.resultDataArray;
 }
 
 #pragma mark -  全盘
@@ -474,7 +646,7 @@
     float start = CACurrentMediaTime();
     
     [self opening];
-    self.trendView.model = self.resultDataArray;
+    self.zhuPanLuCollectionView.model = self.resultDataArray;
     self.bigRoadMapView.model = self.resultDataArray;
     
     
@@ -502,7 +674,7 @@
     return nil;
 }
 
-  
+
 #pragma mark -  开始
 - (void)opening {
     [self initData];
@@ -557,46 +729,46 @@
         self.gameStatisticsModel.pokerTotalNum--;
         
         
-//                if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
-//                    numStr = @"7";
-//                }
-//
-//                 numStr = @"7";
-//
-//                if (i == 5) {
-//
-//                    if (self.testIndex < 5) {
-//                        numStr = @"10";
-//                    } else if (self.testIndex > 10) {
-//
-//                        if (self.testIndex > 18) {
-//                            if (self.testIndex > 27) {
-//                                if (self.testIndex > 36) {
-//                                    if (self.testIndex > 45) {
-//                                        if (self.testIndex > 54) {
-//                                            numStr = @"1";
-//                                        } else {
-//                                            numStr = @"8";
-//                                        }
-//                                    } else {
-//                                        numStr = @"1";
-//                                    }
-//                                } else {
-//                                    numStr = @"8";
-//                                }
-//                            } else {
-//                                numStr = @"1";
-//                            }
-//                        } else {
-//                            numStr = @"8";
-//                        }
-//
-//                    } else {
-//                        numStr = @"1";
-//                    }
-//                }
-//
-//        cardModel.bCardValue = [numStr integerValue];
+        //                if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
+        //                    numStr = @"7";
+        //                }
+        //
+        //                 numStr = @"7";
+        //
+        //                if (i == 5) {
+        //
+        //                    if (self.testIndex < 5) {
+        //                        numStr = @"10";
+        //                    } else if (self.testIndex > 10) {
+        //
+        //                        if (self.testIndex > 18) {
+        //                            if (self.testIndex > 27) {
+        //                                if (self.testIndex > 36) {
+        //                                    if (self.testIndex > 45) {
+        //                                        if (self.testIndex > 54) {
+        //                                            numStr = @"1";
+        //                                        } else {
+        //                                            numStr = @"8";
+        //                                        }
+        //                                    } else {
+        //                                        numStr = @"1";
+        //                                    }
+        //                                } else {
+        //                                    numStr = @"8";
+        //                                }
+        //                            } else {
+        //                                numStr = @"1";
+        //                            }
+        //                        } else {
+        //                            numStr = @"8";
+        //                        }
+        //
+        //                    } else {
+        //                        numStr = @"1";
+        //                    }
+        //                }
+        //
+        //        cardModel.bCardValue = [numStr integerValue];
         
         
         if (i == 1) {
@@ -687,7 +859,6 @@
     } else if (bResultModel.winType == WinType_Banker) {
         if (bResultModel.isSuperSix) {
             win = @"🔴🔸";
-           
         } else {
             win = @"🔴";
         }

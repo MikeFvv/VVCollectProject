@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaccaratResultModel.h"
+#import "BBetModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -38,10 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-/// 上次下注金额
-@property (nonatomic, assign) NSInteger lastBetMoney;
+/// 上次下注记录
+@property (nonatomic, strong) BBetModel *lastBetModel;
 /// 上次输赢金额  有负数
-@property (nonatomic, assign) NSInteger lastLostWinMoney;
+@property (nonatomic, assign) NSInteger lastLoseWinMoney;
 
 ///上次牌局
 @property (nonatomic, strong) BaccaratResultModel *lastResultModel;
