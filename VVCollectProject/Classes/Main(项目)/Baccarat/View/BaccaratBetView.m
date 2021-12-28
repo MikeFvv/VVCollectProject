@@ -26,7 +26,7 @@
 ///
 @property (nonatomic, strong) UILabel *bankerLabel;
 
-@property (nonatomic, strong) BBetModel *betModel;
+
 @end
 
 @implementation BaccaratBetView
@@ -55,48 +55,55 @@
     self.bankerPairLabel.text = @"";
     self.playerLabel.text = @"";
     self.bankerLabel.text = @"";
-    
-    self.betModel = nil;
 }
-
 
 - (void)betClickBtn:(UIButton *)sender {
     
-    if (sender.tag == 3001) { // 闲对
-        if (self.betModel.playerPair_money + self.selectedModel.money <= kMaxBetChipsNum) {
-            self.playerPairLabel.text = [NSString stringWithFormat:@"%ld",[self.playerPairLabel.text integerValue] + self.selectedModel.money];
-            self.betModel.playerPair_money = self.betModel.playerPair_money + self.selectedModel.money;
-        }
-    } else if (sender.tag == 3002) { // 和
-        if (self.betModel.tie_money + self.selectedModel.money <= kMaxBetChipsNum) {
-            self.tieLabel.text = [NSString stringWithFormat:@"%ld",[self.tieLabel.text integerValue] + self.selectedModel.money];
-            self.betModel.tie_money = self.betModel.tie_money + self.selectedModel.money;
-        }
-    } else if (sender.tag == 3003) { // 超级6
-        if (self.betModel.superSix_money + self.selectedModel.money <= kMaxBetChipsNum) {
-            self.superSixLabel.text = [NSString stringWithFormat:@"%ld",[self.superSixLabel.text integerValue] + self.selectedModel.money];
-            self.betModel.superSix_money = self.betModel.superSix_money + self.selectedModel.money;
-        }
-    } else if (sender.tag == 3004) { // 庄对
-        if (self.betModel.bankerPair_money + self.selectedModel.money <= kMaxBetChipsNum) {
-            self.bankerPairLabel.text = [NSString stringWithFormat:@"%ld",[self.bankerPairLabel.text integerValue] + self.selectedModel.money];
-            self.betModel.bankerPair_money = self.betModel.bankerPair_money + self.selectedModel.money;
-        }
-    } else if (sender.tag == 3005) { // 闲
-        if (self.betModel.player_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.player_money + self.selectedModel.money >= kMinBetChipsNum) {
-            self.playerLabel.text = [NSString stringWithFormat:@"%ld",[self.playerLabel.text integerValue] + self.selectedModel.money];
-            self.betModel.player_money = self.betModel.player_money + self.selectedModel.money;
-        }
-    } else if (sender.tag == 3006) { // 庄
-        if (self.betModel.banker_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.banker_money + self.selectedModel.money >= kMinBetChipsNum) {
-            self.bankerLabel.text = [NSString stringWithFormat:@"%ld",[self.bankerLabel.text integerValue] + self.selectedModel.money];
-            self.betModel.banker_money = self.betModel.banker_money + self.selectedModel.money;
-        }
+    if ([self.delegate respondsToSelector:@selector(everyBetClick:)]) {
+        [self.delegate everyBetClick:sender];
     }
     
     NSLog(@"11");
 }
 
+- (void)setBetModel:(BBetModel *)betModel {
+    _betModel = betModel;
+    if (betModel.playerPair_money > 0) {
+        self.playerPairLabel.text = [NSString stringWithFormat:@"%ld", betModel.playerPair_money];
+    } else {
+        self.playerPairLabel.text = @"";
+    }
+    
+    if (betModel.tie_money > 0) {
+        self.tieLabel.text = [NSString stringWithFormat:@"%ld", betModel.tie_money];
+    } else {
+        self.tieLabel.text = @"";
+    }
+    
+    if (betModel.superSix_money > 0) {
+        self.superSixLabel.text = [NSString stringWithFormat:@"%ld", betModel.superSix_money];
+    } else {
+        self.superSixLabel.text = @"";
+    }
+    
+    if (betModel.bankerPair_money > 0) {
+        self.bankerPairLabel.text = [NSString stringWithFormat:@"%ld", betModel.bankerPair_money];
+    } else {
+        self.bankerPairLabel.text = @"";
+    }
+    
+    if (betModel.player_money > 0) {
+        self.playerLabel.text = [NSString stringWithFormat:@"%ld", betModel.player_money];
+    } else {
+        self.playerLabel.text = @"";
+    }
+    
+    if (betModel.banker_money > 0) {
+        self.bankerLabel.text = [NSString stringWithFormat:@"%ld", betModel.banker_money];
+    } else {
+        self.bankerLabel.text = @"";
+    }
+}
 
 
 - (void)createUI {
