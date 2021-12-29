@@ -246,10 +246,13 @@
     self.bigRoadMapView.model = self.resultDataArray;
 }
 
-#pragma mark BaccaratBetViewDelegate
+#pragma mark BaccaratBetViewDelegate 下注
 /// 每次下注回调
 - (void)everyBetClick:(UIButton *)sender {
     
+    if (self.bUserData.betTotalMoney < self.selectedModel.money) {
+        return;
+    }
     if (sender.tag == 3001) { // 闲对
         if (self.betModel.playerPair_money + self.selectedModel.money <= kMaxBetChipsNum) {
             
@@ -283,6 +286,8 @@
     self.bBetView.betModel = self.betModel;
     self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney - self.betModel.total_ben_money;
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+    
+    self.chipsView
 }
 
 /// 计算结果
