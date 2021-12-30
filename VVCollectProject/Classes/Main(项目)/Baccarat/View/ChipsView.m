@@ -46,13 +46,26 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     [self.collectionView reloadData];
 }
 
+- (void)setIsShowSureButton:(BOOL)isShowSureButton {
+    _isShowSureButton = isShowSureButton;
+    if (isShowSureButton) {
+        self.sureButton.hidden = YES;
+    } else {
+        self.sureButton.hidden = NO;
+    }
+}
+
 - (void)setIsShowCancelBtn:(BOOL)isShowCancelBtn {
     _isShowCancelBtn = isShowCancelBtn;
     
     if (isShowCancelBtn) {
-        self.cancelBtn.hidden = NO;
+        self.sureButton.hidden = NO;
+        [self.cancelBtn setTitle:@"取消注码" forState:UIControlStateNormal];
+        self.cancelBtn.tag = 6000;
     } else {
-        self.cancelBtn.hidden = YES;
+//        self.sureButton.hidden = YES;
+        [self.cancelBtn setTitle:@"越过本局" forState:UIControlStateNormal];
+        self.cancelBtn.tag = 6001;
     }
     
 }
@@ -93,8 +106,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
 
 
 - (void)onCancelBtn:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(cancelBetChipsBtnClick)]) {
-        [self.delegate cancelBetChipsBtnClick];
+    if ([self.delegate respondsToSelector:@selector(cancelBetChipsBtnClick:)]) {
+        [self.delegate cancelBetChipsBtnClick:sender];
     }
 }
 
@@ -111,7 +124,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     // 。还有越过本局
     
     UIButton *cancelBtn = [[UIButton alloc] init];
-    [cancelBtn setTitle:@"取消注码" forState:UIControlStateNormal];
+    [cancelBtn setTitle:@"越过本局" forState:UIControlStateNormal];
     cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
     [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
@@ -120,7 +133,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     cancelBtn.layer.borderWidth = 2;
     cancelBtn.layer.borderColor = [UIColor greenColor].CGColor;
     [cancelBtn addTarget:self action:@selector(onCancelBtn:) forControlEvents:UIControlEventTouchUpInside];
-    cancelBtn.hidden = YES;
+    cancelBtn.tag = 6001;
+//    cancelBtn.hidden = YES;
     [self addSubview:cancelBtn];
     _cancelBtn = cancelBtn;
     
@@ -140,8 +154,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
     sureButton.layer.cornerRadius = 5;
     sureButton.layer.borderWidth = 2;
     sureButton.layer.borderColor = [UIColor greenColor].CGColor;
-    sureButton.tag = 5000;
     [sureButton addTarget:self action:@selector(onSureButton:) forControlEvents:UIControlEventTouchUpInside];
+    sureButton.tag = 5000;
+    sureButton.hidden = YES;
     [self addSubview:sureButton];
     _sureButton = sureButton;
     

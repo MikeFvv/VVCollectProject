@@ -43,6 +43,8 @@
 
 - (void)setupUI {
     
+    self.contentView.backgroundColor = [UIColor whiteColor];
+    
     _nameMLabel = [UILabel new];
     _nameMLabel.text = @"B";
     _nameMLabel.layer.cornerRadius = 14/2;
@@ -84,7 +86,7 @@
     
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = [UIColor lightGrayColor];
-    [self addSubview:lineView];
+    [self.contentView addSubview:lineView];
     
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self);
