@@ -210,6 +210,8 @@
 
 
 #pragma mark - ChipsViewDelegate 筹码选中
+/// 选中筹码后
+/// @param selectedModel 选中筹码模型
 - (void)chipsSelectedModel:(ChipsModel *)selectedModel {
     self.bBetView.selectedModel = selectedModel;
     self.selectedModel = selectedModel;
@@ -217,9 +219,26 @@
 }
 
 /// 确定下注
-- (void)sureBetBtnClick {
-    self.chipsView.hidden = YES;
-    [self onStartOneButton];
+- (void)sureBetBtnClick:(UIButton *)sender {
+
+    if (sender.tag == 5000) {
+        self.chipsView.hidden = YES;
+        [self onStartOneButton];
+    } else if (sender.tag == 5001) { // 重复下注
+        self.chipsView.isRepeatBetBtn = NO;
+        self.betModel = self.gameStatisticsModel.lastBetModel;
+        [self benCommonMethod];
+    } else if (sender.tag == 5002) {  // 全押
+        self.chipsView.isAllInBetBtn = NO;
+        /// 判断上次下注庄、闲
+        if (self.gameStatisticsModel.lastBetModel.player_money > self.gameStatisticsModel.lastBetModel.banker_money) {
+            self.betModel.player_money = self.bUserData.betTotalMoney - self.bUserData.betTotalMoney / kMinBetChipsNum;
+        } else {
+            self.betModel.banker_money = self.bUserData.betTotalMoney - self.bUserData.betTotalMoney % kMinBetChipsNum;
+        }
+        [self benCommonMethod];
+    }
+    
 }
 /// 取消注码
 - (void)cancelBetChipsBtnClick {
@@ -230,10 +249,15 @@
     
     self.betModel = nil;
     self.betModel = [[BBetModel alloc] init];
+    self.chipsView.currentBalance = self.bUserData.betTotalMoney;
+    
+    if (self.chipsView.isShowCancelBtn) {
+        self.chipsView.isShowCancelBtn = NO;
+    }
 }
 
 #pragma mark -  翻牌结束
-/// 翻牌结束
+/// 翻牌结束 结束一局
 - (void)endFlop {
     self.chipsView.hidden = NO;
     [self.bBetView cancelBetChips];
@@ -246,13 +270,20 @@
     self.bigRoadMapView.model = self.resultDataArray;
 }
 
-#pragma mark BaccaratBetViewDelegate 下注
+#pragma mark BaccaratBetViewDelegate 选中下注
 /// 每次下注回调
 - (void)everyBetClick:(UIButton *)sender {
     
+    // 正在翻盘中，禁止下注
+    if (self.chipsView.hidden) {
+        return;
+    }
+    
+    // 用户筹码小于选定筹码，禁止下注
     if (self.bUserData.betTotalMoney < self.selectedModel.money) {
         return;
     }
+    
     if (sender.tag == 3001) { // 闲对
         if (self.betModel.playerPair_money + self.selectedModel.money <= kMaxBetChipsNum) {
             
@@ -283,12 +314,28 @@
         }
     }
     
+    [self benCommonMethod];
+}
+
+- (void)benCommonMethod {
     self.bBetView.betModel = self.betModel;
     self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney - self.betModel.total_ben_money;
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
     
-    self.chipsView
+    self.chipsView.currentBalance = self.bUserData.betTotalMoney;
+    
+    if (self.chipsView.isRepeatBetBtn) {
+        self.chipsView.isRepeatBetBtn = NO;
+    }
+    
+    if (self.betModel.total_ben_money > 0) {
+        self.chipsView.isShowCancelBtn = YES;
+    }
 }
+
+
+
+
 
 /// 计算结果
 - (void)calculationResults {
@@ -328,7 +375,7 @@
 /// @param resultModel 模型
 - (void)calculateWinAndLoseChips:(BaccaratResultModel *)resultModel {
     // 上次下注记录
-    self.gameStatisticsModel.lastBetModel = self.betModel;
+    self.gameStatisticsModel.lastBetModel = [self.betModel modelCopy];
     
     if (resultModel.winType == WinType_Player) {
         self.betModel.player_money = self.betModel.player_money *2;
@@ -366,8 +413,6 @@
     }
     
     
-    
-    
     // 总金额
     self.bUserData.betTotalMoney = self.bUserData.betTotalMoney + self.betModel.total_ben_money;
     // 输赢金额
@@ -375,7 +420,18 @@
     
     self.bUserData.beforeBetTotalMoney = self.bUserData.betTotalMoney;
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+    self.chipsView.currentBalance = self.bUserData.betTotalMoney;
     
+    
+    if (self.chipsView.isShowCancelBtn) {
+        self.chipsView.isShowCancelBtn = NO;
+    }
+    /// 当前总金额大于上次 下注金额  显示 重复下注 按钮
+    if (self.bUserData.betTotalMoney > 0 && self.bUserData.betTotalMoney >= self.gameStatisticsModel.lastBetModel.total_ben_money) {
+        self.chipsView.isRepeatBetBtn = YES;
+    } else if (self.bUserData.betTotalMoney > 0) {
+        self.chipsView.isAllInBetBtn = YES;
+    }
     
     
     // 最低
@@ -471,13 +527,14 @@
     
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
     
+    
     //筹码视图
     ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2-60, 50)];
-    chipsView.delegate = self;
+    
     [self.view addSubview:chipsView];
     _chipsView = chipsView;
-    
-    
+    chipsView.currentBalance = self.bUserData.betTotalMoney;
+    chipsView.delegate = self;
     
     // 珠盘路(庄闲路)
     BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
