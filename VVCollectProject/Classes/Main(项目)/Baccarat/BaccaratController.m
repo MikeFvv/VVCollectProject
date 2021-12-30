@@ -238,21 +238,27 @@
         }
         [self benCommonMethod];
     }
-    
 }
+
 /// 取消注码
-- (void)cancelBetChipsBtnClick {
-    [self.bBetView cancelBetChips];
+- (void)cancelBetChipsBtnClick:(UIButton *)sender {
     
-    self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney;
-    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
-    
-    self.betModel = nil;
-    self.betModel = [[BBetModel alloc] init];
-    self.chipsView.currentBalance = self.bUserData.betTotalMoney;
-    
-    if (self.chipsView.isShowCancelBtn) {
-        self.chipsView.isShowCancelBtn = NO;
+    if (sender.tag == 6000) {
+        [self.bBetView cancelBetChips];
+        
+        self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney;
+        self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+        
+        self.betModel = nil;
+        self.betModel = [[BBetModel alloc] init];
+        self.chipsView.currentBalance = self.bUserData.betTotalMoney;
+        
+        if (self.chipsView.isShowCancelBtn) {
+            self.chipsView.isShowCancelBtn = NO;
+        }
+    } else {
+        self.chipsView.hidden = YES;
+        [self onStartOneButton];
     }
 }
 
@@ -433,6 +439,11 @@
         self.chipsView.isAllInBetBtn = YES;
     }
     
+    if (self.bUserData.betTotalMoney > 0) {
+        self.chipsView.isShowSureButton = NO;
+    } else {
+        self.chipsView.isShowSureButton = YES;
+    }
     
     // 最低
     if (self.bUserData.betTotalMoney < self.bUserData.perTableMinTotalMoney) {

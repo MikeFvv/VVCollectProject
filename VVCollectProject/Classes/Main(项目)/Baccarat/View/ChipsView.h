@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 确定下注
 - (void)sureBetBtnClick:(UIButton *)sender;
 /// 取消注码
-- (void)cancelBetChipsBtnClick;
+- (void)cancelBetChipsBtnClick:(UIButton *)sender;
 /// 重复下注
 - (void)repeatBetBtnClick;
 /// 全押
@@ -37,6 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger currentBalance;
 /// 是否显示取消注码按钮
 @property (nonatomic, assign) BOOL isShowCancelBtn;
+/// 是否显示确定下注按钮
+@property (nonatomic, assign) BOOL isShowSureButton;
+
 /// 是否显示重复下注按钮
 @property (nonatomic, assign) BOOL isRepeatBetBtn;
 /// 是否显示全押下注按钮
