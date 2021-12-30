@@ -28,8 +28,8 @@
     
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.text = @"ID：";
-    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.text = @"ID：赌神？";
+    nameLabel.font = [UIFont systemFontOfSize:10];
     nameLabel.textColor = [UIColor darkGrayColor];
     nameLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:nameLabel];
@@ -48,9 +48,8 @@
     
     [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(nameLabel.mas_bottom).offset(0);
-        make.left.equalTo(self.mas_left).offset(5);
-        make.right.equalTo(self.mas_right).offset(-5);
-        make.height.equalTo(@(45));
+        make.centerX.equalTo(self.mas_centerX);
+        make.size.equalTo(@(45));
     }];
     
     UILabel *userMoneyLabel = [[UILabel alloc] init];

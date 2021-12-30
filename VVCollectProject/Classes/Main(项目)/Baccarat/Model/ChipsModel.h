@@ -19,8 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *normal_chipsImg; 
 /// 选中 筹码图标  game_bet_selected
 @property (nonatomic, copy) NSString *selected_chipsImg;
+
+
+
 /// 是否选中
-//@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL isSelected;
+
+@property (nonatomic, assign) BOOL isGrayed;
 
 @end
 
