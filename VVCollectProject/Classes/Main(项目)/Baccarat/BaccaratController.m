@@ -29,6 +29,7 @@
 #import "BUserChipssView.h"
 #import "BBetModel.h"
 #import "BUserData.h"
+#import "BStatisticsAlertView.h"
 
 
 #define kBtnHeight 35
@@ -77,7 +78,8 @@
 @property (nonatomic, strong) BAnalyzeRoadMapView *analyzeRoadMapView;
 /// 显示牌型视图
 @property (nonatomic, strong) BShowPokerView *showPokerView;
-
+/// 统计视图
+@property(nonatomic,strong) BStatisticsAlertView *statisticsView;
 
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *resultDataArray;
@@ -101,6 +103,10 @@
 @property(nonatomic,strong) BGameStatisticsModel *gameStatisticsModel;
 @property(nonatomic,strong) BUserData *bUserData;
 
+/// 连胜记录
+@property (nonatomic, assign) NSInteger continuousWinNum;
+/// 连输记录
+@property (nonatomic, assign) NSInteger continuousLoseNum;
 
 @end
 
@@ -116,7 +122,6 @@
     [self initData];
     [self setupNavUI];
     [self createUI];
-    
     
     [self setFloatingBackBtnView];
     
@@ -157,12 +162,15 @@
     
     BUserData *bUserData = [[BUserData alloc] init];
     _bUserData = bUserData;
-    bUserData.betTotalMoney = 30000;
-    bUserData.beforeBetTotalMoney = 30000;
     
-    bUserData.perTableMaxTotalMoney = 30000;
-    bUserData.perTableMinTotalMoney = 30000;
+    NSInteger tMoney = 30000;
+    bUserData.userTotalMoney = tMoney;
     
+    bUserData.initTodayMoney = tMoney;
+    bUserData.beforeBetTotalMoney = tMoney;
+    bUserData.perTableMaxTotalMoney = tMoney;
+    bUserData.perTableMinTotalMoney = tMoney;
+    bUserData.maxTotalMoney = tMoney;
     
     
     BBetModel *betModel = [[BBetModel alloc] init];
@@ -180,36 +188,29 @@
 - (NSMutableArray*)dataArray
 {
     if (!_dataArray) {
-        
         NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 8;
         _dataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.baccaratDataModel.sortedDeckArray pokerPairsNum:num]];
     }
     return _dataArray;
 }
 
-- (CardDataSourceModel*)baccaratDataModel
-{
-    if (!_baccaratDataModel)
-    {
+- (CardDataSourceModel* )baccaratDataModel {
+    if (!_baccaratDataModel) {
         _baccaratDataModel = [[CardDataSourceModel alloc] init];
     }
     return _baccaratDataModel;
 }
 
-
-- (void)configAction {
-    BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)rightBtnAction {
-    PointListController *vc = [[PointListController alloc] init];
-    vc.resultDataArray = self.resultDataArray;
-    [self.navigationController pushViewController:vc animated:YES];
+- (BStatisticsAlertView* )statisticsView {
+    if (!_statisticsView) {
+        UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
+        _statisticsView = [[BStatisticsAlertView alloc] initWithFrame:winView.frame];
+    }
+    return _statisticsView;
 }
 
 
-#pragma mark - ChipsViewDelegate 筹码选中
+#pragma mark - ChipsViewDelegate 筹码选中 | 确定下注 | 重复下注
 /// 选中筹码后
 /// @param selectedModel 选中筹码模型
 - (void)chipsSelectedModel:(ChipsModel *)selectedModel {
@@ -227,16 +228,18 @@
     } else if (sender.tag == 5001) { // 重复下注
         self.chipsView.isRepeatBetBtn = NO;
         self.betModel = self.gameStatisticsModel.lastBetModel;
-        [self benCommonMethod];
+        [self betCommonMethod];
     } else if (sender.tag == 5002) {  // 全押
         self.chipsView.isAllInBetBtn = NO;
+        // 全部钱 减去 不能下注额度整除的，额度
+        NSInteger lastBetMoney = self.bUserData.userTotalMoney - self.bUserData.userTotalMoney % kMinBetChipsNum;
         /// 判断上次下注庄、闲
         if (self.gameStatisticsModel.lastBetModel.player_money > self.gameStatisticsModel.lastBetModel.banker_money) {
-            self.betModel.player_money = self.bUserData.betTotalMoney - self.bUserData.betTotalMoney / kMinBetChipsNum;
+            self.betModel.player_money = lastBetMoney;
         } else {
-            self.betModel.banker_money = self.bUserData.betTotalMoney - self.bUserData.betTotalMoney % kMinBetChipsNum;
+            self.betModel.banker_money = lastBetMoney;
         }
-        [self benCommonMethod];
+        [self betCommonMethod];
     }
 }
 
@@ -246,12 +249,12 @@
     if (sender.tag == 6000) {
         [self.bBetView cancelBetChips];
         
-        self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney;
-        self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+        self.bUserData.userTotalMoney = self.bUserData.beforeBetTotalMoney;
+        self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
         
         self.betModel = nil;
         self.betModel = [[BBetModel alloc] init];
-        self.chipsView.currentBalance = self.bUserData.betTotalMoney;
+        self.chipsView.currentBalance = self.bUserData.userTotalMoney;
         
         if (self.chipsView.isShowCancelBtn) {
             self.chipsView.isShowCancelBtn = NO;
@@ -266,7 +269,9 @@
 /// 翻牌结束 结束一局
 - (void)endFlop {
     self.chipsView.hidden = NO;
+    // 取消下注筹码
     [self.bBetView cancelBetChips];
+    
     [self calculationResults];
     
     self.betModel = nil;
@@ -286,7 +291,7 @@
     }
     
     // 用户筹码小于选定筹码，禁止下注
-    if (self.bUserData.betTotalMoney < self.selectedModel.money) {
+    if (self.bUserData.userTotalMoney < self.selectedModel.money) {
         return;
     }
     
@@ -320,36 +325,44 @@
         }
     }
     
-    [self benCommonMethod];
+    [self betCommonMethod];
 }
 
-- (void)benCommonMethod {
+- (void)betCommonMethod {
     self.bBetView.betModel = self.betModel;
-    self.bUserData.betTotalMoney = self.bUserData.beforeBetTotalMoney - self.betModel.total_ben_money;
-    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
+    self.bUserData.userTotalMoney = self.bUserData.beforeBetTotalMoney - self.betModel.total_bet_money;
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
     
-    self.chipsView.currentBalance = self.bUserData.betTotalMoney;
+    self.chipsView.currentBalance = self.bUserData.userTotalMoney;
     
+    // 隐藏 重复下注 按钮
     if (self.chipsView.isRepeatBetBtn) {
         self.chipsView.isRepeatBetBtn = NO;
     }
-    
-    if (self.betModel.total_ben_money > 0) {
+    // 隐藏 全押 按钮
+    if (self.chipsView.isAllInBetBtn) {
+        self.chipsView.isAllInBetBtn = NO;
+    }
+    // 显示取消注码按钮
+    if (self.betModel.total_bet_money > 0) {
         self.chipsView.isShowCancelBtn = YES;
     }
+    
+    
+    
 }
 
 
 
 
-
-/// 计算结果
+#pragma mark -  计算结果
+///这是当前桌子数据记录
 - (void)calculationResults {
     
     BaccaratResultModel *resultModel = self.resultDataArray.lastObject;
     
-    self.gameStatisticsModel.pokerCount = self.resultDataArray.count;
-    self.gameStatisticsModel.gameNum = self.resultDataArray.count;
+    self.gameStatisticsModel.pokerCount =self.gameStatisticsModel.pokerCount + (resultModel.playerArray.count + resultModel.bankerArray.count);
+    self.gameStatisticsModel.gameNum = self.gameStatisticsModel.gameNum +1;
     
     if (resultModel.winType == WinType_Player) {
         self.gameStatisticsModel.playerNum = self.gameStatisticsModel.playerNum +1;
@@ -369,7 +382,7 @@
     if (resultModel.isSuperSix) {
         self.gameStatisticsModel.superNum = self.gameStatisticsModel.superNum +1;
     }
-    
+    // 赋值总记录
     self.analyzeRoadMapView.gameStatisticsModel = self.gameStatisticsModel;
     
     
@@ -377,84 +390,154 @@
     
 }
 
-/// 计算输赢筹码
+/// 计算输赢筹码 | 用户相关数据记录
 /// @param resultModel 模型
 - (void)calculateWinAndLoseChips:(BaccaratResultModel *)resultModel {
     // 上次下注记录
     self.gameStatisticsModel.lastBetModel = [self.betModel modelCopy];
     
+    NSInteger tempWinMoney = 0;
+    BOOL isWin = NO;
     if (resultModel.winType == WinType_Player) {
-        self.betModel.player_money = self.betModel.player_money *2;
-        self.betModel.banker_money = 0;
-        self.betModel.tie_money = 0;
+//        self.betModel.player_money = self.betModel.player_money *2;
+        tempWinMoney = self.betModel.player_money *2;
+//        self.betModel.banker_money = 0;
+//        self.betModel.tie_money = 0;
+        
+        isWin = tempWinMoney > 0 ? YES : NO;
+        
     } else if (resultModel.winType == WinType_Banker) {
-        self.betModel.player_money = 0;
+//        self.betModel.player_money = 0;
         if (resultModel.isSuperSix) {
-            self.betModel.banker_money = self.betModel.banker_money *1.5;
+//            self.betModel.banker_money = self.betModel.banker_money *1.5;
+            tempWinMoney = self.betModel.banker_money *1.5;
         } else {
-            self.betModel.banker_money = self.betModel.banker_money *2;
+//            self.betModel.banker_money = self.betModel.banker_money *2;
+            tempWinMoney = self.betModel.banker_money *2;
         }
-        self.betModel.tie_money = 0;
+//        self.betModel.tie_money = 0;
+        
+        isWin = tempWinMoney > 0 ? YES : NO;
     } else {
-        self.betModel.tie_money = self.betModel.tie_money *9;
+//        self.betModel.tie_money = self.betModel.tie_money *9;
+        
+        tempWinMoney = self.betModel.player_money + self.betModel.banker_money;
+        tempWinMoney = tempWinMoney + self.betModel.tie_money *9;
     }
     
     
     if (resultModel.isPlayerPair) {
-        self.betModel.playerPair_money = self.betModel.playerPair_money *12;
+//        self.betModel.playerPair_money = self.betModel.playerPair_money *12;
+        
+        tempWinMoney = tempWinMoney + self.betModel.playerPair_money *12;
     } else {
-        self.betModel.playerPair_money = 0;
+//        self.betModel.playerPair_money = 0;
     }
     
     if (resultModel.isBankerPair) {
-        self.betModel.bankerPair_money = self.betModel.bankerPair_money *12;
+//        self.betModel.bankerPair_money = self.betModel.bankerPair_money *12;
+        tempWinMoney = tempWinMoney + self.betModel.bankerPair_money *12;
     } else {
-        self.betModel.bankerPair_money = 0;
+//        self.betModel.bankerPair_money = 0;
     }
     
     if (resultModel.isSuperSix) {
-        self.betModel.superSix_money = self.betModel.superSix_money *13;
+//        self.betModel.superSix_money = self.betModel.superSix_money *13;
+        tempWinMoney = tempWinMoney + self.betModel.superSix_money *13;
     } else {
-        self.betModel.superSix_money = 0;
+//        self.betModel.superSix_money = 0;
     }
     
+    self.betModel.total_winLose_money = tempWinMoney;
     
-    // 总金额
-    self.bUserData.betTotalMoney = self.bUserData.betTotalMoney + self.betModel.total_ben_money;
-    // 输赢金额
-    self.gameStatisticsModel.lastLoseWinMoney = self.bUserData.betTotalMoney - self.bUserData.beforeBetTotalMoney;
+    // 总金额 当前用户金额+本次总输赢金额
+    self.bUserData.userTotalMoney = self.bUserData.userTotalMoney + self.betModel.total_winLose_money;
+    self.bUserData.beforeBetTotalMoney = self.bUserData.userTotalMoney;
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
     
-    self.bUserData.beforeBetTotalMoney = self.bUserData.betTotalMoney;
-    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
-    self.chipsView.currentBalance = self.bUserData.betTotalMoney;
+    [self setBetViewButtonStatus];
     
-    
-    if (self.chipsView.isShowCancelBtn) {
-        self.chipsView.isShowCancelBtn = NO;
-    }
-    /// 当前总金额大于上次 下注金额  显示 重复下注 按钮
-    if (self.bUserData.betTotalMoney > 0 && self.bUserData.betTotalMoney >= self.gameStatisticsModel.lastBetModel.total_ben_money) {
-        self.chipsView.isRepeatBetBtn = YES;
-    } else if (self.bUserData.betTotalMoney > 0) {
-        self.chipsView.isAllInBetBtn = YES;
-    }
-    
-    if (self.bUserData.betTotalMoney > 0) {
-        self.chipsView.isShowSureButton = NO;
+    // ********* 统计🔢🔢🔠🟥🟥🟥🟥🟥 *********
+    // 游戏总局数
+    self.bUserData.gameTotalNum = self.bUserData.gameTotalNum + 1;
+    // 获胜总局数  连输 连赢
+    if (isWin) {
+        self.bUserData.winTotalNum = self.bUserData.winTotalNum + 1;
+
+        self.continuousWinNum = self.continuousWinNum + 1;
+        self.continuousLoseNum = 0;
+    } else if (resultModel.winType == WinType_TIE) {
+        // 和 这里不计算
     } else {
-        self.chipsView.isShowSureButton = YES;
+        // 这里需要判断是否下注了
+        if (self.betModel.player_money > 0 || self.betModel.banker_money) {
+            self.continuousWinNum = 0;
+            self.continuousLoseNum = self.continuousLoseNum + 1;
+        }
+    }
+
+    // 最高连胜记录
+    if (self.bUserData.continuousWinTotalNum < self.continuousWinNum) {
+        self.bUserData.continuousWinTotalNum = self.continuousWinNum;
+    }
+    // 最高连输记录
+    if (self.bUserData.continuousLoseTotalNum < self.continuousLoseNum) {
+        self.bUserData.continuousLoseTotalNum = self.continuousLoseNum;
     }
     
-    // 最低
-    if (self.bUserData.betTotalMoney < self.bUserData.perTableMinTotalMoney) {
-        self.bUserData.perTableMinTotalMoney = self.bUserData.betTotalMoney;
+    // 获胜概率
+    self.bUserData.winTotalProbability = (self.bUserData.winTotalNum *0.01) / (self.bUserData.gameTotalNum *0.01) * 100;
+    
+    
+    // 最高余额记录
+    if (self.bUserData.userTotalMoney > self.bUserData.maxTotalMoney) {
+        self.bUserData.maxTotalMoney = self.bUserData.userTotalMoney;
     }
-    // 最高
-    if (self.bUserData.betTotalMoney > self.bUserData.perTableMaxTotalMoney) {
-        self.bUserData.perTableMaxTotalMoney = self.bUserData.betTotalMoney;
+    // 每桌最低余额记录
+    if (self.bUserData.userTotalMoney < self.bUserData.perTableMinTotalMoney) {
+        self.bUserData.perTableMinTotalMoney = self.bUserData.userTotalMoney;
     }
+    // 每桌最高余额记录
+    if (self.bUserData.userTotalMoney > self.bUserData.perTableMaxTotalMoney) {
+        self.bUserData.perTableMaxTotalMoney = self.bUserData.userTotalMoney;
+    }
+    
+    // 最高获胜记录
+    if (self.bUserData.maxWinTotalMoney < self.betModel.winLose_money) {
+        self.bUserData.maxWinTotalMoney =  self.betModel.winLose_money;
+    }
+    // 最高失败记录
+    if (self.bUserData.maxLoseTotalMoney > self.betModel.winLose_money) {
+        self.bUserData.maxLoseTotalMoney = self.betModel.winLose_money;
+    }
+    
+    // 今日盈利
+    self.bUserData.profitTodayMoney = self.bUserData.userTotalMoney - self.bUserData.initTodayMoney;
+  
 }
 
+- (void)setBetViewButtonStatus {
+    // ********* ✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️ *********
+    // 给下注视图 赋值用户当前余额
+    self.chipsView.currentBalance = self.bUserData.userTotalMoney;
+     // 显示越过本局
+     if (self.chipsView.isShowCancelBtn) {
+         self.chipsView.isShowCancelBtn = NO;
+     }
+     /// 当前总金额大于上次 下注金额  显示 重复下注 按钮
+     if (self.bUserData.userTotalMoney > 0 && self.bUserData.userTotalMoney >= self.betModel.total_bet_money) {
+         self.chipsView.isRepeatBetBtn = YES;
+     } else if (self.bUserData.userTotalMoney > 0) {
+         self.chipsView.isAllInBetBtn = YES;
+     }
+     
+     // 是否显示 确定下注 按钮和重复按钮
+     if (self.bUserData.userTotalMoney > 0) {
+         self.chipsView.isShowSureButton = NO;
+     } else {
+         self.chipsView.isShowSureButton = YES;
+     }
+}
 
 
 
@@ -469,201 +552,6 @@
     self.xqlXiaSanLuView.dataArray = xqlDataArray;
 }
 
-- (void)createUI {
-    self.view.backgroundColor = [UIColor blackColor];
-    
-    CGFloat halfWidth = self.view.frame.size.width/2;
-    
-    UIView *contentView = [[UIView alloc]init];
-    contentView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:contentView];
-    _contentView = contentView;
-    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-        make.width.offset(self.view.bounds.size.width);
-        make.height.equalTo(@600);
-    }];
-    
-    
-    // ********* 左边 *********
-    [self createLeftView];
-    
-    // 底部按钮功能
-    [self setBottomView];
-    // 右边路子图
-    [self rightRoadMapView];
-    
-}
-
-- (void)createLeftView {
-    
-    //    CGFloat navst = mxwStatusHeight();
-    
-    CGFloat leftW =  IS_NOTCHED_SCREEN ? getNotchScreenHeight-16 : 0;
-    
-    
-    
-    
-    CGFloat halfWidth = self.view.frame.size.width/2;
-    CGFloat leftVWidht = halfWidth + kAddWidth-leftW -2;
-    
-    UIView *leftBgView = [[UIView alloc] init];
-    leftBgView.backgroundColor = [UIColor colorWithHex:@"046726"];
-    [self.contentView addSubview:leftBgView];
-    
-    [leftBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(0);
-        make.left.equalTo(self.contentView.mas_left).offset(leftW);
-        make.width.mas_equalTo(leftVWidht);
-        make.height.mas_equalTo(mxwScreenHeight()-kTrendViewHeight);
-    }];
-    
-    // 展示牌型视图
-    BShowPokerView *showPokerView = [[BShowPokerView alloc] initWithFrame:CGRectMake(70, 10, 360, 150)];
-    showPokerView.delegate = self;
-    [leftBgView addSubview:showPokerView];
-    _showPokerView = showPokerView;
-    
-    
-    // 下注庄闲视图
-    BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(100, 120, halfWidth-60-20*2, 50*2+10+30)];
-    betView.delegate = self;
-    [leftBgView addSubview:betView];
-    _bBetView = betView;
-    
-    // 用户筹码视图
-    BUserChipssView *userChipssView = [[BUserChipssView alloc] initWithFrame:CGRectMake(35, 180, 60, 80)];
-    [leftBgView addSubview:userChipssView];
-    _userChipssView = userChipssView;
-    
-    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.betTotalMoney];
-    
-    
-    //筹码视图
-    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2-60, 50)];
-    
-    [self.view addSubview:chipsView];
-    _chipsView = chipsView;
-    chipsView.currentBalance = self.bUserData.betTotalMoney;
-    chipsView.delegate = self;
-    
-    // 珠盘路(庄闲路)
-    BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
-    zhuPanLuCollectionView.roadType = 0;
-    //    zhuPanLuCollectionView.backgroundColor = [UIColor redColor];
-    zhuPanLuCollectionView.layer.borderWidth = 1;
-    zhuPanLuCollectionView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:zhuPanLuCollectionView];
-    _zhuPanLuCollectionView = zhuPanLuCollectionView;
-    
-    
-    // 分析问路图
-    BAnalyzeRoadMapView *analyzeRoadMapView = [[BAnalyzeRoadMapView alloc] initWithFrame:CGRectMake(leftVWidht/3*2+leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*1, kTrendViewHeight)];
-    [self.contentView addSubview:analyzeRoadMapView];
-    _analyzeRoadMapView = analyzeRoadMapView;
-}
-
-/// 路子图
-- (void)rightRoadMapView {
-    
-    CGFloat halfWidth = self.view.frame.size.width/2;
-    CGFloat height = self.view.frame.size.height/2;
-    
-    // ********* 右边 *********
-    // 最小下注 最大下注
-    CGFloat betViewHeight = 40;
-    BBBetMaxMinView *betMaxMinView = [[BBBetMaxMinView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 1*1, halfWidth - kAddWidth-10, betViewHeight)];
-    betMaxMinView.layer.borderWidth = 1;
-    betMaxMinView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:betMaxMinView];
-    
-    
-    // 大路
-    CGFloat daluHeight = (kDLItemSizeWidth+1)*6+1;
-    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+1*1, halfWidth - kAddWidth-10, daluHeight)];
-    bigRoadMapView.layer.borderWidth = 1;
-    bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    bigRoadMapView.delegate = self;
-    [self.contentView addSubview:bigRoadMapView];
-    _bigRoadMapView = bigRoadMapView;
-    
-    // *** 下三路 ***
-    CGFloat xiasanluHeight = (kItemSizeWidth+1)*6+1;
-    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+1*2, halfWidth - kAddWidth-10, xiasanluHeight)];
-    dylXiaSanLuView.roadMapType = RoadMapType_DYL;
-    dylXiaSanLuView.layer.borderWidth = 1;
-    dylXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:dylXiaSanLuView];
-    _dylXiaSanLuView = dylXiaSanLuView;
-    
-    
-    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*1+1*3, halfWidth - kAddWidth-10, xiasanluHeight)];
-    xlXiaSanLuView.roadMapType = RoadMapType_XL;
-    xlXiaSanLuView.layer.borderWidth = 1;
-    xlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:xlXiaSanLuView];
-    _xlXiaSanLuView = xlXiaSanLuView;
-    
-    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*2+1*4, halfWidth - kAddWidth-10, xiasanluHeight)];
-    xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
-    xqlXiaSanLuView.layer.borderWidth = 1;
-    xqlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:xqlXiaSanLuView];
-    _xqlXiaSanLuView = xqlXiaSanLuView;
-    
-}
-
-
-- (void)setBottomView {
-    
-    UIView *bottomView = [[UIView alloc] init];
-    bottomView.layer.borderWidth = 1;
-    bottomView.layer.borderColor = [UIColor redColor].CGColor;
-    bottomView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:bottomView];
-    _bottomView = bottomView;
-    
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_top).offset(500);
-        make.left.equalTo(self.contentView.mas_left);
-        make.right.equalTo(self.contentView.mas_right);
-        make.height.mas_equalTo(50);
-    }];
-    
-    UITextField *pokerNumTextField = [[UITextField alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginHeight, 150, kBtnHeight)];
-    pokerNumTextField.text = @"8";
-    pokerNumTextField.keyboardType = UIKeyboardTypeNumberPad;
-    pokerNumTextField.textColor = [UIColor grayColor];
-    pokerNumTextField.layer.cornerRadius = 5;
-    pokerNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
-    pokerNumTextField.layer.borderWidth = 1;
-    _pokerNumTextField  = pokerNumTextField;
-    
-    
-    [bottomView addSubview:pokerNumTextField];
-    
-    UIButton *startButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10, kMarginHeight, 50, kBtnHeight)];
-    startButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [startButton setTitle:@"自动全盘" forState:UIControlStateNormal];
-    [startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    startButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    startButton.layer.cornerRadius = 5;
-    [startButton addTarget:self action:@selector(onStartAllButton:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:startButton];
-    
-    
-    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10, kMarginHeight, 50, kBtnHeight)];
-    [clearButton setTitle:@"清除" forState:UIControlStateNormal];
-    clearButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [clearButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    clearButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    clearButton.layer.cornerRadius = 5;
-    [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:clearButton];
-    
-}
 
 
 - (void)showMessage:(NSString *)message {
@@ -677,6 +565,15 @@
     
     [hud hideAnimated:YES afterDelay:3.f];
 }
+
+
+- (void)onBUserChipssViewShowAction {
+    
+    self.statisticsView.bUserData = self.bUserData;
+    [self.statisticsView showAlertAnimation];
+}
+
+
 
 #pragma mark - 消键盘
 - (void)onDisKeyboardButton {
@@ -1058,6 +955,226 @@
 //5    B-2    2    输    -7
 //6    C-1    4    赢    -3
 //7    D-1    8    赢    +5
+
+
+
+#pragma mark -  跳转界面
+- (void)configAction {
+    BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)rightBtnAction {
+    PointListController *vc = [[PointListController alloc] init];
+    vc.resultDataArray = self.resultDataArray;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark -  创建UI
+- (void)createUI {
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    CGFloat halfWidth = self.view.frame.size.width/2;
+    
+    UIView *contentView = [[UIView alloc]init];
+    contentView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:contentView];
+    _contentView = contentView;
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+        make.width.offset(self.view.bounds.size.width);
+        make.height.equalTo(@600);
+    }];
+    
+    
+    // ********* 左边 *********
+    [self createLeftView];
+    
+    // 底部按钮功能
+    [self setBottomView];
+    // 右边路子图
+    [self rightRoadMapView];
+    
+}
+
+- (void)createLeftView {
+    
+    //    CGFloat navst = mxwStatusHeight();
+    
+    CGFloat leftW =  IS_NOTCHED_SCREEN ? getNotchScreenHeight-16 : 0;
+    
+    
+    
+    
+    CGFloat halfWidth = self.view.frame.size.width/2;
+    CGFloat leftVWidht = halfWidth + kAddWidth-leftW -2;
+    
+    UIView *leftBgView = [[UIView alloc] init];
+    leftBgView.backgroundColor = [UIColor colorWithHex:@"046726"];
+    [self.contentView addSubview:leftBgView];
+    
+    [leftBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView.mas_top).offset(0);
+        make.left.equalTo(self.contentView.mas_left).offset(leftW);
+        make.width.mas_equalTo(leftVWidht);
+        make.height.mas_equalTo(mxwScreenHeight()-kTrendViewHeight);
+    }];
+    
+    // 展示牌型视图
+    BShowPokerView *showPokerView = [[BShowPokerView alloc] initWithFrame:CGRectMake(70, 10, 360, 150)];
+    showPokerView.delegate = self;
+    [leftBgView addSubview:showPokerView];
+    _showPokerView = showPokerView;
+    
+    
+    // 下注庄闲视图
+    BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(100, 120, halfWidth-60-20*2, 50*2+10+30)];
+    betView.delegate = self;
+    [leftBgView addSubview:betView];
+    _bBetView = betView;
+    
+    // 用户筹码视图
+    BUserChipssView *userChipssView = [[BUserChipssView alloc] initWithFrame:CGRectMake(35, 180, 60, 80)];
+    [leftBgView addSubview:userChipssView];
+    
+    //添加手势事件
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onBUserChipssViewShowAction)];
+    //将手势添加到需要相应的view中去
+    [userChipssView addGestureRecognizer:tapGesture];
+    //选择触发事件的方式（默认单机触发）
+    [tapGesture setNumberOfTapsRequired:1];
+    
+    _userChipssView = userChipssView;
+    
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
+    
+    
+    //筹码视图
+    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2-60, 50)];
+    
+    [self.view addSubview:chipsView];
+    _chipsView = chipsView;
+    chipsView.currentBalance = self.bUserData.userTotalMoney;
+    chipsView.delegate = self;
+    
+    // 珠盘路(庄闲路)
+    BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
+    zhuPanLuCollectionView.roadType = 0;
+    //    zhuPanLuCollectionView.backgroundColor = [UIColor redColor];
+    zhuPanLuCollectionView.layer.borderWidth = 1;
+    zhuPanLuCollectionView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:zhuPanLuCollectionView];
+    _zhuPanLuCollectionView = zhuPanLuCollectionView;
+    
+    
+    // 分析问路图
+    BAnalyzeRoadMapView *analyzeRoadMapView = [[BAnalyzeRoadMapView alloc] initWithFrame:CGRectMake(leftVWidht/3*2+leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*1, kTrendViewHeight)];
+    [self.contentView addSubview:analyzeRoadMapView];
+    _analyzeRoadMapView = analyzeRoadMapView;
+}
+
+/// 路子图
+- (void)rightRoadMapView {
+    
+    CGFloat halfWidth = self.view.frame.size.width/2;
+    CGFloat height = self.view.frame.size.height/2;
+    
+    // ********* 右边 *********
+    // 最小下注 最大下注
+    CGFloat betViewHeight = 40;
+    BBBetMaxMinView *betMaxMinView = [[BBBetMaxMinView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 1*1, halfWidth - kAddWidth-10, betViewHeight)];
+    betMaxMinView.layer.borderWidth = 1;
+    betMaxMinView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:betMaxMinView];
+    
+    
+    // 大路
+    CGFloat daluHeight = (kDLItemSizeWidth+1)*6+1;
+    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+1*1, halfWidth - kAddWidth-10, daluHeight)];
+    bigRoadMapView.layer.borderWidth = 1;
+    bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    bigRoadMapView.delegate = self;
+    [self.contentView addSubview:bigRoadMapView];
+    _bigRoadMapView = bigRoadMapView;
+    
+    // *** 下三路 ***
+    CGFloat xiasanluHeight = (kItemSizeWidth+1)*6+1;
+    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+1*2, halfWidth - kAddWidth-10, xiasanluHeight)];
+    dylXiaSanLuView.roadMapType = RoadMapType_DYL;
+    dylXiaSanLuView.layer.borderWidth = 1;
+    dylXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:dylXiaSanLuView];
+    _dylXiaSanLuView = dylXiaSanLuView;
+    
+    
+    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*1+1*3, halfWidth - kAddWidth-10, xiasanluHeight)];
+    xlXiaSanLuView.roadMapType = RoadMapType_XL;
+    xlXiaSanLuView.layer.borderWidth = 1;
+    xlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:xlXiaSanLuView];
+    _xlXiaSanLuView = xlXiaSanLuView;
+    
+    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*2+1*4, halfWidth - kAddWidth-10, xiasanluHeight)];
+    xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
+    xqlXiaSanLuView.layer.borderWidth = 1;
+    xqlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:xqlXiaSanLuView];
+    _xqlXiaSanLuView = xqlXiaSanLuView;
+    
+}
+
+
+- (void)setBottomView {
+    
+    UIView *bottomView = [[UIView alloc] init];
+    bottomView.layer.borderWidth = 1;
+    bottomView.layer.borderColor = [UIColor redColor].CGColor;
+    bottomView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:bottomView];
+    _bottomView = bottomView;
+    
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_top).offset(500);
+        make.left.equalTo(self.contentView.mas_left);
+        make.right.equalTo(self.contentView.mas_right);
+        make.height.mas_equalTo(50);
+    }];
+    
+    UITextField *pokerNumTextField = [[UITextField alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginHeight, 150, kBtnHeight)];
+    pokerNumTextField.text = @"8";
+    pokerNumTextField.keyboardType = UIKeyboardTypeNumberPad;
+    pokerNumTextField.textColor = [UIColor grayColor];
+    pokerNumTextField.layer.cornerRadius = 5;
+    pokerNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    pokerNumTextField.layer.borderWidth = 1;
+    _pokerNumTextField  = pokerNumTextField;
+    
+    
+    [bottomView addSubview:pokerNumTextField];
+    
+    UIButton *startButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10, kMarginHeight, 50, kBtnHeight)];
+    startButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
+    [startButton setTitle:@"自动全盘" forState:UIControlStateNormal];
+    [startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    startButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    startButton.layer.cornerRadius = 5;
+    [startButton addTarget:self action:@selector(onStartAllButton:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:startButton];
+    
+    
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10, kMarginHeight, 50, kBtnHeight)];
+    [clearButton setTitle:@"清除" forState:UIControlStateNormal];
+    clearButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
+    [clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [clearButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    clearButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    clearButton.layer.cornerRadius = 5;
+    [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:clearButton];
+    
+}
 
 @end
 
