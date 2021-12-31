@@ -10,10 +10,14 @@
 
 @implementation BBetModel
 
-- (NSInteger)total_ben_money {
-    _total_ben_money = self.playerPair_money + self.tie_money + self.superSix_money + self.bankerPair_money + self.player_money + self.banker_money;
-    return _total_ben_money;
+- (NSInteger)total_bet_money {
+    _total_bet_money = self.playerPair_money + self.tie_money + self.superSix_money + self.bankerPair_money + self.player_money + self.banker_money;
+    return _total_bet_money;
 }
 
 
+- (NSInteger)winLose_money {
+    _winLose_money = self.total_winLose_money - self.total_bet_money;
+    return _winLose_money;
+}
 @end

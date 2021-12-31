@@ -13,10 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用户数据
 @interface BUserData : NSObject
 
-/// 下注输赢总金额
-@property (nonatomic, assign) NSInteger betTotalMoney;
+/// 用户当前总金额
+@property (nonatomic, assign) NSInteger userTotalMoney;
 /// 本次下注之前总金额
 @property (nonatomic, assign) NSInteger beforeBetTotalMoney;
+
+/// 用户今日初始金额
+@property (nonatomic, assign) NSInteger initTodayMoney;
+/// 今日盈利
+@property (nonatomic, assign) NSInteger profitTodayMoney;
 
 
 
@@ -32,12 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger maxLoseTotalMoney;
 
 
+
+
 /// 游戏总局数
 @property (nonatomic, assign) NSInteger gameTotalNum;
 /// 获胜总局数
 @property (nonatomic, assign) NSInteger winTotalNum;
 /// 获胜概率
-@property (nonatomic, assign) NSInteger winTotalProbability;
+@property (nonatomic, assign) CGFloat winTotalProbability;
 
 
 /// 最高连胜记录
@@ -45,8 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 最高连输记录
 @property (nonatomic, assign) NSInteger continuousLoseTotalNum;
 
-/// 今日盈利
-@property (nonatomic, assign) NSInteger profitTodayMoney;
+/// 当前连赢状态
+@property (nonatomic, assign) BOOL isContinuousWin;
 
 
 @end

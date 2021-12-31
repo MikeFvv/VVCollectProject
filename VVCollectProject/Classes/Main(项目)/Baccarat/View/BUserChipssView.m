@@ -42,7 +42,9 @@
     }];
     
     UIImageView *imgView = [[UIImageView alloc] init];
-    imgView.image = [UIImage imageNamed:@"com_ph_avatar_2"];
+    imgView.layer.cornerRadius = 45/2;
+    imgView.layer.masksToBounds = YES;
+    imgView.image = [UIImage imageNamed:@"com_ph_avatar_3"];
     [self addSubview:imgView];
     _imgView = imgView;
     

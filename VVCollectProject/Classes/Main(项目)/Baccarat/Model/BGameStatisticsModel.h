@@ -18,9 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 牌的总张数
 @property (nonatomic, assign) NSInteger pokerTotalNum;
-/// 发牌局数
+/// 已发牌局数
 @property (nonatomic, assign) NSInteger pokerCount;
-
+/// 当前桌游戏总局数
+@property (nonatomic, assign) NSInteger gameNum;
 
 /// 庄家局数
 @property (nonatomic, assign) NSInteger bankerNum;
@@ -34,16 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger playerPairNum;
 /// 超级6 次数
 @property (nonatomic, assign) NSInteger superNum;
-/// 游戏总局数
-@property (nonatomic, assign) NSInteger gameNum;
 
 
 
 /// 上次下注记录
 @property (nonatomic, strong) BBetModel *lastBetModel;
-/// 上次输赢金额  有负数
-@property (nonatomic, assign) NSInteger lastLoseWinMoney;
-
 ///上次牌局
 @property (nonatomic, strong) BaccaratResultModel *lastResultModel;
 

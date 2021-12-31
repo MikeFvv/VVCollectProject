@@ -42,6 +42,8 @@
 		84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C8D275E9220006C2906 /* UIView+getTopContorller.m */; };
 		84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C90275E9221006C2906 /* UIViewController+MXW.m */; };
 		84568C95275E9228006C2906 /* NSUserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C93275E9227006C2906 /* NSUserDefaultsManager.m */; };
+		847D2B18277E40D80028C264 /* BStatisticsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B17277E40D80028C264 /* BStatisticsAlertView.m */; };
+		847D2B1B277E42630028C264 /* BStatisticsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */; };
 		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
 		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */; };
@@ -413,6 +415,10 @@
 		84568C90275E9221006C2906 /* UIViewController+MXW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MXW.m"; sourceTree = "<group>"; };
 		84568C93275E9227006C2906 /* NSUserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserDefaultsManager.m; sourceTree = "<group>"; };
 		84568C94275E9228006C2906 /* NSUserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserDefaultsManager.h; sourceTree = "<group>"; };
+		847D2B16277E40D80028C264 /* BStatisticsAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticsAlertView.h; sourceTree = "<group>"; };
+		847D2B17277E40D80028C264 /* BStatisticsAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticsAlertView.m; sourceTree = "<group>"; };
+		847D2B19277E42630028C264 /* BStatisticsCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticsCollectionCell.h; sourceTree = "<group>"; };
+		847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticsCollectionCell.m; sourceTree = "<group>"; };
 		848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
 		848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
 		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
@@ -1002,6 +1008,10 @@
 				84A8DD762777BC8C00695055 /* BBBetMaxMinView.m */,
 				84A8E206277906A700695055 /* BUserChipssView.h */,
 				84A8E207277906A700695055 /* BUserChipssView.m */,
+				847D2B16277E40D80028C264 /* BStatisticsAlertView.h */,
+				847D2B17277E40D80028C264 /* BStatisticsAlertView.m */,
+				847D2B19277E42630028C264 /* BStatisticsCollectionCell.h */,
+				847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2438,11 +2448,13 @@
 				84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */,
 				84B85DE827626B7E009AC598 /* BetRecord.m in Sources */,
 				84B85E5127640736009AC598 /* ProbAI.m in Sources */,
+				847D2B18277E40D80028C264 /* BStatisticsAlertView.m in Sources */,
 				84A8D9CE2772579A00695055 /* CustomIOSAlertView.m in Sources */,
 				84A8E20B27790BC900695055 /* BPockerView.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
 				84A8DEFB2777FC8C00695055 /* CFVIntergalView.m in Sources */,
 				84BDC7822761840A0045354D /* PokerCardModel.m in Sources */,
+				847D2B1B277E42630028C264 /* BStatisticsCollectionCell.m in Sources */,
 				276C91D7269161B100377224 /* NSDate+OST_DATE.m in Sources */,
 				A0F91FD0222ECCB500C4EE9C /* BJSpade.m in Sources */,
 				A0BCC30821E8BA6D00CEA8ED /* ViewController.m in Sources */,
