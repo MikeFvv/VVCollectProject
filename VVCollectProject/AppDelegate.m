@@ -26,7 +26,16 @@
 @end
 
 @implementation AppDelegate
-
+/// 如果属性值为YES，仅允许屏幕向左旋转，否则仅允许竖屏。
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (self.allowRotation == YES) {
+        // 横屏
+        return UIInterfaceOrientationMaskLandscape;
+    } else {
+        // 竖屏
+        return (UIInterfaceOrientationMaskPortrait);
+    }
+}
 #pragma mark程序启动
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     

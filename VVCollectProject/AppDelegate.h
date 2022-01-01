@@ -11,6 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+/// 是否允许转向
+@property(nonatomic,assign)BOOL allowRotation;
 
 /// 设置根控制器
 /// @param isToLogin 是否到登录页面

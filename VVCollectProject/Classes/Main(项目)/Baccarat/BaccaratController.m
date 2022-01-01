@@ -30,6 +30,9 @@
 #import "BBetModel.h"
 #import "BUserData.h"
 #import "BStatisticsAlertView.h"
+#import "UIDevice+ASMandatoryLandscapeDevice.h"
+#import "AppDelegate.h"
+
 
 
 #define kBtnHeight 35
@@ -137,7 +140,7 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [FunctionManager interfaceOrientation:UIInterfaceOrientationPortrait];
+//    [FunctionManager interfaceOrientation:UIInterfaceOrientationPortrait];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
@@ -486,8 +489,8 @@
         self.bUserData.today_continuousLoseTotalNum = self.continuousLoseNum;
     }
     
-    // 获胜概率
-    self.bUserData.today_winTotalProbability = (self.bUserData.today_winTotalNum *0.01) / (self.bUserData.today_gameTotalNum *0.01) * 100;
+    // 获胜概率 需要减去和
+    self.bUserData.today_winTotalProbability = (self.bUserData.today_winTotalNum *0.01) / ((self.bUserData.today_gameTotalNum -self.bUserData.today_tieTotalNum) *0.01) * 100;
     
     
     // 最高余额记录
@@ -919,6 +922,12 @@
     
     __weak typeof(self) weakSelf = self;
     self.backDragView.clickDragViewBlock = ^(WMDragView *dragView){
+        
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        // 关闭横屏仅允许竖屏
+        appDelegate.allowRotation = NO;
+        // 切换到竖屏
+        [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationPortrait];
         
         [weakSelf.navigationController popViewControllerAnimated:true];
         //        [weakSelf.navigationController popViewControllerAnimated:true];

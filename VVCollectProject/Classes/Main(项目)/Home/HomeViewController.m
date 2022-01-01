@@ -24,6 +24,8 @@
 #import "FunctionManager.h"
 #import "GameLoginViewController.h"
 
+#import "UIDevice+ASMandatoryLandscapeDevice.h"
+#import "AppDelegate.h"
 
 #define dispatch_main_async_safe(block)\
 if ([NSThread isMainThread]) {\
@@ -505,7 +507,13 @@ dispatch_async(dispatch_get_main_queue(), block);\
     if (indexPath.row == 0) {
         
         // 允许屏幕旋转
-        [FunctionManager interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+//        [FunctionManager interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+        
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        // 打开横屏开关
+        appDelegate.allowRotation = YES;
+        // 调用转屏代码
+        [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationLandscapeRight];
         
         BaccaratController *vc = [[BaccaratController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];

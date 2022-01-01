@@ -45,6 +45,7 @@
 		847D2B18277E40D80028C264 /* BStatisticsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B17277E40D80028C264 /* BStatisticsAlertView.m */; };
 		847D2B1B277E42630028C264 /* BStatisticsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */; };
 		847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */; };
+		847D2B212780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1F2780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m */; };
 		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
 		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */; };
@@ -422,6 +423,8 @@
 		847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticsCollectionCell.m; sourceTree = "<group>"; };
 		847D2B1C2780B98A0028C264 /* BStatisticssReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticssReusableView.h; sourceTree = "<group>"; };
 		847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticssReusableView.m; sourceTree = "<group>"; };
+		847D2B1F2780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ASMandatoryLandscapeDevice.m"; sourceTree = "<group>"; };
+		847D2B202780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+ASMandatoryLandscapeDevice.h"; sourceTree = "<group>"; };
 		848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
 		848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
 		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
@@ -1799,6 +1802,8 @@
 				84568C8D275E9220006C2906 /* UIView+getTopContorller.m */,
 				84568C8F275E9221006C2906 /* UIViewController+MXW.h */,
 				84568C90275E9221006C2906 /* UIViewController+MXW.m */,
+				847D2B202780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.h */,
+				847D2B1F2780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m */,
 				A0130DD221ECB78D007E845B /* NSString */,
 			);
 			path = Category;
@@ -2575,6 +2580,7 @@
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				84B85DE22762667F009AC598 /* Poker.m in Sources */,
 				84A8D9F127725C9600695055 /* UIActionSheet+Blocks.m in Sources */,
+				847D2B212780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m in Sources */,
 				84A8DEF72777FC8C00695055 /* CFVPlayerModel.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
