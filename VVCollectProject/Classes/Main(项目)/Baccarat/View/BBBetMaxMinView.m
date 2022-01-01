@@ -42,7 +42,7 @@
     }];
     
     UILabel *minLabel = [[UILabel alloc] init];
-    minLabel.text = @"PHP 1,000";
+    minLabel.text = @"1,000";
     minLabel.font = [UIFont boldSystemFontOfSize:14];
     minLabel.textColor = [UIColor colorWithHex:@"BCAF94"];
     minLabel.textAlignment = NSTextAlignmentCenter;
@@ -69,7 +69,7 @@
     }];
     
     UILabel *maxLabel = [[UILabel alloc] init];
-    maxLabel.text = @"PHP 2,000,000";
+    maxLabel.text = @"2,000,000";
     maxLabel.font = [UIFont boldSystemFontOfSize:14];
     maxLabel.textColor = [UIColor colorWithHex:@"BCAF94"];
     maxLabel.textAlignment = NSTextAlignmentCenter;
