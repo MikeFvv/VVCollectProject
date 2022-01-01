@@ -56,7 +56,7 @@
 }
 - (void)initData {
     _duration = 0.5;
-    _index = 0;
+    self.index = 1;
     
 }
 
@@ -66,7 +66,7 @@
     // 移除全部子视图
 //    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    _index = 0;
+    self.index = 1;
     
     self.player2TotalPoints = 0;
     self.banker2TotalPoints = 0;
@@ -115,19 +115,10 @@
 // 执行动画
 - (void)executeAnimation {
     // 根据tag值取到扑克牌
-    BPockerView *pocker = [self viewWithTag:2001+ _index];
+    BPockerView *pocker = [self viewWithTag:2000+ self.index];
     
     if (pocker) {
         [self rotateWithView:pocker];
-    }
-    
-    if (!self.isPlayer3 == self.isBanker3 && self.index == self.resultModel.pokerTotalNum) {
-        [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:.5f];
-        return;
-    }
-    
-    if (self.index == self.resultModel.pokerTotalNum-1) {
-        [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:.5f];
     }
 }
 
@@ -135,18 +126,15 @@
 
 - (void)delayAction2 {
     
-    if (_index <= 3) {
-        _index++;
+    if (self.index <= 4) {
+        self.index++;
     }
    
-    if (_index < 4) {
+    if (self.index < 5) {
         [self executeAnimation];
     }
     
-    if (_index == 3) {
-        
-        self.playerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.player2TotalPoints];
-        self.bankerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.banker2TotalPoints];
+    if (self.index == 4) {
         
         if (self.isPlayer3) {
             // 延时执行翻牌
@@ -158,11 +146,18 @@
             [self performSelector:@selector(delayedExecutionBanker3Flop) withObject:nil afterDelay:1.0f];
         }
     }
+    
+    if (self.index >= 4) {
+        // 延时执行显示点数
+//        [self performSelector:@selector(showPointsMethod) withObject:nil afterDelay:0.1f];
+        [self showPointsMethod];
+    }
 }
+
 
 - (void)delayedExecutionPlayer3Flop {
     self.player_pk3.hidden = NO;
-    _index = 4;
+    self.index = 5;
     [self performSelector:@selector(delayedExecutionFlop) withObject:nil afterDelay:.5f];
     
     if (self.isBanker3) {
@@ -172,8 +167,44 @@
 }
 - (void)delayedExecutionBanker3Flop {
     self.banker_pk3.hidden = NO;
-    _index = 5;
+    self.index = 6;
     [self performSelector:@selector(delayedExecutionFlop) withObject:nil afterDelay:.5f];
+}
+
+/// 显示点数发方法
+- (void)showPointsMethod {
+    if (self.index == 4 && self.resultModel.pokerTotalNum > 4) {
+        self.playerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.player2TotalPoints];
+        self.bankerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.banker2TotalPoints];
+    }
+    
+    // 5张牌 庄是最后一张牌
+    if (!self.isPlayer3 && self.isBanker3 && self.index-1 == self.resultModel.pokerTotalNum) {
+        [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:1.0f];
+    } else if (self.isPlayer3 && self.isBanker3 && self.index == 5) {
+        // 优化 这里先显示闲的点数
+        [self performSelector:@selector(setPlayer5Points) withObject:nil afterDelay:1.5f];
+        
+    } else if (self.index == self.resultModel.pokerTotalNum) {
+        // 最后一张牌
+        [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:1.0f];
+    }
+}
+
+- (void)setPlayer5Points {
+    self.playerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.resultModel.playerTotalPoints];
+}
+
+
+#pragma mark -  设置点数
+- (void)setResultPoints {
+    self.playerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.resultModel.playerTotalPoints];
+    self.bankerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.resultModel.bankerTotalPoints];
+    self.winTypeLabel.text = [self getWinType:self.resultModel.winType];
+    
+    if ([self.delegate respondsToSelector:@selector(endFlop)]) {
+        [self.delegate endFlop];
+    }
 }
 
 
@@ -199,16 +230,6 @@
 
 
 
-#pragma mark -  设置点数
-- (void)setResultPoints {  
-    self.playerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.resultModel.playerTotalPoints];
-    self.bankerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.resultModel.bankerTotalPoints];
-    self.winTypeLabel.text = [self getWinType:self.resultModel.winType];
-    
-    if ([self.delegate respondsToSelector:@selector(endFlop)]) {
-        [self.delegate endFlop];
-    }
-}
 
 
 
@@ -217,7 +238,7 @@
 /// 移除视图
 - (void)removeStackView {
     
-    _index = 0;
+    self.index = 1;
     self.isPlayer3 = NO;
     self.isBanker3 = NO;
     

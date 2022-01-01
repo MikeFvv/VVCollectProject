@@ -166,7 +166,7 @@
     NSInteger tMoney = 30000;
     bUserData.userTotalMoney = tMoney;
     
-    bUserData.initTodayMoney = tMoney;
+    bUserData.todayInitMoney = tMoney;
     bUserData.beforeBetTotalMoney = tMoney;
     bUserData.perTableMaxTotalMoney = tMoney;
     bUserData.perTableMinTotalMoney = tMoney;
@@ -386,8 +386,13 @@
     self.analyzeRoadMapView.gameStatisticsModel = self.gameStatisticsModel;
     
     
-    [self calculateWinAndLoseChips:resultModel];
+    // 没下注不记录
+    if (self.betModel.total_bet_money > 0) {
+        [self calculateWinAndLoseChips:resultModel];
+    }
     
+    // 筹码视图按钮状态
+    [self setBetViewButtonStatus];
 }
 
 /// 计算输赢筹码 | 用户相关数据记录
@@ -399,53 +404,40 @@
     NSInteger tempWinMoney = 0;
     BOOL isWin = NO;
     if (resultModel.winType == WinType_Player) {
-//        self.betModel.player_money = self.betModel.player_money *2;
         tempWinMoney = self.betModel.player_money *2;
-//        self.betModel.banker_money = 0;
-//        self.betModel.tie_money = 0;
-        
         isWin = tempWinMoney > 0 ? YES : NO;
-        
+        self.bUserData.playerTotalNum = self.bUserData.playerTotalNum +1;
     } else if (resultModel.winType == WinType_Banker) {
-//        self.betModel.player_money = 0;
         if (resultModel.isSuperSix) {
-//            self.betModel.banker_money = self.betModel.banker_money *1.5;
             tempWinMoney = self.betModel.banker_money *1.5;
         } else {
-//            self.betModel.banker_money = self.betModel.banker_money *2;
             tempWinMoney = self.betModel.banker_money *2;
         }
-//        self.betModel.tie_money = 0;
-        
         isWin = tempWinMoney > 0 ? YES : NO;
+        self.bUserData.bankerTotalNum = self.bUserData.bankerTotalNum +1;
     } else {
-//        self.betModel.tie_money = self.betModel.tie_money *9;
-        
         tempWinMoney = self.betModel.player_money + self.betModel.banker_money;
         tempWinMoney = tempWinMoney + self.betModel.tie_money *9;
+        self.bUserData.tieTotalNum = self.bUserData.tieTotalNum +1;
     }
     
     
     if (resultModel.isPlayerPair) {
-//        self.betModel.playerPair_money = self.betModel.playerPair_money *12;
-        
         tempWinMoney = tempWinMoney + self.betModel.playerPair_money *12;
     } else {
-//        self.betModel.playerPair_money = 0;
+        
     }
     
     if (resultModel.isBankerPair) {
-//        self.betModel.bankerPair_money = self.betModel.bankerPair_money *12;
         tempWinMoney = tempWinMoney + self.betModel.bankerPair_money *12;
     } else {
-//        self.betModel.bankerPair_money = 0;
+        
     }
     
     if (resultModel.isSuperSix) {
-//        self.betModel.superSix_money = self.betModel.superSix_money *13;
         tempWinMoney = tempWinMoney + self.betModel.superSix_money *13;
     } else {
-//        self.betModel.superSix_money = 0;
+        
     }
     
     self.betModel.total_winLose_money = tempWinMoney;
@@ -455,11 +447,12 @@
     self.bUserData.beforeBetTotalMoney = self.bUserData.userTotalMoney;
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
     
-    [self setBetViewButtonStatus];
+    
     
     // ********* 统计🔢🔢🔠🟥🟥🟥🟥🟥 *********
     // 游戏总局数
     self.bUserData.gameTotalNum = self.bUserData.gameTotalNum + 1;
+    
     // 获胜总局数  连输 连赢
     if (isWin) {
         self.bUserData.winTotalNum = self.bUserData.winTotalNum + 1;
@@ -512,7 +505,7 @@
     }
     
     // 今日盈利
-    self.bUserData.profitTodayMoney = self.bUserData.userTotalMoney - self.bUserData.initTodayMoney;
+    self.bUserData.todayProfitMoney = self.bUserData.userTotalMoney - self.bUserData.todayInitMoney;
   
 }
 

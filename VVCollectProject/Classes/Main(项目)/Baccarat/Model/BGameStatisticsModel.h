@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 游戏统计模型
+/// 当前桌游戏统计模型
 @interface BGameStatisticsModel : NSObject
 
 /// 牌的总张数
