@@ -196,12 +196,12 @@
     } else if (indexPath.row == 10) {
         cell.titleLabel.text = @"今日盈利";
 
-        if (self.bUserData.profitTodayMoney >= 0) {
+        if (self.bUserData.todayProfitMoney >= 0) {
             cell.numLabel.textColor = [UIColor greenColor];
-            cell.numLabel.text = [NSString stringWithFormat:@"+%ld",self.bUserData.profitTodayMoney];
+            cell.numLabel.text = [NSString stringWithFormat:@"+%ld",self.bUserData.todayProfitMoney];
         } else {
             cell.numLabel.textColor = [UIColor redColor];
-            cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.profitTodayMoney];
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.todayProfitMoney];
         }
     } else {
         cell.titleLabel.text = @"--";
