@@ -8,6 +8,8 @@
 
 #import "BStatisticsAlertView.h"
 #import "BStatisticsCollectionCell.h"
+#import "BStatisticssReusableView.h"
+
 
 @interface BStatisticsAlertView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 ///
@@ -35,7 +37,6 @@
 
 - (void)setBUserData:(BUserData *)bUserData {
     _bUserData = bUserData;
-    
     [self.collectionView reloadData];
 }
 
@@ -136,8 +137,8 @@
 //        _collectionView.scrollEnabled = NO;
         
         [_collectionView registerClass:[BStatisticsCollectionCell class] forCellWithReuseIdentifier:@"BStatisticsCollectionCell"];
-        
-        
+        //这里的HeaderCRView 是自定义的header类型
+        [_collectionView registerClass:[BStatisticssReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BStatisticssReusableView"];
     }
     return _collectionView;
 }
@@ -148,13 +149,13 @@
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return 2;
 }
 
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return 16;
 }
 
 //每个UICollectionView展示的内容
@@ -165,50 +166,82 @@
 //    cell.model = self.dataArray[indexPath.row];
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"最高余额记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.maxTotalMoney];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxTotalMoney];
     } else if (indexPath.row == 1) {
-        cell.titleLabel.text = @"每桌最高余额记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.perTableMaxTotalMoney];
+        cell.titleLabel.text = @"最低余额记录";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_MinTotalMoney];
     } else if (indexPath.row == 2) {
-        cell.titleLabel.text = @"每桌最低余额记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.perTableMinTotalMoney];
-    } else if (indexPath.row == 3) {
         cell.titleLabel.text = @"最高获胜记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.maxWinTotalMoney];
-    } else if (indexPath.row == 4) {
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxWinTotalMoney];
+    } else if (indexPath.row == 3) {
         cell.titleLabel.text = @"最高失败记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.maxLoseTotalMoney];
-    } else if (indexPath.row == 5) {
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxLoseTotalMoney];
+    } else if (indexPath.row == 4) {
         cell.titleLabel.text = @"游戏总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.gameTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_gameTotalNum];
+    } else if (indexPath.row == 5) {
+        cell.titleLabel.text = @"闲总局数";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_playerTotalNum];
     } else if (indexPath.row == 6) {
-        cell.titleLabel.text = @"获胜总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.winTotalNum];
+        cell.titleLabel.text = @"庄总局数";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_bankerTotalNum];
     } else if (indexPath.row == 7) {
-        cell.titleLabel.text = @"获胜概率";
-        cell.numLabel.text = [NSString stringWithFormat:@"%0.2f%%",self.bUserData.winTotalProbability];
+        cell.titleLabel.text = @"和总局数";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_tieTotalNum];
     } else if (indexPath.row == 8) {
-        cell.titleLabel.text = @"最高连胜记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.continuousWinTotalNum];
+        cell.titleLabel.text = @"获胜总局数";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_winTotalNum];
     } else if (indexPath.row == 9) {
-        cell.titleLabel.text = @"最高连输记录";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.continuousLoseTotalNum];
+        cell.titleLabel.text = @"获胜概率";
+        cell.numLabel.text = [NSString stringWithFormat:@"%0.2f%%",self.bUserData.today_winTotalProbability];
     } else if (indexPath.row == 10) {
+        cell.titleLabel.text = @"最高连胜记录";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_continuoustoday_winTotalNum];
+    } else if (indexPath.row == 11) {
+        cell.titleLabel.text = @"最高连输记录";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_continuousLoseTotalNum];
+    } else if (indexPath.row == 12) {
         cell.titleLabel.text = @"今日盈利";
-
-        if (self.bUserData.todayProfitMoney >= 0) {
+        if (self.bUserData.today_ProfitMoney >= 0) {
             cell.numLabel.textColor = [UIColor greenColor];
-            cell.numLabel.text = [NSString stringWithFormat:@"+%ld",self.bUserData.todayProfitMoney];
+            cell.numLabel.text = [NSString stringWithFormat:@"+%ld",self.bUserData.today_ProfitMoney];
         } else {
             cell.numLabel.textColor = [UIColor redColor];
-            cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.todayProfitMoney];
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_ProfitMoney];
         }
     } else {
         cell.titleLabel.text = @"--";
         cell.numLabel.text = @"--";
     }
     
+    
     return cell;
+}
+
+//头部视图的大小
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(self.width, 30);
+}
+//这个也是最重要的方法 获取Header的 方法。
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        NSString *CellIdentifier = @"BStatisticssReusableView";
+        //从缓存中获取 Headercell
+        BStatisticssReusableView *cell = (BStatisticssReusableView *)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell.tag = 3000+indexPath.section;
+        
+        if (indexPath.section == 0) {
+            cell.titleLabel.text = @"今日统计";
+        } else if (indexPath.section == 1) {
+            cell.titleLabel.text = @"全部统计";
+        }
+       
+        return cell;
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+        return nil;
+    }
+    return nil;
 }
 
 @end

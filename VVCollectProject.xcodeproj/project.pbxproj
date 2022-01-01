@@ -44,6 +44,7 @@
 		84568C95275E9228006C2906 /* NSUserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C93275E9227006C2906 /* NSUserDefaultsManager.m */; };
 		847D2B18277E40D80028C264 /* BStatisticsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B17277E40D80028C264 /* BStatisticsAlertView.m */; };
 		847D2B1B277E42630028C264 /* BStatisticsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */; };
+		847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */; };
 		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
 		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */; };
@@ -419,6 +420,8 @@
 		847D2B17277E40D80028C264 /* BStatisticsAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticsAlertView.m; sourceTree = "<group>"; };
 		847D2B19277E42630028C264 /* BStatisticsCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticsCollectionCell.h; sourceTree = "<group>"; };
 		847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticsCollectionCell.m; sourceTree = "<group>"; };
+		847D2B1C2780B98A0028C264 /* BStatisticssReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticssReusableView.h; sourceTree = "<group>"; };
+		847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticssReusableView.m; sourceTree = "<group>"; };
 		848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
 		848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
 		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
@@ -1012,6 +1015,8 @@
 				847D2B17277E40D80028C264 /* BStatisticsAlertView.m */,
 				847D2B19277E42630028C264 /* BStatisticsCollectionCell.h */,
 				847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */,
+				847D2B1C2780B98A0028C264 /* BStatisticssReusableView.h */,
+				847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2485,6 +2490,7 @@
 				A0C5148921EE2E4F00E2F89D /* ioapi.c in Sources */,
 				A0C5148621EE2E4F00E2F89D /* RSA.m in Sources */,
 				84568C83275E8255006C2906 /* MXWBaiJiaShareAlert.m in Sources */,
+				847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */,
 				84B85E5027640736009AC598 /* SelectAI.m in Sources */,
 				84B85E192763DE6A009AC598 /* AdvancedAI.m in Sources */,
 				84B85DE527626A93009AC598 /* BetState.m in Sources */,

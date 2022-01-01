@@ -64,7 +64,7 @@
     _resultModel = resultModel;
     
     // 移除全部子视图
-//    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    //    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     self.index = 1;
     
@@ -120,6 +120,12 @@
     if (pocker) {
         [self rotateWithView:pocker];
     }
+    
+    if (self.index >= 4) {
+        // 延时执行显示点数
+        //        [self performSelector:@selector(showPointsMethod) withObject:nil afterDelay:0.1f];
+        [self showPointsMethod];
+    }
 }
 
 
@@ -129,7 +135,7 @@
     if (self.index <= 4) {
         self.index++;
     }
-   
+    
     if (self.index < 5) {
         [self executeAnimation];
     }
@@ -145,12 +151,6 @@
             // 延时执行翻牌
             [self performSelector:@selector(delayedExecutionBanker3Flop) withObject:nil afterDelay:1.0f];
         }
-    }
-    
-    if (self.index >= 4) {
-        // 延时执行显示点数
-//        [self performSelector:@selector(showPointsMethod) withObject:nil afterDelay:0.1f];
-        [self showPointsMethod];
     }
 }
 
@@ -176,17 +176,19 @@
     if (self.index == 4 && self.resultModel.pokerTotalNum > 4) {
         self.playerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.player2TotalPoints];
         self.bankerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.banker2TotalPoints];
+        return;
     }
     
-    // 5张牌 庄是最后一张牌
-    if (!self.isPlayer3 && self.isBanker3 && self.index-1 == self.resultModel.pokerTotalNum) {
-        [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:1.0f];
-    } else if (self.isPlayer3 && self.isBanker3 && self.index == 5) {
+    if (self.isPlayer3 && self.isBanker3 && self.index == 5) {
+        // 有6张牌 第5张牌 先进入这里
         // 优化 这里先显示闲的点数
         [self performSelector:@selector(setPlayer5Points) withObject:nil afterDelay:1.5f];
         
+    } else if (!self.isPlayer3 && self.isBanker3 && self.index-1 == self.resultModel.pokerTotalNum) {
+        // 庄5 庄是最后一张牌
+        [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:1.0f];
     } else if (self.index == self.resultModel.pokerTotalNum) {
-        // 最后一张牌
+        // 4张牌或者6张牌 结束 最后一张牌
         [self performSelector:@selector(setResultPoints) withObject:nil afterDelay:1.0f];
     }
 }
@@ -267,23 +269,23 @@
     self.banker_pk2.hidden = YES;
     self.banker_pk3.hidden = YES;
     
-//    //依次遍历self.view中的所有子视图
-//    for (id tmpView in self.player_pk1.subviews) {
-//        //找到要删除的子视图的对象
-//        if([tmpView isKindOfClass:[UIImageView class]]) {
-//            UIImageView *imgView = (UIImageView *)tmpView;
-//            if(imgView.tag == 1)   //判断是否满足自己要删除的子视图的条件
-//            {
-//                [imgView removeFromSuperview]; //删除子视图
-//                break;  //跳出for循环，因为子视图已经找到，无须往下遍历
-//            }
-//        }
-//    }
+    //    //依次遍历self.view中的所有子视图
+    //    for (id tmpView in self.player_pk1.subviews) {
+    //        //找到要删除的子视图的对象
+    //        if([tmpView isKindOfClass:[UIImageView class]]) {
+    //            UIImageView *imgView = (UIImageView *)tmpView;
+    //            if(imgView.tag == 1)   //判断是否满足自己要删除的子视图的条件
+    //            {
+    //                [imgView removeFromSuperview]; //删除子视图
+    //                break;  //跳出for循环，因为子视图已经找到，无须往下遍历
+    //            }
+    //        }
+    //    }
     
     self.playerTotalPointsLabel.text = @"";
     self.bankerTotalPointsLabel.text = @"";
     self.winTypeLabel.text = @"";
-//    [self stopTimer];
+    //    [self stopTimer];
 }
 
 
