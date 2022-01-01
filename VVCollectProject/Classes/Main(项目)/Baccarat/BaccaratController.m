@@ -166,11 +166,10 @@
     NSInteger tMoney = 30000;
     bUserData.userTotalMoney = tMoney;
     
-    bUserData.todayInitMoney = tMoney;
+    bUserData.today_InitMoney = tMoney;
     bUserData.beforeBetTotalMoney = tMoney;
-    bUserData.perTableMaxTotalMoney = tMoney;
-    bUserData.perTableMinTotalMoney = tMoney;
-    bUserData.maxTotalMoney = tMoney;
+    bUserData.today_maxTotalMoney = tMoney;
+    bUserData.today_MinTotalMoney = tMoney;
     
     
     BBetModel *betModel = [[BBetModel alloc] init];
@@ -281,7 +280,7 @@
     self.bigRoadMapView.model = self.resultDataArray;
 }
 
-#pragma mark BaccaratBetViewDelegate 选中下注
+#pragma mark BaccaratBetViewDelegate 选中 下注
 /// 每次下注回调
 - (void)everyBetClick:(UIButton *)sender {
     
@@ -315,11 +314,22 @@
             self.betModel.bankerPair_money = self.betModel.bankerPair_money + self.selectedModel.money;
         }
     } else if (sender.tag == 3005) { // 闲
+        
+        // 如果已经下了庄 禁止下注闲
+        if (self.betModel.banker_money > 0) {
+            return;
+        }
+        
         if (self.betModel.player_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.player_money + self.selectedModel.money >= kMinBetChipsNum) {
             
             self.betModel.player_money = self.betModel.player_money + self.selectedModel.money;
         }
     } else if (sender.tag == 3006) { // 庄
+        // 如果已经下了闲 禁止下注庄
+        if (self.betModel.player_money > 0) {
+            return;
+        }
+        
         if (self.betModel.banker_money + self.selectedModel.money <= kMaxBetChipsNum && self.betModel.banker_money + self.selectedModel.money >= kMinBetChipsNum) {
             self.betModel.banker_money = self.betModel.banker_money + self.selectedModel.money;
         }
@@ -347,8 +357,6 @@
     if (self.betModel.total_bet_money > 0) {
         self.chipsView.isShowCancelBtn = YES;
     }
-    
-    
     
 }
 
@@ -406,7 +414,7 @@
     if (resultModel.winType == WinType_Player) {
         tempWinMoney = self.betModel.player_money *2;
         isWin = tempWinMoney > 0 ? YES : NO;
-        self.bUserData.playerTotalNum = self.bUserData.playerTotalNum +1;
+        self.bUserData.today_playerTotalNum = self.bUserData.today_playerTotalNum +1;
     } else if (resultModel.winType == WinType_Banker) {
         if (resultModel.isSuperSix) {
             tempWinMoney = self.betModel.banker_money *1.5;
@@ -414,11 +422,11 @@
             tempWinMoney = self.betModel.banker_money *2;
         }
         isWin = tempWinMoney > 0 ? YES : NO;
-        self.bUserData.bankerTotalNum = self.bUserData.bankerTotalNum +1;
+        self.bUserData.today_bankerTotalNum = self.bUserData.today_bankerTotalNum +1;
     } else {
         tempWinMoney = self.betModel.player_money + self.betModel.banker_money;
         tempWinMoney = tempWinMoney + self.betModel.tie_money *9;
-        self.bUserData.tieTotalNum = self.bUserData.tieTotalNum +1;
+        self.bUserData.today_tieTotalNum = self.bUserData.today_tieTotalNum +1;
     }
     
     
@@ -451,11 +459,11 @@
     
     // ********* 统计🔢🔢🔠🟥🟥🟥🟥🟥 *********
     // 游戏总局数
-    self.bUserData.gameTotalNum = self.bUserData.gameTotalNum + 1;
+    self.bUserData.today_gameTotalNum = self.bUserData.today_gameTotalNum + 1;
     
     // 获胜总局数  连输 连赢
     if (isWin) {
-        self.bUserData.winTotalNum = self.bUserData.winTotalNum + 1;
+        self.bUserData.today_winTotalNum = self.bUserData.today_winTotalNum + 1;
 
         self.continuousWinNum = self.continuousWinNum + 1;
         self.continuousLoseNum = 0;
@@ -470,42 +478,38 @@
     }
 
     // 最高连胜记录
-    if (self.bUserData.continuousWinTotalNum < self.continuousWinNum) {
-        self.bUserData.continuousWinTotalNum = self.continuousWinNum;
+    if (self.bUserData.today_continuoustoday_winTotalNum < self.continuousWinNum) {
+        self.bUserData.today_continuoustoday_winTotalNum = self.continuousWinNum;
     }
     // 最高连输记录
-    if (self.bUserData.continuousLoseTotalNum < self.continuousLoseNum) {
-        self.bUserData.continuousLoseTotalNum = self.continuousLoseNum;
+    if (self.bUserData.today_continuousLoseTotalNum < self.continuousLoseNum) {
+        self.bUserData.today_continuousLoseTotalNum = self.continuousLoseNum;
     }
     
     // 获胜概率
-    self.bUserData.winTotalProbability = (self.bUserData.winTotalNum *0.01) / (self.bUserData.gameTotalNum *0.01) * 100;
+    self.bUserData.today_winTotalProbability = (self.bUserData.today_winTotalNum *0.01) / (self.bUserData.today_gameTotalNum *0.01) * 100;
     
     
     // 最高余额记录
-    if (self.bUserData.userTotalMoney > self.bUserData.maxTotalMoney) {
-        self.bUserData.maxTotalMoney = self.bUserData.userTotalMoney;
+    if (self.bUserData.userTotalMoney > self.bUserData.today_maxTotalMoney) {
+        self.bUserData.today_maxTotalMoney = self.bUserData.userTotalMoney;
     }
-    // 每桌最低余额记录
-    if (self.bUserData.userTotalMoney < self.bUserData.perTableMinTotalMoney) {
-        self.bUserData.perTableMinTotalMoney = self.bUserData.userTotalMoney;
-    }
-    // 每桌最高余额记录
-    if (self.bUserData.userTotalMoney > self.bUserData.perTableMaxTotalMoney) {
-        self.bUserData.perTableMaxTotalMoney = self.bUserData.userTotalMoney;
+    // 最低余额记录
+    if (self.bUserData.userTotalMoney < self.bUserData.today_MinTotalMoney) {
+        self.bUserData.today_MinTotalMoney = self.bUserData.userTotalMoney;
     }
     
     // 最高获胜记录
-    if (self.bUserData.maxWinTotalMoney < self.betModel.winLose_money) {
-        self.bUserData.maxWinTotalMoney =  self.betModel.winLose_money;
+    if (self.bUserData.today_maxWinTotalMoney < self.betModel.winLose_money) {
+        self.bUserData.today_maxWinTotalMoney =  self.betModel.winLose_money;
     }
     // 最高失败记录
-    if (self.bUserData.maxLoseTotalMoney > self.betModel.winLose_money) {
-        self.bUserData.maxLoseTotalMoney = self.betModel.winLose_money;
+    if (self.bUserData.today_maxLoseTotalMoney > self.betModel.winLose_money) {
+        self.bUserData.today_maxLoseTotalMoney = self.betModel.winLose_money;
     }
     
     // 今日盈利
-    self.bUserData.todayProfitMoney = self.bUserData.userTotalMoney - self.bUserData.todayInitMoney;
+    self.bUserData.today_ProfitMoney = self.bUserData.userTotalMoney - self.bUserData.today_InitMoney;
   
 }
 
