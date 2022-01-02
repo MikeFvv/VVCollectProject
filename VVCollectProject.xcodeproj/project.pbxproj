@@ -46,6 +46,7 @@
 		847D2B1B277E42630028C264 /* BStatisticsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */; };
 		847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */; };
 		847D2B212780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1F2780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m */; };
+		847D2B2F278195000028C264 /* JMDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B2E278195000028C264 /* JMDropMenu.m */; };
 		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
 		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */; };
@@ -425,6 +426,8 @@
 		847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticssReusableView.m; sourceTree = "<group>"; };
 		847D2B1F2780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ASMandatoryLandscapeDevice.m"; sourceTree = "<group>"; };
 		847D2B202780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+ASMandatoryLandscapeDevice.h"; sourceTree = "<group>"; };
+		847D2B2D278195000028C264 /* JMDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMDropMenu.h; sourceTree = "<group>"; };
+		847D2B2E278195000028C264 /* JMDropMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMDropMenu.m; sourceTree = "<group>"; };
 		848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
 		848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
 		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
@@ -1130,6 +1133,15 @@
 			path = "展示、用法";
 			sourceTree = "<group>";
 		};
+		847D2B2C278195000028C264 /* JMDropMenu */ = {
+			isa = PBXGroup;
+			children = (
+				847D2B2D278195000028C264 /* JMDropMenu.h */,
+				847D2B2E278195000028C264 /* JMDropMenu.m */,
+			);
+			path = JMDropMenu;
+			sourceTree = "<group>";
+		};
 		848EE77A276BBE2F0016CD8A /* MBProgressHUD+JDragon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1771,6 +1783,7 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				847D2B2C278195000028C264 /* JMDropMenu */,
 				84A8D9E527725C8B00695055 /* UIAlertView+Blocks */,
 				84A8D9CB2772579A00695055 /* CustomIOSAlertView */,
 				848EE790276E5A4C0016CD8A /* WMDragView */,
@@ -2542,6 +2555,7 @@
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */,
 				84A8DD772777BC8C00695055 /* BBBetMaxMinView.m in Sources */,
+				847D2B2F278195000028C264 /* JMDropMenu.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
 				A0C5148821EE2E4F00E2F89D /* zip.c in Sources */,
 				A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */,
