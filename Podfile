@@ -19,6 +19,8 @@ target 'VVCollectProject' do
   
   # 布局
   pod 'Masonry'
+  pod 'SDAutoLayout', '~> 2.1.3'
+  
   # 上下拉刷新
   pod 'MJRefresh'
   # 字典转模型框架

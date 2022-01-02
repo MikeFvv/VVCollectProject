@@ -126,7 +126,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     self.tieNum = 0;
     
     CGFloat margin = 1;
-    CGFloat w = kDLItemSizeWidth;
+    CGFloat w = kBDLItemSizeWidth;
     CGFloat h = w;
     CGFloat x = 0;
     CGFloat y = 0;
@@ -135,7 +135,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     UILabel *label = [[UILabel alloc] init];
     label.layer.masksToBounds = YES;
-    label.font = [UIFont boldSystemFontOfSize:14];
+    label.font = [UIFont boldSystemFontOfSize:12];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.cornerRadius = w/2;
     [self.daLu_ScrollView addSubview:label];
@@ -387,7 +387,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
     
     UILabel *tempLabel = nil;
-    CGFloat minY = (kDLItemSizeWidth +1) * 6;
+    CGFloat minY = (kBDLItemSizeWidth +1) * 6;
     for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
         CGFloat oldX = CGRectGetMaxX(label.frame);
         CGFloat oldY = CGRectGetMaxY(label.frame);
@@ -414,7 +414,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         _daLu_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _daLu_ScrollView.delegate = self;
         _daLu_ScrollView.backgroundColor = [UIColor clearColor];
-        _daLu_ScrollView.contentSize = CGSizeMake((kDLItemSizeWidth+1)*(kTotalGridsNum/6), 0);
+        _daLu_ScrollView.contentSize = CGSizeMake((kBDLItemSizeWidth+1)*(kBTotalGridsNum/6), 0);
         _daLu_ScrollView.layer.borderWidth = 1;
         _daLu_ScrollView.layer.borderColor = [UIColor redColor].CGColor;
         // 禁止弹簧效果
@@ -432,7 +432,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (void)tieBezierPath:(BaccaratResultModel *)model {
     if (self.daLu_DataArray.count == 1) {
         //        CGFloat margin = 1;
-        CGFloat w = kDLItemSizeWidth;
+        CGFloat w = kBDLItemSizeWidth;
         CGFloat h = w;
         CGFloat x = 0;
         CGFloat y = 0;
@@ -456,9 +456,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 线的路径
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     // 起点
-    [linePath moveToPoint:CGPointMake(kDLItemSizeWidth, 0)];
+    [linePath moveToPoint:CGPointMake(kBDLItemSizeWidth, 0)];
     // 其他点
-    [linePath addLineToPoint:CGPointMake(0, kDLItemSizeWidth)];
+    [linePath addLineToPoint:CGPointMake(0, kBDLItemSizeWidth)];
     
     CAShapeLayer *lineLayer = [CAShapeLayer layer];
     lineLayer.lineWidth = 2.0;
@@ -533,7 +533,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
     // 设置每个item的大小
-    layout.itemSize = CGSizeMake(kDLItemSizeWidth+1, kDLItemSizeWidth+1);
+    layout.itemSize = CGSizeMake(kBDLItemSizeWidth+1, kBDLItemSizeWidth+1);
     
     // 设置列间距
     layout.minimumInteritemSpacing = 0;
@@ -547,7 +547,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 设置布局方向(滚动方向)
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGFloat height = (kDLItemSizeWidth+1) * 6;
+    CGFloat height = (kBDLItemSizeWidth+1) * 6;
     _blankGridCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */
@@ -589,7 +589,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return kTotalGridsNum+12;
+    return kBTotalGridsNum+12;
 }
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

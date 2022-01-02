@@ -72,7 +72,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 10*2) / (90/6+1);
     // 设置每个item的大小
-    layout.itemSize = CGSizeMake(kZPLItemSizeWidth, kZPLItemSizeWidth);
+    layout.itemSize = CGSizeMake(kBZPLItemSizeWidth, kBZPLItemSizeWidth);
     
     // 设置列间距
     layout.minimumInteritemSpacing = 1;
@@ -105,7 +105,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
      初始化mainCollectionView
      设置collectionView的位置
      */
-    CGFloat height = (kZPLItemSizeWidth+1) * 6;
+    CGFloat height = (kBZPLItemSizeWidth+1) * 6;
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */
@@ -156,7 +156,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (collectionView == self.blankGridCollectionView) {
-        return kTotalGridsNum+12;
+        return kBTotalGridsNum+12;
     } else {
         return self.resultDataArray.count;
     }
@@ -221,7 +221,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
     // 设置每个item的大小
-    layout.itemSize = CGSizeMake(kZPLItemSizeWidth+1, kZPLItemSizeWidth+1);
+    layout.itemSize = CGSizeMake(kBZPLItemSizeWidth+1, kBZPLItemSizeWidth+1);
     
     // 设置列间距
     layout.minimumInteritemSpacing = 0;
@@ -235,7 +235,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 设置布局方向(滚动方向)
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGFloat height = (kZPLItemSizeWidth+1) * 6;
+    CGFloat height = (kBZPLItemSizeWidth+1) * 6;
     _blankGridCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */

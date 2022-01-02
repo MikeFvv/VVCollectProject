@@ -47,6 +47,10 @@
 		847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */; };
 		847D2B212780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1F2780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m */; };
 		847D2B2F278195000028C264 /* JMDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B2E278195000028C264 /* JMDropMenu.m */; };
+		847D2B332781D5660028C264 /* BGameRecordAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B322781D5660028C264 /* BGameRecordAlertView.m */; };
+		847D2B362781F89A0028C264 /* BPockerTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B352781F89A0028C264 /* BPockerTextView.m */; };
+		847D2B392781FB0E0028C264 /* BPockerPBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B382781FB0E0028C264 /* BPockerPBView.m */; };
+		847D2B3C278201020028C264 /* BBorPorTPairS6View.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B3B278201020028C264 /* BBorPorTPairS6View.m */; };
 		848EE77E276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */; };
 		848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */; };
 		848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE781276BD6B70016CD8A /* BJWinOrLoseResultModel.m */; };
@@ -55,7 +59,7 @@
 		848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE78A276CA9B40016CD8A /* BShowPokerView.m */; };
 		848EE78E276E4A710016CD8A /* BaccaratXiaSanLuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE78D276E4A710016CD8A /* BaccaratXiaSanLuView.m */; };
 		848EE793276E5A4C0016CD8A /* WMDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE791276E5A4C0016CD8A /* WMDragView.m */; };
-		848EE796276E64270016CD8A /* BGameRecordsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE795276E64270016CD8A /* BGameRecordsCell.m */; };
+		848EE796276E64270016CD8A /* BUserGameRecordsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE795276E64270016CD8A /* BUserGameRecordsCell.m */; };
 		848EE799276E7AFA0016CD8A /* ChipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE798276E7AFA0016CD8A /* ChipsView.m */; };
 		848EE79C276E7B610016CD8A /* BaccaratBetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE79B276E7B610016CD8A /* BaccaratBetView.m */; };
 		848EE79F276E8B780016CD8A /* ChipsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE79E276E8B780016CD8A /* ChipsCollectionViewCell.m */; };
@@ -309,7 +313,7 @@
 		A0C5150621EE46CB00E2F89D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150521EE46CB00E2F89D /* main.js */; };
 		A0C5150821EE491600E2F89D /* DemoJS.js in Resources */ = {isa = PBXBuildFile; fileRef = A0C5150721EE491600E2F89D /* DemoJS.js */; };
 		A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD632220340600E7E21F /* TestUITableViewController.m */; };
-		A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD6622204AA700E7E21F /* BaccaratCell.m */; };
+		A0CBDD6722204AA700E7E21F /* BGameRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CBDD6622204AA700E7E21F /* BGameRecordCell.m */; };
 		A0D55E28221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E25221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m */; };
 		A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E27221D98CA00D7E3B0 /* UINavigationController+HKExts.m */; };
 		A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D55E2D221DAFB500D7E3B0 /* BaccaratController.m */; };
@@ -428,6 +432,14 @@
 		847D2B202780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+ASMandatoryLandscapeDevice.h"; sourceTree = "<group>"; };
 		847D2B2D278195000028C264 /* JMDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMDropMenu.h; sourceTree = "<group>"; };
 		847D2B2E278195000028C264 /* JMDropMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMDropMenu.m; sourceTree = "<group>"; };
+		847D2B312781D5660028C264 /* BGameRecordAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGameRecordAlertView.h; sourceTree = "<group>"; };
+		847D2B322781D5660028C264 /* BGameRecordAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGameRecordAlertView.m; sourceTree = "<group>"; };
+		847D2B342781F89A0028C264 /* BPockerTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPockerTextView.h; sourceTree = "<group>"; };
+		847D2B352781F89A0028C264 /* BPockerTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPockerTextView.m; sourceTree = "<group>"; };
+		847D2B372781FB0E0028C264 /* BPockerPBView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPockerPBView.h; sourceTree = "<group>"; };
+		847D2B382781FB0E0028C264 /* BPockerPBView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPockerPBView.m; sourceTree = "<group>"; };
+		847D2B3A278201020028C264 /* BBorPorTPairS6View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBorPorTPairS6View.h; sourceTree = "<group>"; };
+		847D2B3B278201020028C264 /* BBorPorTPairS6View.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBorPorTPairS6View.m; sourceTree = "<group>"; };
 		848EE77B276BBE2F0016CD8A /* MBProgressHUD+JDragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+JDragon.h"; sourceTree = "<group>"; };
 		848EE77C276BBE2F0016CD8A /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
 		848EE77D276BBE2F0016CD8A /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
@@ -444,8 +456,8 @@
 		848EE78F276E4BDA0016CD8A /* BaccaratCom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCom.h; sourceTree = "<group>"; };
 		848EE791276E5A4C0016CD8A /* WMDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDragView.m; sourceTree = "<group>"; };
 		848EE792276E5A4C0016CD8A /* WMDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDragView.h; sourceTree = "<group>"; };
-		848EE794276E64270016CD8A /* BGameRecordsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGameRecordsCell.h; sourceTree = "<group>"; };
-		848EE795276E64270016CD8A /* BGameRecordsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGameRecordsCell.m; sourceTree = "<group>"; };
+		848EE794276E64270016CD8A /* BUserGameRecordsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUserGameRecordsCell.h; sourceTree = "<group>"; };
+		848EE795276E64270016CD8A /* BUserGameRecordsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUserGameRecordsCell.m; sourceTree = "<group>"; };
 		848EE797276E7AFA0016CD8A /* ChipsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChipsView.h; sourceTree = "<group>"; };
 		848EE798276E7AFA0016CD8A /* ChipsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChipsView.m; sourceTree = "<group>"; };
 		848EE79A276E7B610016CD8A /* BaccaratBetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratBetView.h; sourceTree = "<group>"; };
@@ -824,8 +836,8 @@
 		A0C5150721EE491600E2F89D /* DemoJS.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DemoJS.js; sourceTree = "<group>"; };
 		A0CBDD622220340600E7E21F /* TestUITableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestUITableViewController.h; sourceTree = "<group>"; };
 		A0CBDD632220340600E7E21F /* TestUITableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestUITableViewController.m; sourceTree = "<group>"; };
-		A0CBDD6522204AA700E7E21F /* BaccaratCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratCell.h; sourceTree = "<group>"; };
-		A0CBDD6622204AA700E7E21F /* BaccaratCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratCell.m; sourceTree = "<group>"; };
+		A0CBDD6522204AA700E7E21F /* BGameRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGameRecordCell.h; sourceTree = "<group>"; };
+		A0CBDD6622204AA700E7E21F /* BGameRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGameRecordCell.m; sourceTree = "<group>"; };
 		A0D55E24221D98CA00D7E3B0 /* UIViewController+HKSafeExts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HKSafeExts.h"; sourceTree = "<group>"; };
 		A0D55E25221D98CA00D7E3B0 /* UIViewController+HKSafeExts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HKSafeExts.m"; sourceTree = "<group>"; };
 		A0D55E26221D98CA00D7E3B0 /* UINavigationController+HKExts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+HKExts.h"; sourceTree = "<group>"; };
@@ -995,14 +1007,12 @@
 				A0BCD7B82221ACF800BB3A9C /* BZhuPanLuCollectionView.m */,
 				A0A093C82223FB4B00262344 /* BaccaratCollectionViewCell.h */,
 				A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */,
-				A0CBDD6522204AA700E7E21F /* BaccaratCell.h */,
-				A0CBDD6622204AA700E7E21F /* BaccaratCell.m */,
 				65813237231D886E00A3BBFE /* BaccaratDaLuLabel.h */,
 				65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */,
 				848EE783276C82930016CD8A /* BAnalyzeRoadMapView.h */,
 				848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */,
-				848EE794276E64270016CD8A /* BGameRecordsCell.h */,
-				848EE795276E64270016CD8A /* BGameRecordsCell.m */,
+				848EE794276E64270016CD8A /* BUserGameRecordsCell.h */,
+				848EE795276E64270016CD8A /* BUserGameRecordsCell.m */,
 				848EE789276CA9B40016CD8A /* BShowPokerView.h */,
 				848EE78A276CA9B40016CD8A /* BShowPokerView.m */,
 				84A8E20A27790BC900695055 /* BPockerView.h */,
@@ -1023,6 +1033,7 @@
 				847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */,
 				847D2B1C2780B98A0028C264 /* BStatisticssReusableView.h */,
 				847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */,
+				847D2B302781D5290028C264 /* GameRecord(游戏记录) */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1140,6 +1151,23 @@
 				847D2B2E278195000028C264 /* JMDropMenu.m */,
 			);
 			path = JMDropMenu;
+			sourceTree = "<group>";
+		};
+		847D2B302781D5290028C264 /* GameRecord(游戏记录) */ = {
+			isa = PBXGroup;
+			children = (
+				847D2B312781D5660028C264 /* BGameRecordAlertView.h */,
+				847D2B322781D5660028C264 /* BGameRecordAlertView.m */,
+				A0CBDD6522204AA700E7E21F /* BGameRecordCell.h */,
+				A0CBDD6622204AA700E7E21F /* BGameRecordCell.m */,
+				847D2B372781FB0E0028C264 /* BPockerPBView.h */,
+				847D2B382781FB0E0028C264 /* BPockerPBView.m */,
+				847D2B342781F89A0028C264 /* BPockerTextView.h */,
+				847D2B352781F89A0028C264 /* BPockerTextView.m */,
+				847D2B3A278201020028C264 /* BBorPorTPairS6View.h */,
+				847D2B3B278201020028C264 /* BBorPorTPairS6View.m */,
+			);
+			path = "GameRecord(游戏记录)";
 			sourceTree = "<group>";
 		};
 		848EE77A276BBE2F0016CD8A /* MBProgressHUD+JDragon */ = {
@@ -1734,7 +1762,7 @@
 			path = "无网络";
 			sourceTree = "<group>";
 		};
-		A004E78B2226E40A0090DC44 /* BlackJack */ = {
+		A004E78B2226E40A0090DC44 /* BlackJack(21点) */ = {
 			isa = PBXGroup;
 			children = (
 				84B85E6827658806009AC598 /* Model */,
@@ -1744,7 +1772,7 @@
 				A0DCEF5D2236A773002FF19C /* BJDetailsController.m */,
 				A0F91FC5222ECCA700C4EE9C /* View */,
 			);
-			path = BlackJack;
+			path = "BlackJack(21点)";
 			sourceTree = "<group>";
 		};
 		A010CB522261BD5E00618A52 /* Hacker */ = {
@@ -1860,7 +1888,7 @@
 				84B85DD22761CB1F009AC598 /* Holdem(德州) */,
 				84B85E812766F6BF009AC598 /* Login&Reg */,
 				A0BE49A12247727D00CDBE43 /* Common */,
-				A004E78B2226E40A0090DC44 /* BlackJack */,
+				A004E78B2226E40A0090DC44 /* BlackJack(21点) */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
 				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
@@ -2458,11 +2486,12 @@
 				84A8DEFE2777FC8C00695055 /* CFVCommonBottomView.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */,
+				847D2B392781FB0E0028C264 /* BPockerPBView.m in Sources */,
 				848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
 				276C91D42691610400377224 /* MFHTimeManager.m in Sources */,
-				A0CBDD6722204AA700E7E21F /* BaccaratCell.m in Sources */,
+				A0CBDD6722204AA700E7E21F /* BGameRecordCell.m in Sources */,
 				848EE79C276E7B610016CD8A /* BaccaratBetView.m in Sources */,
 				40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */,
 				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
@@ -2490,7 +2519,7 @@
 				A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */,
 				A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */,
 				84B85E9C27671FA5009AC598 /* FunModel.m in Sources */,
-				848EE796276E64270016CD8A /* BGameRecordsCell.m in Sources */,
+				848EE796276E64270016CD8A /* BUserGameRecordsCell.m in Sources */,
 				84A8DF032777FC8D00695055 /* CFVTopSingleShowPockerView.m in Sources */,
 				84A8D9F027725C9600695055 /* UIAlertView+Blocks.m in Sources */,
 				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
@@ -2517,6 +2546,7 @@
 				A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */,
 				A0BF4F58223BEA320038422F /* MasonryController.m in Sources */,
 				84B85E7C2766F5F2009AC598 /* MXVBaseViewController.m in Sources */,
+				847D2B362781F89A0028C264 /* BPockerTextView.m in Sources */,
 				A0F91FD1222ECCB500C4EE9C /* UIView+JMNoise.m in Sources */,
 				A0F91FD4222ECCB500C4EE9C /* BJHeart.m in Sources */,
 				84B85E5227640736009AC598 /* SimpleAI.m in Sources */,
@@ -2578,6 +2608,7 @@
 				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
 				A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */,
 				A0C5148A21EE2E4F00E2F89D /* mztools.c in Sources */,
+				847D2B3C278201020028C264 /* BBorPorTPairS6View.m in Sources */,
 				A0F3E621220D5FA500755DBB /* Person.m in Sources */,
 				84A8DEFC2777FC8C00695055 /* CFVSkipPokerView.m in Sources */,
 				27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */,
@@ -2615,6 +2646,7 @@
 				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
 				84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */,
 				84B85E58276407DA009AC598 /* GameClient.m in Sources */,
+				847D2B332781D5660028C264 /* BGameRecordAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

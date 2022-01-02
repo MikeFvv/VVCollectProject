@@ -124,8 +124,8 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+//    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    cell.backgroundColor = [UIColor whiteColor];
 }
 
 //返回这个UICollectionView是否可以被选择

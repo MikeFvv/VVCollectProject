@@ -7,6 +7,7 @@
 //
 
 #import "BaccaratResultModel.h"
+#import "MFHTimeManager.h"
 
 @implementation BaccaratResultModel
 
@@ -17,6 +18,9 @@
     
     self.playerArray = playerArray;
     self.bankerArray = bankerArray;
+    
+    // *** 创建时间 ***
+   self.createTime = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
     
     // *** 玩家计算 ***
     self.playerTotalPoints = 0;

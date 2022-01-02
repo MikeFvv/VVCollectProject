@@ -30,20 +30,20 @@
     
     UILabel *minTtLabel = [[UILabel alloc] init];
     minTtLabel.text = @"MIN";
-    minTtLabel.font = [UIFont boldSystemFontOfSize:14];
+    minTtLabel.font = [UIFont boldSystemFontOfSize:12];
     minTtLabel.textColor = [UIColor colorWithHex:@"BCAF94"];
     minTtLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:minTtLabel];
     
     [minTtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(1);
+        make.top.equalTo(self.mas_top).offset(0);
         make.left.equalTo(self.mas_left).offset(10);
         make.width.mas_equalTo(80);
     }];
     
     UILabel *minLabel = [[UILabel alloc] init];
     minLabel.text = @"1,000";
-    minLabel.font = [UIFont boldSystemFontOfSize:14];
+    minLabel.font = [UIFont boldSystemFontOfSize:13];
     minLabel.textColor = [UIColor colorWithHex:@"BCAF94"];
     minLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:minLabel];
@@ -57,20 +57,20 @@
     
     UILabel *maxTtLabel = [[UILabel alloc] init];
     maxTtLabel.text = @"MIN";
-    maxTtLabel.font = [UIFont boldSystemFontOfSize:14];
+    maxTtLabel.font = [UIFont boldSystemFontOfSize:12];
     maxTtLabel.textColor = [UIColor colorWithHex:@"BCAF94"];
     maxTtLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:maxTtLabel];
     
     [maxTtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(1);
+        make.top.equalTo(self.mas_top).offset(0);
         make.left.equalTo(minTtLabel.mas_right).offset(10);
         make.width.mas_equalTo(80);
     }];
     
     UILabel *maxLabel = [[UILabel alloc] init];
     maxLabel.text = @"2,000,000";
-    maxLabel.font = [UIFont boldSystemFontOfSize:14];
+    maxLabel.font = [UIFont boldSystemFontOfSize:13];
     maxLabel.textColor = [UIColor colorWithHex:@"BCAF94"];
     maxLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:maxLabel];

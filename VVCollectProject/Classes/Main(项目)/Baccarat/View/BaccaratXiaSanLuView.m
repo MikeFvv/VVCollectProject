@@ -79,7 +79,7 @@
 - (void)xsl_createItems {
     
     CGFloat margin = 1;
-    CGFloat w = kItemSizeWidth;
+    CGFloat w = kBItemSizeWidth;
     CGFloat h = w;
     CGFloat x = 0;
     CGFloat y = 0;
@@ -90,7 +90,7 @@
     if (self.roadMapType == RoadMapType_DYL) {
         label.layer.cornerRadius = w/2;
         label.layer.masksToBounds = YES;
-        label.layer.borderWidth = 3.0;
+        label.layer.borderWidth = 2.0;
         
     } else if (self.roadMapType == RoadMapType_XL) {
         label.layer.cornerRadius = w/2;
@@ -136,6 +136,7 @@
             lineLayer.strokeColor = [UIColor blueColor].CGColor;
         }
     } else {
+        label.backgroundColor = [UIColor grayColor];
         NSLog(@"🔴🔴🔴未知🔴🔴🔴");
     }
     
@@ -242,7 +243,7 @@
 - (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
     
     UILabel *tempLabel = nil;
-    CGFloat minY = (kItemSizeWidth +1) * 6;
+    CGFloat minY = (kBItemSizeWidth +1) * 6;
     for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
         CGFloat oldX = CGRectGetMaxX(label.frame);
         CGFloat oldY = CGRectGetMaxY(label.frame);
@@ -269,7 +270,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
     // 设置每个item的大小
-    layout.itemSize = CGSizeMake(kItemSizeWidth+1, kItemSizeWidth+1);
+    layout.itemSize = CGSizeMake(kBItemSizeWidth+1, kBItemSizeWidth+1);
     
     // 设置列间距
     layout.minimumInteritemSpacing = 0;
@@ -283,7 +284,7 @@
     // 设置布局方向(滚动方向)
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGFloat height = (kItemSizeWidth+1) * 6;
+    CGFloat height = (kBItemSizeWidth+1) * 6;
     _blankGridCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) collectionViewLayout:layout];
     
     /** mainCollectionView 的布局(必须实现的) */
@@ -325,7 +326,7 @@
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return kTotalGridsNum+12;
+    return kBTotalGridsNum+12;
 }
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -347,7 +348,7 @@
         _xsl_ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _xsl_ScrollView.delegate = self;
         _xsl_ScrollView.backgroundColor = [UIColor clearColor];
-        _xsl_ScrollView.contentSize = CGSizeMake((kItemSizeWidth+1)*(kTotalGridsNum/6), 0);
+        _xsl_ScrollView.contentSize = CGSizeMake((kBItemSizeWidth+1)*(kBTotalGridsNum/6), 0);
         _xsl_ScrollView.layer.borderWidth = 1;
         _xsl_ScrollView.layer.borderColor = [UIColor redColor].CGColor;
         // 禁止弹簧效果

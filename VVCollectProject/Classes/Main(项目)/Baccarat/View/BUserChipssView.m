@@ -42,7 +42,7 @@
     }];
     
     UIImageView *imgView = [[UIImageView alloc] init];
-    imgView.layer.cornerRadius = 45/2;
+    imgView.layer.cornerRadius = 50/2;
     imgView.layer.masksToBounds = YES;
     imgView.image = [UIImage imageNamed:@"com_ph_avatar_3"];
     [self addSubview:imgView];
@@ -51,7 +51,7 @@
     [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(nameLabel.mas_bottom).offset(0);
         make.centerX.equalTo(self.mas_centerX);
-        make.size.equalTo(@(45));
+        make.size.equalTo(@(50));
     }];
     
     UILabel *userMoneyLabel = [[UILabel alloc] init];

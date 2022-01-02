@@ -35,84 +35,6 @@
     return self;
 }
 
-- (void)createUI {
-    
-//    self.backgroundColor = [UIColor yellowColor];
-//    self.layer.masksToBounds = YES;
-    
-    
-    
-    UIView *backView = [[UIView alloc] init];
-//    backView.backgroundColor = [UIColor greenColor];
-    backView.layer.cornerRadius = self.frame.size.width/2;
-    backView.layer.masksToBounds = YES;
-    [self.contentView addSubview:backView];
-    _backView = backView;
-    
-    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
-    }];
-    
-    UILabel *bankerOrPlayerOrTieLabel = [[UILabel alloc] init];
-    //    bankerOrPlayerOrTieLabel.layer.masksToBounds = YES;
-    //    bankerOrPlayerOrTieLabel.layer.cornerRadius = self.frame.size.width/2;
-    bankerOrPlayerOrTieLabel.textAlignment = NSTextAlignmentCenter;
-    bankerOrPlayerOrTieLabel.font = [UIFont boldSystemFontOfSize:16];
-    bankerOrPlayerOrTieLabel.textColor = [UIColor whiteColor];
-    [backView addSubview:bankerOrPlayerOrTieLabel];
-    _bankerOrPlayerOrTieLabel = bankerOrPlayerOrTieLabel;
-    
-    [bankerOrPlayerOrTieLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(backView);
-    }];
-    
-    
-    
-    CGFloat circleViewWidht = 8;
-    
-    UIView *bankerPairView = [[UIView alloc] init];
-    bankerPairView.backgroundColor = [UIColor colorWithRed:1.000 green:0.251 blue:0.251 alpha:1.000];
-    bankerPairView.layer.cornerRadius = circleViewWidht/2;
-    bankerPairView.layer.masksToBounds = YES;
-    bankerPairView.hidden = YES;
-    [backView addSubview:bankerPairView];
-    _bankerPairView = bankerPairView;
-    
-    [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(backView.mas_top);
-        make.left.equalTo(backView.mas_left);
-        make.size.mas_equalTo(@(circleViewWidht));
-    }];
-    
-    UIView *playerPairView = [[UIView alloc] init];
-    playerPairView.backgroundColor = [UIColor colorWithRed:0.118 green:0.565 blue:1.000 alpha:1.000];
-    playerPairView.layer.cornerRadius = circleViewWidht/2;
-    playerPairView.layer.masksToBounds = YES;
-    playerPairView.hidden = YES;
-    [backView addSubview:playerPairView];
-    _playerPairView = playerPairView;
-    
-    [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(backView.mas_bottom);
-        make.right.equalTo(backView.mas_right);
-        make.size.mas_equalTo(@(circleViewWidht));
-    }];
-    
-    
-    UIView *superSixView = [[UIView alloc] init];
-    superSixView.backgroundColor = [UIColor yellowColor];
-    superSixView.layer.cornerRadius = circleViewWidht/2;
-    superSixView.layer.masksToBounds = YES;
-    superSixView.hidden = YES;
-    [backView addSubview:superSixView];
-    _superSixView = superSixView;
-    
-    [superSixView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(backView.mas_bottom);
-        make.left.equalTo(backView.mas_left);
-        make.size.mas_equalTo(@(circleViewWidht));
-    }];
-}
 
 - (void)setModel:(id)model {
     
@@ -175,6 +97,88 @@
     }
     
 }
+
+
+- (void)createUI {
+    
+//    self.backgroundColor = [UIColor yellowColor];
+//    self.layer.masksToBounds = YES;
+    
+    
+    
+    UIView *backView = [[UIView alloc] init];
+//    backView.backgroundColor = [UIColor greenColor];
+    backView.layer.cornerRadius = self.frame.size.width/2;
+    backView.layer.masksToBounds = YES;
+    [self.contentView addSubview:backView];
+    _backView = backView;
+    
+    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
+    
+    UILabel *bankerOrPlayerOrTieLabel = [[UILabel alloc] init];
+    //    bankerOrPlayerOrTieLabel.layer.masksToBounds = YES;
+    //    bankerOrPlayerOrTieLabel.layer.cornerRadius = self.frame.size.width/2;
+    bankerOrPlayerOrTieLabel.textAlignment = NSTextAlignmentCenter;
+    bankerOrPlayerOrTieLabel.font = [UIFont boldSystemFontOfSize:15];
+    bankerOrPlayerOrTieLabel.textColor = [UIColor whiteColor];
+    [backView addSubview:bankerOrPlayerOrTieLabel];
+    _bankerOrPlayerOrTieLabel = bankerOrPlayerOrTieLabel;
+    
+    [bankerOrPlayerOrTieLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(backView);
+    }];
+    
+    
+    
+    CGFloat circleViewWidht = 8;
+    
+    UIView *bankerPairView = [[UIView alloc] init];
+    bankerPairView.backgroundColor = [UIColor colorWithRed:1.000 green:0.251 blue:0.251 alpha:1.000];
+    bankerPairView.layer.cornerRadius = circleViewWidht/2;
+    bankerPairView.layer.masksToBounds = YES;
+    bankerPairView.hidden = YES;
+    [backView addSubview:bankerPairView];
+    _bankerPairView = bankerPairView;
+    
+    [bankerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(backView.mas_top);
+        make.left.equalTo(backView.mas_left);
+        make.size.mas_equalTo(@(circleViewWidht));
+    }];
+    
+    UIView *playerPairView = [[UIView alloc] init];
+    playerPairView.backgroundColor = [UIColor colorWithRed:0.118 green:0.565 blue:1.000 alpha:1.000];
+    playerPairView.layer.cornerRadius = circleViewWidht/2;
+    playerPairView.layer.masksToBounds = YES;
+    playerPairView.hidden = YES;
+    [backView addSubview:playerPairView];
+    _playerPairView = playerPairView;
+    
+    [playerPairView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(backView.mas_bottom);
+        make.right.equalTo(backView.mas_right);
+        make.size.mas_equalTo(@(circleViewWidht));
+    }];
+    
+    
+    UIView *superSixView = [[UIView alloc] init];
+    superSixView.backgroundColor = [UIColor yellowColor];
+    superSixView.layer.cornerRadius = circleViewWidht/2;
+    superSixView.layer.masksToBounds = YES;
+    superSixView.hidden = YES;
+    [backView addSubview:superSixView];
+    _superSixView = superSixView;
+    
+    [superSixView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(backView.mas_bottom);
+        make.left.equalTo(backView.mas_left);
+        make.size.mas_equalTo(@(circleViewWidht));
+    }];
+}
+
+
 
 
 @end
