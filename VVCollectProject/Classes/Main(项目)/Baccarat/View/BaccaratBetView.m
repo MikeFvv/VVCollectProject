@@ -108,22 +108,21 @@
 
 - (void)createUI {
     
-    UILabel *ttLabel = [[UILabel alloc] init];
-    ttLabel.text = @"请下注";
-    ttLabel.font = [UIFont boldSystemFontOfSize:20];
-    ttLabel.textColor = [UIColor whiteColor];
-    ttLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:ttLabel];
-    
-    [ttLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(0);
-        make.centerX.equalTo(self.mas_centerX);
-        make.height.mas_equalTo(30);
-    }];
+//    UILabel *ttLabel = [[UILabel alloc] init];
+//    ttLabel.text = @"请下注";
+//    ttLabel.font = [UIFont boldSystemFontOfSize:20];
+//    ttLabel.textColor = [UIColor whiteColor];
+//    ttLabel.textAlignment = NSTextAlignmentCenter;
+//    [self addSubview:ttLabel];
+//
+//    [ttLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.mas_top).offset(0);
+//        make.centerX.equalTo(self.mas_centerX);
+//        make.height.mas_equalTo(30);
+//    }];
     
    
     CGFloat widhtBtn = self.frame.size.width/4;
-    CGFloat btnHeight = 50;
     NSInteger fontSize = 20;
     
     UIView *backView = [[UIView alloc] init];
@@ -135,7 +134,7 @@
     [self addSubview:backView];
     
     [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(btnHeight*2+10);
+        make.height.mas_equalTo(kBBetViewBtnHeight*2+20);
         make.left.bottom.right.equalTo(self);
     }];
     
@@ -157,7 +156,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.left.equalTo(backView.mas_left).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(btnHeight);
+        make.height.mas_equalTo(kBBetViewBtnHeight);
     }];
     
     
@@ -179,7 +178,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.left.equalTo(playerPairBtn.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(btnHeight);
+        make.height.mas_equalTo(kBBetViewBtnHeight);
     }];
     
     UIButton *superSixBtn = [[UIButton alloc] init];
@@ -201,7 +200,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.left.equalTo(tieBtn.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(btnHeight);
+        make.height.mas_equalTo(kBBetViewBtnHeight);
     }];
     
     UIButton *bankerPairBtn = [[UIButton alloc] init];
@@ -221,7 +220,7 @@
         make.top.equalTo(backView.mas_top).offset(0);
         make.right.equalTo(backView.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn);
-        make.height.mas_equalTo(btnHeight);
+        make.height.mas_equalTo(kBBetViewBtnHeight);
     }];
     
     
@@ -243,7 +242,7 @@
         make.top.equalTo(playerPairBtn.mas_bottom).offset(0);
         make.left.equalTo(backView.mas_left).offset(0);
         make.width.mas_equalTo(widhtBtn*2);
-        make.height.mas_equalTo(btnHeight+10);
+        make.height.mas_equalTo(kBBetViewBtnHeight+20);
     }];
     
     
@@ -264,7 +263,7 @@
         make.top.equalTo(playerPairBtn.mas_bottom).offset(0);
         make.right.equalTo(backView.mas_right).offset(0);
         make.width.mas_equalTo(widhtBtn*2);
-        make.height.mas_equalTo(btnHeight+10);
+        make.height.mas_equalTo(kBBetViewBtnHeight+20);
     }];
     
     

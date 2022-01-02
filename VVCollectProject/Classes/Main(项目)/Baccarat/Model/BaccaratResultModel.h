@@ -18,10 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 0 Tie   1 banker   2 player
 @property (nonatomic, assign) WinType winType;
 
-/// banker 点数
-@property (nonatomic, assign) NSInteger bankerTotalPoints;
 /// player 点数
 @property (nonatomic, assign) NSInteger playerTotalPoints;
+/// banker 点数
+@property (nonatomic, assign) NSInteger bankerTotalPoints;
+
 
 
 /// 玩家牌型数组
@@ -46,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 一局牌的总张数
 @property (nonatomic, assign) NSInteger pokerTotalNum;
+
+/// 创建时间
+@property (nonatomic, copy) NSString *createTime;
 
 /// 计算庄闲结果
 /// @param playerArray 玩家牌

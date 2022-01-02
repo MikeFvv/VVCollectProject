@@ -6,15 +6,15 @@
 //  Copyright © 2021 Mike. All rights reserved.
 //
 
-#import "BGameRecordsCell.h"
+#import "BUserGameRecordsCell.h"
 #import "BaccaratResultModel.h"
 #import "VVFunctionManager.h"
 
-@interface BGameRecordsCell()
+@interface BUserGameRecordsCell()
 
 @end
 
-@implementation BGameRecordsCell
+@implementation BUserGameRecordsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -23,9 +23,9 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView reusableId:(NSString *)ID
 {
-    BGameRecordsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    BUserGameRecordsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        cell = [[BGameRecordsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[BUserGameRecordsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

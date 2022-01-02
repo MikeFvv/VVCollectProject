@@ -7,10 +7,10 @@
 //
 
 #import "BAnalyzeRoadMapView.h"
-#import "BGameRecordsCell.h"
+#import "BUserGameRecordsCell.h"
 
 
-//static const int kAnalyzeRoadMapView_Width = 70;
+static const int kAnalyzeRoadMapView_Width = 55;
 
 
 @interface BAnalyzeRoadMapView ()<UITableViewDataSource,UITableViewDelegate>
@@ -124,7 +124,7 @@
     [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backView.mas_left).offset(0);
         make.top.equalTo(backView.mas_top).offset(0);
-        make.width.mas_equalTo(self.frame.size.width-75);
+        make.width.mas_equalTo(self.frame.size.width-kAnalyzeRoadMapView_Width-1);
         make.bottom.equalTo(backView.mas_bottom).offset(0);
     }];
     
@@ -136,26 +136,26 @@
     [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(backView.mas_right).offset(0);
         make.top.equalTo(backView.mas_top).offset(0);
-        make.width.mas_equalTo(71); // +1
+        make.width.mas_equalTo(kAnalyzeRoadMapView_Width);
         make.bottom.equalTo(backView.mas_bottom).offset(0);
     }];
     
-    [self gameRecordsView];
-    [self analyzeRoadMapView];
+    [self left_gameRecordsView];
+    [self right_analyzeRoadMapView];
 }
 
 
 #pragma mark - xxUITableView
 - (UITableView *)leftTableView {
     if (!_leftTableView) {
-        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-76, self.frame.size.height-1) style:UITableViewStylePlain];
+        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-kAnalyzeRoadMapView_Width -2, self.frame.size.height-1) style:UITableViewStylePlain];
         _leftTableView.backgroundColor = [UIColor whiteColor];
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
         //        _leftTableView.tableHeaderView = self.headView;
         //        _leftTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         
-        _leftTableView.rowHeight = 18;   // 行高
+        _leftTableView.rowHeight = kBTrendViewLineSpacingHeight-3;   // 行高
         _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;  // 去掉分割线
         _leftTableView.estimatedRowHeight = 0;
         _leftTableView.estimatedSectionHeaderHeight = 0;
@@ -174,9 +174,9 @@
 
 //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BGameRecordsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BGameRecordsCell"];
+    BUserGameRecordsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BGameRecordsCell"];
     if(cell == nil) {
-        cell = [BGameRecordsCell cellWithTableView:tableView reusableId:@"BGameRecordsCell"];
+        cell = [BUserGameRecordsCell cellWithTableView:tableView reusableId:@"BGameRecordsCell"];
     }
     
     
@@ -221,17 +221,17 @@
 }
 
 
+
+
+
 /// 统计庄闲图  游戏记录
-- (void)gameRecordsView {
+- (void)left_gameRecordsView {
     [self.leftView addSubview:self.leftTableView];
 }
 
-
-
-
 /// 分析问路图
-- (void)analyzeRoadMapView {
-    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, kTrendViewHeight-1)];
+- (void)right_analyzeRoadMapView {
+    UIView *guideRoadMapBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kAnalyzeRoadMapView_Width, kBTrendViewLineSpacingHeight*4+5)];
     guideRoadMapBackView.backgroundColor = [UIColor whiteColor];
     guideRoadMapBackView.layer.cornerRadius = 5;
     guideRoadMapBackView.layer.masksToBounds = YES;
@@ -240,8 +240,8 @@
     [self.rightView addSubview:guideRoadMapBackView];
     
     
-    CGFloat lineSpacing = 26;
-    CGFloat widht = kZPLItemSizeWidth;
+    CGFloat lineSpacing = 20;
+    CGFloat widht = kBZPLItemSizeWidth;
     
     UIView *line1View = [[UIView alloc] init];
     line1View.backgroundColor = [UIColor purpleColor];
@@ -249,8 +249,8 @@
     
     [line1View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(guideRoadMapBackView.mas_top).offset(lineSpacing);
-        make.left.equalTo(guideRoadMapBackView.mas_left).offset(7);
-        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-7);
+        make.left.equalTo(guideRoadMapBackView.mas_left).offset(5);
+        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-5);
         make.height.mas_equalTo(2);
     }];
     
@@ -300,7 +300,7 @@
     _wlt_bankerLabel = wlt_bankerLabel;
     
     [wlt_bankerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(guideRoadMapBackView.mas_left).offset(10);
+        make.left.equalTo(guideRoadMapBackView.mas_left).offset(6);
         make.bottom.equalTo(line1View.mas_top).offset(-3);
         make.size.mas_equalTo(widht);
     }];
@@ -317,7 +317,7 @@
     _wlt_playerLabel = wlt_playerLabel;
     
     [wlt_playerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-10);
+        make.right.equalTo(guideRoadMapBackView.mas_right).offset(-6);
         make.centerY.equalTo(wlt_bankerLabel.mas_centerY);
         make.size.mas_equalTo(widht);
     }];

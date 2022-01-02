@@ -33,20 +33,37 @@ typedef NS_ENUM(NSInteger, RoadMapType) {
 };
 
 
+
+/// 左边视图一半 + 这里多添加的宽度
+static const CGFloat kBAddWidth = 50;
+/// 左边U型槽间距 刘海屏缺口间距 spacing
+static const CGFloat kBUNotchSpacing = 30;
+
+
 /// 下三路 Size
-static const int kItemSizeWidth = 10;
+static const int kBItemSizeWidth = 8;
 /// 大路 Size
-static const int kDLItemSizeWidth = 14;
+static const int kBDLItemSizeWidth = 12;
 /// 珠盘路 Size
-static const int kZPLItemSizeWidth = 17;
+static const int kBZPLItemSizeWidth = 15;
 /// 总网格数量
-static const int kTotalGridsNum = 300;
+static const int kBTotalGridsNum = 300;
+
 /// 分析视图高度
-static const int kTrendViewHeight = 120;
+static const int kBTrendViewLineSpacingHeight = 20;
+/// 分析视图高度
+static const int kBTrendViewHeight = kBTrendViewLineSpacingHeight *4+5 + 20;
+
+/// 下注视图按钮高度
+static const CGFloat kBBetViewBtnHeight = 60;
 
 /// 最大下注筹码
 static const int kMaxBetChipsNum = 2000000;
 /// 最小下注筹码
 static const int kMinBetChipsNum = 1000;
+
+
+/// 更多列表每列高度
+static const CGFloat kBMoreColHeight = 40;
 
 #endif /* BaccaratCom_h */

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BGameRecordsCell : UITableViewCell
+@interface BUserGameRecordsCell : UITableViewCell
 @property (nonatomic, strong) UILabel *nameMLabel;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *countLabel;

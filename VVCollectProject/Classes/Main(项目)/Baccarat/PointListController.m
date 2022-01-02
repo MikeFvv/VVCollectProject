@@ -7,7 +7,7 @@
 //
 
 #import "PointListController.h"
-#import "BaccaratCell.h"
+#import "BGameRecordCell.h"
 
 
 #define kBtnHeight 35
@@ -16,7 +16,6 @@
 #define kMarginHeight 10
 // 边距
 #define kMarginWidth 20
-#define kTrendViewHeight 138
 #define kLabelFontSize 12
 
 
@@ -34,7 +33,7 @@
     
     [self.view addSubview:self.tableView];
     
-    [self.tableView registerClass:[BaccaratCell class] forCellReuseIdentifier:@"BaccaratCell"];
+    [self.tableView registerClass:[BGameRecordCell class] forCellReuseIdentifier:@"BaccaratCell"];
 }
 
 
@@ -59,18 +58,18 @@
 // //返回列表每个分组section拥有cell行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.resultDataArray.count;
+    return self.zhuPanLuResultDataArray.count;
 }
 
 // //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BaccaratCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BaccaratCell"];
+    BGameRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BaccaratCell"];
     if(cell == nil) {
-        cell = [BaccaratCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
+        cell = [BGameRecordCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
     }
     // 倒序
-    cell.model = self.resultDataArray[self.resultDataArray.count - indexPath.row -1];
+    cell.model = self.zhuPanLuResultDataArray[self.zhuPanLuResultDataArray.count - indexPath.row -1];
     return cell;
     
 }

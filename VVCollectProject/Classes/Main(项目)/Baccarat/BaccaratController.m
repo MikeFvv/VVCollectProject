@@ -33,10 +33,10 @@
 #import "UIDevice+ASMandatoryLandscapeDevice.h"
 #import "AppDelegate.h"
 #import "JMDropMenu.h"
+#import "BGameRecordAlertView.h"
 
 
 #define kBtnHeight 35
-#define kBuyBtnHeight 50
 #define kBtnFontSize 16
 #define kMarginHeight 10
 // 边距
@@ -46,7 +46,7 @@
 
 #define kColorAlpha 0.9
 
-#define kAddWidth 60
+
 
 
 @interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate>
@@ -83,9 +83,11 @@
 @property (nonatomic, strong) BShowPokerView *showPokerView;
 /// 统计视图
 @property(nonatomic,strong) BStatisticsAlertView *statisticsView;
+/// 游戏记录
+@property(nonatomic,strong) BGameRecordAlertView *gameRecordAlertView;
 
 /// 结果数据
-@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *resultDataArray;
+@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *zhuPanLuResultDataArray;
 @property (strong, nonatomic) CardDataSourceModel *baccaratDataModel;
 /// 选中的筹码
 @property (nonatomic, strong) ChipsModel *selectedModel;
@@ -125,10 +127,7 @@
     self.isAutoRunAll = NO;
     
     [self initData];
-    [self setupNavUI];
     [self createUI];
-    
-    [self setFloatingBackBtnView];
     
 }
 
@@ -149,7 +148,7 @@
 
 #pragma mark -  数据初始化
 - (void)initData {
-    self.titleArr = @[@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    self.titleArr = @[@"返回",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
@@ -187,7 +186,7 @@
     gameStatisticsModel.pokerTotalNum = self.dataArray.count;
     _gameStatisticsModel = gameStatisticsModel;
     
-    self.resultDataArray = [NSMutableArray array];
+    self.zhuPanLuResultDataArray = [NSMutableArray array];
     
 }
 
@@ -215,6 +214,13 @@
     return _statisticsView;
 }
 
+- (BGameRecordAlertView* )gameRecordAlertView {
+    if (!_gameRecordAlertView) {
+        UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
+        _gameRecordAlertView = [[BGameRecordAlertView alloc] initWithFrame:winView.frame];
+    }
+    return _gameRecordAlertView;
+}
 
 #pragma mark - ChipsViewDelegate 筹码选中 | 确定下注 | 重复下注
 /// 选中筹码后
@@ -283,8 +289,8 @@
     self.betModel = nil;
     self.betModel = [[BBetModel alloc] init];
     
-    self.zhuPanLuCollectionView.model = self.resultDataArray;
-    self.bigRoadMapView.model = self.resultDataArray;
+    self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
+    self.bigRoadMapView.model = self.zhuPanLuResultDataArray;
 }
 
 #pragma mark BaccaratBetViewDelegate 选中 下注
@@ -374,7 +380,7 @@
 ///这是当前桌子数据记录
 - (void)calculationResults {
     
-    BaccaratResultModel *resultModel = self.resultDataArray.lastObject;
+    BaccaratResultModel *resultModel = self.zhuPanLuResultDataArray.lastObject;
     
     self.gameStatisticsModel.pokerCount =self.gameStatisticsModel.pokerCount + (resultModel.playerArray.count + resultModel.bankerArray.count);
     self.gameStatisticsModel.gameNum = self.gameStatisticsModel.gameNum +1;
@@ -556,41 +562,19 @@
     self.xqlXiaSanLuView.dataArray = xqlDataArray;
 }
 
-
-
-- (void)showMessage:(NSString *)message {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    // Set the text mode to show only text.
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = NSLocalizedString(message, @"HUD message title");
-    // Move to bottm center.
-    hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
-    
-    [hud hideAnimated:YES afterDelay:3.f];
-}
-
-
+/// 用户筹码下注记录
 - (void)onBUserChipssViewShowAction {
     
     self.statisticsView.bUserData = self.bUserData;
     [self.statisticsView showAlertAnimation];
 }
 
-
-
-#pragma mark - 消键盘
-- (void)onDisKeyboardButton {
-    [self.view endEditing:YES];
-}
-
-
 #pragma mark -  清除
 - (void)onClearButton {
     
     [self initData];
-    self.zhuPanLuCollectionView.model = self.resultDataArray;
-    self.bigRoadMapView.model = self.resultDataArray;
+    self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
+    self.bigRoadMapView.model = self.zhuPanLuResultDataArray;
     
 }
 
@@ -620,32 +604,14 @@
     float start = CACurrentMediaTime();
     
     [self opening];
-    self.zhuPanLuCollectionView.model = self.resultDataArray;
-    self.bigRoadMapView.model = self.resultDataArray;
+    self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
+    self.bigRoadMapView.model = self.zhuPanLuResultDataArray;
     
     
     
     float end = CACurrentMediaTime();
     NSString *time = [NSString stringWithFormat:@"%f", end - start];
     NSLog(time);
-}
-
-- (NSString *)bankerOrPlayerOrTie:(NSString *)string {
-    
-    switch ([string integerValue]) {
-        case 0:
-            return @"T";
-            break;
-        case 1:
-            return @"B";
-            break;
-        case 2:
-            return @"P";
-            break;
-        default:
-            break;
-    }
-    return nil;
 }
 
 
@@ -816,8 +782,6 @@
     }
     
     
-    
-    
     playerTotalPoints = (playerTotalPoints + player3) % 10;
     bankerTotalPoints = (bankerTotalPoints + banker3) % 10;
     
@@ -826,130 +790,11 @@
     /// 显示所有牌例
     self.showPokerView.resultModel = bResultModel;
     
-    // 判断庄闲 输赢
-    NSString *win;
-    if (bResultModel.winType == WinType_TIE) {
-        win = @"✅";
-    } else if (bResultModel.winType == WinType_Banker) {
-        if (bResultModel.isSuperSix) {
-            win = @"🔴🔸";
-        } else {
-            win = @"🔴";
-        }
-    } else {
-        win = @"🅿️";
-    }
-    
     bResultModel.pokerCount = self.gameStatisticsModel.pokerCount;
     
-    [self.resultDataArray addObject:bResultModel];
+    [self.zhuPanLuResultDataArray addObject:bResultModel];
     
 }
-
-
-- (void)setupNavUI {
-    
-    //添加两个button
-    NSMutableArray*buttons=[[NSMutableArray alloc]initWithCapacity:2];
-    //    UIBarButtonItem*button3=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press2)];
-    //    UIBarButtonItem*button2=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"你的图片"] style: UIBarButtonItemStyleDone target:self action:@selector(press)];
-    
-    UIBarButtonItem *rightBtn1 = [[UIBarButtonItem alloc]initWithTitle:@"配置" style:(UIBarButtonItemStylePlain) target:self action:@selector(configAction)];
-    UIBarButtonItem *rightBtn2 = [[UIBarButtonItem alloc]initWithTitle:@"点数列表" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBtnAction)];
-    UIBarButtonItem *rightBtn3 = [[UIBarButtonItem alloc]initWithTitle:@"消键盘" style:(UIBarButtonItemStylePlain) target:self action:@selector(onDisKeyboardButton)];
-    
-    rightBtn1.tintColor=[UIColor blackColor];
-    rightBtn2.tintColor=[UIColor blackColor];
-    rightBtn3.tintColor=[UIColor blackColor];
-    [rightBtn1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    [rightBtn2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    [rightBtn3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12], NSFontAttributeName,nil] forState:(UIControlStateNormal)];
-    [buttons addObject:rightBtn1];
-    [buttons addObject:rightBtn2];
-    [buttons addObject:rightBtn3];
-    //    [tools setItems:buttons animated:NO];
-    //    UIBarButtonItem*btn=[[UIBarButtonItem alloc]initWithCustomView:tools];
-    self.navigationItem.rightBarButtonItems=buttons;
-}
-
-#pragma mark -创建UIButton方法
-- (UIButton *)createButtonWithFrame:(CGRect)frame
-                           andTitle:(NSString *)title
-                      andTitleColor:(UIColor *)titleColor
-                 andBackgroundImage:(UIImage *)backgroundImage
-                           andImage:(UIImage *)Image
-                          andTarget:(id)target
-                          andAction:(SEL)sel
-                            andType:(UIButtonType)type
-{
-    //创建UIButton并设置类型
-    UIButton * btn = [UIButton buttonWithType:type];
-    //设置按键位置和大小
-    btn.frame = frame;
-    //设置按键名
-    [btn setTitle:title forState:UIControlStateNormal];
-    //设置按键名字体颜色
-    [btn setTitleColor:titleColor forState:UIControlStateNormal];
-    //背景图片
-    [btn setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    //图片
-    [btn setImage:Image forState:UIControlStateNormal];
-    //设置按键响应方法
-    [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
-    
-    btn.titleLabel.font = [UIFont fontWithName:@"Verdana" size:15];
-    
-    return btn;
-}
-
-
-
-
-
-#pragma mark -  浮动返回按钮
-- (void)setFloatingBackBtnView {
-    CGFloat widthDr = 45;
-    self.backDragView = [[WMDragView alloc] initWithFrame:CGRectMake(0, 0, widthDr, widthDr)];
-    [self.backDragView.button setBackgroundImage:[UIImage imageNamed:@"game_back_btn"] forState:UIControlStateNormal];
-    self.backDragView.button.backgroundColor = [UIColor clearColor];
-    self.backDragView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.backDragView];
-    
-    CGFloat widthX = self.view.bounds.size.width >= 812.0 ? 44 : 0;
-    CGRect rectDr = CGRectMake(widthX, 30, widthDr, widthDr);
-    self.backDragView.frame = rectDr;
-    
-    //    self.backDragView.layer.cornerRadius = width/2;
-    //    self.backDragView.layer.masksToBounds = YES;
-    //    self.backDragView.layer.borderWidth = 1;
-    //    self.backDragView.layer.borderColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:0.5].CGColor;
-    
-    __weak typeof(self) weakSelf = self;
-    self.backDragView.clickDragViewBlock = ^(WMDragView *dragView){
-        
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        // 关闭横屏仅允许竖屏
-        appDelegate.allowRotation = NO;
-        // 切换到竖屏
-        [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationPortrait];
-        
-        [weakSelf.navigationController popViewControllerAnimated:true];
-        //        [weakSelf.navigationController popViewControllerAnimated:true];
-    };
-    
-    self.backDragView.beginDragBlock = ^(WMDragView *dragView) {
-        DLog(@"开始拖曳");
-    };
-    
-    self.backDragView.endDragBlock = ^(WMDragView *dragView) {
-        DLog(@"结束拖曳");
-    };
-    
-    self.backDragView.duringDragBlock = ^(WMDragView *dragView) {
-        DLog(@"拖曳中...");
-    };
-}
-
 
 
 #pragma mark - 百家乐31投注法
@@ -976,26 +821,46 @@
 
 - (void)rightBtnAction {
     PointListController *vc = [[PointListController alloc] init];
-    vc.resultDataArray = self.resultDataArray;
+    vc.zhuPanLuResultDataArray = self.zhuPanLuResultDataArray;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)onMoreBtnMethod {
-    [JMDropMenu showDropMenuFrame:CGRectMake(self.view.frame.size.width - 15-120, 36, 120, 170) ArrowOffset:102.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:40.f Delegate:self];
+    [JMDropMenu showDropMenuFrame:CGRectMake(kBUNotchSpacing + 5, 36, 120, kBMoreColHeight*5+10) ArrowOffset:16.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:kBMoreColHeight Delegate:self];
 }
 
 - (void)didSelectRowAtIndex:(NSInteger)index Title:(NSString *)title Image:(NSString *)image {
     NSLog(@"index----%zd,  title---%@, image---%@", index, title, image);
+    
+    if ([title isEqualToString:@"返回"]) {
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        // 关闭横屏仅允许竖屏
+        appDelegate.allowRotation = NO;
+        // 切换到竖屏
+        [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationPortrait];
+        
+        [self.navigationController popViewControllerAnimated:true];
+    } else if ([title isEqualToString:@"游戏记录"]) {
+        
+        self.gameRecordAlertView.zhuPanLuResultDataArray = self.zhuPanLuResultDataArray;
+        [self.gameRecordAlertView showAlertAnimation];
+        
+    } else if ([title isEqualToString:@"余额记录"]) {
+        
+    } else if ([title isEqualToString:@"设置"]) {
+        BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark -  创建UI
 - (void)createUI {
     self.view.backgroundColor = [UIColor blackColor];
     
-    CGFloat halfWidth = self.view.frame.size.width/2;
+    CGFloat kBHalfWidth = self.view.frame.size.width/2;
     
     UIView *contentView = [[UIView alloc]init];
-    contentView.backgroundColor = [UIColor clearColor];
+    contentView.backgroundColor = [UIColor colorWithHex:@"6A0222"];
     [self.view addSubview:contentView];
     _contentView = contentView;
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1011,7 +876,7 @@
     // 底部按钮功能
     [self setBottomView];
     // 右边路子图
-    [self rightRoadMapView];
+    [self createRightRoadMapView];
     
     
     UIButton *moreBtn = [[UIButton alloc] init];
@@ -1022,22 +887,15 @@
     
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-20);
+        make.left.equalTo(self.view.mas_left).offset(kBUNotchSpacing+5);
         make.size.mas_equalTo(CGSizeMake(25, 20));
     }];
 }
 
 - (void)createLeftView {
     
-    //    CGFloat navst = mxwStatusHeight();
-    
-    CGFloat leftW =  IS_NOTCHED_SCREEN ? getNotchScreenHeight-16 : 0;
-    
-    
-    
-    
-    CGFloat halfWidth = self.view.frame.size.width/2;
-    CGFloat leftVWidht = halfWidth + kAddWidth-leftW -2;
+    CGFloat kBHalfWidth = self.view.frame.size.width/2;
+    CGFloat leftVWidht = kBHalfWidth + kBAddWidth -2;
     
     UIView *leftBgView = [[UIView alloc] init];
     leftBgView.backgroundColor = [UIColor colorWithHex:@"046726"];
@@ -1045,9 +903,9 @@
     
     [leftBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(0);
-        make.left.equalTo(self.contentView.mas_left).offset(leftW);
+        make.left.equalTo(self.contentView.mas_left).offset(0);
         make.width.mas_equalTo(leftVWidht);
-        make.height.mas_equalTo(mxwScreenHeight()-kTrendViewHeight);
+        make.height.mas_equalTo(mxwScreenHeight());
     }];
     
     // 展示牌型视图
@@ -1058,13 +916,13 @@
     
     
     // 下注庄闲视图
-    BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(100, 120, halfWidth-60-20*2, 50*2+10+30)];
+    BaccaratBetView *betView = [[BaccaratBetView alloc] initWithFrame:CGRectMake(120, 150, kBHalfWidth-60-20*2, kBBetViewBtnHeight*2+20)];
     betView.delegate = self;
     [leftBgView addSubview:betView];
     _bBetView = betView;
     
-    // 用户筹码视图
-    BUserChipssView *userChipssView = [[BUserChipssView alloc] initWithFrame:CGRectMake(35, 180, 60, 80)];
+    // 用户筹码量视图
+    BUserChipssView *userChipssView = [[BUserChipssView alloc] initWithFrame:CGRectMake(50, 180, 60, 90)];
     [leftBgView addSubview:userChipssView];
     
     //添加手势事件
@@ -1080,47 +938,33 @@
     
     
     //筹码视图
-    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(leftW+100, mxwScreenHeight()-50-10, mxwScreenWidth()-leftW*2-100*2-60, 50)];
+    ChipsView *chipsView = [[ChipsView alloc] initWithFrame:CGRectMake(kBUNotchSpacing+100, mxwScreenHeight()-50-10, mxwScreenWidth()-kBUNotchSpacing*2-100*2-60, 50)];
     
     [self.view addSubview:chipsView];
     _chipsView = chipsView;
     chipsView.currentBalance = self.bUserData.userTotalMoney;
     chipsView.delegate = self;
     
-    // 珠盘路(庄闲路)
-    BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*2-5, kTrendViewHeight)];
-    zhuPanLuCollectionView.roadType = 0;
-    //    zhuPanLuCollectionView.backgroundColor = [UIColor redColor];
-    zhuPanLuCollectionView.layer.borderWidth = 1;
-    zhuPanLuCollectionView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
-    [self.contentView addSubview:zhuPanLuCollectionView];
-    _zhuPanLuCollectionView = zhuPanLuCollectionView;
     
-    
-    // 分析问路图
-    BAnalyzeRoadMapView *analyzeRoadMapView = [[BAnalyzeRoadMapView alloc] initWithFrame:CGRectMake(leftVWidht/3*2+leftW, mxwScreenHeight()-kTrendViewHeight, leftVWidht/3*1, kTrendViewHeight)];
-    [self.contentView addSubview:analyzeRoadMapView];
-    _analyzeRoadMapView = analyzeRoadMapView;
 }
 
 /// 路子图
-- (void)rightRoadMapView {
+- (void)createRightRoadMapView {
     
-    CGFloat halfWidth = self.view.frame.size.width/2;
-    CGFloat height = self.view.frame.size.height/2;
+    CGFloat kBHalfWidth = self.view.frame.size.width/2;
     
     // ********* 右边 *********
     // 最小下注 最大下注
-    CGFloat betViewHeight = 40;
-    BBBetMaxMinView *betMaxMinView = [[BBBetMaxMinView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, 1*1, halfWidth - kAddWidth-10, betViewHeight)];
+    CGFloat betMaxMinViewHeight = 30;
+    BBBetMaxMinView *betMaxMinView = [[BBBetMaxMinView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, 1*1, kBHalfWidth - kBAddWidth-10, betMaxMinViewHeight)];
     betMaxMinView.layer.borderWidth = 1;
     betMaxMinView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.contentView addSubview:betMaxMinView];
     
     
     // 大路
-    CGFloat daluHeight = (kDLItemSizeWidth+1)*6+1;
-    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+1*1, halfWidth - kAddWidth-10, daluHeight)];
+    CGFloat daluHeight = (kBDLItemSizeWidth+1)*6+1;
+    BBigRoadMapView *bigRoadMapView = [[BBigRoadMapView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+1*1, kBHalfWidth - kBAddWidth-10, daluHeight)];
     bigRoadMapView.layer.borderWidth = 1;
     bigRoadMapView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     bigRoadMapView.delegate = self;
@@ -1128,8 +972,8 @@
     _bigRoadMapView = bigRoadMapView;
     
     // *** 下三路 ***
-    CGFloat xiasanluHeight = (kItemSizeWidth+1)*6+1;
-    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+1*2, halfWidth - kAddWidth-10, xiasanluHeight)];
+    CGFloat xiasanluHeight = (kBItemSizeWidth+1)*6+1;
+    BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+daluHeight+1*2, kBHalfWidth - kBAddWidth-10, xiasanluHeight)];
     dylXiaSanLuView.roadMapType = RoadMapType_DYL;
     dylXiaSanLuView.layer.borderWidth = 1;
     dylXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
@@ -1137,20 +981,36 @@
     _dylXiaSanLuView = dylXiaSanLuView;
     
     
-    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*1+1*3, halfWidth - kAddWidth-10, xiasanluHeight)];
+    BaccaratXiaSanLuView *xlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+daluHeight+xiasanluHeight*1+1*3, kBHalfWidth - kBAddWidth-10, xiasanluHeight)];
     xlXiaSanLuView.roadMapType = RoadMapType_XL;
     xlXiaSanLuView.layer.borderWidth = 1;
     xlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.contentView addSubview:xlXiaSanLuView];
     _xlXiaSanLuView = xlXiaSanLuView;
     
-    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(halfWidth+kAddWidth, betViewHeight+daluHeight+xiasanluHeight*2+1*4, halfWidth - kAddWidth-10, xiasanluHeight)];
+    BaccaratXiaSanLuView *xqlXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+daluHeight+xiasanluHeight*2+1*4, kBHalfWidth - kBAddWidth-10, xiasanluHeight)];
     xqlXiaSanLuView.roadMapType = RoadMapType_XQL;
     xqlXiaSanLuView.layer.borderWidth = 1;
     xqlXiaSanLuView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
     [self.contentView addSubview:xqlXiaSanLuView];
     _xqlXiaSanLuView = xqlXiaSanLuView;
     
+    
+   CGFloat analyzeRoadMapView_Width = 135;
+    CGFloat zhuPanLu_Width = kBHalfWidth - kBAddWidth-10-analyzeRoadMapView_Width;
+    // 珠盘路(庄闲路)
+    BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+daluHeight+xiasanluHeight*3+1*5, zhuPanLu_Width, kBTrendViewHeight)];
+    zhuPanLuCollectionView.roadType = 0;
+    //    zhuPanLuCollectionView.backgroundColor = [UIColor redColor];
+    zhuPanLuCollectionView.layer.borderWidth = 1;
+    zhuPanLuCollectionView.layer.borderColor = [UIColor colorWithRed:0.643 green:0.000 blue:0.357 alpha:1.000].CGColor;
+    [self.contentView addSubview:zhuPanLuCollectionView];
+    _zhuPanLuCollectionView = zhuPanLuCollectionView;
+    
+    // 分析问路图
+    BAnalyzeRoadMapView *analyzeRoadMapView = [[BAnalyzeRoadMapView alloc] initWithFrame:CGRectMake(kBHalfWidth + kBAddWidth + zhuPanLu_Width, betMaxMinViewHeight+daluHeight+xiasanluHeight*3+1*5, analyzeRoadMapView_Width, kBTrendViewHeight)];
+    [self.contentView addSubview:analyzeRoadMapView];
+    _analyzeRoadMapView = analyzeRoadMapView;
 }
 
 
@@ -1204,6 +1064,51 @@
     [bottomView addSubview:clearButton];
     
 }
+
+
+//#pragma mark -  浮动返回按钮
+//- (void)setFloatingBackBtnView {
+//    CGFloat widthDr = 45;
+//    self.backDragView = [[WMDragView alloc] initWithFrame:CGRectMake(0, 0, widthDr, widthDr)];
+//    [self.backDragView.button setBackgroundImage:[UIImage imageNamed:@"game_back_btn"] forState:UIControlStateNormal];
+//    self.backDragView.button.backgroundColor = [UIColor clearColor];
+//    self.backDragView.backgroundColor = [UIColor clearColor];
+//    [self.view addSubview:self.backDragView];
+//
+//    CGFloat widthX = self.view.bounds.size.width >= 812.0 ? 44 : 0;
+//    CGRect rectDr = CGRectMake(widthX, 30, widthDr, widthDr);
+//    self.backDragView.frame = rectDr;
+//
+//    //    self.backDragView.layer.cornerRadius = width/2;
+//    //    self.backDragView.layer.masksToBounds = YES;
+//    //    self.backDragView.layer.borderWidth = 1;
+//    //    self.backDragView.layer.borderColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:0.5].CGColor;
+//
+//    __weak typeof(self) weakSelf = self;
+//    self.backDragView.clickDragViewBlock = ^(WMDragView *dragView){
+//
+//        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        // 关闭横屏仅允许竖屏
+//        appDelegate.allowRotation = NO;
+//        // 切换到竖屏
+//        [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationPortrait];
+//
+//        [weakSelf.navigationController popViewControllerAnimated:true];
+//        //        [weakSelf.navigationController popViewControllerAnimated:true];
+//    };
+//
+//    self.backDragView.beginDragBlock = ^(WMDragView *dragView) {
+//        DLog(@"开始拖曳");
+//    };
+//
+//    self.backDragView.endDragBlock = ^(WMDragView *dragView) {
+//        DLog(@"结束拖曳");
+//    };
+//
+//    self.backDragView.duringDragBlock = ^(WMDragView *dragView) {
+//        DLog(@"拖曳中...");
+//    };
+//}
 
 @end
 

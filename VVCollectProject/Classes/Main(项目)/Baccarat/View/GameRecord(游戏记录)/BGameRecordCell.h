@@ -10,11 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaccaratCell : UITableViewCell
+@interface BGameRecordCell : UITableViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
                        reusableId:(NSString *)ID;
 
+@property (nonatomic, assign) NSInteger index;
 // strong注释
 @property (nonatomic, strong) id model;
 
