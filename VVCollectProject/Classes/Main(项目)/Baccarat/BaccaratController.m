@@ -32,7 +32,7 @@
 #import "BStatisticsAlertView.h"
 #import "UIDevice+ASMandatoryLandscapeDevice.h"
 #import "AppDelegate.h"
-
+#import "JMDropMenu.h"
 
 
 #define kBtnHeight 35
@@ -49,7 +49,7 @@
 #define kAddWidth 60
 
 
-@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate>
+@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate>
 
 @property (nonatomic, strong) UIView *contentView;
 //
@@ -101,7 +101,7 @@
 
 /// /// 是否自动运行全部
 @property (nonatomic, assign) BOOL isAutoRunAll;
-
+@property(nonatomic,strong) NSArray *titleArr;
 
 @property(nonatomic,strong) BGameStatisticsModel *gameStatisticsModel;
 @property(nonatomic,strong) BUserData *bUserData;
@@ -110,6 +110,8 @@
 @property (nonatomic, assign) NSInteger continuousWinNum;
 /// 连输记录
 @property (nonatomic, assign) NSInteger continuousLoseNum;
+
+
 
 @end
 
@@ -147,6 +149,8 @@
 
 #pragma mark -  数据初始化
 - (void)initData {
+    self.titleArr = @[@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
     NSArray *tempArray = [userDefaults objectForKey:@"BaccaratPokerArray"];
@@ -976,6 +980,13 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)onMoreBtnMethod {
+    [JMDropMenu showDropMenuFrame:CGRectMake(self.view.frame.size.width - 15-120, 36, 120, 170) ArrowOffset:102.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:40.f Delegate:self];
+}
+
+- (void)didSelectRowAtIndex:(NSInteger)index Title:(NSString *)title Image:(NSString *)image {
+    NSLog(@"index----%zd,  title---%@, image---%@", index, title, image);
+}
 
 #pragma mark -  创建UI
 - (void)createUI {
@@ -1002,6 +1013,18 @@
     // 右边路子图
     [self rightRoadMapView];
     
+    
+    UIButton *moreBtn = [[UIButton alloc] init];
+    [moreBtn setBackgroundImage:[UIImage imageNamed:@"com_more_white"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(onMoreBtnMethod) forControlEvents:UIControlEventTouchUpInside];
+//    moreBtn.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:moreBtn];
+    
+    [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-20);
+        make.size.mas_equalTo(CGSizeMake(25, 20));
+    }];
 }
 
 - (void)createLeftView {
