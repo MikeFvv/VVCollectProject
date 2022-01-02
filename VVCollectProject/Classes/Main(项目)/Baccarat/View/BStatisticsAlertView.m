@@ -28,8 +28,8 @@
         [[[UIApplication sharedApplication].windows objectAtIndex:0] endEditing:YES];
         [[[UIApplication sharedApplication].windows objectAtIndex:0] addSubview:self];
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeFromCurrentView:)];
-        [self addGestureRecognizer:tapGesture];
+//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeFromCurrentView:)];
+//        [self addGestureRecognizer:tapGesture];
     }
     return self;
 }
