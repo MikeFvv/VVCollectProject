@@ -31,7 +31,8 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
     return self;
 }
 
-- (void)setSendCardDataArray:(NSMutableArray<PokerCardModel *> *)sendCardDataArray {
+
+- (void)setSendCardDataArray:(NSArray<PokerCardModel *> *)sendCardDataArray {
     _sendCardDataArray = sendCardDataArray;
     
     [self.collectionView reloadData];
@@ -43,10 +44,6 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    //    return 10;
-    if (self.sendCardDataArray.count > 2) {
-        return self.sendCardDataArray.count + 1;
-    }
     return self.sendCardDataArray.count;
 }
 
@@ -60,13 +57,7 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     BJSendPokerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kBJSendPokerCollectionViewCellId forIndexPath:indexPath];
-    
-    if (indexPath.row == 2) {
-        [cell clearDataContent];
-        return cell;
-    }
-    NSInteger index = indexPath.row > 2 ? indexPath.row-1 : indexPath.row;
-    PokerCardModel *model = (PokerCardModel *)self.sendCardDataArray[index];
+    PokerCardModel *model = (PokerCardModel *)self.sendCardDataArray[indexPath.row];
     cell.model = model;
     
     return cell;
@@ -74,38 +65,27 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
 
 #pragma mark --UICollectionViewDelegateFlowLayout  视图布局
 
-#pragma mark --UICollectionViewDelegate 代理
-
-//UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
 #pragma mark - 首先创建一个collectionView
 - (UICollectionView *)collectionView {
     
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         
-    //    CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 10*2) / (90/6+1);
-        
-       CGFloat spacingWidth = (self.frame.size.width - 40 *3) / 4 -0.1;
         // 设置每个item的大小
-        layout.itemSize = CGSizeMake(40, 50);
+        layout.itemSize = CGSizeMake(20, 30);
         
         // 设置列间距
-        layout.minimumInteritemSpacing = spacingWidth;
+        layout.minimumInteritemSpacing = 1;
         
         // 设置行间距
-        layout.minimumLineSpacing = 5;
+        layout.minimumLineSpacing = 0;
         
         //每个分区的四边间距UIEdgeInsetsMake
-        layout.sectionInset = UIEdgeInsetsMake(0, spacingWidth, 0, spacingWidth);
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         
         // 设置布局方向(滚动方向)
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 20, self.frame.size.width, self.frame.size.height-20-20) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) collectionViewLayout:layout];
         
         /** mainCollectionView 的布局(必须实现的) */
         _collectionView.collectionViewLayout = layout;

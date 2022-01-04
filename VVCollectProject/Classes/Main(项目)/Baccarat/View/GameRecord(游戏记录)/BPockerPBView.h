@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BPockerPBView : UIView
-@property (nonatomic, strong) NSMutableArray<PokerCardModel *> *sendCardDataArray;
+@property (nonatomic, strong) NSArray<PokerCardModel *> *sendCardDataArray;
 @end
 
 NS_ASSUME_NONNULL_END
