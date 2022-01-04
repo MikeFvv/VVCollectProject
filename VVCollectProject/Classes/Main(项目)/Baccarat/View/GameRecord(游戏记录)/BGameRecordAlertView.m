@@ -105,7 +105,7 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 35;   //设置每一行的高度
+        _tableView.rowHeight = 40;   //设置每一行的高度
         [_tableView registerClass:[BGameRecordCell class] forCellReuseIdentifier:@"BGameRecordCell"];
     }
     

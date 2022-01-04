@@ -10,12 +10,17 @@
 #import "BaccaratResultModel.h"
 #import "VVFunctionManager.h"
 #import "BBorPorTPairS6View.h"
+#import "BPockerPBView.h"
 
 @interface BGameRecordCell()
 
 
 @property (nonatomic, strong) UILabel *indexLabel;
 @property (nonatomic, strong) BBorPorTPairS6View *winResultView;
+
+@property (nonatomic, strong) BPockerPBView *playerPockerPBView;
+@property (nonatomic, strong) BPockerPBView *bankerPockerPBView;
+
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *playerPointsLabel;
 @property (nonatomic, strong) UILabel *bankerPointsLabel;
@@ -60,6 +65,9 @@
     
     self.playerPointsLabel.text = [NSString stringWithFormat:@"%ld", bModel.playerTotalPoints];
     self.bankerPointsLabel.text = [NSString stringWithFormat:@"%ld", bModel.bankerTotalPoints];
+    
+    self.playerPockerPBView.sendCardDataArray = bModel.playerArray;
+    self.bankerPockerPBView.sendCardDataArray = bModel.bankerArray;
     
     self.timeLabel.text = bModel.createTime;
     
@@ -128,11 +136,30 @@
     _bankerPointsLabel = bbbLabel;
     
     [bbbLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(winResultView.mas_right).offset(150);
+        make.left.equalTo(winResultView.mas_right).offset(180);
         make.centerY.equalTo(backView.mas_centerY);
     }];
     
     
+    CGFloat pWidth = 63;
+    CGFloat pHeight = 30;
+    BPockerPBView *playerPockerPBView = [[BPockerPBView alloc] initWithFrame:CGRectMake(0, 5, pWidth, pHeight)];
+    [backView addSubview:playerPockerPBView];
+    _playerPockerPBView = playerPockerPBView;
+    [playerPockerPBView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(pppLabel.mas_right).offset(10);
+        make.centerY.equalTo(backView.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(pWidth, pHeight));
+    }];
+    
+    BPockerPBView *bankerPockerPBView = [[BPockerPBView alloc] initWithFrame:CGRectMake(0, 5, pWidth, pHeight)];
+    [backView addSubview:bankerPockerPBView];
+    _bankerPockerPBView = bankerPockerPBView;
+    [bankerPockerPBView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(playerPockerPBView.mas_right).offset(10);
+        make.centerY.equalTo(backView.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(pWidth, pHeight));
+    }];
     
     _timeLabel = [UILabel new];
     [backView addSubview:_timeLabel];
