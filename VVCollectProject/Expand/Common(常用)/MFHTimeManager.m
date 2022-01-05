@@ -289,6 +289,54 @@
 }
 
 
+/// 判断某个时间距离当天间隔几天
+/// @param oldDate 某个时间
++ (NSInteger)getDifferenceByDate:(NSDate *)oldDate {
+        //获得当前时间
+    NSDate *now = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned int unitFlags = NSCalendarUnitDay;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate  toDate:now  options:0];
+    return [comps day];
+}
+/// 判断某个时间距离当天间隔几天
+/// @param oldDateStr 某个时间 字符串 yyyy-MM-dd HH:mm:ss
++ (NSInteger)getDifferenceByDateStr:(NSString *)oldDateStr {
+     //获得当前时间
+    NSDate *now = [NSDate date];
+    //实例化一个NSDateFormatter对象
+   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //设定时间格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *oldDate1 = [dateFormatter dateFromString: oldDateStr];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned int unitFlags = NSCalendarUnitDay;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate1  toDate:now  options:0];
+    return [comps day];
+}
+
+
+/// 多少天执行一次 是否第一次 YES   NO
+/// @param key Key 需唯一  存储在偏好设置中  例如：位置和功能 （首页广告）@“ kHomeAdNowDate”
+/// @param betweenDaysNum 间隔天数
++ (BOOL)executeHowManyDaysKey:(NSString *)key betweenDaysNum:(NSInteger)betweenDaysNum {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSDate *oldDate = [userDefault objectForKey:key];
+     
+    NSInteger daysNum = [MFHTimeManager getDifferenceByDate:oldDate];
+     
+    if (daysNum < betweenDaysNum) {
+        return NO;
+     }else{
+        // 需要执行的方法写在这里
+         NSLog(@"一天就显示一次");
+        NSDate *nowDate = [NSDate date];
+        NSUserDefaults *dataUser = [NSUserDefaults standardUserDefaults];
+        [dataUser setObject:nowDate forKey:key];
+        [dataUser synchronize];
+        return YES;
+     }
+}
 
 
 

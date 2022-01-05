@@ -112,6 +112,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+/// 判断某个时间距离当天间隔几天
+/// @param oldDate 某个时间
++ (NSInteger)getDifferenceByDate:(NSDate *)oldDate;
+
+/// 判断某个时间距离当天间隔几天
+/// @param oldDateStr 某个时间 字符串 yyyy-MM-dd HH:mm:ss
++ (NSInteger)getDifferenceByDateStr:(NSString *)oldDateStr;
+
+
+
+/// 多少天执行一次 是否第一次 YES   NO
+/// @param key Key 需唯一  存储在偏好设置中  例如：位置和功能 （首页广告）@“ kHomeAdNowDate”
+/// @param betweenDaysNum 间隔天数
++ (BOOL)executeHowManyDaysKey:(NSString *)key betweenDaysNum:(NSInteger)betweenDaysNum;
+
+
+
 #pragma mark -  一个类
 
 /**
