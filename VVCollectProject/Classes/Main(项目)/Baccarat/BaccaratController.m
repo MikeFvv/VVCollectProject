@@ -34,6 +34,7 @@
 #import "AppDelegate.h"
 #import "JMDropMenu.h"
 #import "BGameRecordAlertView.h"
+#import "MFHTimeManager.h"
 
 
 #define kBtnHeight 35
@@ -129,6 +130,15 @@
     [self initData];
     [self createUI];
     
+    NSDate *date = [NSDate new];
+    
+    NSInteger  aa = [MFHTimeManager getDifferenceByDateStr:@"2021-12-25 10:20:20"];
+    
+   NSDate *efwe = [MFHTimeManager getlastFirstDayDateWithDate:date];
+  NSInteger aaaa =  [MFHTimeManager getDifferenceByDate:date];
+    
+    BOOL aaccc = [MFHTimeManager executeHowManyDaysKey:@"EEEE" betweenDaysNum:3];
+    NSLog(@"11");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
