@@ -221,6 +221,7 @@
 		84A8E2002777FFE600695055 /* 启动图.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84A8E18C2777FFE600695055 /* 启动图.jpg */; };
 		84A8E208277906A700695055 /* BUserChipssView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E207277906A700695055 /* BUserChipssView.m */; };
 		84A8E20B27790BC900695055 /* BPockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E20927790BC900695055 /* BPockerView.m */; };
+		84B0652927859BDB00FC09D0 /* WHGradientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0652827859BDB00FC09D0 /* WHGradientHelper.m */; };
 		84B85DD727626296009AC598 /* 玩百家乐游戏规则.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */; };
 		84B85DD827626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */; };
 		84B85DD927626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */; };
@@ -659,6 +660,8 @@
 		84A8E207277906A700695055 /* BUserChipssView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUserChipssView.m; sourceTree = "<group>"; };
 		84A8E20927790BC900695055 /* BPockerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPockerView.m; sourceTree = "<group>"; };
 		84A8E20A27790BC900695055 /* BPockerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPockerView.h; sourceTree = "<group>"; };
+		84B0652727859BDB00FC09D0 /* WHGradientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHGradientHelper.h; sourceTree = "<group>"; };
+		84B0652827859BDB00FC09D0 /* WHGradientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHGradientHelper.m; sourceTree = "<group>"; };
 		84B85DD427626296009AC598 /* 玩百家乐游戏规则.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐游戏规则.pdf"; sourceTree = "<group>"; };
 		84B85DD527626296009AC598 /* 玩百家乐必懂的5种路图（上）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（上）.pdf"; sourceTree = "<group>"; };
 		84B85DD627626296009AC598 /* 玩百家乐必懂的5种路图（下） .pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "玩百家乐必懂的5种路图（下） .pdf"; sourceTree = "<group>"; };
@@ -1122,6 +1125,8 @@
 				84568C8A275E8D13006C2906 /* FunctionManager.m */,
 				276C91D22691610300377224 /* MFHTimeManager.h */,
 				276C91D32691610400377224 /* MFHTimeManager.m */,
+				84B0652727859BDB00FC09D0 /* WHGradientHelper.h */,
+				84B0652827859BDB00FC09D0 /* WHGradientHelper.m */,
 				276C92252691645500377224 /* VerifyHelper.h */,
 				276C92242691645500377224 /* VerifyHelper.m */,
 				84B85E6C2766DCBC009AC598 /* NSAttributedStringManager.h */,
@@ -2558,6 +2563,7 @@
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,
 				84B85DEE2762725D009AC598 /* CardGroup.m in Sources */,
 				84A8DF012777FC8D00695055 /* CFVBoxView.m in Sources */,
+				84B0652927859BDB00FC09D0 /* WHGradientHelper.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
 				84B85E0227629315009AC598 /* CardGroupComparator.m in Sources */,

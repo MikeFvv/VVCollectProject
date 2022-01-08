@@ -35,7 +35,7 @@
 #import "JMDropMenu.h"
 #import "BGameRecordAlertView.h"
 #import "MFHTimeManager.h"
-
+#import "WHGradientHelper.h"
 
 #define kBtnHeight 35
 #define kBtnFontSize 16
@@ -139,6 +139,20 @@
     
     BOOL aaccc = [MFHTimeManager executeHowManyDaysKey:@"EEEE" betweenDaysNum:3];
     NSLog(@"11");
+    
+    UIImageView *bottomAdImgView = [[UIImageView alloc] init];
+    bottomAdImgView.layer.cornerRadius = 44/2;
+    bottomAdImgView.layer.masksToBounds = YES;
+    bottomAdImgView.userInteractionEnabled = YES;
+    bottomAdImgView.image = [WHGradientHelper getLinearGradientImage:RGB(255, 156, 124) and:RGB(255, 105, 72) directionType:WHLinearGradientDirectionLevel];
+    [self.view addSubview:bottomAdImgView];
+    
+    [bottomAdImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(0);
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right);
+        make.height.mas_equalTo(44);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
