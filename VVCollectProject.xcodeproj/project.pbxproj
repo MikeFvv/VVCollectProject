@@ -64,6 +64,12 @@
 		848EE79C276E7B610016CD8A /* BaccaratBetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE79B276E7B610016CD8A /* BaccaratBetView.m */; };
 		848EE79F276E8B780016CD8A /* ChipsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE79E276E8B780016CD8A /* ChipsCollectionViewCell.m */; };
 		848EE7A2276E8BCF0016CD8A /* ChipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE7A1276E8BCF0016CD8A /* ChipsModel.m */; };
+		849E6DD6279F0D7000EA6F33 /* SqliteManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E6DD4279F0D7000EA6F33 /* SqliteManage.m */; };
+		849E6DD9279F1C5700EA6F33 /* BalanceRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E6DD8279F1C5700EA6F33 /* BalanceRecordModel.m */; };
+		849E6DDE279F1EAB00EA6F33 /* BTopupRecordAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E6DDD279F1EAB00EA6F33 /* BTopupRecordAlertView.m */; };
+		849E6DE1279F1F1400EA6F33 /* BTopupRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E6DE0279F1F1400EA6F33 /* BTopupRecordCell.m */; };
+		849E6DE4279F23B900EA6F33 /* BTopupAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E6DE3279F23B900EA6F33 /* BTopupAlertView.m */; };
+		849E6DE7279F242100EA6F33 /* BTopupCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E6DE6279F242100EA6F33 /* BTopupCollectionCell.m */; };
 		84A5920B273D9B240071D524 /* MXWAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5920A273D9B240071D524 /* MXWAdapter.m */; };
 		84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59214273D9FA30071D524 /* UIImage+Extension.m */; };
 		84A59219273DA1D70071D524 /* UIView+Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A59218273DA1D70071D524 /* UIView+Function.m */; };
@@ -467,6 +473,18 @@
 		848EE79E276E8B780016CD8A /* ChipsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChipsCollectionViewCell.m; sourceTree = "<group>"; };
 		848EE7A0276E8BCF0016CD8A /* ChipsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChipsModel.h; sourceTree = "<group>"; };
 		848EE7A1276E8BCF0016CD8A /* ChipsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChipsModel.m; sourceTree = "<group>"; };
+		849E6DD4279F0D7000EA6F33 /* SqliteManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteManage.m; sourceTree = "<group>"; };
+		849E6DD5279F0D7000EA6F33 /* SqliteManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteManage.h; sourceTree = "<group>"; };
+		849E6DD7279F1C5700EA6F33 /* BalanceRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceRecordModel.h; sourceTree = "<group>"; };
+		849E6DD8279F1C5700EA6F33 /* BalanceRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceRecordModel.m; sourceTree = "<group>"; };
+		849E6DDC279F1EAB00EA6F33 /* BTopupRecordAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTopupRecordAlertView.h; sourceTree = "<group>"; };
+		849E6DDD279F1EAB00EA6F33 /* BTopupRecordAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTopupRecordAlertView.m; sourceTree = "<group>"; };
+		849E6DDF279F1F1400EA6F33 /* BTopupRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTopupRecordCell.h; sourceTree = "<group>"; };
+		849E6DE0279F1F1400EA6F33 /* BTopupRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTopupRecordCell.m; sourceTree = "<group>"; };
+		849E6DE2279F23B900EA6F33 /* BTopupAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTopupAlertView.h; sourceTree = "<group>"; };
+		849E6DE3279F23B900EA6F33 /* BTopupAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTopupAlertView.m; sourceTree = "<group>"; };
+		849E6DE5279F242100EA6F33 /* BTopupCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTopupCollectionCell.h; sourceTree = "<group>"; };
+		849E6DE6279F242100EA6F33 /* BTopupCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTopupCollectionCell.m; sourceTree = "<group>"; };
 		84A59209273D9B240071D524 /* MXWAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdapter.h; sourceTree = "<group>"; };
 		84A5920A273D9B240071D524 /* MXWAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdapter.m; sourceTree = "<group>"; };
 		84A59213273D9FA30071D524 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
@@ -1036,6 +1054,7 @@
 				847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */,
 				847D2B1C2780B98A0028C264 /* BStatisticssReusableView.h */,
 				847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */,
+				849E6DDB279F1E7100EA6F33 /* Topup(充值记录) */,
 				847D2B302781D5290028C264 /* GameRecord(游戏记录) */,
 			);
 			path = View;
@@ -1053,6 +1072,8 @@
 		65DCBA0523277D1F00D89C4F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				849E6DD5279F0D7000EA6F33 /* SqliteManage.h */,
+				849E6DD4279F0D7000EA6F33 /* SqliteManage.m */,
 				65DCBA0623277D3F00D89C4F /* BaccaratResultModel.h */,
 				65DCBA0723277D3F00D89C4F /* BaccaratResultModel.m */,
 				848EE786276C86EF0016CD8A /* BaccaratComputer.h */,
@@ -1065,6 +1086,8 @@
 				84A8DD7C2777E6D900695055 /* BBetModel.m */,
 				84A8DD7E2777F58300695055 /* BUserData.h */,
 				84A8DD7F2777F58300695055 /* BUserData.m */,
+				849E6DD7279F1C5700EA6F33 /* BalanceRecordModel.h */,
+				849E6DD8279F1C5700EA6F33 /* BalanceRecordModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1192,6 +1215,21 @@
 				848EE791276E5A4C0016CD8A /* WMDragView.m */,
 			);
 			path = WMDragView;
+			sourceTree = "<group>";
+		};
+		849E6DDB279F1E7100EA6F33 /* Topup(充值记录) */ = {
+			isa = PBXGroup;
+			children = (
+				849E6DE2279F23B900EA6F33 /* BTopupAlertView.h */,
+				849E6DE3279F23B900EA6F33 /* BTopupAlertView.m */,
+				849E6DE5279F242100EA6F33 /* BTopupCollectionCell.h */,
+				849E6DE6279F242100EA6F33 /* BTopupCollectionCell.m */,
+				849E6DDC279F1EAB00EA6F33 /* BTopupRecordAlertView.h */,
+				849E6DDD279F1EAB00EA6F33 /* BTopupRecordAlertView.m */,
+				849E6DDF279F1F1400EA6F33 /* BTopupRecordCell.h */,
+				849E6DE0279F1F1400EA6F33 /* BTopupRecordCell.m */,
+			);
+			path = "Topup(充值记录)";
 			sourceTree = "<group>";
 		};
 		84A5920F273D9ED50071D524 /* UIImage */ = {
@@ -2488,6 +2526,7 @@
 				848EE785276C82930016CD8A /* BAnalyzeRoadMapView.m in Sources */,
 				84B85EA527672388009AC598 /* NextViewController.m in Sources */,
 				84B85E5527640736009AC598 /* LessAI.m in Sources */,
+				849E6DDE279F1EAB00EA6F33 /* BTopupRecordAlertView.m in Sources */,
 				84A8DEFE2777FC8C00695055 /* CFVCommonBottomView.m in Sources */,
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */,
@@ -2562,6 +2601,7 @@
 				84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */,
 				40CF061D2319786D00932821 /* PointListController.m in Sources */,
 				84B85DEE2762725D009AC598 /* CardGroup.m in Sources */,
+				849E6DD9279F1C5700EA6F33 /* BalanceRecordModel.m in Sources */,
 				84A8DF012777FC8D00695055 /* CFVBoxView.m in Sources */,
 				84B0652927859BDB00FC09D0 /* WHGradientHelper.m in Sources */,
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
@@ -2610,6 +2650,7 @@
 				84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */,
 				84A8DEF82777FC8C00695055 /* CFVWaitView.m in Sources */,
 				84568C82275E8255006C2906 /* MXWAdTimerAlertView.m in Sources */,
+				849E6DE7279F242100EA6F33 /* BTopupCollectionCell.m in Sources */,
 				84A8DEF52777FC8C00695055 /* CFVBoxPockerModel.m in Sources */,
 				A0BCD7A322216D9100BB3A9C /* Application.m in Sources */,
 				A0CBDD642220340600E7E21F /* TestUITableViewController.m in Sources */,
@@ -2630,12 +2671,14 @@
 				84568C8B275E8D13006C2906 /* FunctionManager.m in Sources */,
 				267B114A2345B901003FEF3B /* PrintBeautifulLog.m in Sources */,
 				84B85DE22762667F009AC598 /* Poker.m in Sources */,
+				849E6DD6279F0D7000EA6F33 /* SqliteManage.m in Sources */,
 				84A8D9F127725C9600695055 /* UIActionSheet+Blocks.m in Sources */,
 				847D2B212780D13D0028C264 /* UIDevice+ASMandatoryLandscapeDevice.m in Sources */,
 				84A8DEF72777FC8C00695055 /* CFVPlayerModel.m in Sources */,
 				A0DCEF612236ACE4002FF19C /* VVFunctionManager.m in Sources */,
 				40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */,
 				A0BEDF342217E163008F97CC /* UIView+LMJNjHuFrame.m in Sources */,
+				849E6DE4279F23B900EA6F33 /* BTopupAlertView.m in Sources */,
 				848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */,
 				276C91D1269160C500377224 /* FileHelper.m in Sources */,
 				84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */,
@@ -2643,6 +2686,7 @@
 				84A8DF072777FC8D00695055 /* CFVGameCenterViewController.m in Sources */,
 				84A8DEF62777FC8C00695055 /* CFVHeGuanPockerModel.m in Sources */,
 				84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */,
+				849E6DE1279F1F1400EA6F33 /* BTopupRecordCell.m in Sources */,
 				84A8D9D12772580F00695055 /* CustomIOSAlertViewController.m in Sources */,
 				84A8DD7D2777E6D900695055 /* BBetModel.m in Sources */,
 				A0D55E2E221DAFB500D7E3B0 /* BaccaratController.m in Sources */,

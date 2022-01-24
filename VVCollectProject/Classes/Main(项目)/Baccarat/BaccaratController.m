@@ -36,6 +36,13 @@
 #import "BGameRecordAlertView.h"
 #import "MFHTimeManager.h"
 #import "WHGradientHelper.h"
+#import "SqliteManage.h"
+#import "WHC_ModelSqlite.h"
+#import "BTopupRecordAlertView.h"
+#import "BalanceRecordModel.h"
+#import "BTopupAlertView.h"
+#import "BalanceRecordModel.h"
+
 
 #define kBtnHeight 35
 #define kBtnFontSize 16
@@ -50,7 +57,7 @@
 
 
 
-@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate>
+@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate,BTopupAlertViewDelegate>
 
 @property (nonatomic, strong) UIView *contentView;
 //
@@ -84,8 +91,13 @@
 @property (nonatomic, strong) BShowPokerView *showPokerView;
 /// 统计视图
 @property(nonatomic,strong) BStatisticsAlertView *statisticsView;
+
+/// 充值视图
+@property(nonatomic,strong) BTopupAlertView *topupAlertView;
 /// 游戏记录
 @property(nonatomic,strong) BGameRecordAlertView *gameRecordAlertView;
+/// 充值记录
+@property(nonatomic,strong) BTopupRecordAlertView *topupRecordAlertView;
 
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *zhuPanLuResultDataArray;
@@ -129,30 +141,6 @@
     
     [self initData];
     [self createUI];
-    
-    NSDate *date = [NSDate new];
-    
-    NSInteger  aa = [MFHTimeManager getDifferenceByDateStr:@"2021-12-25 10:20:20"];
-    
-   NSDate *efwe = [MFHTimeManager getlastFirstDayDateWithDate:date];
-  NSInteger aaaa =  [MFHTimeManager getDifferenceByDate:date];
-    
-    BOOL aaccc = [MFHTimeManager executeHowManyDaysKey:@"EEEE" betweenDaysNum:3];
-    NSLog(@"11");
-    
-    UIImageView *bottomAdImgView = [[UIImageView alloc] init];
-    bottomAdImgView.layer.cornerRadius = 44/2;
-    bottomAdImgView.layer.masksToBounds = YES;
-    bottomAdImgView.userInteractionEnabled = YES;
-    bottomAdImgView.image = [WHGradientHelper getLinearGradientImage:RGB(255, 156, 124) and:RGB(255, 105, 72) directionType:WHLinearGradientDirectionLevel];
-    [self.view addSubview:bottomAdImgView];
-    
-    [bottomAdImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(0);
-        make.left.equalTo(self.view.mas_left).offset(10);
-        make.right.equalTo(self.view.mas_right);
-        make.height.mas_equalTo(44);
-    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -165,14 +153,14 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [FunctionManager interfaceOrientation:UIInterfaceOrientationPortrait];
+    //    [FunctionManager interfaceOrientation:UIInterfaceOrientationPortrait];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 
 #pragma mark -  数据初始化
 - (void)initData {
-    self.titleArr = @[@"返回",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    self.titleArr = @[@"返回",@"游戏记录",@"余额记录",@"设置",@"更换赌桌",@"充值"];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
@@ -190,6 +178,12 @@
         ];
     }
     
+    
+    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and to_days(update_time) = to_days(now())",kUserIdStr];
+    NSArray *userArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
+    
+    
+    // 初始化数据
     BUserData *bUserData = [[BUserData alloc] init];
     _bUserData = bUserData;
     
@@ -237,7 +231,14 @@
     }
     return _statisticsView;
 }
-
+- (BTopupAlertView* )topupAlertView {
+    if (!_topupAlertView) {
+        UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
+        _topupAlertView = [[BTopupAlertView alloc] initWithFrame:winView.frame];
+        _topupAlertView.delegate = self;
+    }
+    return _topupAlertView;
+}
 - (BGameRecordAlertView* )gameRecordAlertView {
     if (!_gameRecordAlertView) {
         UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
@@ -245,6 +246,14 @@
     }
     return _gameRecordAlertView;
 }
+- (BTopupRecordAlertView* )topupRecordAlertView {
+    if (!_topupRecordAlertView) {
+        UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
+        _topupRecordAlertView = [[BTopupRecordAlertView alloc] initWithFrame:winView.frame];
+    }
+    return _topupRecordAlertView;
+}
+
 
 #pragma mark - ChipsViewDelegate 筹码选中 | 确定下注 | 重复下注
 /// 选中筹码后
@@ -257,7 +266,7 @@
 
 /// 确定下注
 - (void)sureBetBtnClick:(UIButton *)sender {
-
+    
     if (sender.tag == 5000) {
         self.chipsView.hidden = YES;
         [self onStartOneButton];
@@ -501,7 +510,7 @@
     // 获胜总局数  连输 连赢
     if (isWin) {
         self.bUserData.today_winTotalNum = self.bUserData.today_winTotalNum + 1;
-
+        
         self.continuousWinNum = self.continuousWinNum + 1;
         self.continuousLoseNum = 0;
     } else if (resultModel.winType == WinType_TIE) {
@@ -513,7 +522,7 @@
             self.continuousLoseNum = self.continuousLoseNum + 1;
         }
     }
-
+    
     // 最高连胜记录
     if (self.bUserData.today_continuoustoday_winTotalNum < self.continuousWinNum) {
         self.bUserData.today_continuoustoday_winTotalNum = self.continuousWinNum;
@@ -547,30 +556,39 @@
     
     // 今日盈利
     self.bUserData.today_ProfitMoney = self.bUserData.userTotalMoney - self.bUserData.today_InitMoney;
-  
+    
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        BOOL isSuccess = [WHCSqlite insert:self.bUserData];
+        if (isSuccess) {
+            NSLog(@"成功");
+        }
+        NSLog(@"1111");
+    });
 }
 
 - (void)setBetViewButtonStatus {
     // ********* ✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️ *********
     // 给下注视图 赋值用户当前余额
     self.chipsView.currentBalance = self.bUserData.userTotalMoney;
-     // 显示越过本局
-     if (self.chipsView.isShowCancelBtn) {
-         self.chipsView.isShowCancelBtn = NO;
-     }
-     /// 当前总金额大于上次 下注金额  显示 重复下注 按钮
-     if (self.bUserData.userTotalMoney > 0 && self.bUserData.userTotalMoney >= self.betModel.total_bet_money) {
-         self.chipsView.isRepeatBetBtn = YES;
-     } else if (self.bUserData.userTotalMoney > 0) {
-         self.chipsView.isAllInBetBtn = YES;
-     }
-     
-     // 是否显示 确定下注 按钮和重复按钮
-     if (self.bUserData.userTotalMoney > 0) {
-         self.chipsView.isShowSureButton = NO;
-     } else {
-         self.chipsView.isShowSureButton = YES;
-     }
+    // 显示越过本局
+    if (self.chipsView.isShowCancelBtn) {
+        self.chipsView.isShowCancelBtn = NO;
+    }
+    /// 当前总金额大于上次 下注金额  显示 重复下注 按钮
+    if (self.bUserData.userTotalMoney > 0 && self.bUserData.userTotalMoney >= self.betModel.total_bet_money) {
+        self.chipsView.isRepeatBetBtn = YES;
+    } else if (self.bUserData.userTotalMoney > 0) {
+        self.chipsView.isAllInBetBtn = YES;
+    }
+    
+    // 是否显示 确定下注 按钮和重复按钮
+    if (self.bUserData.userTotalMoney > 0) {
+        self.chipsView.isShowSureButton = NO;
+    } else {
+        self.chipsView.isShowSureButton = YES;
+    }
 }
 
 
@@ -586,11 +604,29 @@
     self.xqlXiaSanLuView.dataArray = xqlDataArray;
 }
 
+#pragma mark -  下注记录统计 弹窗
 /// 用户筹码下注记录
 - (void)onBUserChipssViewShowAction {
     
     self.statisticsView.bUserData = self.bUserData;
     [self.statisticsView showAlertAnimation];
+}
+
+
+#pragma mark -  BTopupAlertViewDelegate 充值
+/// 充值
+- (void)didTopup:(BalanceRecordModel *)model {
+    NSLog(@"11111");
+    
+    model.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    model.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    BOOL isSuccess = [WHCSqlite insert:model];
+    if (isSuccess) {
+        NSString *titleMsg = [NSString stringWithFormat:@"%@ 成功",model.title];
+        [MBProgressHUD showTipMessageInWindow:titleMsg];
+    }
+    NSLog(@"11111");
+    
 }
 
 #pragma mark -  清除
@@ -818,6 +854,17 @@
     
     [self.zhuPanLuResultDataArray addObject:bResultModel];
     
+    
+    bResultModel.userId = kUserIdStr;
+    bResultModel.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    bResultModel.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        BOOL isSuccess = [WHCSqlite insert:bResultModel];
+        if (isSuccess) {
+            NSLog(@"成功");
+        }
+    });
+    NSLog(@"11111");
 }
 
 
@@ -850,9 +897,10 @@
 }
 
 - (void)onMoreBtnMethod {
-    [JMDropMenu showDropMenuFrame:CGRectMake(kBUNotchSpacing + 5, 36, 120, kBMoreColHeight*5+10) ArrowOffset:16.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:kBMoreColHeight Delegate:self];
+    [JMDropMenu showDropMenuFrame:CGRectMake(kBUNotchSpacing + 5, 36, 120, kBMoreColHeight*6+10) ArrowOffset:16.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:kBMoreColHeight Delegate:self];
 }
 
+#pragma mark -  下拉列表
 - (void)didSelectRowAtIndex:(NSInteger)index Title:(NSString *)title Image:(NSString *)image {
     NSLog(@"index----%zd,  title---%@, image---%@", index, title, image);
     
@@ -866,15 +914,30 @@
         [self.navigationController popViewControllerAnimated:true];
     } else if ([title isEqualToString:@"游戏记录"]) {
         
-        self.gameRecordAlertView.zhuPanLuResultDataArray = self.zhuPanLuResultDataArray;
+        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+        NSArray *dataArray = [WHC_ModelSqlite query:[BaccaratResultModel class] where:queryWhere];
+        
+        self.gameRecordAlertView.zhuPanLuResultDataArray = dataArray;
         [self.gameRecordAlertView showAlertAnimation];
         
     } else if ([title isEqualToString:@"余额记录"]) {
         
+        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+        NSArray *balanceArray = [WHC_ModelSqlite query:[BalanceRecordModel class] where:queryWhere];
+        
+        self.topupRecordAlertView.dataArray = balanceArray;
+        [self.topupRecordAlertView showAlertAnimation];
+        
     } else if ([title isEqualToString:@"设置"]) {
         BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
+    } else if ([title isEqualToString:@"充值"]) {
+        //        self.statisticsView.bUserData = self.bUserData;
+        [self.topupAlertView showAlertAnimation];
     }
+    
+    
+    
 }
 
 #pragma mark -  创建UI
@@ -906,7 +969,7 @@
     UIButton *moreBtn = [[UIButton alloc] init];
     [moreBtn setBackgroundImage:[UIImage imageNamed:@"com_more_white"] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(onMoreBtnMethod) forControlEvents:UIControlEventTouchUpInside];
-//    moreBtn.backgroundColor = [UIColor greenColor];
+    //    moreBtn.backgroundColor = [UIColor greenColor];
     [self.view addSubview:moreBtn];
     
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1020,7 +1083,7 @@
     _xqlXiaSanLuView = xqlXiaSanLuView;
     
     
-   CGFloat analyzeRoadMapView_Width = 135;
+    CGFloat analyzeRoadMapView_Width = 135;
     CGFloat zhuPanLu_Width = kBHalfWidth - kBAddWidth-10-analyzeRoadMapView_Width;
     // 珠盘路(庄闲路)
     BZhuPanLuCollectionView *zhuPanLuCollectionView = [[BZhuPanLuCollectionView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+daluHeight+xiasanluHeight*3+1*5, zhuPanLu_Width, kBTrendViewHeight)];

@@ -28,7 +28,7 @@
     
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.text = @"ID：赌神？";
+    nameLabel.text = @"name：赌神？";
     nameLabel.font = [UIFont systemFontOfSize:10];
     nameLabel.textColor = [UIColor darkGrayColor];
     nameLabel.textAlignment = NSTextAlignmentCenter;

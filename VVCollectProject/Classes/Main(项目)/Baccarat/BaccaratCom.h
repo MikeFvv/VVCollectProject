@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, RoadMapType) {
 };
 
 
+static const NSString *kUserIdStr = @"10000";
 
 /// 左边视图一半 + 这里多添加的宽度
 static const CGFloat kBAddWidth = 50;
