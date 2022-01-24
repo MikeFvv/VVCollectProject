@@ -7,11 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WHC_ModelSqlite.h"
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// 用户数据
-@interface BUserData : NSObject
+@interface BUserData : NSObject<NSCoding,WHC_SqliteInfo>
+
+/// 用户ID
+@property (nonatomic, copy) NSString *userId;
+/// 游戏桌子ID 每天日期+001 自增
+@property (nonatomic, copy) NSString *tableID;
+/// 创建时间
+@property (nonatomic, copy) NSString *create_time;
+/// 更新时间
+@property (nonatomic, copy) NSString *update_time;
+
 
 /// 用户当前总金额
 @property (nonatomic, assign) NSInteger userTotalMoney;

@@ -69,7 +69,7 @@
     self.playerPockerPBView.sendCardDataArray = bModel.playerArray;
     self.bankerPockerPBView.sendCardDataArray = bModel.bankerArray;
     
-    self.timeLabel.text = bModel.createTime;
+    self.timeLabel.text = bModel.create_time;
     
     if (bModel.betMoney > 0) {
         if (1) {

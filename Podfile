@@ -27,6 +27,9 @@ target 'VVCollectProject' do
   pod 'MJExtension'
   pod 'SDWebImage'
   
+  # 模型对象存储Sqlite 数据库
+  pod 'WHC_ModelSqliteKit'
+  
   
   # 热更新
   pod 'JSPatch'

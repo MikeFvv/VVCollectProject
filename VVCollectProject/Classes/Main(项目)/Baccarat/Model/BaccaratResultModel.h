@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaccaratResultModel : NSObject
 
+/// 用户ID
+@property (nonatomic, copy) NSString *userId;
+
 /// 0 Tie   1 banker   2 player
 @property (nonatomic, assign) WinType winType;
 
@@ -48,8 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 一局牌的总张数
 @property (nonatomic, assign) NSInteger pokerTotalNum;
 
+
 /// 创建时间
-@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic, copy) NSString *create_time;
+/// 更新时间
+@property (nonatomic, copy) NSString *update_time;
+
 
 /// 计算庄闲结果
 /// @param playerArray 玩家牌

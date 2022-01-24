@@ -10,4 +10,6 @@
 
 @implementation BUserData
 
+MJCodingImplementation
+
 @end

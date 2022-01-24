@@ -1,23 +1,22 @@
 //
-//  BGameRecordAlertView.m
+//  BGameTopupRecordAlertView.m
 //  VVCollectProject
 //
-//  Created by Admin on 2022/1/2.
+//  Created by Admin on 2022/1/25.
 //  Copyright © 2022 Mike. All rights reserved.
 //
 
-#import "BGameRecordAlertView.h"
-#import "BStatisticssReusableView.h"
-#import "BGameRecordCell.h"
+#import "BTopupRecordAlertView.h"
+#import "BTopupRecordCell.h"
 
 
-@interface BGameRecordAlertView () <UITableViewDataSource, UITableViewDelegate>
+@interface BTopupRecordAlertView () <UITableViewDataSource, UITableViewDelegate>
 ///
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
 
-@implementation BGameRecordAlertView
+@implementation BTopupRecordAlertView
 
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -32,9 +31,8 @@
     return self;
 }
 
-
-- (void)setZhuPanLuResultDataArray:(NSArray *)zhuPanLuResultDataArray {
-    _zhuPanLuResultDataArray = zhuPanLuResultDataArray;
+- (void)setDataArray:(NSArray *)dataArray {
+    _dataArray = dataArray;
     [self.tableView reloadData];
 }
 
@@ -105,7 +103,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 40;   //设置每一行的高度
-        [_tableView registerClass:[BGameRecordCell class] forCellReuseIdentifier:@"BGameRecordCell"];
+        [_tableView registerClass:[BTopupRecordCell class] forCellReuseIdentifier:@"BTopupRecordCell"];
     }
     
     return _tableView;
@@ -116,24 +114,25 @@
 // //返回列表每个分组section拥有cell行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.zhuPanLuResultDataArray.count;
+    return self.dataArray.count;
 }
 
 // //配置每个cell，随着用户拖拽列表，cell将要出现在屏幕上时此方法会不断调用返回cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BGameRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BGameRecordCell"];
+    BTopupRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BTopupRecordCell"];
     if(cell == nil) {
-        cell = [BGameRecordCell cellWithTableView:tableView reusableId:@"BGameRecordCell"];
+        cell = [BTopupRecordCell cellWithTableView:tableView reusableId:@"BTopupRecordCell"];
     }
     
-    cell.index = self.zhuPanLuResultDataArray.count - indexPath.row;
+    cell.index = self.dataArray.count - indexPath.row;
     // 倒序
-    cell.model = self.zhuPanLuResultDataArray[self.zhuPanLuResultDataArray.count - indexPath.row -1];
+    cell.model = self.dataArray[self.dataArray.count - indexPath.row -1];
     
     return cell;
     
 }
 
 @end
+
 

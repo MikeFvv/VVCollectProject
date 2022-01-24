@@ -20,7 +20,7 @@
     self.bankerArray = bankerArray;
     
     // *** 创建时间 ***
-   self.createTime = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+   self.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
     
     // *** 玩家计算 ***
     self.playerTotalPoints = 0;
