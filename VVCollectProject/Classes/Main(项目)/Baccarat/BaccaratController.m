@@ -684,14 +684,7 @@
 /// 用户筹码下注记录
 - (void)onBUserChipssViewShowAction {
     
-    NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
-    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
-    
     NSString *all_queryWhere = [NSString stringWithFormat:@"userId='%@' ORDER BY create_time DESC",kUserIdStr];
-    
-    // 当天的数据
-    NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
-    
     // 全部的数据
     NSArray *allUserDataArray = [WHC_ModelSqlite query:[BUserData class] where:all_queryWhere];
     
@@ -703,10 +696,7 @@
         allUserData.create_time = userData.create_time;
         allUserData.update_time = userData.update_time;
         
-        
         allUserData.userTotalMoney = allUserData.userTotalMoney + userData.userTotalMoney;
-        
-        
         allUserData.today_gameTotalNum = allUserData.today_gameTotalNum + userData.today_gameTotalNum;
         allUserData.today_playerTotalNum = allUserData.today_playerTotalNum + userData.today_playerTotalNum;
         allUserData.today_bankerTotalNum = allUserData.today_bankerTotalNum + userData.today_bankerTotalNum;
@@ -747,14 +737,6 @@
     }
     
     NSMutableArray *tempMArray = [NSMutableArray array];
-    
-    if (userDataArray && userDataArray.count > 0) {
-        [tempMArray addObject:userDataArray.firstObject];
-    } else {
-        BUserData *tempUserData = [[BUserData alloc] init];
-        [tempMArray addObject:tempUserData];
-    }
-    
     [tempMArray addObject:allUserData];
     // 全部数据
     [tempMArray addObjectsFromArray:allUserDataArray];
