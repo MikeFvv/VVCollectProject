@@ -181,11 +181,11 @@
     } else if (indexPath.row == 1) {
         
         if (indexPath.section == 0) {
-            cell.titleLabel.text = @"最低余额记录";
-            cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_MinTotalMoney];
-        } else {
             cell.titleLabel.text = @"--";
             cell.numLabel.text = @"--";
+        } else {
+            cell.titleLabel.text = @"最低余额记录";
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_MinTotalMoney];
         }
         
         cell.numLabel.textColor = [UIColor redColor];
@@ -241,9 +241,9 @@
     } else if (indexPath.row == 13) {
         
         if (indexPath.section == 0) {
-            cell.titleLabel.text = @"今日盈利";
-        } else {
             cell.titleLabel.text = @"总盈利";
+        } else {
+            cell.titleLabel.text = @"今日盈利";
         }
         
         if (bUserData.today_ProfitMoney >= 0) {
@@ -259,12 +259,12 @@
         NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
         NSString *queryWhere = nil;
         
-        if (indexPath.section == 0) {
-            cell.titleLabel.text = @"今日充值金额";
-            queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserIdStr,date];
-        } else {  // 全部
+        if (indexPath.section == 0) { // 全部
             cell.titleLabel.text = @"总充值金额";
             queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+        } else {
+            cell.titleLabel.text = @"今日充值金额";
+            queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserIdStr,date];
         }
         
         NSArray *balanceArray = [WHC_ModelSqlite query:[BalanceRecordModel class] where:queryWhere];
@@ -299,8 +299,6 @@
         cell.tag = 3000+indexPath.section;
         
         if (indexPath.section == 0) {
-            cell.titleLabel.text = @"今日统计";
-        } else if (indexPath.section == 1) {
             cell.titleLabel.text = @"全部统计";
         } else {
             BUserData *bUserData = self.dataArray[indexPath.section];
