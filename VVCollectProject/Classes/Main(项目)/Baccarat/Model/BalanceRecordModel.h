@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *create_time;
 /// 更新时间
 @property (nonatomic, copy) NSString *update_time;
+/// 创建日期
+@property (nonatomic, copy) NSString *create_date;
 
 /// 充值
 @property (nonatomic, copy) NSString *title;

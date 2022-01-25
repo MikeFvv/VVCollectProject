@@ -72,12 +72,12 @@
     self.timeLabel.text = bModel.create_time;
     
     if (bModel.betMoney > 0) {
-        if (1) {
+        if (bModel.winLose_money >= 0) {
             self.winLoseMoneyLabel.textColor = [UIColor greenColor];
-            self.winLoseMoneyLabel.text = [NSString stringWithFormat:@"+%ld",bModel.betMoney];
+            self.winLoseMoneyLabel.text = [NSString stringWithFormat:@"+%ld",bModel.winLose_money];
         } else {
             self.winLoseMoneyLabel.textColor = [UIColor redColor];
-            self.winLoseMoneyLabel.text = [NSString stringWithFormat:@"%ld",bModel.betMoney];
+            self.winLoseMoneyLabel.text = [NSString stringWithFormat:@"%ld",bModel.winLose_money];
         }
     } else {
         self.winLoseMoneyLabel.textColor = [UIColor whiteColor];

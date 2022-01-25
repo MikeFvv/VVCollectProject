@@ -28,7 +28,7 @@
     
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.text = @"name：赌神？";
+    nameLabel.text = @"ID：赌神？";
     nameLabel.font = [UIFont systemFontOfSize:10];
     nameLabel.textColor = [UIColor darkGrayColor];
     nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -59,6 +59,7 @@
     userMoneyLabel.font = [UIFont boldSystemFontOfSize:14];
     userMoneyLabel.textColor = [UIColor redColor];
     userMoneyLabel.textAlignment = NSTextAlignmentCenter;
+    userMoneyLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:userMoneyLabel];
     _userMoneyLabel = userMoneyLabel;
     

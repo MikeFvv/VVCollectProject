@@ -39,4 +39,7 @@
 #import "CFVDefineWithUI.h"
 #import "CFVDefineWithNotification.h"
 
+#import "BaccaratCom.h"
+
+
 #endif /* PrefixHeader_pch */

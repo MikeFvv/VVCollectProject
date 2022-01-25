@@ -102,6 +102,9 @@
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *zhuPanLuResultDataArray;
 @property (strong, nonatomic) CardDataSourceModel *baccaratDataModel;
+
+@property (strong, nonatomic) BaccaratResultModel *bResultModel;
+
 /// 选中的筹码
 @property (nonatomic, strong) ChipsModel *selectedModel;
 /// 下注金额
@@ -178,22 +181,27 @@
         ];
     }
     
+    NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
+    NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
     
-    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and to_days(update_time) = to_days(now())",kUserIdStr];
-    NSArray *userArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
-    
+    BUserData *oldUserData = userDataArray.firstObject;
     
     // 初始化数据
     BUserData *bUserData = [[BUserData alloc] init];
+    if (oldUserData) {
+        bUserData = oldUserData;
+    }
     _bUserData = bUserData;
     
-    NSInteger tMoney = 30000;
-    bUserData.userTotalMoney = tMoney;
     
-    bUserData.today_InitMoney = tMoney;
-    bUserData.beforeBetTotalMoney = tMoney;
-    bUserData.today_maxTotalMoney = tMoney;
-    bUserData.today_MinTotalMoney = tMoney;
+    
+    //    NSInteger tMoney = oldUserData.userTotalMoney;
+    //    bUserData.userTotalMoney = tMoney;
+    //    bUserData.today_InitMoney = tMoney;
+    //    bUserData.beforeBetTotalMoney = tMoney;
+    //    bUserData.today_maxTotalMoney = oldUserData.today_maxTotalMoney;
+    //    bUserData.today_MinTotalMoney = oldUserData.today_MinTotalMoney;
     
     
     BBetModel *betModel = [[BBetModel alloc] init];
@@ -443,6 +451,8 @@
     // 没下注不记录
     if (self.betModel.total_bet_money > 0) {
         [self calculateWinAndLoseChips:resultModel];
+    } else {
+        [self everyGameRecord];
     }
     
     // 筹码视图按钮状态
@@ -558,15 +568,68 @@
     self.bUserData.today_ProfitMoney = self.bUserData.userTotalMoney - self.bUserData.today_InitMoney;
     
     
+    [self saveDataToSql];
     
+}
+
+#pragma mark -  保存数据Sql
+- (void)saveDataToSql {
+    // *** 更新用户下注数据 ***
+    //    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    //        BOOL isSuccess =  [WHC_ModelSqlite update:ypMessage where:whereStr];
+    //        if (isSuccess) {
+    //            NSLog(@"成功");
+    //        }
+    //        NSLog(@"1111");
+    //    });
+    
+    [self everyGameRecord];
+    
+    [self updateUserData];
+    
+}
+- (void)everyGameRecord {
+    // *** 保存每盘游戏数据 ***
+    self.bResultModel.userId = kUserIdStr;
+    self.bResultModel.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    self.bResultModel.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    
+    self.bResultModel.betMoney = self.betModel.total_bet_money;
+    self.bResultModel.winLose_money = self.betModel.winLose_money;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        BOOL isSuccess = [WHCSqlite insert:self.bUserData];
+        BOOL isSuccess = [WHCSqlite insert:self.bResultModel];
         if (isSuccess) {
             NSLog(@"成功");
         }
+    });
+    NSLog(@"11111");
+}
+
+- (void)updateUserData {
+    self.bUserData.userId = kUserIdStr;
+    self.bUserData.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+    self.bUserData.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+    
+    NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+    NSString *whereStr = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
+    
+    // *** 保存用户下注数据 ***
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        BOOL isSuccess =  [WHC_ModelSqlite update:self.bUserData where:whereStr];
+        if (isSuccess) {
+            NSLog(@"成功");
+        } else {
+            BOOL isSuccess = [WHCSqlite insert:self.bUserData];
+            if (isSuccess) {
+                NSLog(@"成功");
+            }
+        }
         NSLog(@"1111");
     });
+    
 }
+
 
 - (void)setBetViewButtonStatus {
     // ********* ✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️ *********
@@ -620,6 +683,7 @@
     
     model.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
     model.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
+    model.create_date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
     BOOL isSuccess = [WHCSqlite insert:model];
     if (isSuccess) {
         NSString *titleMsg = [NSString stringWithFormat:@"%@ 成功",model.title];
@@ -627,6 +691,18 @@
     }
     NSLog(@"11111");
     
+    
+    // 总金额 当前用户金额+本次总输赢金额
+    self.bUserData.userTotalMoney = self.bUserData.userTotalMoney + model.money;
+    self.bUserData.today_InitMoney = self.bUserData.today_InitMoney + model.money;
+    self.bUserData.beforeBetTotalMoney = self.bUserData.userTotalMoney;
+    self.bUserData.today_maxTotalMoney = self.bUserData.today_maxTotalMoney + model.money;
+    self.bUserData.today_MinTotalMoney = self.bUserData.today_MinTotalMoney + model.money;
+    
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
+    
+    
+    [self updateUserData];
 }
 
 #pragma mark -  清除
@@ -791,9 +867,9 @@
         
         
         
-        if (playerTotalPoints< 6 && bankerTotalPoints ==  7) {
-            NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
-        }
+//        if (playerTotalPoints< 6 && bankerTotalPoints ==  7) {
+//            NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
+//        }
         
         if (i == 4) {
             if (playerTotalPoints >= 8 ||  bankerTotalPoints >= 8) {
@@ -852,19 +928,10 @@
     
     bResultModel.pokerCount = self.gameStatisticsModel.pokerCount;
     
+    _bResultModel = bResultModel;
+    
     [self.zhuPanLuResultDataArray addObject:bResultModel];
     
-    
-    bResultModel.userId = kUserIdStr;
-    bResultModel.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
-    bResultModel.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        BOOL isSuccess = [WHCSqlite insert:bResultModel];
-        if (isSuccess) {
-            NSLog(@"成功");
-        }
-    });
-    NSLog(@"11111");
 }
 
 
