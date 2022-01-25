@@ -521,11 +521,13 @@ dispatch_async(dispatch_get_main_queue(), block);\
         BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }  else if (indexPath.row == 2) {
+        return;
         GameLoginViewController *gameLoginVC = [[GameLoginViewController alloc]initWithNibName:@"GameLoginViewController" bundle:nil];
         UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:gameLoginVC];
         [self presentViewController:rootNav animated:YES completion:nil];
         
     } else if (indexPath.row == 3) {
+        return;
         HackerViewController *vc = [HackerViewController new];
         [self.navigationController pushViewController:vc animated:YES];
         
@@ -542,9 +544,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
         
     } else if (indexPath.row == 7) {
         [self goto_viewController];
-    }
-    
-    else {
+    } else {
         [self doPush];
     }
     

@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "PokerCardModel.h"
 #import "BaccaratCom.h"
+#import "WHC_ModelSqlite.h"
+
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaccaratResultModel : NSObject
+@interface BaccaratResultModel : NSObject<WHC_SqliteInfo>
 
 /// 用户ID
 @property (nonatomic, copy) NSString *userId;

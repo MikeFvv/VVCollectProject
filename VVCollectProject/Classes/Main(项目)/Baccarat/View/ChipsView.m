@@ -193,8 +193,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"ChipsCollectionViewCell
             @{@"money": @(1000), @"moneyStr": @"1000", @"normal_chipsImg": @"chip_1000", @"selected_chipsImg": @"chip_1000"},
             @{@"money": @(5000), @"moneyStr": @"5000", @"normal_chipsImg": @"chip_5000", @"selected_chipsImg": @"chip_5000"},
             @{@"money": @(10000), @"moneyStr": @"1万", @"normal_chipsImg": @"chip_10000", @"selected_chipsImg": @"chip_10000"},
-            @{@"money": @(50000), @"moneyStr": @"5万", @"normal_chipsImg": @"game_bet_selected", @"selected_chipsImg": @"game_bet_selected"},
             @{@"money": @(100000), @"moneyStr": @"10万", @"normal_chipsImg": @"game_bet_selected", @"selected_chipsImg": @"game_bet_selected"},
+            
+//            @{@"money": @(50000), @"moneyStr": @"5万", @"normal_chipsImg": @"game_bet_selected", @"selected_chipsImg": @"game_bet_selected"},
 //            @{@"money": @(500000), @"moneyStr": @"50万", @"normal_chipsImg": @"game_bet_selected", @"selected_chipsImg": @"game_bet_selected"},
 //            @{@"money": @(1000000), @"moneyStr": @"100万", @"normal_chipsImg": @"game_bet_selected", @"selected_chipsImg": @"game_bet_selected"},
         ];

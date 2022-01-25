@@ -132,14 +132,14 @@
     model4.money = 100000;
     model4.rechargeType = @"充值";
     
-    BalanceRecordModel *model5 = [[BalanceRecordModel alloc] init];
-    model5.userId = kUserIdStr;
-    model5.title = @"充值100万";
-    model5.topupId = @"100";
-    model5.money = 1000000;
-    model5.rechargeType = @"充值";
+//    BalanceRecordModel *model5 = [[BalanceRecordModel alloc] init];
+//    model5.userId = kUserIdStr;
+//    model5.title = @"充值100万";
+//    model5.topupId = @"100";
+//    model5.money = 1000000;
+//    model5.rechargeType = @"充值";
     
-    self.dataArray = @[model1,model2,model3,model4,model5];
+    self.dataArray = @[model1,model2,model3,model4];
     
 }
 
