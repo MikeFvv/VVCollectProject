@@ -100,7 +100,7 @@
     
     _indexLabel = [UILabel new];
     [backView addSubview:_indexLabel];
-    _indexLabel.font = [UIFont systemFontOfSize:12];
+    _indexLabel.font = [UIFont systemFontOfSize:11];
     _indexLabel.textColor = [UIColor whiteColor];
     
     [_indexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,7 +112,7 @@
     [backView addSubview: winResultView];
     _winResultView = winResultView;
     [winResultView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(backView.mas_left).offset(25);
+        make.left.equalTo(backView.mas_left).offset(30);
         make.centerY.equalTo(backView.mas_centerY);
         make.size.mas_equalTo(25);
     }];
@@ -136,12 +136,12 @@
     _bankerPointsLabel = bbbLabel;
     
     [bbbLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(winResultView.mas_right).offset(180);
+        make.left.equalTo(winResultView.mas_right).offset(185);
         make.centerY.equalTo(backView.mas_centerY);
     }];
     
     
-    CGFloat pWidth = 63;
+    CGFloat pWidth = 68;
     CGFloat pHeight = 30;
     BPockerPBView *playerPockerPBView = [[BPockerPBView alloc] initWithFrame:CGRectMake(0, 5, pWidth, pHeight)];
     [backView addSubview:playerPockerPBView];

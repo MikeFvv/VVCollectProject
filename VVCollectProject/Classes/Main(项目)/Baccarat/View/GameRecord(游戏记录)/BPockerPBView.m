@@ -72,7 +72,7 @@ static NSString *const kBJSendPokerCollectionViewCellId = @"BJSendPokerCollectio
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         
         // 设置每个item的大小
-        layout.itemSize = CGSizeMake(20, 30);
+        layout.itemSize = CGSizeMake(22, 30);
         
         // 设置列间距
         layout.minimumInteritemSpacing = 1;

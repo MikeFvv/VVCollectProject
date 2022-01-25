@@ -2,10 +2,8 @@
 
 #import <Foundation/Foundation.h>
 
-
-
 // 每张牌模型
-@interface PokerCardModel : NSObject
+@interface PokerCardModel : NSObject<NSCoding>
 
 /// 花色符号  ♦️
 @property (nonatomic, copy) NSString *suitSymbol;
