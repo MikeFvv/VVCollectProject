@@ -9,6 +9,8 @@
 #import "BStatisticsAlertView.h"
 #import "BStatisticsCollectionCell.h"
 #import "BStatisticssReusableView.h"
+#import "BalanceRecordModel.h"
+#import "MFHTimeManager.h"
 
 
 @interface BStatisticsAlertView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
@@ -166,15 +168,23 @@
 //    cell.model = self.dataArray[indexPath.row];
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"最高余额记录";
+        
+        cell.numLabel.textColor = [UIColor greenColor];
         cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxTotalMoney];
     } else if (indexPath.row == 1) {
         cell.titleLabel.text = @"最低余额记录";
+        
+        cell.numLabel.textColor = [UIColor redColor];
         cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_MinTotalMoney];
     } else if (indexPath.row == 2) {
         cell.titleLabel.text = @"最高获胜记录";
+        
+        cell.numLabel.textColor = [UIColor greenColor];
         cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxWinTotalMoney];
     } else if (indexPath.row == 3) {
         cell.titleLabel.text = @"最高失败记录";
+        
+        cell.numLabel.textColor = [UIColor redColor];
         cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxLoseTotalMoney];
     } else if (indexPath.row == 4) {
         cell.titleLabel.text = @"游戏总局数";
@@ -196,11 +206,18 @@
         cell.numLabel.text = [NSString stringWithFormat:@"%0.2f%%",self.bUserData.today_winTotalProbability];
     } else if (indexPath.row == 10) {
         cell.titleLabel.text = @"最高连胜记录";
+        
+        cell.numLabel.textColor = [UIColor greenColor];
         cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_continuoustoday_winTotalNum];
     } else if (indexPath.row == 11) {
         cell.titleLabel.text = @"最高连输记录";
+        
+        cell.numLabel.textColor = [UIColor redColor];
         cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_continuousLoseTotalNum];
     } else if (indexPath.row == 12) {
+        cell.titleLabel.text = @"当前余额";
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
+    } else if (indexPath.row == 13) {
         cell.titleLabel.text = @"今日盈利";
         if (self.bUserData.today_ProfitMoney >= 0) {
             cell.numLabel.textColor = [UIColor greenColor];
@@ -209,6 +226,20 @@
             cell.numLabel.textColor = [UIColor redColor];
             cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_ProfitMoney];
         }
+    } else if (indexPath.row == 14) {
+        cell.titleLabel.text = @"今日充值金额";
+        
+        NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserIdStr,date];
+        NSArray *balanceArray = [WHC_ModelSqlite query:[BalanceRecordModel class] where:queryWhere];
+        
+        NSInteger allMoney = 0;
+        for (BalanceRecordModel *recordModel in balanceArray) {
+            allMoney = allMoney + recordModel.money;
+        }
+        
+        cell.numLabel.textColor = [UIColor greenColor];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",allMoney];
     } else {
         cell.titleLabel.text = @"--";
         cell.numLabel.text = @"--";

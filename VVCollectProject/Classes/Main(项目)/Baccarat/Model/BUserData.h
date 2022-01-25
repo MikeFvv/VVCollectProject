@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 更新时间
 @property (nonatomic, copy) NSString *update_time;
 
-
 /// 用户当前总金额
 @property (nonatomic, assign) NSInteger userTotalMoney;
 /// 本次下注之前总金额

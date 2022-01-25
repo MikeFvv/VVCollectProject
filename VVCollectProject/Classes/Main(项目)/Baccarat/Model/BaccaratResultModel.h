@@ -46,7 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger pokerCount;
 /// 每局下注金额
 @property (nonatomic, assign) NSInteger betMoney;
-
+/// 本次输赢金额  减去了本金
+@property (nonatomic, assign) NSInteger winLose_money;
 
 /// 一局牌的总张数
 @property (nonatomic, assign) NSInteger pokerTotalNum;
