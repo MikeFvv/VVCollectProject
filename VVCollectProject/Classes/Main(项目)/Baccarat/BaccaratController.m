@@ -1073,8 +1073,8 @@
         [self.topupRecordAlertView showAlertAnimation];
         
     } else if ([title isEqualToString:@"设置"]) {
-        BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+//        BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
     }
     
 }
