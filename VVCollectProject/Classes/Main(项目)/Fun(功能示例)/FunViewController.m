@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     [self createUI];
     
 }
@@ -38,7 +39,7 @@
 - (void)createUI {
     self.view.backgroundColor = [UIColor redColor];
     
-    
+    return;
     [self.view addSubview:self.tableView];
 }
 
