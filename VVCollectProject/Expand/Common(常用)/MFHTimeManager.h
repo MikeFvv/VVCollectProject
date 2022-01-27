@@ -2,7 +2,7 @@
 //  MFHTimeManager.h
 //  LotteryBoxT
 //
-//  Created by Mike on 2021/1/21.
+//  Created by blom on 2021/1/21.
 //  Copyright © 2021 fhcq. All rights reserved.
 //
 

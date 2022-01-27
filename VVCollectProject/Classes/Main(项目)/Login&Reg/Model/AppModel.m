@@ -2,7 +2,7 @@
 //  AppModel.m
 //  BTCMining
 //
-//  Created by Mike on 2019/11/1.
+//  Created by blom on 2019/11/1.
 //  Copyright © 2018年 AFan. All rights reserved.
 //
 

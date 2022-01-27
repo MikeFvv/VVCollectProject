@@ -2,7 +2,7 @@
 //  MXVTabBar.h
 //  BTCMining
 //
-//  Created by Mike on 2021/6/24.
+//  Created by blom on 2021/6/24.
 //  Copyright © 2021年 MXV. All rights reserved.
 //
 

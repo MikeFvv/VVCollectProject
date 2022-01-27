@@ -2,7 +2,7 @@
 //  FunctionManager.h
 //  LotteryBoxT
 //
-//  Created by Mike on 06/02/2020.
+//  Created by blom on 06/02/2020.
 //  Copyright © 2020 fhcq. All rights reserved.
 //
 
