@@ -42,7 +42,7 @@
 #import "BalanceRecordModel.h"
 #import "BTopupAlertView.h"
 #import "BalanceRecordModel.h"
-
+#import "DZMTimer.h"
 
 #define kBtnHeight 35
 #define kBtnFontSize 16
@@ -133,6 +133,12 @@
 /// 游戏桌子ID 每天日期+001 自增
 @property (nonatomic, copy) NSString *tableID;
 
+// 埋点计时器
+@property (weak, nonatomic) DZMTimer *mmTimer;
+// 计时时间
+@property (nonatomic, assign) NSTimeInterval totalInterval;
+
+
 @end
 
 @implementation BaccaratController
@@ -146,7 +152,9 @@
     self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
     
     
-    
+    self.mmTimer = [DZMTimer timeInterval:1.0 change:^(NSTimeInterval interval) {
+        self.totalInterval = interval;
+    }];
     
     
     [self initData];

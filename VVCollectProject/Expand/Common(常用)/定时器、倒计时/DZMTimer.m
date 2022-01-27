@@ -1,14 +1,14 @@
 //
-//  MXWTimer.m
+//  DZMTimer.m
+//  DZMTimer
 //
-//
-//  Created by blom on 2021/1/21.
-//  Copyright © 2021 fhcq. All rights reserved.
+//  Created by dengzemiao on 2019/8/21.
+//  Copyright © 2019 DZM. All rights reserved.
 //
 
-#import "MXWTimer.h"
+#import "DZMTimer.h"
 
-@interface MXWTimer()
+@interface DZMTimer()
 
 /// 总时间
 @property (nonatomic, assign) NSTimeInterval totalInterval;
@@ -26,47 +26,47 @@
 @property (nonatomic, copy) DZMTimerChange change;
 
 /// 强引用自身
-@property (nonatomic, strong) MXWTimer *strongSelf;
+@property (nonatomic, strong) DZMTimer *strongSelf;
 
 @end
 
-@implementation MXWTimer
+@implementation DZMTimer
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval change:(DZMTimerChange)change {
     
-    return [MXWTimer timeInterval:timeInterval change:change complete:nil];
+    return [DZMTimer timeInterval:timeInterval change:change complete:nil];
 }
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval isStart:(BOOL)isStart change:(DZMTimerChange)change {
     
-    return [MXWTimer timeInterval:timeInterval isStart:isStart change:change complete:nil];
+    return [DZMTimer timeInterval:timeInterval isStart:isStart change:change complete:nil];
 }
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval change:(DZMTimerChange)change complete:(DZMTimerComplete _Nullable)complete  {
     
-    return [MXWTimer timeInterval:timeInterval isStart:YES change:change complete:complete];
+    return [DZMTimer timeInterval:timeInterval isStart:YES change:change complete:complete];
 }
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval isStart:(BOOL)isStart change:(DZMTimerChange)change complete:(DZMTimerComplete _Nullable)complete  {
     
-    return [MXWTimer timeInterval:timeInterval totalInterval:0 isStart:isStart change:change complete:complete];
+    return [DZMTimer timeInterval:timeInterval totalInterval:0 isStart:isStart change:change complete:complete];
 }
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval totalInterval:(NSTimeInterval)totalInterval complete:(DZMTimerComplete)complete {
     
-    return [MXWTimer timeInterval:timeInterval totalInterval:totalInterval isStart:YES change:nil complete:complete];
+    return [DZMTimer timeInterval:timeInterval totalInterval:totalInterval isStart:YES change:nil complete:complete];
 }
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval totalInterval:(NSTimeInterval)totalInterval change:(DZMTimerChange)change complete:(DZMTimerComplete)complete  {
     
-    return [MXWTimer timeInterval:timeInterval totalInterval:totalInterval isStart:YES change:change complete:complete];
+    return [DZMTimer timeInterval:timeInterval totalInterval:totalInterval isStart:YES change:change complete:complete];
 }
 
 + (nullable instancetype)timeInterval:(NSTimeInterval)timeInterval totalInterval:(NSTimeInterval)totalInterval isStart:(BOOL)isStart change:(DZMTimerChange _Nullable)change complete:(DZMTimerComplete _Nullable)complete  {
     
     if (timeInterval < 0.01) { return nil; }
     
-    MXWTimer *timer = [[MXWTimer alloc] init];
+    DZMTimer *timer = [[DZMTimer alloc] init];
     
     timer.totalInterval = totalInterval;
     

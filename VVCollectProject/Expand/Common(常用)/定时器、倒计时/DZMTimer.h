@@ -1,9 +1,9 @@
 //
-//  MXWTimer.h
-//  
+//  DZMTimer.h
+//  DZMTimer
 //
-//  Created by blom on 2021/1/21.
-//  Copyright © 2021 fhcq. All rights reserved.
+//  Created by dengzemiao on 2019/8/21.
+//  Copyright © 2019 DZM. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,7 +16,7 @@ typedef void(^DZMTimerComplete)(void);
 /// 计时变动 interval = 当前剩余时间
 typedef void(^DZMTimerChange)(NSTimeInterval interval);
 
-@interface MXWTimer : NSObject
+@interface DZMTimer : NSObject
 
 /// 滚动控件中使用定时器，但是会暂停定时器，需要将定时器添加到 NSRunLoopCommonModes
 /// [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
