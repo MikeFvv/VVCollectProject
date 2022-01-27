@@ -163,7 +163,7 @@
 
 #pragma mark -  数据初始化
 - (void)initData {
-    self.titleArr = @[@"返回",@"游戏记录",@"余额记录",@"设置",@"更换赌桌",@"充值"];
+    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
@@ -537,13 +537,11 @@
     if (self.bUserData.today_continuoustoday_winTotalNum < self.continuousWinNum) {
         self.bUserData.today_continuoustoday_winTotalNum = self.continuousWinNum;
     }
+    
     // 最高连输记录
     if (self.bUserData.today_continuousLoseTotalNum < self.continuousLoseNum) {
         self.bUserData.today_continuousLoseTotalNum = self.continuousLoseNum;
     }
-    
-    // 获胜概率 需要减去和
-    self.bUserData.today_winTotalProbability = (self.bUserData.today_winTotalNum *0.01) / ((self.bUserData.today_gameTotalNum -self.bUserData.today_tieTotalNum) *0.01) * 100;
     
     
     // 最高余额记录
@@ -616,9 +614,13 @@
     // *** 保存用户下注数据 ***
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-        BOOL isSuccess =  [WHC_ModelSqlite update:self.bUserData where:whereStr];
-        if (isSuccess) {
-            NSLog(@"成功");
+        // 当天的数据
+        NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:whereStr];
+        if (userDataArray.count > 0) {
+            BOOL isSuccess =  [WHC_ModelSqlite update:self.bUserData where:whereStr];
+            if (isSuccess) {
+                NSLog(@"成功");
+            }
         } else {
             BOOL isSuccess = [WHCSqlite insert:self.bUserData];
             if (isSuccess) {
@@ -671,7 +673,82 @@
 /// 用户筹码下注记录
 - (void)onBUserChipssViewShowAction {
     
-    self.statisticsView.bUserData = self.bUserData;
+    NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
+    
+    NSString *all_queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+    
+    // 当天的数据
+    NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
+    
+    // 全部的数据
+    NSArray *allUserDataArray = [WHC_ModelSqlite query:[BUserData class] where:all_queryWhere];
+    
+    
+    BUserData *allUserData = [[BUserData alloc] init];
+    for (BUserData *userData in allUserDataArray) {
+        allUserData.userId = userData.userId;
+        allUserData.tableID = userData.tableID;
+        allUserData.create_time = userData.create_time;
+        allUserData.update_time = userData.update_time;
+        
+        
+        allUserData.userTotalMoney = allUserData.userTotalMoney + userData.userTotalMoney;
+        
+        allUserData.beforeBetTotalMoney = allUserData.beforeBetTotalMoney + userData.beforeBetTotalMoney;
+        allUserData.today_gameTotalNum = allUserData.today_gameTotalNum + userData.today_gameTotalNum;
+        allUserData.today_playerTotalNum = allUserData.today_playerTotalNum + userData.today_playerTotalNum;
+        allUserData.today_bankerTotalNum = allUserData.today_bankerTotalNum + userData.today_bankerTotalNum;
+        allUserData.today_tieTotalNum = allUserData.today_tieTotalNum + userData.today_tieTotalNum;
+        allUserData.today_winTotalNum = allUserData.today_winTotalNum + userData.today_winTotalNum;
+        
+        
+        allUserData.today_InitMoney = allUserData.today_InitMoney + userData.today_InitMoney;
+        // 总盈利
+        allUserData.today_ProfitMoney = allUserData.today_ProfitMoney + userData.today_ProfitMoney;
+        
+        
+        // 最高连胜记录
+        if (allUserData.today_continuoustoday_winTotalNum < userData.today_continuoustoday_winTotalNum) {
+            allUserData.today_continuoustoday_winTotalNum = userData.today_continuoustoday_winTotalNum;
+        }
+        // 最高连输记录
+        if (allUserData.today_continuousLoseTotalNum < userData.today_continuousLoseTotalNum) {
+            allUserData.today_continuousLoseTotalNum = userData.today_continuousLoseTotalNum;
+        }
+        
+        // 最高获胜记录
+        if (allUserData.today_maxWinTotalMoney < userData.today_maxWinTotalMoney) {
+            allUserData.today_maxWinTotalMoney = userData.today_maxWinTotalMoney;
+        }
+        // 最高失败记录
+        if (allUserData.today_maxLoseTotalMoney > userData.today_maxLoseTotalMoney) {
+            allUserData.today_maxLoseTotalMoney = userData.today_maxLoseTotalMoney;
+        }
+        
+        
+        // 最高余额记录
+        if (allUserData.today_maxTotalMoney < userData.today_maxTotalMoney) {
+            allUserData.today_maxTotalMoney = userData.today_maxTotalMoney;
+        }
+        // 最低余额记录
+        if (allUserData.today_MinTotalMoney < userData.today_MinTotalMoney) {
+            allUserData.today_MinTotalMoney = userData.today_MinTotalMoney;
+        }
+    }
+    
+    NSMutableArray *tempMArray = [NSMutableArray array];
+    
+    if (userDataArray && userDataArray.count > 0) {
+        [tempMArray addObject:userDataArray.firstObject];
+    } else {
+        BUserData *tempUserData = [[BUserData alloc] init];
+        [tempMArray addObject:tempUserData];
+    }
+    
+    [tempMArray addObject:allUserData];
+    
+    self.statisticsView.dataArray = tempMArray;
     [self.statisticsView showAlertAnimation];
 }
 
@@ -696,8 +773,12 @@
     self.bUserData.userTotalMoney = self.bUserData.userTotalMoney + model.money;
     self.bUserData.today_InitMoney = self.bUserData.today_InitMoney + model.money;
     self.bUserData.beforeBetTotalMoney = self.bUserData.userTotalMoney;
-    self.bUserData.today_maxTotalMoney = self.bUserData.today_maxTotalMoney + model.money;
+    
+    if (self.bUserData.userTotalMoney > self.bUserData.today_maxTotalMoney) {
+        self.bUserData.today_maxTotalMoney = self.bUserData.userTotalMoney;
+    }
     self.bUserData.today_MinTotalMoney = self.bUserData.today_MinTotalMoney + model.money;
+    
     
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
     
@@ -979,6 +1060,9 @@
         [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationPortrait];
         
         [self.navigationController popViewControllerAnimated:true];
+    } else if ([title isEqualToString:@"充值"]) {
+        //        self.statisticsView.bUserData = self.bUserData;
+        [self.topupAlertView showAlertAnimation];
     } else if ([title isEqualToString:@"游戏记录"]) {
         
         NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
@@ -998,12 +1082,7 @@
     } else if ([title isEqualToString:@"设置"]) {
         BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    } else if ([title isEqualToString:@"充值"]) {
-        //        self.statisticsView.bUserData = self.bUserData;
-        [self.topupAlertView showAlertAnimation];
     }
-    
-    
     
 }
 

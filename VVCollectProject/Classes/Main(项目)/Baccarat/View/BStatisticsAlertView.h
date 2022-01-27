@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BStatisticsAlertView : UIView
 /// 用户数据
-@property(nonatomic,strong) BUserData *bUserData;
+@property(nonatomic, strong) NSMutableArray *dataArray;
 
 -(void)showAlertAnimation;
 
