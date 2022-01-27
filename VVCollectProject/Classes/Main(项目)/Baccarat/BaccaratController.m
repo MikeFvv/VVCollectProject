@@ -130,6 +130,8 @@
 @property (nonatomic, assign) NSInteger continuousLoseNum;
 
 
+/// 游戏桌子ID 每天日期+001 自增
+@property (nonatomic, copy) NSString *tableID;
 
 @end
 
@@ -141,6 +143,11 @@
     
     self.testIndex = 0;
     self.isAutoRunAll = NO;
+    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    
+    
+    
+    
     
     [self initData];
     [self createUI];
@@ -163,7 +170,6 @@
 
 #pragma mark -  数据初始化
 - (void)initData {
-    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
@@ -182,6 +188,7 @@
     }
     
     NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
+    
     NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
     NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
     
@@ -193,19 +200,30 @@
         bUserData = oldUserData;
     }
     _bUserData = bUserData;
-    
+
+    bUserData.autoIncrementID = bUserData.autoIncrementID +1;
+    self.tableID = [NSString stringWithFormat:@"%@_%ld",date,bUserData.autoIncrementID];
+    bUserData.tableID = self.tableID;
     
     BBetModel *betModel = [[BBetModel alloc] init];
     _betModel = betModel;
     
     
     BGameStatisticsModel *gameStatisticsModel = [[BGameStatisticsModel alloc] init];
+    gameStatisticsModel.tableID = self.tableID;
     gameStatisticsModel.pokerTotalNum = self.dataArray.count;
     _gameStatisticsModel = gameStatisticsModel;
+    
     
     self.zhuPanLuResultDataArray = [NSMutableArray array];
     
 }
+
+/// 复位数据
+- (void)resetData {
+    
+}
+
 
 - (NSMutableArray*)dataArray
 {
@@ -577,9 +595,11 @@
     [self updateUserData];
     
 }
+
 - (void)everyGameRecord {
     // *** 保存每盘游戏数据 ***
     self.bResultModel.userId = kUserIdStr;
+    self.bResultModel.tableID = self.tableID;
     self.bResultModel.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
     self.bResultModel.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
     
@@ -693,8 +713,6 @@
         allUserData.today_tieTotalNum = allUserData.today_tieTotalNum + userData.today_tieTotalNum;
         allUserData.today_winTotalNum = allUserData.today_winTotalNum + userData.today_winTotalNum;
         
-        
-        allUserData.today_InitMoney = allUserData.today_InitMoney + userData.today_InitMoney;
         // 总盈利
         allUserData.today_ProfitMoney = allUserData.today_ProfitMoney + userData.today_ProfitMoney;
         

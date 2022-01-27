@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前桌游戏统计模型
 @interface BGameStatisticsModel : NSObject
 
+/// 游戏桌子ID 每天日期+001 自增
+@property (nonatomic, copy) NSString *tableID;
 /// 牌的总张数
 @property (nonatomic, assign) NSInteger pokerTotalNum;
 /// 已发牌局数

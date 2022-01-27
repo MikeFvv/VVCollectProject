@@ -24,7 +24,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"--";
     titleLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
-    titleLabel.textColor = [UIColor redColor];
+    titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.numberOfLines = 1;
     [self addSubview:titleLabel];

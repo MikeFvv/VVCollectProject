@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 用户ID
 @property (nonatomic, copy) NSString *userId;
+/// 游戏桌子ID 每天日期+001 自增
+@property (nonatomic, copy) NSString *tableID;
 
 /// 0 Tie   1 banker   2 player
 @property (nonatomic, assign) WinType winType;
