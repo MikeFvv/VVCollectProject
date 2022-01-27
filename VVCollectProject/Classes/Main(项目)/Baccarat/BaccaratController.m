@@ -195,15 +195,6 @@
     _bUserData = bUserData;
     
     
-    
-    //    NSInteger tMoney = oldUserData.userTotalMoney;
-    //    bUserData.userTotalMoney = tMoney;
-    //    bUserData.today_InitMoney = tMoney;
-    //    bUserData.beforeBetTotalMoney = tMoney;
-    //    bUserData.today_maxTotalMoney = oldUserData.today_maxTotalMoney;
-    //    bUserData.today_MinTotalMoney = oldUserData.today_MinTotalMoney;
-    
-    
     BBetModel *betModel = [[BBetModel alloc] init];
     _betModel = betModel;
     
@@ -676,7 +667,7 @@
     NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
     NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
     
-    NSString *all_queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+    NSString *all_queryWhere = [NSString stringWithFormat:@"userId='%@' ORDER BY create_time DESC",kUserIdStr];
     
     // 当天的数据
     NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
@@ -695,7 +686,7 @@
         
         allUserData.userTotalMoney = allUserData.userTotalMoney + userData.userTotalMoney;
         
-        allUserData.beforeBetTotalMoney = allUserData.beforeBetTotalMoney + userData.beforeBetTotalMoney;
+        
         allUserData.today_gameTotalNum = allUserData.today_gameTotalNum + userData.today_gameTotalNum;
         allUserData.today_playerTotalNum = allUserData.today_playerTotalNum + userData.today_playerTotalNum;
         allUserData.today_bankerTotalNum = allUserData.today_bankerTotalNum + userData.today_bankerTotalNum;
@@ -747,7 +738,9 @@
     }
     
     [tempMArray addObject:allUserData];
-    
+    // 全部数据
+    [tempMArray addObjectsFromArray:allUserDataArray];
+
     self.statisticsView.dataArray = tempMArray;
     [self.statisticsView showAlertAnimation];
 }
