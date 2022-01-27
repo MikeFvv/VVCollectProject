@@ -22,7 +22,7 @@
 
 
 - (instancetype)initWithFrame:(CGRect)frame {
-   self = [super initWithFrame:frame];
+    self = [super initWithFrame:frame];
     if (self) {
         self.frame = frame;
         [self createUI];
@@ -30,17 +30,22 @@
         [[[UIApplication sharedApplication].windows objectAtIndex:0] endEditing:YES];
         [[[UIApplication sharedApplication].windows objectAtIndex:0] addSubview:self];
         
-//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeFromCurrentView:)];
-//        [self addGestureRecognizer:tapGesture];
+        //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeFromCurrentView:)];
+        //        [self addGestureRecognizer:tapGesture];
     }
     return self;
 }
 
 
-- (void)setBUserData:(BUserData *)bUserData {
-    _bUserData = bUserData;
+- (void)setDataArray:(NSMutableArray *)dataArray {
+    _dataArray = dataArray;
     [self.collectionView reloadData];
 }
+
+//- (void)setBUserData:(BUserData *)bUserData {
+//    _bUserData = bUserData;
+//    [self.collectionView reloadData];
+//}
 
 
 - (void)showAlertAnimation
@@ -69,7 +74,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
-//        [self removeFromSuperview];
+        //        [self removeFromSuperview];
     }];
 }
 
@@ -92,7 +97,7 @@
     [cancelBtn addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
     cancelBtn.tag = 3001;
     [self addSubview:cancelBtn];
-
+    
     [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(backView.mas_right);
         make.centerY.equalTo(backView.mas_top);
@@ -136,7 +141,7 @@
         //设置数据源协议
         _collectionView.dataSource = self;
         // 禁止滚动
-//        _collectionView.scrollEnabled = NO;
+        //        _collectionView.scrollEnabled = NO;
         
         [_collectionView registerClass:[BStatisticsCollectionCell class] forCellWithReuseIdentifier:@"BStatisticsCollectionCell"];
         //这里的HeaderCRView 是自定义的header类型
@@ -151,7 +156,7 @@
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return self.dataArray.count;
 }
 
 //定义展示的UICollectionViewCell的个数
@@ -165,72 +170,103 @@
 {
     BStatisticsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BStatisticsCollectionCell" forIndexPath:indexPath];
     cell.numLabel.textColor = [UIColor whiteColor];
-//    cell.model = self.dataArray[indexPath.row];
+    
+    BUserData *bUserData = self.dataArray[indexPath.section];
+    
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"最高余额记录";
         
         cell.numLabel.textColor = [UIColor greenColor];
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxTotalMoney];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_maxTotalMoney];
     } else if (indexPath.row == 1) {
-        cell.titleLabel.text = @"最低余额记录";
+        
+        if (indexPath.section == 0) {
+            cell.titleLabel.text = @"最低余额记录";
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_MinTotalMoney];
+        } else {
+            cell.titleLabel.text = @"--";
+            cell.numLabel.text = @"--";
+        }
         
         cell.numLabel.textColor = [UIColor redColor];
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_MinTotalMoney];
+        
     } else if (indexPath.row == 2) {
         cell.titleLabel.text = @"最高获胜记录";
         
         cell.numLabel.textColor = [UIColor greenColor];
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxWinTotalMoney];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_maxWinTotalMoney];
     } else if (indexPath.row == 3) {
         cell.titleLabel.text = @"最高失败记录";
         
         cell.numLabel.textColor = [UIColor redColor];
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_maxLoseTotalMoney];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_maxLoseTotalMoney];
     } else if (indexPath.row == 4) {
         cell.titleLabel.text = @"游戏总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_gameTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_gameTotalNum];
     } else if (indexPath.row == 5) {
         cell.titleLabel.text = @"闲总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_playerTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_playerTotalNum];
     } else if (indexPath.row == 6) {
         cell.titleLabel.text = @"庄总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_bankerTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_bankerTotalNum];
     } else if (indexPath.row == 7) {
         cell.titleLabel.text = @"和总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_tieTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_tieTotalNum];
     } else if (indexPath.row == 8) {
         cell.titleLabel.text = @"获胜总局数";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_winTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_winTotalNum];
     } else if (indexPath.row == 9) {
         cell.titleLabel.text = @"获胜概率";
-        cell.numLabel.text = [NSString stringWithFormat:@"%0.2f%%",self.bUserData.today_winTotalProbability];
+        
+        // 获胜概率 需要减去和
+        CGFloat winTotalProbability = (bUserData.today_winTotalNum *0.01) / ((bUserData.today_gameTotalNum -bUserData.today_tieTotalNum) *0.01) * 100;
+        if (isnan(winTotalProbability)) {
+            winTotalProbability = 0;
+        }
+        cell.numLabel.text = [NSString stringWithFormat:@"%0.2f%%",winTotalProbability];
+        
     } else if (indexPath.row == 10) {
         cell.titleLabel.text = @"最高连胜记录";
         
         cell.numLabel.textColor = [UIColor greenColor];
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_continuoustoday_winTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_continuoustoday_winTotalNum];
     } else if (indexPath.row == 11) {
         cell.titleLabel.text = @"最高连输记录";
         
         cell.numLabel.textColor = [UIColor redColor];
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_continuousLoseTotalNum];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_continuousLoseTotalNum];
     } else if (indexPath.row == 12) {
         cell.titleLabel.text = @"当前余额";
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.userTotalMoney];
     } else if (indexPath.row == 13) {
-        cell.titleLabel.text = @"今日盈利";
-        if (self.bUserData.today_ProfitMoney >= 0) {
+        
+        if (indexPath.section == 0) {
+            cell.titleLabel.text = @"今日盈利";
+        } else {
+            cell.titleLabel.text = @"总盈利";
+        }
+        
+        if (bUserData.today_ProfitMoney >= 0) {
             cell.numLabel.textColor = [UIColor greenColor];
-            cell.numLabel.text = [NSString stringWithFormat:@"+%ld",self.bUserData.today_ProfitMoney];
+            cell.numLabel.text = [NSString stringWithFormat:@"+%ld",bUserData.today_ProfitMoney];
         } else {
             cell.numLabel.textColor = [UIColor redColor];
-            cell.numLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.today_ProfitMoney];
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",bUserData.today_ProfitMoney];
         }
     } else if (indexPath.row == 14) {
-        cell.titleLabel.text = @"今日充值金额";
+        
         
         NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
-        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserIdStr,date];
+        NSString *queryWhere = nil;
+        
+        if (indexPath.section == 0) {
+            cell.titleLabel.text = @"今日充值金额";
+            queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserIdStr,date];
+        } else {  // 全部
+            cell.titleLabel.text = @"总充值金额";
+            queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+        }
+        
         NSArray *balanceArray = [WHC_ModelSqlite query:[BalanceRecordModel class] where:queryWhere];
         
         NSInteger allMoney = 0;
@@ -267,7 +303,7 @@
         } else if (indexPath.section == 1) {
             cell.titleLabel.text = @"全部统计";
         }
-       
+        
         return cell;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         return nil;

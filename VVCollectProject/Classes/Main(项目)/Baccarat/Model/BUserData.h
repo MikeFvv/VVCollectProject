@@ -44,8 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger today_tieTotalNum;
 /// 获胜总局数
 @property (nonatomic, assign) NSInteger today_winTotalNum;
-/// 获胜概率
-@property (nonatomic, assign) CGFloat today_winTotalProbability;
 /// 最高连胜记录
 @property (nonatomic, assign) NSInteger today_continuoustoday_winTotalNum;
 /// 最高连输记录
@@ -70,39 +68,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // ************** 全部 保存到数据库的 **************
-/// 游戏总局数
-@property (nonatomic, assign) NSInteger all_gameTotalNum;
-/// 闲总局数
-@property (nonatomic, assign) NSInteger all_playerTotalNum;
-/// 庄总局数
-@property (nonatomic, assign) NSInteger all_bankerTotalNum;
-/// 和总局数
-@property (nonatomic, assign) NSInteger all_tieTotalNum;
-/// 获胜总局数
-@property (nonatomic, assign) NSInteger all_winTotalNum;
-/// 获胜概率
-@property (nonatomic, assign) CGFloat all_winTotalProbability;
-/// 最高连胜记录
-@property (nonatomic, assign) NSInteger all_continuoustoday_winTotalNum;
-/// 最高连输记录
-@property (nonatomic, assign) NSInteger all_continuousLoseTotalNum;
-/// 最高获胜记录
-@property (nonatomic, assign) NSInteger all_maxWinTotalMoney;
-/// 最高失败记录
-@property (nonatomic, assign) NSInteger all_maxLoseTotalMoney;
-
-
-
-
-
-/// 用户今日初始金额
-@property (nonatomic, assign) NSInteger all_InitMoney;
-/// 全部总盈利
-@property (nonatomic, assign) NSInteger all_ProfitMoney;
-/// 全部最高余额记录
-@property (nonatomic, assign) NSInteger all_maxTotalMoney;
-/// 全部最低余额记录
-@property (nonatomic, assign) NSInteger all_MinTotalMoney;
+///// 游戏总局数
+//@property (nonatomic, assign) NSInteger all_gameTotalNum;
+///// 闲总局数
+//@property (nonatomic, assign) NSInteger all_playerTotalNum;
+///// 庄总局数
+//@property (nonatomic, assign) NSInteger all_bankerTotalNum;
+///// 和总局数
+//@property (nonatomic, assign) NSInteger all_tieTotalNum;
+///// 获胜总局数
+//@property (nonatomic, assign) NSInteger all_winTotalNum;
+///// 获胜概率
+//@property (nonatomic, assign) CGFloat all_winTotalProbability;
+///// 最高连胜记录
+//@property (nonatomic, assign) NSInteger all_continuoustoday_winTotalNum;
+///// 最高连输记录
+//@property (nonatomic, assign) NSInteger all_continuousLoseTotalNum;
+///// 最高获胜记录
+//@property (nonatomic, assign) NSInteger all_maxWinTotalMoney;
+///// 最高失败记录
+//@property (nonatomic, assign) NSInteger all_maxLoseTotalMoney;
+//
+//
+///// 用户今日初始金额
+//@property (nonatomic, assign) NSInteger all_InitMoney;
+///// 全部总盈利
+//@property (nonatomic, assign) NSInteger all_ProfitMoney;
+///// 全部最高余额记录
+//@property (nonatomic, assign) NSInteger all_maxTotalMoney;
+///// 全部最低余额记录
+//@property (nonatomic, assign) NSInteger all_MinTotalMoney;
 
 @end
 
