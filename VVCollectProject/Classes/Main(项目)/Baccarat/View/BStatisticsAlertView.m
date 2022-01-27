@@ -302,6 +302,9 @@
             cell.titleLabel.text = @"今日统计";
         } else if (indexPath.section == 1) {
             cell.titleLabel.text = @"全部统计";
+        } else {
+            BUserData *bUserData = self.dataArray[indexPath.section];
+            cell.titleLabel.text = bUserData.create_time;
         }
         
         return cell;
