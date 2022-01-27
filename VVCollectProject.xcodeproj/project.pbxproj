@@ -279,8 +279,7 @@
 		84B85EA527672388009AC598 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B85EA327672387009AC598 /* NextViewController.m */; };
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PokerCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PokerCardModel.m */; };
-		84E6472427A2D0FF001F2CE4 /* MXWTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6472327A2D0FF001F2CE4 /* MXWTimer.m */; };
-		84E6472727A2D105001F2CE4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6472627A2D105001F2CE4 /* ViewController.m */; };
+		84E6473627A2D8AE001F2CE4 /* DZMTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6473427A2D8AE001F2CE4 /* DZMTimer.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -776,10 +775,8 @@
 		84BDC77E27615FD40045354D /* MXWPokerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXWPokerView.m; sourceTree = "<group>"; };
 		84BDC7802761840A0045354D /* PokerCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerCardModel.h; sourceTree = "<group>"; };
 		84BDC7812761840A0045354D /* PokerCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerCardModel.m; sourceTree = "<group>"; };
-		84E6472227A2D0FF001F2CE4 /* MXWTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWTimer.h; sourceTree = "<group>"; };
-		84E6472327A2D0FF001F2CE4 /* MXWTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWTimer.m; sourceTree = "<group>"; };
-		84E6472527A2D105001F2CE4 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		84E6472627A2D105001F2CE4 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		84E6473427A2D8AE001F2CE4 /* DZMTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZMTimer.m; sourceTree = "<group>"; };
+		84E6473527A2D8AE001F2CE4 /* DZMTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZMTimer.h; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -1815,10 +1812,8 @@
 		84E6472127A2D0E7001F2CE4 /* 定时器、倒计时 */ = {
 			isa = PBXGroup;
 			children = (
-				84E6472527A2D105001F2CE4 /* ViewController.h */,
-				84E6472627A2D105001F2CE4 /* ViewController.m */,
-				84E6472227A2D0FF001F2CE4 /* MXWTimer.h */,
-				84E6472327A2D0FF001F2CE4 /* MXWTimer.m */,
+				84E6473527A2D8AE001F2CE4 /* DZMTimer.h */,
+				84E6473427A2D8AE001F2CE4 /* DZMTimer.m */,
 			);
 			path = "定时器、倒计时";
 			sourceTree = "<group>";
@@ -2549,7 +2544,7 @@
 				276C92202691633900377224 /* EncryptionClass.m in Sources */,
 				84A8D9F727725CC400695055 /* UIAlertViewBlocksController.m in Sources */,
 				847D2B392781FB0E0028C264 /* BPockerPBView.m in Sources */,
-				84E6472427A2D0FF001F2CE4 /* MXWTimer.m in Sources */,
+				84E6473627A2D8AE001F2CE4 /* DZMTimer.m in Sources */,
 				848EE78B276CA9B40016CD8A /* BShowPokerView.m in Sources */,
 				84B85DEB27626DF0009AC598 /* Pair.m in Sources */,
 				65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */,
@@ -2661,7 +2656,6 @@
 				84A8D9CA2772326200695055 /* MXWHelper.m in Sources */,
 				84B85E632764AE8C009AC598 /* BJSendPokerCollectionViewCell.m in Sources */,
 				848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */,
-				84E6472727A2D105001F2CE4 /* ViewController.m in Sources */,
 				84B85E6E2766DCBC009AC598 /* NSAttributedStringManager.m in Sources */,
 				84B85DDF2762660F009AC598 /* MaxCardComputer.m in Sources */,
 				84A59219273DA1D70071D524 /* UIView+Function.m in Sources */,
