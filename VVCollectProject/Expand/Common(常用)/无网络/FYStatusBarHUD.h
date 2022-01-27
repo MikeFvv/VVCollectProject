@@ -2,7 +2,7 @@
 //  FYStatusBarHUD.h
 //  Project
 //
-//  Created by Mike on 2019/5/26.
+//  Created by blom on 2019/5/26.
 //  Copyright © 2019 CDJay. All rights reserved.
 //
 

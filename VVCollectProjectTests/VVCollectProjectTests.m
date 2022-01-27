@@ -2,7 +2,7 @@
 //  VVCollectProjectTests.m
 //  VVCollectProjectTests
 //
-//  Created by Mike on 2019/1/11.
+//  Created by blom on 2019/1/11.
 //  Copyright © 2019 Mike. All rights reserved.
 //
 

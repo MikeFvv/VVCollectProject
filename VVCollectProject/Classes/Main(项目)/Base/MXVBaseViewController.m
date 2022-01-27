@@ -2,7 +2,7 @@
 //  MXVBaseViewController.m
 //  BTCMining
 //
-//  Created by Mike on 2018/2/2.
+//  Created by blom on 2018/2/2.
 //  Copyright © 2018年 MXV. All rights reserved.
 //
 
