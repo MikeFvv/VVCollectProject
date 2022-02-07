@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BShowPokerViewDelegate <NSObject>
 @optional
 /// 翻牌结束
-- (void)endFlop;
+- (void)showPokerEndFlop;
 
 @end
 

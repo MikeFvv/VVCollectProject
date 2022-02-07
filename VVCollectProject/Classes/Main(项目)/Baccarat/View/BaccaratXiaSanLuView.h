@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) RoadMapType roadMapType;
 @property (nonatomic, strong) NSArray *dataArray;
 
+
+- (void)clearData;
+
 @end
 
 NS_ASSUME_NONNULL_END
