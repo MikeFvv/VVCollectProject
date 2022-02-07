@@ -204,8 +204,8 @@
     self.bankerTotalPointsLabel.text = [NSString stringWithFormat:@"%ld",self.resultModel.bankerTotalPoints];
     self.winTypeLabel.text = [self getWinType:self.resultModel.winType];
     
-    if ([self.delegate respondsToSelector:@selector(endFlop)]) {
-        [self.delegate endFlop];
+    if ([self.delegate respondsToSelector:@selector(showPokerEndFlop)]) {
+        [self.delegate showPokerEndFlop];
     }
 }
 

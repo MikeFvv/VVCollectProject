@@ -55,6 +55,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 连续和的数量
 @property (nonatomic, assign) NSInteger tieNum;
 
+
 /// 记录一条路
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *oneColArray;
 /// 记录所有大路「列」数据
@@ -75,8 +76,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        [self createBlankGridView];
         [self initData];
+        [self createBlankGridView];
         [self createUI];
     }
     return self;
@@ -86,6 +87,12 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     _allColMaxLabelX = 0;
     _currentLongNum = 0;
     _tieNum = 0;
+    
+    self.daLu_lastModel = nil;
+    
+    
+    
+    
 }
 
 - (void)createUI {
@@ -102,8 +109,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     NSLog(@"1");
 }
-
-
 
 
 #pragma mark -  大路

@@ -43,6 +43,9 @@
 #import "BTopupAlertView.h"
 #import "BalanceRecordModel.h"
 #import "DZMTimer.h"
+#import "BAutoRunView.h"
+#import "BAutoRunModel.h"
+
 
 #define kBtnHeight 35
 #define kBtnFontSize 16
@@ -57,7 +60,7 @@
 
 
 
-@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate,BTopupAlertViewDelegate>
+@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate,BTopupAlertViewDelegate,BAutoRunViewDelegate>
 
 @property (nonatomic, strong) UIView *contentView;
 //
@@ -98,6 +101,9 @@
 @property(nonatomic,strong) BGameRecordAlertView *gameRecordAlertView;
 /// 充值记录
 @property(nonatomic,strong) BTopupRecordAlertView *topupRecordAlertView;
+/// 自动运行View
+@property(nonatomic,strong) BAutoRunView *autoRunView;
+
 
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *zhuPanLuResultDataArray;
@@ -117,8 +123,10 @@
 /// *** 测试时使用 ***
 @property (nonatomic, assign) NSInteger testIndex;
 
-/// /// 是否自动运行全部
+/// 是否自动运行全部
 @property (nonatomic, assign) BOOL isAutoRunAll;
+/// 是否已结束
+@property (nonatomic, assign) BOOL isTableEnd;
 @property(nonatomic,strong) NSArray *titleArr;
 
 @property(nonatomic,strong) BGameStatisticsModel *gameStatisticsModel;
@@ -133,11 +141,6 @@
 /// 游戏桌子ID 每天日期+001 自增
 @property (nonatomic, copy) NSString *tableID;
 
-// 埋点计时器
-@property (weak, nonatomic) DZMTimer *mmTimer;
-// 计时时间
-@property (nonatomic, assign) NSTimeInterval totalInterval;
-
 
 @end
 
@@ -146,16 +149,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.testIndex = 0;
-    self.isAutoRunAll = NO;
-    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
-    
-    
-    self.mmTimer = [DZMTimer timeInterval:1.0 change:^(NSTimeInterval interval) {
-        self.totalInterval = interval;
-    }];
-    
     
     [self initData];
     [self createUI];
@@ -178,6 +171,12 @@
 
 #pragma mark -  数据初始化
 - (void)initData {
+    
+    self.testIndex = 0;
+    self.isAutoRunAll = NO;
+    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    self.isTableEnd = NO;
+    self.dataArray = nil;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
@@ -208,7 +207,7 @@
         bUserData = oldUserData;
     }
     _bUserData = bUserData;
-
+    
     bUserData.autoIncrementID = bUserData.autoIncrementID +1;
     self.tableID = [NSString stringWithFormat:@"%@_%ld",date,bUserData.autoIncrementID];
     bUserData.tableID = self.tableID;
@@ -225,6 +224,7 @@
     
     self.zhuPanLuResultDataArray = [NSMutableArray array];
     
+    NSLog(@"1");
 }
 
 /// 复位数据
@@ -278,7 +278,13 @@
     }
     return _topupRecordAlertView;
 }
-
+- (BAutoRunView* )autoRunView {
+    if (!_autoRunView) {
+        _autoRunView = [[BAutoRunView alloc] initWithFrame:CGRectMake(100, -50, 600, 50)];
+        _autoRunView.delegate = self;
+    }
+    return _autoRunView;
+}
 
 #pragma mark - ChipsViewDelegate 筹码选中 | 确定下注 | 重复下注
 /// 选中筹码后
@@ -291,6 +297,7 @@
 
 /// 确定下注
 - (void)sureBetBtnClick:(UIButton *)sender {
+    self.isAutoRunAll = NO;
     
     if (sender.tag == 5000) {
         self.chipsView.hidden = YES;
@@ -313,7 +320,7 @@
     }
 }
 
-/// 取消注码
+/// 取消注码  越过本局
 - (void)cancelBetChipsBtnClick:(UIButton *)sender {
     
     if (sender.tag == 6000) {
@@ -330,6 +337,7 @@
             self.chipsView.isShowCancelBtn = NO;
         }
     } else {
+        self.isAutoRunAll = NO;
         self.chipsView.hidden = YES;
         [self onStartOneButton];
     }
@@ -337,7 +345,7 @@
 
 #pragma mark -  翻牌结束
 /// 翻牌结束 结束一局
-- (void)endFlop {
+- (void)showPokerEndFlop {
     self.chipsView.hidden = NO;
     // 取消下注筹码
     [self.bBetView cancelBetChips];
@@ -748,7 +756,7 @@
     [tempMArray addObject:allUserData];
     // 全部数据
     [tempMArray addObjectsFromArray:allUserDataArray];
-
+    
     self.statisticsView.dataArray = tempMArray;
     [self.statisticsView showAlertAnimation];
 }
@@ -787,15 +795,6 @@
     [self updateUserData];
 }
 
-#pragma mark -  清除
-- (void)onClearButton {
-    
-    [self initData];
-    self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
-    self.bigRoadMapView.model = self.zhuPanLuResultDataArray;
-    
-}
-
 #pragma mark -  开始一局
 - (void)onStartOneButton {
     [self.view endEditing:YES];
@@ -804,6 +803,7 @@
     
     if (self.gameStatisticsModel.pokerTotalNum < 36) {  // 停止发牌
         [MBProgressHUD showTipMessageInWindow:@"本桌已结束"];
+        self.isTableEnd = YES;
         return;
     }
     
@@ -812,42 +812,24 @@
     [self oncePoker];
 }
 
-#pragma mark -  全盘
-/**
- 全盘
- */
-- (void)onStartAllButton:(UIButton *)sender {
+#pragma mark -  自动运行
+- (void)onAutoStartRunsNum:(NSInteger)runsNum {
     self.isAutoRunAll = YES;
     // 记录当前时间
     float start = CACurrentMediaTime();
     
-    [self opening];
-    self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
-    self.bigRoadMapView.model = self.zhuPanLuResultDataArray;
-    
-    
-    
-    float end = CACurrentMediaTime();
-    NSString *time = [NSString stringWithFormat:@"%f", end - start];
-    NSLog(time);
-}
-
-
-#pragma mark -  开始
-- (void)opening {
-    [self initData];
-    // 发牌局数   52最齐的张数
-    for (NSInteger i = 1; i <= (self.pokerNumTextField.text.integerValue * 52 / 4); i++) {
-        if (self.gameStatisticsModel.pokerTotalNum < 6) {
+    for (NSInteger index = 0; index < runsNum; index++) {
+        if (self.isTableEnd) {
             break;
         }
-        self.gameStatisticsModel.pokerCount++;
-        
-        [self oncePoker];
-        //        [self daluCalculationMethod];
+        [self onStartOneButton];
+        [self showPokerEndFlop];
     }
+    
+    float end = CACurrentMediaTime();
+    NSString *time = [NSString stringWithFormat:@"自动运行:%ld局 ====== 时间:%f 秒",runsNum, end - start];
+    NSLog(time);
 }
-
 
 
 
@@ -949,9 +931,9 @@
         
         
         
-//        if (playerTotalPoints< 6 && bankerTotalPoints ==  7) {
-//            NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
-//        }
+        //        if (playerTotalPoints< 6 && bankerTotalPoints ==  7) {
+        //            NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
+        //        }
         
         if (i == 4) {
             if (playerTotalPoints >= 8 ||  bankerTotalPoints >= 8) {
@@ -1005,13 +987,14 @@
     
     BaccaratResultModel *bResultModel =  [[BaccaratResultModel alloc] init];
     [bResultModel baccaratResultComputer:playerArray bankerArray:bankerArray];
-    /// 显示所有牌例
-    self.showPokerView.resultModel = bResultModel;
+    
+    if (!self.isAutoRunAll) {
+        /// 显示所有牌例
+        self.showPokerView.resultModel = bResultModel;
+    }
     
     bResultModel.pokerCount = self.gameStatisticsModel.pokerCount;
-    
     _bResultModel = bResultModel;
-    
     [self.zhuPanLuResultDataArray addObject:bResultModel];
     
 }
@@ -1049,6 +1032,20 @@
     [JMDropMenu showDropMenuFrame:CGRectMake(kBUNotchSpacing + 5, 36, 120, kBMoreColHeight*6+10) ArrowOffset:16.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:kBMoreColHeight Delegate:self];
 }
 
+- (void)onAtuoShowView {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        if (self.autoRunView.frame.origin.y >= 0) {
+            self.autoRunView.frame = CGRectMake(100, -50, 600, 50);
+        } else {
+            self.autoRunView.frame = CGRectMake(100, 0, 600, 50);
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
 #pragma mark -  下拉列表
 - (void)didSelectRowAtIndex:(NSInteger)index Title:(NSString *)title Image:(NSString *)image {
     NSLog(@"index----%zd,  title---%@, image---%@", index, title, image);
@@ -1081,11 +1078,17 @@
         [self.topupRecordAlertView showAlertAnimation];
         
     } else if ([title isEqualToString:@"设置"]) {
-//        BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
+        //        BaccaratConfigController *vc = [[BaccaratConfigController alloc] init];
+        //        [self.navigationController pushViewController:vc animated:YES];
+        
+    } else if ([title isEqualToString:@"更换赌桌"]) {
+        [self initData];
+        [self createUI];
     }
     
 }
+
+
 
 #pragma mark -  创建UI
 - (void)createUI {
@@ -1107,8 +1110,6 @@
     // ********* 左边 *********
     [self createLeftView];
     
-    // 底部按钮功能
-    [self setBottomView];
     // 右边路子图
     [self createRightRoadMapView];
     
@@ -1121,9 +1122,31 @@
     
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).offset(10);
-        make.left.equalTo(self.view.mas_left).offset(kBUNotchSpacing+5);
+        make.left.equalTo(self.view.mas_left).offset(25);
         make.size.mas_equalTo(CGSizeMake(25, 20));
     }];
+    
+    UIButton *autoBtn = [[UIButton alloc] init];
+    //    [autoBtn setBackgroundImage:[UIImage imageNamed:@"com_more_white"] forState:UIControlStateNormal];
+    [autoBtn addTarget:self action:@selector(onAtuoShowView) forControlEvents:UIControlEventTouchUpInside];
+    autoBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [autoBtn setTitle:@"自动" forState:UIControlStateNormal];
+    [autoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [autoBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    autoBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    autoBtn.layer.borderWidth = 1;
+    autoBtn.layer.borderColor = [UIColor greenColor].CGColor;
+    autoBtn.layer.cornerRadius = 3;
+    [self.view addSubview:autoBtn];
+    
+    [autoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(moreBtn.mas_bottom).offset(10);
+        make.left.equalTo(moreBtn.mas_left).offset(0);
+        make.size.mas_equalTo(CGSizeMake(35, 28));
+    }];
+    
+    [self.view addSubview:self.autoRunView];
+    
 }
 
 - (void)createLeftView {
@@ -1247,56 +1270,17 @@
     _analyzeRoadMapView = analyzeRoadMapView;
 }
 
-
-- (void)setBottomView {
+#pragma mark -  BAutoRunViewDelegate 自动运行
+/// 自动运行
+- (void)didAutoRunModel:(BAutoRunModel *)model {
     
-    UIView *bottomView = [[UIView alloc] init];
-    bottomView.layer.borderWidth = 1;
-    bottomView.layer.borderColor = [UIColor redColor].CGColor;
-    bottomView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:bottomView];
-    _bottomView = bottomView;
+    [self onAutoStartRunsNum:model.runsNum];
     
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_top).offset(500);
-        make.left.equalTo(self.contentView.mas_left);
-        make.right.equalTo(self.contentView.mas_right);
-        make.height.mas_equalTo(50);
+    [UIView animateWithDuration:0.5 animations:^{
+        self.autoRunView.frame = CGRectMake(100, -50, 600, 50);
+    } completion:^(BOOL finished) {
+        
     }];
-    
-    UITextField *pokerNumTextField = [[UITextField alloc] initWithFrame:CGRectMake(kMarginWidth, kMarginHeight, 150, kBtnHeight)];
-    pokerNumTextField.text = @"8";
-    pokerNumTextField.keyboardType = UIKeyboardTypeNumberPad;
-    pokerNumTextField.textColor = [UIColor grayColor];
-    pokerNumTextField.layer.cornerRadius = 5;
-    pokerNumTextField.layer.borderColor = [UIColor grayColor].CGColor;
-    pokerNumTextField.layer.borderWidth = 1;
-    _pokerNumTextField  = pokerNumTextField;
-    
-    
-    [bottomView addSubview:pokerNumTextField];
-    
-    UIButton *startButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10, kMarginHeight, 50, kBtnHeight)];
-    startButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [startButton setTitle:@"自动全盘" forState:UIControlStateNormal];
-    [startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    startButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    startButton.layer.cornerRadius = 5;
-    [startButton addTarget:self action:@selector(onStartAllButton:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:startButton];
-    
-    
-    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(kMarginWidth + 60 + 10 +50 +10 +80 +10, kMarginHeight, 50, kBtnHeight)];
-    [clearButton setTitle:@"清除" forState:UIControlStateNormal];
-    clearButton.titleLabel.font = [UIFont systemFontOfSize:kBtnFontSize];
-    [clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [clearButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    clearButton.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
-    clearButton.layer.cornerRadius = 5;
-    [clearButton addTarget:self action:@selector(onClearButton) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:clearButton];
-    
 }
 
 

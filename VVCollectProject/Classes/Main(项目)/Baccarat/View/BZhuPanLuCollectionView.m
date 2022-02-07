@@ -56,18 +56,10 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
 }
 
+
 #pragma mark - 首先创建一个collectionView
 - (void)initSubviews {
-    
-    //    首先创建一个collectionView
-    //    创建的时候UICollectionViewFlowLayout必须创建
-    //    layout.itemSize必须设置
-    //    必须注册一个collectionView的自定义cell
-    /**
-     创建layout(布局)
-     UICollectionViewFlowLayout 继承与UICollectionLayout
-     对比其父类 好处是 可以设置每个item的边距 大小 头部和尾部的大小
-     */
+
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
     CGFloat itemWidth = ([UIScreen mainScreen].bounds.size.width - 10*2 - 10*2) / (90/6+1);

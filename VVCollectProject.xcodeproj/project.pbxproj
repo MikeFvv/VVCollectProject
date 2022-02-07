@@ -42,6 +42,8 @@
 		84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C8D275E9220006C2906 /* UIView+getTopContorller.m */; };
 		84568C92275E9221006C2906 /* UIViewController+MXW.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C90275E9221006C2906 /* UIViewController+MXW.m */; };
 		84568C95275E9228006C2906 /* NSUserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C93275E9227006C2906 /* NSUserDefaultsManager.m */; };
+		8460FDBE27B001C3008A340B /* BAutoRunView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460FDBD27B001C3008A340B /* BAutoRunView.m */; };
+		8460FDC127B00706008A340B /* BAutoRunModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460FDC027B00706008A340B /* BAutoRunModel.m */; };
 		847D2B18277E40D80028C264 /* BStatisticsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B17277E40D80028C264 /* BStatisticsAlertView.m */; };
 		847D2B1B277E42630028C264 /* BStatisticsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */; };
 		847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */; };
@@ -430,6 +432,10 @@
 		84568C90275E9221006C2906 /* UIViewController+MXW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MXW.m"; sourceTree = "<group>"; };
 		84568C93275E9227006C2906 /* NSUserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserDefaultsManager.m; sourceTree = "<group>"; };
 		84568C94275E9228006C2906 /* NSUserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserDefaultsManager.h; sourceTree = "<group>"; };
+		8460FDBC27B001C3008A340B /* BAutoRunView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAutoRunView.h; sourceTree = "<group>"; };
+		8460FDBD27B001C3008A340B /* BAutoRunView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BAutoRunView.m; sourceTree = "<group>"; };
+		8460FDBF27B00706008A340B /* BAutoRunModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAutoRunModel.h; sourceTree = "<group>"; };
+		8460FDC027B00706008A340B /* BAutoRunModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BAutoRunModel.m; sourceTree = "<group>"; };
 		847D2B16277E40D80028C264 /* BStatisticsAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticsAlertView.h; sourceTree = "<group>"; };
 		847D2B17277E40D80028C264 /* BStatisticsAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BStatisticsAlertView.m; sourceTree = "<group>"; };
 		847D2B19277E42630028C264 /* BStatisticsCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BStatisticsCollectionCell.h; sourceTree = "<group>"; };
@@ -1057,6 +1063,8 @@
 				847D2B1A277E42630028C264 /* BStatisticsCollectionCell.m */,
 				847D2B1C2780B98A0028C264 /* BStatisticssReusableView.h */,
 				847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */,
+				8460FDBC27B001C3008A340B /* BAutoRunView.h */,
+				8460FDBD27B001C3008A340B /* BAutoRunView.m */,
 				849E6DDB279F1E7100EA6F33 /* Topup(充值记录) */,
 				847D2B302781D5290028C264 /* GameRecord(游戏记录) */,
 			);
@@ -1091,6 +1099,8 @@
 				84A8DD7F2777F58300695055 /* BUserData.m */,
 				849E6DD7279F1C5700EA6F33 /* BalanceRecordModel.h */,
 				849E6DD8279F1C5700EA6F33 /* BalanceRecordModel.m */,
+				8460FDBF27B00706008A340B /* BAutoRunModel.h */,
+				8460FDC027B00706008A340B /* BAutoRunModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2579,6 +2589,7 @@
 				84B85E9C27671FA5009AC598 /* FunModel.m in Sources */,
 				848EE796276E64270016CD8A /* BUserGameRecordsCell.m in Sources */,
 				84A8DF032777FC8D00695055 /* CFVTopSingleShowPockerView.m in Sources */,
+				8460FDBE27B001C3008A340B /* BAutoRunView.m in Sources */,
 				84A8D9F027725C9600695055 /* UIAlertView+Blocks.m in Sources */,
 				A0F13BE422B3BB91000C213C /* UIImage+NIMKit.m in Sources */,
 				A0BCD7B92221ACF800BB3A9C /* BZhuPanLuCollectionView.m in Sources */,
@@ -2629,6 +2640,7 @@
 				84A8D9EF27725C9600695055 /* RIButtonItem.m in Sources */,
 				848EE799276E7AFA0016CD8A /* ChipsView.m in Sources */,
 				848EE7A2276E8BCF0016CD8A /* ChipsModel.m in Sources */,
+				8460FDC127B00706008A340B /* BAutoRunModel.m in Sources */,
 				276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */,
 				A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */,
 				A0F91FD9222ECCC300C4EE9C /* CardDataSourceModel.m in Sources */,
