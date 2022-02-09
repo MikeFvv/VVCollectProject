@@ -113,24 +113,31 @@
     
     BalanceRecordModel *model2 = [[BalanceRecordModel alloc] init];
     model2.userId = kUserIdStr;
-    model2.title = @"充值3万";
-    model2.topupId = @"3";
-    model2.money = 30000;
+    model2.title = @"充值2万";
+    model2.topupId = @"2";
+    model2.money = 20000;
     model2.rechargeType = @"充值";
     
     BalanceRecordModel *model3 = [[BalanceRecordModel alloc] init];
     model3.userId = kUserIdStr;
-    model3.title = @"充值5万";
-    model3.topupId = @"5";
-    model3.money = 50000;
+    model3.title = @"充值3万";
+    model3.topupId = @"3";
+    model3.money = 30000;
     model3.rechargeType = @"充值";
     
-    BalanceRecordModel *model4 = [[BalanceRecordModel alloc] init];
-    model4.userId = kUserIdStr;
-    model4.title = @"充值10万";
-    model4.topupId = @"10";
-    model4.money = 100000;
-    model4.rechargeType = @"充值";
+    BalanceRecordModel *model5 = [[BalanceRecordModel alloc] init];
+    model5.userId = kUserIdStr;
+    model5.title = @"充值5万";
+    model5.topupId = @"5";
+    model5.money = 50000;
+    model5.rechargeType = @"充值";
+    
+    BalanceRecordModel *model10 = [[BalanceRecordModel alloc] init];
+    model10.userId = kUserIdStr;
+    model10.title = @"充值10万";
+    model10.topupId = @"10";
+    model10.money = 100000;
+    model10.rechargeType = @"充值";
     
 //    BalanceRecordModel *model5 = [[BalanceRecordModel alloc] init];
 //    model5.userId = kUserIdStr;
@@ -139,7 +146,7 @@
 //    model5.money = 1000000;
 //    model5.rechargeType = @"充值";
     
-    self.dataArray = @[model1,model2,model3,model4];
+    self.dataArray = @[model1,model2,model3,model5,model10];
     
 }
 
