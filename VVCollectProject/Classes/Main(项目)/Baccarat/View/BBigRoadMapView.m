@@ -313,11 +313,18 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     // 当前列
     NSArray *currentColArray = (NSArray *)daLu_ColDataArray.lastObject;
+    
+    
     // 比较列
-    NSArray *compareColArray = (NSArray *)daLu_ColDataArray[daLu_ColDataArray.count-spacingColumn];
+    NSInteger compareIndex = daLu_ColDataArray.count-spacingColumn;
+    NSArray *compareColArray = (NSArray *)daLu_ColDataArray[compareIndex];
+    NSInteger compareCount = compareColArray.count;
+    if (compareIndex == 0) {
+        compareCount = compareCount -1;
+    }
     
     // ****** 庄问路（指路图） 预计下一把的功能******
-    MapColorType wenLuColorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count+1 compareColumnNum:compareColArray.count isFirst:NO];
+    MapColorType wenLuColorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count+1 compareColumnNum:compareCount isFirst:NO];
     [self.wenLu_DataArray addObject:@(wenLuColorType)];
     
     
@@ -342,7 +349,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         
     } else {
         // 路中牌
-        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count compareColumnNum:compareColArray.count isFirst:NO];
+        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count compareColumnNum:compareCount isFirst:NO];
     }
     
     
@@ -452,7 +459,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         label.backgroundColor = [UIColor clearColor];
         label.frame = CGRectMake(x, y, w, h);
         self.currentLongNum = 1;
-        [self.oneColArray addObject:model];
+//        [self.oneColArray addObject:model];
         self.daLu_lastLabel = label;
         self.daLu_lastModel = model;
     }
@@ -496,7 +503,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 // 对子
 - (void)pairView:(BaccaratResultModel *)model label:(UILabel *)label {
-    CGFloat circleViewWidht = 7;
+    CGFloat circleViewWidht = 6;
     if (model.isBankerPair) {
         UIView *bankerPairView = [[UIView alloc] init];
         bankerPairView.backgroundColor = [UIColor colorWithRed:1.000 green:0.251 blue:0.251 alpha:1.000];

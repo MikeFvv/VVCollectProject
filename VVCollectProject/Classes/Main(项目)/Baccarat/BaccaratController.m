@@ -280,7 +280,7 @@
 }
 - (BAutoRunView* )autoRunView {
     if (!_autoRunView) {
-        _autoRunView = [[BAutoRunView alloc] initWithFrame:CGRectMake(100, -50, 600, 50)];
+        _autoRunView = [[BAutoRunView alloc] initWithFrame:CGRectMake(100, -50, 500, 50)];
         _autoRunView.delegate = self;
     }
     return _autoRunView;
@@ -1036,9 +1036,9 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         if (self.autoRunView.frame.origin.y >= 0) {
-            self.autoRunView.frame = CGRectMake(100, -50, 600, 50);
+            self.autoRunView.frame = CGRectMake(100, -50, 500, 50);
         } else {
-            self.autoRunView.frame = CGRectMake(100, 0, 600, 50);
+            self.autoRunView.frame = CGRectMake(100, 0, 500, 50);
         }
     } completion:^(BOOL finished) {
         
@@ -1277,7 +1277,7 @@
     [self onAutoStartRunsNum:model.runsNum];
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.autoRunView.frame = CGRectMake(100, -50, 600, 50);
+        self.autoRunView.frame = CGRectMake(100, -50, 500, 50);
     } completion:^(BOOL finished) {
         
     }];
