@@ -45,6 +45,8 @@
 #import "DZMTimer.h"
 #import "BAutoRunView.h"
 #import "BAutoRunModel.h"
+#import "BManualManageRoadView.h"
+#import "BaccaratComputer.h"
 
 
 #define kBtnHeight 35
@@ -60,7 +62,7 @@
 
 
 
-@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate,BTopupAlertViewDelegate,BAutoRunViewDelegate>
+@interface BaccaratController ()<BBigRoadMapViewDelegate,ChipsViewDelegate,BShowPokerViewDelegate,BaccaratBetViewDelegate,JMDropMenuDelegate,BTopupAlertViewDelegate,BAutoRunViewDelegate,BManualManageRoadViewDelegate>
 
 @property (nonatomic, strong) UIView *contentView;
 //
@@ -103,7 +105,12 @@
 @property(nonatomic,strong) BTopupRecordAlertView *topupRecordAlertView;
 /// 自动运行View
 @property(nonatomic,strong) BAutoRunView *autoRunView;
-
+/// 手动管理路子View
+@property(nonatomic,strong) BManualManageRoadView *manualManageRoadView;
+/// 0 Tie   1 banker   2 player   路单选择路类型
+@property (nonatomic, assign) WinType roadListSelectedWinType;
+/// 路单选择路类型
+@property (nonatomic, assign) PXSType roadListSelectedPXSType;
 
 /// 结果数据
 @property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *zhuPanLuResultDataArray;
@@ -120,12 +127,9 @@
 /// 返回按钮
 @property(nonatomic,strong) WMDragView *backDragView;
 
-/// *** 测试时使用 ***
-@property (nonatomic, assign) NSInteger testIndex;
-
 /// 是否自动运行全部
 @property (nonatomic, assign) BOOL isAutoRunAll;
-/// 是否已结束
+/// 桌子是否已结束
 @property (nonatomic, assign) BOOL isTableEnd;
 @property(nonatomic,strong) NSArray *titleArr;
 
@@ -136,11 +140,8 @@
 @property (nonatomic, assign) NSInteger continuousWinNum;
 /// 连输记录
 @property (nonatomic, assign) NSInteger continuousLoseNum;
-
-
 /// 游戏桌子ID 每天日期+001 自增
 @property (nonatomic, copy) NSString *tableID;
-
 
 @end
 
@@ -172,11 +173,12 @@
 #pragma mark -  数据初始化
 - (void)initData {
     
-    self.testIndex = 0;
     self.isAutoRunAll = NO;
     self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
     self.isTableEnd = NO;
     self.dataArray = nil;
+    self.roadListSelectedWinType = WinType_Undefined;
+    self.roadListSelectedPXSType = PXSType_None;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger amount = [userDefaults integerForKey:@"BaccaratBetAmount"];
@@ -286,6 +288,15 @@
     return _autoRunView;
 }
 
+- (BManualManageRoadView* )manualManageRoadView {
+    if (!_manualManageRoadView) {
+        _manualManageRoadView = [[BManualManageRoadView alloc] initWithFrame:CGRectMake(100, mxwScreenHeight(), 360, 100)];
+        _manualManageRoadView.delegate = self;
+    }
+    return _manualManageRoadView;
+}
+
+
 #pragma mark - ChipsViewDelegate 筹码选中 | 确定下注 | 重复下注
 /// 选中筹码后
 /// @param selectedModel 选中筹码模型
@@ -298,8 +309,11 @@
 /// 确定下注
 - (void)sureBetBtnClick:(UIButton *)sender {
     self.isAutoRunAll = NO;
+    self.roadListSelectedWinType = WinType_Undefined;
+    self.roadListSelectedPXSType = PXSType_None;
     
-    if (sender.tag == 5000) {
+    
+    if (sender.tag == 5000) {  // 确定下注
         self.chipsView.hidden = YES;
         [self onStartOneButton];
     } else if (sender.tag == 5001) { // 重复下注
@@ -323,7 +337,7 @@
 /// 取消注码  越过本局
 - (void)cancelBetChipsBtnClick:(UIButton *)sender {
     
-    if (sender.tag == 6000) {
+    if (sender.tag == 6000) { // 取消注码
         [self.bBetView cancelBetChips];
         
         self.bUserData.userTotalMoney = self.bUserData.beforeBetTotalMoney;
@@ -336,9 +350,12 @@
         if (self.chipsView.isShowCancelBtn) {
             self.chipsView.isShowCancelBtn = NO;
         }
-    } else {
+    } else {  // 越过本局
         self.isAutoRunAll = NO;
         self.chipsView.hidden = YES;
+        self.roadListSelectedWinType = WinType_Undefined;
+        self.roadListSelectedPXSType = PXSType_None;
+        
         [self onStartOneButton];
     }
 }
@@ -807,9 +824,12 @@
         return;
     }
     
+    
     self.gameStatisticsModel.pokerCount++;
-    self.testIndex++;
     [self oncePoker];
+    
+    NSLog(@"11");
+    
 }
 
 #pragma mark -  自动运行
@@ -832,9 +852,6 @@
 }
 
 
-
-
-
 #pragma mark -  Baccarat庄闲算法
 - (void)oncePoker {
     
@@ -854,7 +871,7 @@
     NSMutableArray<PokerCardModel *> *playerArray = [NSMutableArray array];
     NSMutableArray<PokerCardModel *> *bankerArray = [NSMutableArray array];
     
-    for (NSInteger i = 1; i <= 6; i++) {
+    for (NSInteger index = 1; index <= 6; index++) {
         
         // 洗牌
         //        int pokerIndex = (arc4random() % self.pokerTotalNum) + 0;
@@ -863,86 +880,54 @@
         //        NSLog(@"🔴= %@", num.stringValue);
         
         
-        
-        PokerCardModel *cardModel = (PokerCardModel *)self.dataArray.firstObject;
+        PokerCardModel *cardModel = [[PokerCardModel alloc] init];
+        PokerCardModel *tempCardModel = (PokerCardModel *)self.dataArray.firstObject;
+        cardModel = [tempCardModel modelCopy];
         [self.dataArray removeObjectAtIndex:0];
         self.gameStatisticsModel.pokerTotalNum--;
         
-        
-        //                if (self.testIndex > 22) {   // 测试使用  增加长庄长闲
-        //                    numStr = @"7";
-        //                }
-        //
-        //                 numStr = @"7";
-        //
-        //                if (i == 5) {
-        //
-        //                    if (self.testIndex < 5) {
-        //                        numStr = @"10";
-        //                    } else if (self.testIndex > 10) {
-        //
-        //                        if (self.testIndex > 18) {
-        //                            if (self.testIndex > 27) {
-        //                                if (self.testIndex > 36) {
-        //                                    if (self.testIndex > 45) {
-        //                                        if (self.testIndex > 54) {
-        //                                            numStr = @"1";
-        //                                        } else {
-        //                                            numStr = @"8";
-        //                                        }
-        //                                    } else {
-        //                                        numStr = @"1";
-        //                                    }
-        //                                } else {
-        //                                    numStr = @"8";
-        //                                }
-        //                            } else {
-        //                                numStr = @"1";
-        //                            }
-        //                        } else {
-        //                            numStr = @"8";
-        //                        }
-        //
-        //                    } else {
-        //                        numStr = @"1";
-        //                    }
-        //                }
-        //
-        //        cardModel.bCardValue = [numStr integerValue];
-        
-        
-        if (i == 1) {
-            player1 = cardModel.bCardValue;
+        // 路单功能
+        if (self.isAutoRunAll && self.roadListSelectedWinType != WinType_Undefined) {
             
-            [playerArray addObject:cardModel];
-        } else if (i == 2) {
-            banker1 = cardModel.bCardValue;
-            [bankerArray addObject:cardModel];
-        } else if (i == 3) {
-            player2 = cardModel.bCardValue;
-            [playerArray addObject:cardModel];
-        } else if (i == 4) {
-            banker2 = cardModel.bCardValue;
-            [bankerArray addObject:cardModel];
+            NSString *textNumStr = [BaccaratComputer roadListSendCardIndex:index winType:self.roadListSelectedWinType pxsType:self.roadListSelectedPXSType];
+            cardModel.bCardValue = [textNumStr integerValue] % 10;
+            cardModel.cardStr = textNumStr;
             
-            playerTotalPoints = (player1 + player2) % 10;
-            bankerTotalPoints = (banker1 + banker2) % 10;
+        } else {
+            NSLog(@"11");
         }
         
         
-        
-        //        if (playerTotalPoints< 6 && bankerTotalPoints ==  7) {
-        //            NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
-        //        }
-        
-        if (i == 4) {
+        if (index == 1) {
+            player1 = cardModel.bCardValue;
+            
+            [playerArray addObject:cardModel];
+            cardModel = nil;
+        } else if (index == 2) {
+            banker1 = cardModel.bCardValue;
+            [bankerArray addObject:cardModel];
+            
+        } else if (index == 3) {
+            player2 = cardModel.bCardValue;
+            [playerArray addObject:cardModel];
+            NSLog(@"1111");
+        } else if (index == 4) {
+            banker2 = cardModel.bCardValue;
+            [bankerArray addObject:cardModel];
+
+            playerTotalPoints = (player1 + player2) % 10;
+            bankerTotalPoints = (banker1 + banker2) % 10;
+            
+            
             if (playerTotalPoints >= 8 ||  bankerTotalPoints >= 8) {
                 break;
             }
             if (playerTotalPoints >= 6 && bankerTotalPoints >= 6) {
                 break;
             }
-        } else if (i == 5) {
+            
+        } else if (index == 5) {
+            
             if (playerTotalPoints < 6) {
                 player3 = cardModel.bCardValue;
                 [playerArray addObject:cardModel];
@@ -951,6 +936,8 @@
                     banker3 = cardModel.bCardValue;
                     [bankerArray addObject:cardModel];
                     break;
+                } else {
+                    NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
                 }
             }
             
@@ -967,7 +954,7 @@
             } else {
                 NSLog(@"继续发牌");
             }
-        } else if (i == 6) {
+        } else if (index == 6) {
             if (bankerTotalPoints < 6) {
                 banker3 = cardModel.bCardValue;
                 [bankerArray addObject:cardModel];
@@ -979,6 +966,7 @@
             }
             
         }
+        cardModel = nil;
     }
     
     
@@ -998,7 +986,6 @@
     [self.zhuPanLuResultDataArray addObject:bResultModel];
     
 }
-
 
 #pragma mark - 百家乐31投注法
 - (void)algorithm31Bet {
@@ -1043,6 +1030,19 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+- (void)onRoadListBtn {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        if (self.manualManageRoadView.frame.origin.y < mxwScreenHeight()) {
+            self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight(), 360, 100);
+        } else {
+            self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight()-100, 360, 100);
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+    
 }
 
 
@@ -1146,6 +1146,29 @@
     }];
     
     [self.view addSubview:self.autoRunView];
+    
+    
+    UIButton *roadListBtn = [[UIButton alloc] init];
+    //    [autoBtn setBackgroundImage:[UIImage imageNamed:@"com_more_white"] forState:UIControlStateNormal];
+    [roadListBtn addTarget:self action:@selector(onRoadListBtn) forControlEvents:UIControlEventTouchUpInside];
+    roadListBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [roadListBtn setTitle:@"路单" forState:UIControlStateNormal];
+    [roadListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [roadListBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    roadListBtn.backgroundColor = [UIColor colorWithRed:0.027 green:0.757 blue:0.376 alpha:1.000];
+    roadListBtn.layer.borderWidth = 1;
+    roadListBtn.layer.borderColor = [UIColor greenColor].CGColor;
+    roadListBtn.layer.cornerRadius = 3;
+    [self.view addSubview:roadListBtn];
+    
+    [roadListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(-30);
+        make.left.equalTo(moreBtn.mas_left).offset(0);
+        make.size.mas_equalTo(CGSizeMake(40, 30));
+    }];
+    
+    [self.view addSubview:self.manualManageRoadView];
+    
     
 }
 
@@ -1281,6 +1304,56 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+#pragma mark -  BManualManageRoadViewDelegate 路单
+/// 手动选择路子
+/// @param buttonTag 选择 buttonTag  闲 1  庄 2 和 3 后退 4  闲对 5 庄对 6 超级6 7   赢 8
+- (void)didManualManageRoadSelectedClickButtonTag:(NSInteger)buttonTag {
+    
+    if (buttonTag == 4) {
+        return;
+    }
+    
+    if (buttonTag == 1) {
+        self.roadListSelectedWinType = WinType_Player;
+    } else if (buttonTag == 2) {
+        self.roadListSelectedWinType = WinType_Banker;
+    } else if (buttonTag == 3) {
+        self.roadListSelectedWinType = WinType_TIE;
+    }
+    
+    [self onAutoStartRunsNum:1];
+    NSLog(@"1");
+}
+/// 特殊选择
+/// @param buttonTag 选择 buttonTag   闲对 5 庄对 6 超级6 7   赢 8
+/// @param isSelected 是否选中
+- (void)specialSelectedClickButtonTag:(NSInteger)buttonTag isSelected:(BOOL)isSelected {
+    
+    if (isSelected) {
+        if (buttonTag == 5) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType + PXSType_PlayerPair;
+        } else if (buttonTag == 6) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType + PXSType_BankerPair;
+        } else if (buttonTag == 7) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType + PXSType_SuperSix;
+        } else if (buttonTag == 8) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType + PXSType_SkyCard;
+        }
+    } else {
+        if (buttonTag == 5) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType - PXSType_PlayerPair;
+        } else if (buttonTag == 6) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType - PXSType_BankerPair;
+        } else if (buttonTag == 7) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType - PXSType_SuperSix;
+        } else if (buttonTag == 8) {
+            self.roadListSelectedPXSType = self.roadListSelectedPXSType - PXSType_SkyCard;
+        }
+    }
+    
+    NSLog(@"1");
 }
 
 

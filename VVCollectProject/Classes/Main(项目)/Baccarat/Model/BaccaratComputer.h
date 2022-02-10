@@ -14,6 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaccaratComputer : NSObject
 
+#pragma mark -  路单发牌功能
+/// 路单发牌功能
+/// @param index 发牌下标
++ (NSString *)roadListSendCardIndex:(NSInteger)index winType:(WinType)winType pxsType:(PXSType)pxsType;
+
 @end
 
 NS_ASSUME_NONNULL_END

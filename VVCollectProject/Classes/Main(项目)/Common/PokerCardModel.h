@@ -7,8 +7,6 @@
 
 /// 花色符号  ♦️
 @property (nonatomic, copy) NSString *suitSymbol;
-/// 牌面字符  例如 A
-@property (nonatomic, copy) NSString *cardStr;
 /// 花色类型
 @property (nonatomic, assign) CardColorType colorTyp;
 /// 牌面大小 1-13
@@ -19,9 +17,17 @@
 @property (nonatomic, assign) NSInteger alterValue;
 /// 牌字符 +花色符号  例如  A♦️
 @property (nonatomic, copy) NSString *cardText;
+
+
+
 /// 计算点数    10-13也算0   （百家乐使用）
 @property (nonatomic, assign) NSInteger bCardValue;
-/// 扑克图片名称
+/// 牌面字符  例如 A
+@property (nonatomic, copy) NSString *cardStr;
+
+
+
+/// 扑克图片名称  公用
 @property (nonatomic, copy) NSString *pokerImg;
 
 @end

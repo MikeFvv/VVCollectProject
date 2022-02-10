@@ -33,6 +33,8 @@
 		65813239231D886E00A3BBFE /* BaccaratDaLuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */; };
 		659E139D22E732DE00E9570E /* BugCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659E139C22E732DE00E9570E /* BugCollectionController.m */; };
 		65DCBA0823277D3F00D89C4F /* BaccaratResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCBA0723277D3F00D89C4F /* BaccaratResultModel.m */; };
+		841C85CA27B43CEA00C96A07 /* BManualManageRoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C85C927B43CEA00C96A07 /* BManualManageRoadView.m */; };
+		841C85CD27B4490D00C96A07 /* BPBTButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C85CC27B4490D00C96A07 /* BPBTButtonView.m */; };
 		84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C7C275E824D006C2906 /* MXWAdModel.m */; };
 		84568C82275E8255006C2906 /* MXWAdTimerAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C7E275E8254006C2906 /* MXWAdTimerAlertView.m */; };
 		84568C83275E8255006C2906 /* MXWBaiJiaShareAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 84568C80275E8255006C2906 /* MXWBaiJiaShareAlert.m */; };
@@ -416,6 +418,10 @@
 		659E139C22E732DE00E9570E /* BugCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugCollectionController.m; sourceTree = "<group>"; };
 		65DCBA0623277D3F00D89C4F /* BaccaratResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratResultModel.h; sourceTree = "<group>"; };
 		65DCBA0723277D3F00D89C4F /* BaccaratResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratResultModel.m; sourceTree = "<group>"; };
+		841C85C827B43CEA00C96A07 /* BManualManageRoadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BManualManageRoadView.h; sourceTree = "<group>"; };
+		841C85C927B43CEA00C96A07 /* BManualManageRoadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BManualManageRoadView.m; sourceTree = "<group>"; };
+		841C85CB27B4490D00C96A07 /* BPBTButtonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPBTButtonView.h; sourceTree = "<group>"; };
+		841C85CC27B4490D00C96A07 /* BPBTButtonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPBTButtonView.m; sourceTree = "<group>"; };
 		84568C7B275E824D006C2906 /* MXWAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWAdModel.h; sourceTree = "<group>"; };
 		84568C7C275E824D006C2906 /* MXWAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdModel.m; sourceTree = "<group>"; };
 		84568C7E275E8254006C2906 /* MXWAdTimerAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWAdTimerAlertView.m; sourceTree = "<group>"; };
@@ -1065,6 +1071,10 @@
 				847D2B1D2780B98A0028C264 /* BStatisticssReusableView.m */,
 				8460FDBC27B001C3008A340B /* BAutoRunView.h */,
 				8460FDBD27B001C3008A340B /* BAutoRunView.m */,
+				841C85C827B43CEA00C96A07 /* BManualManageRoadView.h */,
+				841C85C927B43CEA00C96A07 /* BManualManageRoadView.m */,
+				841C85CB27B4490D00C96A07 /* BPBTButtonView.h */,
+				841C85CC27B4490D00C96A07 /* BPBTButtonView.m */,
 				849E6DDB279F1E7100EA6F33 /* Topup(充值记录) */,
 				847D2B302781D5290028C264 /* GameRecord(游戏记录) */,
 			);
@@ -2667,6 +2677,7 @@
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				84A8D9CA2772326200695055 /* MXWHelper.m in Sources */,
 				84B85E632764AE8C009AC598 /* BJSendPokerCollectionViewCell.m in Sources */,
+				841C85CA27B43CEA00C96A07 /* BManualManageRoadView.m in Sources */,
 				848EE782276BD6B70016CD8A /* BJWinOrLoseResultModel.m in Sources */,
 				84B85E6E2766DCBC009AC598 /* NSAttributedStringManager.m in Sources */,
 				84B85DDF2762660F009AC598 /* MaxCardComputer.m in Sources */,
@@ -2687,6 +2698,7 @@
 				27581CC924F38022009B7BA9 /* UIColor+Hex.m in Sources */,
 				84A59215273D9FA30071D524 /* UIImage+Extension.m in Sources */,
 				84B85E942766FB14009AC598 /* AppViewController.m in Sources */,
+				841C85CD27B4490D00C96A07 /* BPBTButtonView.m in Sources */,
 				84B85E972766FD21009AC598 /* LoginViewController.m in Sources */,
 				84A8E208277906A700695055 /* BUserChipssView.m in Sources */,
 				84B85E7F2766F5F2009AC598 /* MXVNavigationBarView.m in Sources */,
