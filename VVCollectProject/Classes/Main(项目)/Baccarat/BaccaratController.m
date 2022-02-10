@@ -888,71 +888,39 @@
         
         // 路单功能
         if (self.isAutoRunAll && self.roadListSelectedWinType != WinType_Undefined) {
-            
             NSString *textNumStr = [BaccaratComputer roadListSendCardIndex:index winType:self.roadListSelectedWinType pxsType:self.roadListSelectedPXSType];
             cardModel.bCardValue = [textNumStr integerValue] % 10;
             cardModel.cardStr = textNumStr;
-            
-        } else {
-            NSLog(@"11");
         }
         
         
         if (index == 1) {
             player1 = cardModel.bCardValue;
-            
             [playerArray addObject:cardModel];
-            cardModel = nil;
         } else if (index == 2) {
             banker1 = cardModel.bCardValue;
             [bankerArray addObject:cardModel];
-            
         } else if (index == 3) {
             player2 = cardModel.bCardValue;
             [playerArray addObject:cardModel];
-            NSLog(@"1111");
         } else if (index == 4) {
             banker2 = cardModel.bCardValue;
             [bankerArray addObject:cardModel];
 
             playerTotalPoints = (player1 + player2) % 10;
             bankerTotalPoints = (banker1 + banker2) % 10;
-            
-            
-            if (playerTotalPoints >= 8 ||  bankerTotalPoints >= 8) {
-                break;
-            }
-            if (playerTotalPoints >= 6 && bankerTotalPoints >= 6) {
-                break;
-            }
-            
         } else if (index == 5) {
             
             if (playerTotalPoints < 6) {
                 player3 = cardModel.bCardValue;
                 [playerArray addObject:cardModel];
             } else {
-                if (bankerTotalPoints < 6) {
+                if (playerTotalPoints >= 6 || bankerTotalPoints < 6) {
                     banker3 = cardModel.bCardValue;
                     [bankerArray addObject:cardModel];
-                    break;
                 } else {
                     NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
                 }
-            }
-            
-            if (bankerTotalPoints == 3 && player3 == 8) {
-                break;
-            } else if (bankerTotalPoints == 4 && (player3 == 8 || player3 == 9 || player3 == 0 || player3 == 1)) {
-                break;
-            } else if (bankerTotalPoints == 5 && (player3 == 8 || player3 == 9 || player3 == 0 || player3 == 1 || player3 == 2 || player3 == 3)) {
-                break;
-            } else if (bankerTotalPoints == 6 && (player3 != 6 && player3 != 7)) {
-                break;
-            } else if (bankerTotalPoints == 7) {
-                break;
-            } else {
-                NSLog(@"继续发牌");
             }
         } else if (index == 6) {
             if (bankerTotalPoints < 6) {
@@ -964,14 +932,18 @@
             } else {
                 NSLog(@"🔴🔴🔴发牌有问题🔴🔴🔴");
             }
-            
+        }
+        
+        
+        BOOL isStopSendCard = [BaccaratComputer baccaratStopCardIndex:index player3:banker3 playerTotalPoints:playerTotalPoints bankerTotalPoints:bankerTotalPoints];
+        if (isStopSendCard) {
+            break;  // 停止发牌
         }
         cardModel = nil;
     }
     
-    
-    playerTotalPoints = (playerTotalPoints + player3) % 10;
-    bankerTotalPoints = (bankerTotalPoints + banker3) % 10;
+//    playerTotalPoints = (playerTotalPoints + player3) % 10;
+//    bankerTotalPoints = (bankerTotalPoints + banker3) % 10;
     
     BaccaratResultModel *bResultModel =  [[BaccaratResultModel alloc] init];
     [bResultModel baccaratResultComputer:playerArray bankerArray:bankerArray];
