@@ -12,10 +12,24 @@
 
 // 输赢类型
 typedef NS_ENUM(NSInteger, WinType) {
+    WinType_Undefined = -999,   // 未知
     WinType_TIE = 0,   // 和
     WinType_Banker = 1,   // 庄赢
     WinType_Player = 2,    // 闲赢(玩家)
 };
+
+// 特殊类型 如 对子 超级6 天牌
+typedef NS_OPTIONS(NSInteger, PXSType) {
+    PXSType_None            = 0,        // 未知
+    PXSType_PlayerPair      = 1 << 0,   // 闲对
+    PXSType_BankerPair      = 1 << 1,   // 庄对
+    PXSType_SuperSix        = 1 << 2,   // 超级6
+    PXSType_SkyCard         = 1 << 3,    // 天牌
+    PXSType_Win             = 100,       // 赢
+};
+// 例子
+//self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+
 
 // 下三路颜色类型
 typedef NS_ENUM(NSInteger, MapColorType) {
