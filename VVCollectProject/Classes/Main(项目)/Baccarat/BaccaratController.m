@@ -237,8 +237,8 @@
 
 - (NSMutableArray*)dataArray
 {
-    if (!_dataArray) {
-        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 8;
+    if (!_dataArray) { // 8
+        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 16;
         _dataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.baccaratDataModel.sortedDeckArray pokerPairsNum:num]];
     }
     return _dataArray;
@@ -1005,8 +1005,10 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         if (self.manualManageRoadView.frame.origin.y < mxwScreenHeight()) {
+            self.chipsView.hidden = NO;
             self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight(), 360, 100);
         } else {
+            self.chipsView.hidden = YES;
             self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight()-100, 360, 100);
         }
     } completion:^(BOOL finished) {
