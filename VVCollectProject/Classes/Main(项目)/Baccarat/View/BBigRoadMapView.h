@@ -13,19 +13,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BBigRoadMapViewDelegate <NSObject>
 @optional
+// 下三路和问题 数据代理
 - (void)getXSLDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray dylDataArray:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray;
 
 @end
 
 /// *** 大路 ***
 @interface BBigRoadMapView : UIView
-
-@property (nonatomic, strong) id model;
+/// 珠盘路数据
+@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *zhuPanLuResultDataArray;
 @property (nonatomic, weak) id<BBigRoadMapViewDelegate> delegate;
 /// 是否显示和
 @property (nonatomic, assign) BOOL isShowTie;
 
 - (void)clearData;
+
+/// 移除最后一个
+- (void)removeLastSubview;
 
 @end
 
