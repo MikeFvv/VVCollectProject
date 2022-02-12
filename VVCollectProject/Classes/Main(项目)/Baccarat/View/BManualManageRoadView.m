@@ -19,6 +19,8 @@
 /// 赢
 @property (nonatomic, strong) UIButton *winBtn;
 
+/// 和 显示隐藏
+@property (nonatomic, strong) UIButton *tieShowHidBtn;
 
 /// 闲
 @property (nonatomic, strong) BPBTButtonView *playerBtn;
@@ -37,6 +39,8 @@
 @property (nonatomic, assign) BOOL isSelectedSuperSix;
 /// 是否选中天牌
 @property (nonatomic, assign) BOOL isSelectedSkyCard;
+/// 是否显示和局
+@property (nonatomic, assign) BOOL isShowTie;
 
 @end
 
@@ -108,6 +112,17 @@
             [sender setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
         }
         isSelected = self.isSelectedSkyCard;
+    } else if (btnTag == 9) {
+        if (!self.isShowTie) {
+            self.isShowTie = YES;
+            sender.backgroundColor = [UIColor greenColor];
+            [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        } else {
+            self.isShowTie = NO;
+            sender.backgroundColor = [UIColor whiteColor];
+            [sender setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
+        isSelected = self.isShowTie;
     }
     
     if ([self.delegate respondsToSelector:@selector(specialSelectedClickButtonTag:isSelected:)]) {
@@ -301,6 +316,30 @@
         make.top.equalTo(winBtn.mas_bottom).offset(5);
         make.centerX.equalTo(winBtn.mas_centerX);
         make.size.mas_equalTo(bigWidthHeight);
+    }];
+    
+    
+    
+    // *** 5 *** 和
+    UIButton *tieShowHidBtn = [[UIButton alloc] init];
+    //    [autoBtn setBackgroundImage:[UIImage imageNamed:@"com_more_white"] forState:UIControlStateNormal];
+    [tieShowHidBtn addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    tieShowHidBtn.titleLabel.font = [UIFont systemFontOfSize:smallFont];
+    [tieShowHidBtn setTitle:@"和" forState:UIControlStateNormal];
+    [tieShowHidBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [tieShowHidBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    tieShowHidBtn.backgroundColor = [UIColor whiteColor];
+    tieShowHidBtn.layer.borderWidth = 2;
+    tieShowHidBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    tieShowHidBtn.layer.cornerRadius = smallWidthHeight/2;
+    tieShowHidBtn.tag = 4009;
+    [backView addSubview:tieShowHidBtn];
+    _tieShowHidBtn = tieShowHidBtn;
+
+    [tieShowHidBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(backView.mas_top).offset(5);
+        make.left.equalTo(winBtn.mas_right).offset(20);
+        make.size.mas_equalTo(CGSizeMake(50, smallWidthHeight));
     }];
 }
 

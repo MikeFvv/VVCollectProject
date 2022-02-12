@@ -177,7 +177,7 @@
     self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
     self.isTableEnd = NO;
     self.dataArray = nil;
-    self.roadListSelectedWinType = WinType_Undefined;
+    self.roadListSelectedWinType = WinType_None;
     self.roadListSelectedPXSType = PXSType_None;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -309,7 +309,7 @@
 /// 确定下注
 - (void)sureBetBtnClick:(UIButton *)sender {
     self.isAutoRunAll = NO;
-    self.roadListSelectedWinType = WinType_Undefined;
+    self.roadListSelectedWinType = WinType_None;
     self.roadListSelectedPXSType = PXSType_None;
     
     
@@ -353,7 +353,7 @@
     } else {  // 越过本局
         self.isAutoRunAll = NO;
         self.chipsView.hidden = YES;
-        self.roadListSelectedWinType = WinType_Undefined;
+        self.roadListSelectedWinType = WinType_None;
         self.roadListSelectedPXSType = PXSType_None;
         
         [self onStartOneButton];
@@ -373,7 +373,7 @@
     self.betModel = [[BBetModel alloc] init];
     
     self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
-    self.bigRoadMapView.model = self.zhuPanLuResultDataArray;
+    self.bigRoadMapView.zhuPanLuResultDataArray = self.zhuPanLuResultDataArray;
 }
 
 #pragma mark BaccaratBetViewDelegate 选中 下注
@@ -887,7 +887,7 @@
         self.gameStatisticsModel.pokerTotalNum--;
         
         // 路单功能
-        if (self.isAutoRunAll && self.roadListSelectedWinType != WinType_Undefined) {
+        if (self.isAutoRunAll && self.roadListSelectedWinType != WinType_None) {
             NSString *textNumStr = [BaccaratComputer roadListSendCardIndex:index winType:self.roadListSelectedWinType pxsType:self.roadListSelectedPXSType];
             cardModel.bCardValue = [textNumStr integerValue] % 10;
             cardModel.cardStr = textNumStr;
@@ -909,6 +909,7 @@
 
             playerTotalPoints = (player1 + player2) % 10;
             bankerTotalPoints = (banker1 + banker2) % 10;
+            
         } else if (index == 5) {
             
             if (playerTotalPoints < 6) {
@@ -935,15 +936,12 @@
         }
         
         
-        BOOL isStopSendCard = [BaccaratComputer baccaratStopCardIndex:index player3:banker3 playerTotalPoints:playerTotalPoints bankerTotalPoints:bankerTotalPoints];
+        BOOL isStopSendCard = [BaccaratComputer baccaratStopCardIndex:index player3:player3 playerTotalPoints:playerTotalPoints bankerTotalPoints:bankerTotalPoints];
         if (isStopSendCard) {
             break;  // 停止发牌
         }
         cardModel = nil;
     }
-    
-//    playerTotalPoints = (playerTotalPoints + player3) % 10;
-//    bankerTotalPoints = (bankerTotalPoints + banker3) % 10;
     
     BaccaratResultModel *bResultModel =  [[BaccaratResultModel alloc] init];
     [bResultModel baccaratResultComputer:playerArray bankerArray:bankerArray];
@@ -1283,16 +1281,24 @@
 /// @param buttonTag 选择 buttonTag  闲 1  庄 2 和 3 后退 4  闲对 5 庄对 6 超级6 7   赢 8
 - (void)didManualManageRoadSelectedClickButtonTag:(NSInteger)buttonTag {
     
-    if (buttonTag == 4) {
-        return;
-    }
-    
     if (buttonTag == 1) {
         self.roadListSelectedWinType = WinType_Player;
     } else if (buttonTag == 2) {
         self.roadListSelectedWinType = WinType_Banker;
     } else if (buttonTag == 3) {
         self.roadListSelectedWinType = WinType_TIE;
+    } else if (buttonTag == 4) {  // 退一个
+        
+        // 大路
+        [self.bigRoadMapView removeLastSubview];
+        
+        // 珠盘路
+        [self.zhuPanLuResultDataArray removeLastObject];
+        self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
+        
+        
+        NSLog(@"1");
+        return;
     }
     
     [self onAutoStartRunsNum:1];
@@ -1312,6 +1318,8 @@
             self.roadListSelectedPXSType = self.roadListSelectedPXSType + PXSType_SuperSix;
         } else if (buttonTag == 8) {
             self.roadListSelectedPXSType = self.roadListSelectedPXSType + PXSType_SkyCard;
+        } else if (buttonTag == 9) {
+            self.bigRoadMapView.isShowTie = YES;
         }
     } else {
         if (buttonTag == 5) {
@@ -1322,6 +1330,8 @@
             self.roadListSelectedPXSType = self.roadListSelectedPXSType - PXSType_SuperSix;
         } else if (buttonTag == 8) {
             self.roadListSelectedPXSType = self.roadListSelectedPXSType - PXSType_SkyCard;
+        } else if (buttonTag == 9) {
+            self.bigRoadMapView.isShowTie = NO;
         }
     }
     

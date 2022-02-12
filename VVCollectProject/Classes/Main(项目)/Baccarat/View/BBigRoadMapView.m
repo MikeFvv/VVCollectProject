@@ -27,44 +27,40 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 // 需要实现三个协议 UICollectionViewDelegateFlowLayout 继承自 UICollectionViewDelegate
 @interface BBigRoadMapView ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
+/// 大路视图
+@property (nonatomic, strong) UIScrollView *daLu_ScrollView;
 /// 空白网格视图
 @property (nonatomic, strong) UICollectionView *blankGridCollectionView;
-//
-@property (nonatomic, strong) NSMutableArray *daLu_DataArray;
 
-/// 大路
-@property (nonatomic, strong) UIScrollView *daLu_ScrollView;
 
 
 // ****** 大路 ******
 
-/// 记录最后一个数据
-@property (nonatomic, strong) BaccaratResultModel *daLu_lastModel;
 /// 大路 最后一个Label
 @property (nonatomic, strong) UILabel *daLu_lastLabel;
-/// 记录当前长龙个数
-@property (nonatomic, assign) NSInteger currentLongNum;
 /// 记录当前列的最小 X
 @property (nonatomic, assign) CGFloat currentColMinX;
-/// 记录所有列 最大Label的 x 值(取值是minX)
-@property (nonatomic, assign) CGFloat allColMaxLabelX;
 /// 把前一列大于等于当前X值的最后一个Label 记录,  用来判断长龙拐弯的的最后一个，动态移除X 小于当前的Label
 @property (nonatomic, strong) NSMutableArray<UILabel *> *allBigColLastLabelArray;
-/// 记录前一列最后一个Label
-@property (nonatomic, strong) UILabel *frontColLastLabel;
+/// 记录当前一条路 无和
+@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *oneColArray;
+/// 记录当前一条路 有和
+@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *haveTieOneColArray;
+
+/// 记录所有大路「列」数据
+@property (nonatomic, strong) NSMutableArray<NSArray *> *daLu_ColDataArray;
+
 /// 连续和的数量
 @property (nonatomic, assign) NSInteger tieNum;
 
 
-/// 记录一条路
-@property (nonatomic, strong) NSMutableArray<BaccaratResultModel *> *oneColArray;
-/// 记录所有大路「列」数据
-@property (nonatomic, strong) NSMutableArray<NSArray *> *daLu_ColDataArray;
-
-
+/// 大眼路
 @property (nonatomic, strong) NSMutableArray *dyl_DataArray;
+/// 小路
 @property (nonatomic, strong) NSMutableArray *xl_DataArray;
+/// 小强路
 @property (nonatomic, strong) NSMutableArray *xql_DataArray;
+/// 问路
 @property (nonatomic, strong) NSMutableArray *wenLu_DataArray;
 
 @end
@@ -84,58 +80,108 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 - (void)initData {
-    _allColMaxLabelX = 0;
-    _currentLongNum = 0;
+    
+    _daLu_lastLabel = nil;
+    _currentColMinX = 0;
+    _allBigColLastLabelArray = nil;
+    _oneColArray = nil;
+    _daLu_ColDataArray = nil;
+    
     _tieNum = 0;
-    
-    self.daLu_lastModel = nil;
-    
-    
-    
-    
 }
 
 - (void)createUI {
     [self addSubview:self.daLu_ScrollView];
 }
 
-
-
-- (void)setModel:(id)model {
-    _model = model;
-    self.daLu_DataArray = [NSMutableArray arrayWithArray:(NSArray *)model];
-    self.wenLu_DataArray = [NSMutableArray array];
-    [self daLu_createItems];
+- (void)setIsShowTie:(BOOL)isShowTie {
+    _isShowTie = isShowTie;
     
-    NSLog(@"1");
+    // 移除全部子视图
+     [self.daLu_ScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self initData];
+    
+    for (NSInteger index = 0; index < self.zhuPanLuResultDataArray.count; index++) {
+        BaccaratResultModel *model = self.zhuPanLuResultDataArray[index];
+        [self daLu_createItems:model isFirst:index == 0 ? YES : NO];
+    }
 }
 
 
-#pragma mark -  大路
-- (void)daLu_createItems {
+
+- (void)setZhuPanLuResultDataArray:(NSMutableArray<BaccaratResultModel *> *)zhuPanLuResultDataArray {
+    _zhuPanLuResultDataArray = zhuPanLuResultDataArray;
     
-    BaccaratResultModel *model = (BaccaratResultModel *)self.daLu_DataArray.lastObject;
+    self.wenLu_DataArray = [NSMutableArray array];
     
-    if (model.winType == WinType_TIE) {
+    BaccaratResultModel *model = (BaccaratResultModel *)self.zhuPanLuResultDataArray.lastObject;
+    
+    [self daLu_createItems:model isFirst:zhuPanLuResultDataArray.count == 1 ? YES : NO];
+    
+    if (model.winType != WinType_TIE) {
+        [self getXiaSanLuData:self.daLu_ColDataArray];
+    }
+}
+
+
+/// 移除最后一个
+- (void)removeLastSubview {
+    
+    
+//    [self.zhuPanLuResultDataArray removeLastObject];
+    
+    BaccaratResultModel *lastModel = self.zhuPanLuResultDataArray.lastObject;
+    
+    if (self.isShowTie || (!self.isShowTie && lastModel.winType != WinType_TIE)) {
         
-        if (self.daLu_DataArray.count == 1) {  // 第一个和特殊处理
-            self.currentLongNum = 1;
-            [self.oneColArray addObject:model];
-            [self.daLu_ColDataArray addObject:self.oneColArray];
+        UILabel *lastLabel = self.daLu_ScrollView.subviews.lastObject;
+        [lastLabel removeFromSuperview];
+        
+        // 最后拐弯的列 大X列
+        UILabel *lastMaxXLabel = self.allBigColLastLabelArray.lastObject;
+        if(CGRectEqualToRect(lastLabel.frame, lastMaxXLabel.frame)) {
+            [self.allBigColLastLabelArray removeLastObject];
         }
         
+        NSMutableArray *tempMArraay = (NSMutableArray *)self.daLu_ColDataArray.lastObject;
+//        BaccaratResultModel *colLastModel = (BaccaratResultModel *)tempMArraay.lastObject;
+        // 长龙的个数减1
+        if (self.oneColArray.count == 1) {
+            self.oneColArray = nil;
+            self.oneColArray = tempMArraay;
+            [self.daLu_ColDataArray removeLastObject];
+        } else {
+            [self.oneColArray removeLastObject];
+        }
+    }
+    
+    /// 连续和的数量
+//    self.tieNum = self.tieNum - 1;
+    
+    // 最后的Label 数据，重新赋值
+    UILabel *lastLabel2 = self.daLu_ScrollView.subviews.lastObject;
+    self.daLu_lastLabel = lastLabel2;
+    self.currentColMinX = CGRectGetMinX(lastLabel2.frame);
+    
+    NSLog(@"11");
+}
+
+
+
+#pragma mark -  大路
+- (void)daLu_createItems:(BaccaratResultModel *)model isFirst:(BOOL)isFirst {
+    
+    if (!self.isShowTie && model.winType == WinType_TIE) {
         self.tieNum++;
-        [self tieBezierPath:model];
+        [self tieBezierPath:model isFirst:isFirst];
         return;
     }
-    self.tieNum = 0;
     
     CGFloat margin = 1;
     CGFloat w = kBDLItemSizeWidth;
     CGFloat h = w;
     CGFloat x = 0;
     CGFloat y = 0;
-    
     
     
     UILabel *label = [[UILabel alloc] init];
@@ -147,14 +193,17 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     
     if (model.winType == WinType_Banker) {
+        self.tieNum = 0;
         if (model.isSuperSix) {
             label.text = @"6";
             label.textColor = [UIColor whiteColor];
         }
         label.backgroundColor = [UIColor redColor];
     } else if (model.winType == WinType_Player) {
+        self.tieNum = 0;
         label.backgroundColor = [UIColor blueColor];
     } else {
+        self.tieNum++;
         label.backgroundColor = [UIColor greenColor];
     }
     
@@ -165,31 +214,35 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     
     BOOL isLong = NO;
+    
+    NSArray *oneArray = (NSArray *)self.daLu_ColDataArray.lastObject;
+     BaccaratResultModel *lastModel = oneArray.lastObject;
+    
+    // 获取最后一个闲或庄
+    BaccaratResultModel *lastBPModel = nil;
+    if (self.isShowTie && lastModel.winType == WinType_TIE) {
+        for (BaccaratResultModel *tempLastModel in oneArray) {
+            if (tempLastModel.winType == WinType_Banker || tempLastModel.winType == WinType_Player) {
+                lastBPModel = tempLastModel;
+                break;
+            }
+        }
+    }
+    
     // 本次是否和上次相同， 上次是否等于和
-    if (model.winType == self.daLu_lastModel.winType || self.daLu_lastModel.winType == WinType_TIE) {
+    if ( (model.winType == lastModel.winType || model.winType == WinType_TIE) || (lastModel.winType == WinType_TIE && model.winType == lastBPModel.winType) ) {
         isLong = YES;
     }
     
     if (isLong) {
-        // 计算最大可使用空白格数
-        NSInteger maxBlankColumns = 6;
         
-        //            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
-        //            CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
+        [self.oneColArray addObject:model];
+        [self.haveTieOneColArray addObject:model];
         
-        UILabel *tailLabel = [self getMinYLabelColX:self.currentColMinX];
-        tailLabel = tailLabel ? tailLabel : self.frontColLastLabel;
-        CGFloat lastLabelX = CGRectGetMaxX(tailLabel.frame);
-        CGFloat lastLabelY = CGRectGetMinY(tailLabel.frame);
+        // 计算最多可使用空白格数
+        NSInteger maxBlankColumns = [self getMaxBlankColumnsCurrentColX:self.currentColMinX];
         
-        
-        if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.daLu_lastLabel.frame)) {
-            maxBlankColumns = lastLabelY/(w +margin);
-        }
-        
-        // 记录连续相同的结果个数
-        self.currentLongNum += 1;
-        if (self.currentLongNum <= maxBlankColumns) {  // 长龙向下
+        if (self.oneColArray.count <= maxBlankColumns) {  // 长龙向下
             self.currentColMinX = self.daLu_lastLabel.x;
             x = self.daLu_lastLabel.x;
             label.frame = CGRectMake(x, CGRectGetMaxY(self.daLu_lastLabel.frame) + margin, w, h);
@@ -204,37 +257,33 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
                 self.currentColMinX = CGRectGetMinX(label.frame);
             }
         }
-        
-        if (x > self.allColMaxLabelX) {
-            self.allColMaxLabelX = x;
-        }
-        [self.oneColArray addObject:model];
     } else {
         
         // *** 开头第一个 ***
-        
         self.oneColArray = nil;
-        // 前一列最后一个 Label
-        self.frontColLastLabel = self.daLu_lastLabel;
+        self.haveTieOneColArray = nil;
         
+        // 前一列最后一个 Label
+        UILabel *frontColLastLabel = self.daLu_lastLabel;
+//        if (self.daLu_ScrollView.subviews.count >= 2) {
+//            frontColLastLabel = (UILabel *)self.daLu_ScrollView.subviews[self.daLu_ScrollView.subviews.count -2];
+//        }
         
         y = 0;
         // 最顶上的长龙时处理 极端情况
-        CGFloat lastLabelY = CGRectGetMinY(self.frontColLastLabel.frame);
+        CGFloat lastLabelY = CGRectGetMinY(frontColLastLabel.frame);
         if (lastLabelY == 0) {
-            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
+            CGFloat lastLabelX = CGRectGetMaxX(frontColLastLabel.frame);
             x = lastLabelX + margin;
         } else {
             x = self.currentColMinX + w + margin;
         }
         
-        if (x > self.allColMaxLabelX) {
-            self.allColMaxLabelX = x;
-        }
         label.frame = CGRectMake(x, y, w, h);
-        // 相同开奖结果清空
-        self.currentLongNum = 1;
+        
         [self.oneColArray addObject:model];
+        [self.haveTieOneColArray addObject:model];
+        
         [self.daLu_ColDataArray addObject:self.oneColArray];
         self.currentColMinX = CGRectGetMinX(label.frame);
         
@@ -245,42 +294,51 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         
     }
     
-    
-    if (self.allColMaxLabelX + w + margin > (self.bounds.size.width - 50)){ // 大路闲庄路X大于整个屏幕时往后自动移动位置，好观看
-        if ((self.allColMaxLabelX + w + margin) != (CGRectGetMaxX(self.daLu_lastLabel.frame) + margin)) {
-            // 移动位置
-            [UIView animateWithDuration:0.1 animations:^{
-                [self.daLu_ScrollView setContentOffset:CGPointMake(self.allColMaxLabelX + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
-                [self.blankGridCollectionView setContentOffset:CGPointMake(self.allColMaxLabelX + w + margin - (self.bounds.size.width - 50), 0) animated:YES];
-            }];
-        }
-    }
-    
     self.daLu_lastLabel = label;
-    self.daLu_lastModel = model;
     
     
-    MapColorType dyl_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_DYL];
-    if (dyl_colorType != ColorType_Undefined) {
+    CGFloat maxLabelX = self.daLu_lastLabel.x + margin + w;
+    [self moveViewPosition:maxLabelX];
+    
+    
+    
+}
+
+- (void)moveViewPosition:(CGFloat)maxLabelX {
+    if (maxLabelX > (self.bounds.size.width - 50)){ // 大路闲庄路X大于整个屏幕时往后自动移动位置，好观看
+        // 移动位置
+        [UIView animateWithDuration:0.1 animations:^{
+            [self.daLu_ScrollView setContentOffset:CGPointMake(maxLabelX - (self.bounds.size.width - 50), 0) animated:YES];
+            [self.blankGridCollectionView setContentOffset:CGPointMake(maxLabelX - (self.bounds.size.width - 50), 0) animated:YES];
+        }];
+    }
+}
+
+
+/// 获取下三路数据
+- (void)getXiaSanLuData:(NSArray *)daLu_ColDataArray {
+    MapColorType dyl_colorType = [self xsl_ComputerData:daLu_ColDataArray roadMapType:RoadMapType_DYL];
+    if (dyl_colorType != ColorType_None) {
         [self.dyl_DataArray addObject:@(dyl_colorType)];
     }
     
-    MapColorType xl_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_XL];
-    if (xl_colorType != ColorType_Undefined) {
+    MapColorType xl_colorType = [self xsl_ComputerData:daLu_ColDataArray roadMapType:RoadMapType_XL];
+    if (xl_colorType != ColorType_None) {
         [self.xl_DataArray addObject:@(xl_colorType)];
     }
     
-    MapColorType xql_colorType = [self xsl_ComputerData:self.daLu_ColDataArray roadMapType:RoadMapType_XQL];
-    if (xql_colorType != ColorType_Undefined) {
+    MapColorType xql_colorType = [self xsl_ComputerData:daLu_ColDataArray roadMapType:RoadMapType_XQL];
+    if (xql_colorType != ColorType_None) {
         [self.xql_DataArray addObject:@(xql_colorType)];
     }
     
     
     if ([self.delegate respondsToSelector:@selector(getXSLDataWithCurrentModel:wenLuDataArray:dylDataArray:xlDataArray:xqlDataArray:)]) {
-        
-        [self.delegate getXSLDataWithCurrentModel:self.daLu_lastModel wenLuDataArray:self.wenLu_DataArray dylDataArray:self.dyl_DataArray xlDataArray:self.xl_DataArray xqlDataArray:self.xql_DataArray];
+       NSArray *oneArray = (NSArray *)daLu_ColDataArray.lastObject;
+        BaccaratResultModel *lastModel = oneArray.lastObject;
+        // 下三路和问题 数据代理
+        [self.delegate getXSLDataWithCurrentModel:lastModel wenLuDataArray:self.wenLu_DataArray dylDataArray:self.dyl_DataArray xlDataArray:self.xl_DataArray xqlDataArray:self.xql_DataArray];
     }
-    
 }
 
 
@@ -288,7 +346,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 获得下三路 数据
 /// @param daLu_ColDataArray 大路列数据
 /// @param roadMapType 下三路 类型
-- (MapColorType)xsl_ComputerData:(NSMutableArray *)daLu_ColDataArray roadMapType:(RoadMapType)roadMapType {
+- (MapColorType)xsl_ComputerData:(NSArray *)daLu_ColDataArray roadMapType:(RoadMapType)roadMapType {
     // *** 大眼路规则 ***
     // 大眼仔开始及对应位：第二列对第一列.第三列对第二列.第四列对第三列.第五列对第四列.如此类推。
     // 大眼仔：是从大路第二列(第一口不计)第二口开始向第一列第二口对(第一列不管开几多口庄或闲，是不写红蓝笔，只供大眼仔对应写红或蓝)。
@@ -309,7 +367,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     
     if (daLu_ColDataArray.count < spacingColumn) {
-        return ColorType_Undefined;
+        return ColorType_None;
     }
     // 当前列
     NSArray *currentColArray = (NSArray *)daLu_ColDataArray.lastObject;
@@ -329,7 +387,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     
     
     if (daLu_ColDataArray.count == spacingColumn && currentColArray.count == 1) {
-        return ColorType_Undefined;
+        return ColorType_None;
     }
     
     
@@ -368,7 +426,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     // 下三路共有五句口诀：
     // 有对画红、无对画蓝、齐脚跳画红、突脚跳画蓝、突脚连画红。
     
-    MapColorType mapColorType = ColorType_Undefined;
+    MapColorType mapColorType = ColorType_None;
     if (isFirst) {
         if (currentColumnNum == compareColumnNum) {  // 🅰️齐脚跳写红  🅱️「路头牌」「标红」
             mapColorType = ColorType_Red;
@@ -394,10 +452,14 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 
 
-/// 获得最小的Y 值 Label
-/// @param currentColX 当前X值
-- (UILabel *)getMinYLabelColX:(CGFloat)currentColX {
+/// 计算最多可使用空白格数
+/// @param currentColX 当前列X值
+- (NSInteger)getMaxBlankColumnsCurrentColX:(CGFloat)currentColX {
     
+    // 计算最多可使用空白格数
+    NSInteger maxBlankColumns = 6;
+    
+    // 获得最小的Y 值 Label
     UILabel *tempLabel = nil;
     CGFloat minY = (kBDLItemSizeWidth +1) * 6;
     for (UILabel *label in self.allBigColLastLabelArray.reverseObjectEnumerator) {  //  对数组逆序遍历，然后再删除元素就没有问题了。
@@ -412,7 +474,28 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
             [self.allBigColLastLabelArray removeObject:label];
         }
     }
-    return tempLabel;
+    
+//    // 前一列最后一个 Label
+//    UILabel *frontColLastLabel = nil;
+//    if (self.daLu_ScrollView.subviews.count >= 2) {
+//        frontColLastLabel = (UILabel *)self.daLu_ScrollView.subviews[self.daLu_ScrollView.subviews.count -2];
+//    }
+//
+//    tempLabel = tempLabel ? tempLabel : frontColLastLabel;
+    
+    if (tempLabel) {
+        CGFloat lastLabelX = CGRectGetMaxX(tempLabel.frame);
+        CGFloat lastLabelY = CGRectGetMinY(tempLabel.frame);
+        
+        CGFloat margin = 1;
+        CGFloat w = kBDLItemSizeWidth;
+        
+        if (lastLabelX > 0 && lastLabelX >= CGRectGetMaxX(self.daLu_lastLabel.frame)) {
+            maxBlankColumns = lastLabelY/(w +margin);
+        }
+    }
+    
+    return maxBlankColumns;
 }
 
 
@@ -441,8 +524,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /**
  和的处理
  */
-- (void)tieBezierPath:(BaccaratResultModel *)model {
-    if (self.daLu_DataArray.count == 1) {
+- (void)tieBezierPath:(BaccaratResultModel *)model isFirst:(BOOL)isFirst {
+    if (isFirst == 1) {  // 第一个和特殊处理
         //        CGFloat margin = 1;
         CGFloat w = kBDLItemSizeWidth;
         CGFloat h = w;
@@ -458,10 +541,11 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         
         label.backgroundColor = [UIColor clearColor];
         label.frame = CGRectMake(x, y, w, h);
-        self.currentLongNum = 1;
-//        [self.oneColArray addObject:model];
+        
+        
+        [self.oneColArray addObject:model];
+        [self.daLu_ColDataArray addObject:self.oneColArray];
         self.daLu_lastLabel = label;
-        self.daLu_lastModel = model;
     }
     
     
@@ -616,10 +700,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 }
 
 
-
-
-
-
 - (NSMutableArray *)dyl_DataArray {
     if (!_dyl_DataArray) {
         _dyl_DataArray = [NSMutableArray array];
@@ -646,6 +726,14 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     }
     return _oneColArray;
 }
+
+- (NSMutableArray *)haveTieOneColArray {
+    if (!_haveTieOneColArray) {
+        _haveTieOneColArray = [NSMutableArray array];
+    }
+    return _haveTieOneColArray;
+}
+
 
 - (NSMutableArray *)daLu_ColDataArray {
     if (!_daLu_ColDataArray) {

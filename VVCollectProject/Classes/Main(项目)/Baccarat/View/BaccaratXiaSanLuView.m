@@ -146,7 +146,7 @@
         isLong = YES;
     }
     if (isLong) {
-        // 计算最大可使用空白格数
+        // 计算最多可使用空白格数
         NSInteger maxBlankColumns = 6;
         
         //            CGFloat lastLabelX = CGRectGetMaxX(self.frontColLastLabel.frame);
