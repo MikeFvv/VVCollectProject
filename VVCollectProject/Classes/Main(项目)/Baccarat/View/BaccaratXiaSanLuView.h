@@ -18,7 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *dataArray;
 
 
-- (void)clearData;
+//- (void)clearData;
+
+/// 移除最后一个
+- (void)removeLastSubview;
 
 @end
 

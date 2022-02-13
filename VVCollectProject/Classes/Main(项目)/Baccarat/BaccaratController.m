@@ -202,7 +202,7 @@
     
     NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
     
-    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
+    NSString *queryWhere = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserId_String,date];
     NSArray *userDataArray = [WHC_ModelSqlite query:[BUserData class] where:queryWhere];
     
     BUserData *oldUserData = userDataArray.firstObject;
@@ -635,7 +635,7 @@
 
 - (void)everyGameRecord {
     // *** 保存每盘游戏数据 ***
-    self.bResultModel.userId = kUserIdStr;
+    self.bResultModel.userId = kUserId_String;
     self.bResultModel.tableID = self.tableID;
     self.bResultModel.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
     self.bResultModel.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日 HH:mm:ss"];
@@ -652,12 +652,12 @@
 }
 
 - (void)updateUserData {
-    self.bUserData.userId = kUserIdStr;
+    self.bUserData.userId = kUserId_String;
     self.bUserData.create_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
     self.bUserData.update_time = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
     
     NSString *date = [MFHTimeManager getNowTimeWithDateFormat:@"YYYY年MM月dd日"];
-    NSString *whereStr = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserIdStr,date];
+    NSString *whereStr = [NSString stringWithFormat:@"userId='%@' and update_time = '%@'",kUserId_String,date];
     
     // *** 保存用户下注数据 ***
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -721,7 +721,7 @@
 /// 用户筹码下注记录
 - (void)onBUserChipssViewShowAction {
     
-    NSString *all_queryWhere = [NSString stringWithFormat:@"userId='%@' ORDER BY create_time DESC",kUserIdStr];
+    NSString *all_queryWhere = [NSString stringWithFormat:@"userId='%@' ORDER BY create_time DESC",kUserId_String];
     // 全部的数据
     NSArray *allUserDataArray = [WHC_ModelSqlite query:[BUserData class] where:all_queryWhere];
     
@@ -1048,7 +1048,7 @@
         [self.topupAlertView showAlertAnimation];
     } else if ([title isEqualToString:@"游戏记录"]) {
         
-        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserId_String];
         NSArray *dataArray = [WHC_ModelSqlite query:[BaccaratResultModel class] where:queryWhere];
         
         self.gameRecordAlertView.zhuPanLuResultDataArray = dataArray;
@@ -1056,7 +1056,7 @@
         
     } else if ([title isEqualToString:@"余额记录"]) {
         
-        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+        NSString *queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserId_String];
         NSArray *balanceArray = [WHC_ModelSqlite query:[BalanceRecordModel class] where:queryWhere];
         
         self.topupRecordAlertView.dataArray = balanceArray;
@@ -1237,7 +1237,7 @@
     _bigRoadMapView = bigRoadMapView;
     
     // *** 下三路 ***
-    CGFloat xiasanluHeight = (kBItemSizeWidth+1)*6+1;
+    CGFloat xiasanluHeight = (kBXSLItemSizeWidth+1)*6+1;
     BaccaratXiaSanLuView *dylXiaSanLuView = [[BaccaratXiaSanLuView alloc] initWithFrame:CGRectMake(kBHalfWidth+kBAddWidth, betMaxMinViewHeight+daluHeight+1*2, kBHalfWidth - kBAddWidth-10, xiasanluHeight)];
     dylXiaSanLuView.roadMapType = RoadMapType_DYL;
     dylXiaSanLuView.layer.borderWidth = 1;
@@ -1307,10 +1307,17 @@
         // 大路
         [self.bigRoadMapView removeLastSubview];
         
+        BaccaratResultModel *lastModel = self.zhuPanLuResultDataArray.lastObject;
+        // 无和
+        if (lastModel.winType != WinType_TIE) {
+            [self.dylXiaSanLuView removeLastSubview];
+            [self.xlXiaSanLuView removeLastSubview];
+            [self.xqlXiaSanLuView removeLastSubview];
+        }
+        
         // 珠盘路
         [self.zhuPanLuResultDataArray removeLastObject];
         self.zhuPanLuCollectionView.model = self.zhuPanLuResultDataArray;
-        
         
         NSLog(@"1");
         return;

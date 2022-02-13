@@ -261,10 +261,10 @@
         
         if (indexPath.section == 0) { // 全部
             cell.titleLabel.text = @"总充值金额";
-            queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserIdStr];
+            queryWhere = [NSString stringWithFormat:@"userId='%@'",kUserId_String];
         } else {
             cell.titleLabel.text = @"今日充值金额";
-            queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserIdStr,date];
+            queryWhere = [NSString stringWithFormat:@"userId='%@' and create_date = '%@'",kUserId_String,date];
         }
         
         NSArray *balanceArray = [WHC_ModelSqlite query:[BalanceRecordModel class] where:queryWhere];

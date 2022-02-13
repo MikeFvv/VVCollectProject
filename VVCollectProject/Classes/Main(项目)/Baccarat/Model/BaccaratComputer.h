@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaccaratCom.h"
+#import "BaccaratResultModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,6 +22,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param playerTotalPoints 闲总点数
 /// @param bankerTotalPoints 庄总点数
 + (BOOL)baccaratStopCardIndex:(NSInteger)index player3:(NSInteger)player3 playerTotalPoints:(NSInteger)playerTotalPoints bankerTotalPoints:(NSInteger)bankerTotalPoints;
+
+
+/// 判断是否长龙
+/// @param model 模型
+/// @param colDataArray 列数据
++ (BOOL)isLongResultModel:(BaccaratResultModel *)model colDataArray:(NSArray *)colDataArray;
+/// 计算最多可使用空白格数
+/// @param currentColX 当前列X值
+/// @param allColLastLabelArray 全部的长龙拐弯的的最后一个数据
+/// @param width 列宽度
++ (NSInteger)getMaxBlankColumnsCurrentColX:(CGFloat)currentColX allColLastLabelArray:(NSMutableArray *)allColLastLabelArray width:(CGFloat)width;
+
 
 #pragma mark -  路单发牌功能
 /// 路单发牌功能

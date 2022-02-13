@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否显示和
 @property (nonatomic, assign) BOOL isShowTie;
 
-- (void)clearData;
+//- (void)clearData;
 
 /// 移除最后一个
 - (void)removeLastSubview;
