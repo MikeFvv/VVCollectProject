@@ -143,6 +143,9 @@
 /// 游戏桌子ID 每天日期+001 自增
 @property (nonatomic, copy) NSString *tableID;
 
+/// 测试随机生成路单功能
+@property (nonatomic, assign) NSInteger testIndex;
+
 @end
 
 @implementation BaccaratController
@@ -175,6 +178,7 @@
     
     self.isAutoRunAll = NO;
     self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    self.testIndex = 0;
     self.isTableEnd = NO;
     self.dataArray = nil;
     self.roadListSelectedWinType = WinType_None;
@@ -855,6 +859,7 @@
 #pragma mark -  Baccarat庄闲算法
 - (void)oncePoker {
     
+    self.testIndex++;
     // 闲
     NSInteger player1 = 0;
     NSInteger player2 = 0;
@@ -892,6 +897,14 @@
             cardModel.bCardValue = [textNumStr integerValue] % 10;
             cardModel.cardStr = textNumStr;
         }
+        
+        // 随机路单功能，只在测试时手动使用
+//        if (self.isAutoRunAll) {
+//            NSString *testNumStr = [BaccaratComputer testRandomRoadListIndex:index testIndex:self.testIndex];
+//            cardModel.bCardValue = [testNumStr integerValue];
+////            cardModel.cardStr = testNumStr;
+//        }
+        
         
         
         if (index == 1) {

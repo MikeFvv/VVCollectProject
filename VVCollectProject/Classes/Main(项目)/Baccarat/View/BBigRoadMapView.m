@@ -110,6 +110,9 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 - (void)setZhuPanLuResultDataArray:(NSMutableArray<BaccaratResultModel *> *)zhuPanLuResultDataArray {
     _zhuPanLuResultDataArray = zhuPanLuResultDataArray;
     
+    if (!zhuPanLuResultDataArray) {
+        NSLog(@"11");
+    }
     self.wenLu_DataArray = [NSMutableArray array];
     
     BaccaratResultModel *model = (BaccaratResultModel *)self.zhuPanLuResultDataArray.lastObject;
@@ -124,7 +127,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 /// 移除最后一个
 - (void)removeLastSubview {
-    
     
 //    [self.zhuPanLuResultDataArray removeLastObject];
     
@@ -144,22 +146,33 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         NSMutableArray *tempMArraay = (NSMutableArray *)self.daLu_ColDataArray.lastObject;
 //        BaccaratResultModel *colLastModel = (BaccaratResultModel *)tempMArraay.lastObject;
         // 长龙的个数减1
-        if (self.oneColArray.count == 1) {
+        if (tempMArraay.count == 1) {
             self.oneColArray = nil;
-            self.oneColArray = tempMArraay;
             [self.daLu_ColDataArray removeLastObject];
+            
+            NSMutableArray *newMArraay = (NSMutableArray *)self.daLu_ColDataArray.lastObject;
+            self.oneColArray = newMArraay;
+            
         } else {
             [self.oneColArray removeLastObject];
         }
+        
+        // 最后的Label 数据，重新赋值
+        UILabel *lastLabel2 = self.daLu_ScrollView.subviews.lastObject;
+        self.daLu_lastLabel = lastLabel2;
+        
+        if (CGRectGetMinY(lastLabel.frame) == 0) {  // Y= 0时，需要把初始值矫正
+            CGFloat margin = 1;
+            CGFloat w = kBDLItemSizeWidth;
+            self.currentColMinX = CGRectGetMinX(lastLabel.frame)-w-margin;
+        }
+        
+        /// 连续和的数量
+    //    self.tieNum = self.tieNum - 1;
+        
     }
     
-    /// 连续和的数量
-//    self.tieNum = self.tieNum - 1;
-    
-    // 最后的Label 数据，重新赋值
-    UILabel *lastLabel2 = self.daLu_ScrollView.subviews.lastObject;
-    self.daLu_lastLabel = lastLabel2;
-    self.currentColMinX = CGRectGetMinX(lastLabel2.frame);
+
     
     NSLog(@"11");
 }
@@ -244,7 +257,6 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         NSInteger maxBlankColumns = [self getMaxBlankColumnsCurrentColX:self.currentColMinX];
         
         if (self.oneColArray.count <= maxBlankColumns) {  // 长龙向下
-            self.currentColMinX = self.daLu_lastLabel.x;
             x = self.daLu_lastLabel.x;
             label.frame = CGRectMake(x, CGRectGetMaxY(self.daLu_lastLabel.frame) + margin, w, h);
             
@@ -465,8 +477,10 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
                 minY = oldY;
                 tempLabel = label;  // 记录这个Label
             }
-        } else {  // 否则移除小于当前的X 值Label
-            [self.allBigColLastLabelArray removeObject:label];
+        } else {
+            // 否则移除小于当前的X 值Label
+            // 这里不能移除掉，因为后退后，还需要
+//            [self.allBigColLastLabelArray removeObject:label];
             NSLog(@"11");
         }
     }

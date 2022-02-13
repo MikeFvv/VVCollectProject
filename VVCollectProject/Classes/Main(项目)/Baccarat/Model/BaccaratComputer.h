@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param index 发牌下标
 + (NSString *)roadListSendCardIndex:(NSInteger)index winType:(WinType)winType pxsType:(PXSType)pxsType;
 
+/// 测试使用  增加长庄长闲
++ (NSString *)testRandomRoadListIndex:(NSInteger)index testIndex:(NSInteger)testIndex;
+
 @end
 
 NS_ASSUME_NONNULL_END
