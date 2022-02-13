@@ -10,7 +10,7 @@
 #define BaccaratCom_h
 
 
-// 输赢类型
+/// 输赢类型
 typedef NS_ENUM(NSInteger, WinType) {
     WinType_None    = 0,    // 未知
     WinType_Banker  = 1,    // 庄赢
@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, WinType) {
     WinType_TIE     = 3,    // 和
 };
 
-// 特殊类型 如 对子 超级6 天牌
+/// 特殊类型 如 对子 超级6 天牌  可以多个类型一起赋值
 typedef NS_OPTIONS(NSInteger, PXSType) {
     PXSType_None            = 0,        // 未知
     PXSType_PlayerPair      = 1 << 0,   // 闲对
@@ -27,27 +27,27 @@ typedef NS_OPTIONS(NSInteger, PXSType) {
     PXSType_SkyCard         = 1 << 3,    // 天牌
     PXSType_Win             = 100,       // 赢
 };
-// 例子
+// 例子  可以多个类型一起赋值
 //self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 
 
-// 下三路颜色类型
+/// 下三路颜色类型
 typedef NS_ENUM(NSInteger, MapColorType) {
-    ColorType_None = 0,   // 未知
-    ColorType_Red = 1,   // 蓝色
-    ColorType_Blue = 2,   // 蓝色
+    ColorType_None  = 0,   // 未知
+    ColorType_Red   = 1,   // 红色
+    ColorType_Blue  = 2,   // 蓝色
 };
 
-// 下三路 路图类型
+/// 下三路 路图类型
 typedef NS_ENUM(NSInteger, RoadMapType) {
-    RoadMapType_None = 0,   // 未知
-    RoadMapType_DYL = 1,   // 大眼路
-    RoadMapType_XL = 2,   // 小路
-    RoadMapType_XQL = 3,   //  曱甴路(小强路) [yuē yóu]
+    RoadMapType_None    = 0,   // 未知
+    RoadMapType_DYL     = 1,   // 大眼路
+    RoadMapType_XL      = 2,   // 小路
+    RoadMapType_XQL     = 3,   //  曱甴路(小强路) [yuē yóu]
 };
 
 
-static const NSString *kUserIdStr = @"10000";
+static const NSString * kUserId_String    = @"99999";
 
 /// 左边视图一半 + 这里多添加的宽度
 static const CGFloat kBAddWidth = 50;
@@ -56,11 +56,14 @@ static const CGFloat kBUNotchSpacing = 30;
 
 
 /// 下三路 Size
-static const int kBItemSizeWidth = 8;
+static const int kBXSLItemSizeWidth = 8;
 /// 大路 Size
 static const int kBDLItemSizeWidth = 12;
 /// 珠盘路 Size
 static const int kBZPLItemSizeWidth = 15;
+/// 边距宽度
+static const int kBMarginWidth = 1;
+
 /// 总网格数量
 static const int kBTotalGridsNum = 300;
 
