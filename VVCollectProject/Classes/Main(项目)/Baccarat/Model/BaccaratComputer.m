@@ -185,5 +185,54 @@
 }
 
 
+/// 测试使用  增加长庄长闲
++ (NSString *)testRandomRoadListIndex:(NSInteger)index testIndex:(NSInteger)testIndex {
+    
+    NSString *numStr = nil;
+    
+    
+    if (testIndex > 35) {
+        numStr = @"5";
+    } else if (testIndex > 22) {
+        numStr = @"7";
+    }
+    
+    if (index == 5) {
+        
+        if (testIndex < 5) {
+            numStr = @"10";
+        } else if (testIndex > 10) {
+            
+            if (testIndex > 18) {
+                if (testIndex > 27) {
+                    if (testIndex > 36) {
+                        if (testIndex > 45) {
+                            if (testIndex > 54) {
+                                numStr = @"1";
+                            } else {
+                                numStr = @"8";
+                            }
+                        } else {
+                            numStr = @"1";
+                        }
+                    } else {
+                        numStr = @"8";
+                    }
+                } else {
+                    numStr = @"1";
+                }
+            } else {
+                numStr = @"8";
+            }
+            
+        } else {
+            numStr = @"1";
+        }
+    }
+    
+    return numStr;
+    
+}
+
 
 @end
