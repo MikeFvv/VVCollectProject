@@ -61,13 +61,46 @@ static const int kAnalyzeRoadMapView_Width = 55;
     [self.leftTableView reloadData];
 }
 
+
 - (void)setWenLuDataArray:(NSArray *)wenLuDataArray {
     _wenLuDataArray = wenLuDataArray;
+    
     if (!wenLuDataArray || wenLuDataArray.count == 0) {
         return;
     }
     
     NSLog(@"11");
+    
+    if (wenLuDataArray.count == 1) {
+        self.wlt_dyl_bankerView.hidden = NO;
+        self.wlt_dyl_playerView.hidden = NO;
+        
+        self.wlt_xl_bankerView.hidden = YES;
+        self.wlt_xl_playerView.hidden = YES;
+        
+        self.bankerLineLayer.hidden = YES;
+        self.playerLineLayer.hidden = YES;
+    } else if (wenLuDataArray.count == 2) {
+        self.wlt_dyl_bankerView.hidden = NO;
+        self.wlt_dyl_playerView.hidden = NO;
+        
+        self.wlt_xl_bankerView.hidden = NO;
+        self.wlt_xl_playerView.hidden = NO;
+        
+        self.bankerLineLayer.hidden = YES;
+        self.playerLineLayer.hidden = YES;
+    } else {
+        self.wlt_dyl_bankerView.hidden = NO;
+        self.wlt_dyl_playerView.hidden = NO;
+        
+        self.wlt_xl_bankerView.hidden = NO;
+        self.wlt_xl_playerView.hidden = NO;
+        
+        self.bankerLineLayer.hidden = NO;
+        self.playerLineLayer.hidden = NO;
+    }
+    
+    
     
     for (NSInteger index = 0; index < wenLuDataArray.count; index++) {
         MapColorType colorType = [wenLuDataArray[index] integerValue];
@@ -83,18 +116,12 @@ static const int kAnalyzeRoadMapView_Width = 55;
         }
         
         if (index == 0) {
-            self.wlt_dyl_bankerView.hidden = NO;
-            self.wlt_dyl_playerView.hidden = NO;
             self.wlt_dyl_bankerView.layer.borderColor = bankerColor.CGColor;
             self.wlt_dyl_playerView.layer.borderColor = playerColor.CGColor;
         } else if (index == 1) {
-            self.wlt_xl_bankerView.hidden = NO;
-            self.wlt_xl_playerView.hidden = NO;
             self.wlt_xl_bankerView.backgroundColor = bankerColor;
             self.wlt_xl_playerView.backgroundColor = playerColor;
         } else if (index == 2) {
-            self.bankerLineLayer.hidden = NO;
-            self.playerLineLayer.hidden = NO;
             self.bankerLineLayer.strokeColor = bankerColor.CGColor;
             self.playerLineLayer.strokeColor = playerColor.CGColor;
         } else {
