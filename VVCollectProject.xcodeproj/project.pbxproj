@@ -1035,18 +1035,18 @@
 		6523E53622EDD42400D304D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				848EE78C276E4A710016CD8A /* BaccaratXiaSanLuView.h */,
-				848EE78D276E4A710016CD8A /* BaccaratXiaSanLuView.m */,
 				40E822FD2332BB240035B246 /* BBigRoadMapView.h */,
 				40E822FE2332BB240035B246 /* BBigRoadMapView.m */,
+				848EE78C276E4A710016CD8A /* BaccaratXiaSanLuView.h */,
+				848EE78D276E4A710016CD8A /* BaccaratXiaSanLuView.m */,
+				848EE783276C82930016CD8A /* BAnalyzeRoadMapView.h */,
+				848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */,
 				A0BCD7B72221ACF800BB3A9C /* BZhuPanLuCollectionView.h */,
 				A0BCD7B82221ACF800BB3A9C /* BZhuPanLuCollectionView.m */,
 				A0A093C82223FB4B00262344 /* BaccaratCollectionViewCell.h */,
 				A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */,
 				65813237231D886E00A3BBFE /* BaccaratDaLuLabel.h */,
 				65813238231D886E00A3BBFE /* BaccaratDaLuLabel.m */,
-				848EE783276C82930016CD8A /* BAnalyzeRoadMapView.h */,
-				848EE784276C82930016CD8A /* BAnalyzeRoadMapView.m */,
 				848EE794276E64270016CD8A /* BUserGameRecordsCell.h */,
 				848EE795276E64270016CD8A /* BUserGameRecordsCell.m */,
 				848EE789276CA9B40016CD8A /* BShowPokerView.h */,
