@@ -115,7 +115,7 @@
     self.roadListLastLabel = lastLabel2;
     
     //    MapColorType model = [self.xsl_DataArray.lastObject integerValue];
-    MapColorType lastMapColorType = [tempMArraay.lastObject integerValue];
+    MapColorType lastMapColorType = [self.newOneColArray.lastObject integerValue];
     self.xsl_lastModel = lastMapColorType;
     
     if (CGRectGetMinY(lastLabel.frame) == 0) {  // Y= 0时，需要把初始值矫正

@@ -2911,7 +2911,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2202070;
+				CURRENT_PROJECT_VERSION = 22020214;
 				DEVELOPMENT_TEAM = 83D3NN4732;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
@@ -2924,7 +2924,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvxc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2940,7 +2940,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2202070;
+				CURRENT_PROJECT_VERSION = 22020214;
 				DEVELOPMENT_TEAM = 83D3NN4732;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
@@ -2953,7 +2953,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvxc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
