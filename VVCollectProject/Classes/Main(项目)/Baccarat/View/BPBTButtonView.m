@@ -40,7 +40,7 @@
         make.edges.equalTo(self);
     }];
     
-    CGFloat bigWidthHeight = 50;
+    CGFloat bigWidthHeight = 55;
     CGFloat bigFont = 22;
     
     

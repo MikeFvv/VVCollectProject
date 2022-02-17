@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 下三路、问路 数据代理
 - (void)getXSLDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray dylDataArray:(NSMutableArray *)dylDataArray xlDataArray:(NSMutableArray *)xlDataArray xqlDataArray:(NSMutableArray *)xqlDataArray;
 
+// 问路 数据代理
+- (void)getWenLuDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray;
 
 @end
 

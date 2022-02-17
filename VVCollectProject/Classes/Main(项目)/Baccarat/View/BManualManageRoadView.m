@@ -143,7 +143,7 @@
     }];
     
     CGFloat smallWidthHeight = 30;
-    CGFloat bigWidthHeight = 50;
+    CGFloat bigWidthHeight = 55;
     CGFloat smallFont = 16;
     CGFloat bigFont = 22;
     
