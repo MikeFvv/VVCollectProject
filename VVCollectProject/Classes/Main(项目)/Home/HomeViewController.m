@@ -26,6 +26,8 @@
 
 #import "UIDevice+ASMandatoryLandscapeDevice.h"
 #import "AppDelegate.h"
+#import "WinOrLoseRecordController.h"
+
 
 #define dispatch_main_async_safe(block)\
 if ([NSThread isMainThread]) {\
@@ -521,6 +523,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
         BlackJackController *vc = [[BlackJackController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }  else if (indexPath.row == 2) {
+        WinOrLoseRecordController *vc = [[WinOrLoseRecordController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
         return;
         GameLoginViewController *gameLoginVC = [[GameLoginViewController alloc]initWithNibName:@"GameLoginViewController" bundle:nil];
         UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:gameLoginVC];
