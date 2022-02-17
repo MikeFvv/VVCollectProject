@@ -1309,16 +1309,23 @@
         self.roadListSelectedWinType = WinType_TIE;
     } else if (buttonTag == 4) {  // 退一个
         
+        BaccaratResultModel *lastModel = self.zhuPanLuResultDataArray.lastObject;
+        
+        if (!lastModel) {
+            return;
+        }
         // 大路
         [self.bigRoadMapView removeLastSubview];
         
-        BaccaratResultModel *lastModel = self.zhuPanLuResultDataArray.lastObject;
         // 无和
         if (lastModel.winType != WinType_TIE) {
             [self.dylXiaSanLuView removeLastSubview];
             [self.xlXiaSanLuView removeLastSubview];
             [self.xqlXiaSanLuView removeLastSubview];
         }
+        
+        //
+        [self calculationResultsSub];
         
         // 珠盘路
         [self.zhuPanLuResultDataArray removeLastObject];
@@ -1365,6 +1372,38 @@
     NSLog(@"1");
 }
 
+#pragma mark -  移除数据时计算结果
+///这是当前桌子数据记录
+- (void)calculationResultsSub {
+    
+    BaccaratResultModel *resultModel = self.zhuPanLuResultDataArray.lastObject;
+    
+//    self.gameStatisticsModel.pokerCount = self.gameStatisticsModel.pokerCount - (resultModel.playerArray.count + resultModel.bankerArray.count);
+    self.gameStatisticsModel.gameNum = self.gameStatisticsModel.gameNum -1;
+    
+    if (resultModel.winType == WinType_Player) {
+        self.gameStatisticsModel.playerNum = self.gameStatisticsModel.playerNum -1;
+    } else if (resultModel.winType == WinType_Banker) {
+        self.gameStatisticsModel.bankerNum = self.gameStatisticsModel.bankerNum -1;
+    } else {
+        self.gameStatisticsModel.tieNum = self.gameStatisticsModel.tieNum -1;
+    }
+    
+    
+    if (resultModel.isPlayerPair) {
+        self.gameStatisticsModel.playerPairNum = self.gameStatisticsModel.playerPairNum -1;
+    }
+    if (resultModel.isBankerPair) {
+        self.gameStatisticsModel.bankerPairNum = self.gameStatisticsModel.bankerPairNum -1;
+    }
+    if (resultModel.isSuperSix) {
+        self.gameStatisticsModel.superNum = self.gameStatisticsModel.superNum -1;
+    }
+    
+    // 赋值总记录
+    self.analyzeRoadMapView.gameStatisticsModel = self.gameStatisticsModel;
+    
+}
 
 //#pragma mark -  浮动返回按钮
 //- (void)setFloatingBackBtnView {
