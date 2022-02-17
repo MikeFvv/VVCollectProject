@@ -277,13 +277,13 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
     NSInteger compareIndex = columnDataArray.count-spacingColumn;
     NSArray *compareColArray = (NSArray *)columnDataArray[compareIndex];
     NSInteger compareCount = compareColArray.count;
-    //    if (compareIndex == 0) {
-    //        compareCount = compareCount -1;
-    //    }
     
     // ****** 庄问路（指路图） 预计下一把的功能******
-    MapColorType wenLuColorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count+1 compareColumnNum:compareCount isFirst:NO];
-    [self.wenLu_DataArray addObject:@(wenLuColorType)];
+    MapColorType wenLuColorType = [self getXSLColorCurrentColumnNum:currentColArray.count+1 compareColumnNum:compareCount isFirst:NO];
+    if (wenLuColorType != ColorType_None) {
+        [self.wenLu_DataArray addObject:@(wenLuColorType)];
+    }
+    
     
     
     if (columnDataArray.count == spacingColumn && currentColArray.count == 1) {
@@ -299,15 +299,15 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         // 路头牌 当前列 的 前一列
         NSArray *lastColTwoColArray = (NSArray *)columnDataArray[columnDataArray.count-(1+1)];
         // 🅰️
-        colorType = [self getDaYanLuColorCurrentColumnNum:lastColTwoColArray.count compareColumnNum:frontTwoColArray.count isFirst:YES];
+        colorType = [self getXSLColorCurrentColumnNum:lastColTwoColArray.count compareColumnNum:frontTwoColArray.count isFirst:YES];
         
         // 🅱️假设  路头牌”之后在大眼仔上添加的颜色应该是假设大路中上一列继续的情况下我们本应在大眼仔上添加的颜色的相反颜色
-        //        colorType = [self getDaYanLuColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count isFirst:NO];
+        //        colorType = [self getXSLColorCurrentColumnNum:frontColArray.count+1 frontColumnNum:frontTwoColArray.count isFirst:NO];
         //        colorType = colorType == ColorType_Red ? ColorType_Blue : ColorType_Red;
         
     } else {
         // 路中牌
-        colorType = [self getDaYanLuColorCurrentColumnNum:currentColArray.count compareColumnNum:compareCount isFirst:NO];
+        colorType = [self getXSLColorCurrentColumnNum:currentColArray.count compareColumnNum:compareCount isFirst:NO];
     }
     
     return colorType;
@@ -318,7 +318,8 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 /// 判断是 红蓝
 /// @param currentColumnNum 当前列数量
 /// @param compareColumnNum  比较列 列数量
-- (MapColorType)getDaYanLuColorCurrentColumnNum:(NSInteger)currentColumnNum compareColumnNum:(NSInteger)compareColumnNum isFirst:(BOOL)isFirst {
+/// @param isFirst  是否列第一个 「路头牌」
+- (MapColorType)getXSLColorCurrentColumnNum:(NSInteger)currentColumnNum compareColumnNum:(NSInteger)compareColumnNum isFirst:(BOOL)isFirst {
     
     // ❗️❗️❗️🅰️-(按照这个方法) 下三路口决：有对写红，无对写蓝，齐脚跳写红，突脚跳写蓝，突脚连写红。(突脚连-是指长庄或长闲)❗️❗️❗️
     // 下三路共有五句口诀：
@@ -355,6 +356,7 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
 
 
 
+#pragma mark -  移除最后一个
 /// 移除最后一个
 - (void)removeLastSubview {
     
@@ -403,10 +405,24 @@ static NSString *const kCellBaccaratCollectionViewId = @"BaccaratCollectionViewC
         [self.dyl_DataArray removeLastObject];
         [self.xl_DataArray removeLastObject];
         [self.xql_DataArray removeLastObject];
-        [self.wenLu_DataArray removeLastObject];
+        
+        [self.wenLu_DataArray removeAllObjects];
         
         /// 连续和的数量
         //    self.tieNum = self.tieNum - 1;
+        
+        
+        [self xsl_ComputerData:self.columnDataArray roadMapType:RoadMapType_DYL];
+        [self xsl_ComputerData:self.columnDataArray roadMapType:RoadMapType_XL];
+        [self xsl_ComputerData:self.columnDataArray roadMapType:RoadMapType_XQL];
+     
+        
+        if ([self.delegate respondsToSelector:@selector(getWenLuDataWithCurrentModel:wenLuDataArray:)]) {
+            NSArray *oneArray = (NSArray *)self.columnDataArray.lastObject;
+            BaccaratResultModel *lastModel = oneArray.lastObject;
+            // 下三路和问题 数据代理
+            [self.delegate getWenLuDataWithCurrentModel:lastModel wenLuDataArray:self.wenLu_DataArray];
+        }
         
     }
 }

@@ -717,6 +717,11 @@
     self.xqlXiaSanLuView.dataArray = xqlDataArray;
 }
 
+// 问路 数据代理
+- (void)getWenLuDataWithCurrentModel:(BaccaratResultModel *)currentModel wenLuDataArray:(NSMutableArray *)wenLuDataArray {
+    self.analyzeRoadMapView.currentModel = currentModel;
+    self.analyzeRoadMapView.wenLuDataArray = wenLuDataArray;
+}
 #pragma mark -  下注记录统计 弹窗
 /// 用户筹码下注记录
 - (void)onBUserChipssViewShowAction {
@@ -1019,10 +1024,10 @@
     [UIView animateWithDuration:0.5 animations:^{
         if (self.manualManageRoadView.frame.origin.y < mxwScreenHeight()) {
             self.chipsView.hidden = NO;
-            self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight(), 360, 100);
+            self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight(), 360, 120);
         } else {
             self.chipsView.hidden = YES;
-            self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight()-100, 360, 100);
+            self.manualManageRoadView.frame = CGRectMake(100, mxwScreenHeight()-120, 360, 120);
         }
     } completion:^(BOOL finished) {
         

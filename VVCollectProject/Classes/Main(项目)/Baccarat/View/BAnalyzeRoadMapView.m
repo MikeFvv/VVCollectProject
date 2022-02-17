@@ -66,6 +66,14 @@ static const int kAnalyzeRoadMapView_Width = 55;
     _wenLuDataArray = wenLuDataArray;
     
     if (!wenLuDataArray || wenLuDataArray.count == 0) {
+        self.wlt_dyl_bankerView.hidden = YES;
+        self.wlt_dyl_playerView.hidden = YES;
+        
+        self.wlt_xl_bankerView.hidden = YES;
+        self.wlt_xl_playerView.hidden = YES;
+        
+        self.bankerLineLayer.hidden = YES;
+        self.playerLineLayer.hidden = YES;
         return;
     }
     
