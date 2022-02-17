@@ -284,6 +284,10 @@
 		84BDC77F27615FD40045354D /* MXWPokerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC77E27615FD40045354D /* MXWPokerView.m */; };
 		84BDC7822761840A0045354D /* PokerCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC7812761840A0045354D /* PokerCardModel.m */; };
 		84E6473627A2D8AE001F2CE4 /* DZMTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6473427A2D8AE001F2CE4 /* DZMTimer.m */; };
+		84FE41C727BEF9C100889AE6 /* WinOrLoseRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41C627BEF9C100889AE6 /* WinOrLoseRecordController.m */; };
+		84FE41CE27BEFF0C00889AE6 /* ZPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41C927BEFF0C00889AE6 /* ZPTableViewCell.m */; };
+		84FE41CF27BEFF0C00889AE6 /* ZPTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FE41CA27BEFF0C00889AE6 /* ZPTableViewCell.xib */; };
+		84FE41D027BEFF0C00889AE6 /* ZPDeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41CB27BEFF0C00889AE6 /* ZPDeal.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -789,6 +793,13 @@
 		84BDC7812761840A0045354D /* PokerCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerCardModel.m; sourceTree = "<group>"; };
 		84E6473427A2D8AE001F2CE4 /* DZMTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZMTimer.m; sourceTree = "<group>"; };
 		84E6473527A2D8AE001F2CE4 /* DZMTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZMTimer.h; sourceTree = "<group>"; };
+		84FE41C527BEF9C100889AE6 /* WinOrLoseRecordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinOrLoseRecordController.h; sourceTree = "<group>"; };
+		84FE41C627BEF9C100889AE6 /* WinOrLoseRecordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WinOrLoseRecordController.m; sourceTree = "<group>"; };
+		84FE41C927BEFF0C00889AE6 /* ZPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPTableViewCell.m; sourceTree = "<group>"; };
+		84FE41CA27BEFF0C00889AE6 /* ZPTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZPTableViewCell.xib; sourceTree = "<group>"; };
+		84FE41CB27BEFF0C00889AE6 /* ZPDeal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPDeal.m; sourceTree = "<group>"; };
+		84FE41CC27BEFF0C00889AE6 /* ZPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPTableViewCell.h; sourceTree = "<group>"; };
+		84FE41CD27BEFF0C00889AE6 /* ZPDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPDeal.h; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -1838,6 +1849,20 @@
 			path = "定时器、倒计时";
 			sourceTree = "<group>";
 		};
+		84FE41C827BEFE3E00889AE6 /* WinLoseRecord(赢输记录) */ = {
+			isa = PBXGroup;
+			children = (
+				84FE41C527BEF9C100889AE6 /* WinOrLoseRecordController.h */,
+				84FE41C627BEF9C100889AE6 /* WinOrLoseRecordController.m */,
+				84FE41CD27BEFF0C00889AE6 /* ZPDeal.h */,
+				84FE41CB27BEFF0C00889AE6 /* ZPDeal.m */,
+				84FE41CC27BEFF0C00889AE6 /* ZPTableViewCell.h */,
+				84FE41C927BEFF0C00889AE6 /* ZPTableViewCell.m */,
+				84FE41CA27BEFF0C00889AE6 /* ZPTableViewCell.xib */,
+			);
+			path = "WinLoseRecord(赢输记录)";
+			sourceTree = "<group>";
+		};
 		A004E78B2226E40A0090DC44 /* BlackJack(21点) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1965,6 +1990,7 @@
 				84B85E812766F6BF009AC598 /* Login&Reg */,
 				A0BE49A12247727D00CDBE43 /* Common */,
 				A004E78B2226E40A0090DC44 /* BlackJack(21点) */,
+				84FE41C827BEFE3E00889AE6 /* WinLoseRecord(赢输记录) */,
 				A0D55E2B221DAFA200D7E3B0 /* Baccarat */,
 				A0821DD221EF3B2600429C20 /* Home */,
 				A0130DE721ECC920007E845B /* Base */,
@@ -2354,6 +2380,7 @@
 				84A8E1DB2777FFE600695055 /* chess_poker_2_13.png in Resources */,
 				84A8E1BC2777FFE600695055 /* jifen.png in Resources */,
 				84A8E1AF2777FFE600695055 /* j_douhao.png in Resources */,
+				84FE41CF27BEFF0C00889AE6 /* ZPTableViewCell.xib in Resources */,
 				84A8E2002777FFE600695055 /* 启动图.jpg in Resources */,
 				84A8E1C42777FFE600695055 /* chess_poker_4_5.png in Resources */,
 				84B85DF52762745D009AC598 /* 华为软件精英挑战赛赛题v1.26.docx in Resources */,
@@ -2666,6 +2693,7 @@
 				84A8D9C6277225C200695055 /* MXWNotchScreen.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */,
+				84FE41D027BEFF0C00889AE6 /* ZPDeal.m in Sources */,
 				84A8DD772777BC8C00695055 /* BBBetMaxMinView.m in Sources */,
 				847D2B2F278195000028C264 /* JMDropMenu.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,
@@ -2673,6 +2701,7 @@
 				A011491D229A5DA800BDD14F /* FYStatusBarHUD.m in Sources */,
 				A0D55E29221D98CA00D7E3B0 /* UINavigationController+HKExts.m in Sources */,
 				277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */,
+				84FE41C727BEF9C100889AE6 /* WinOrLoseRecordController.m in Sources */,
 				6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */,
 				A0C5148B21EE2E4F00E2F89D /* ZipArchive.m in Sources */,
 				84A8D9CA2772326200695055 /* MXWHelper.m in Sources */,
@@ -2733,6 +2762,7 @@
 				6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */,
 				A0DF0869223FCDFA00151F35 /* NSStringController.m in Sources */,
 				84568C91275E9221006C2906 /* UIView+getTopContorller.m in Sources */,
+				84FE41CE27BEFF0C00889AE6 /* ZPTableViewCell.m in Sources */,
 				84B85E58276407DA009AC598 /* GameClient.m in Sources */,
 				847D2B332781D5660028C264 /* BGameRecordAlertView.m in Sources */,
 			);
