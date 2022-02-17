@@ -287,7 +287,7 @@
 		84FE41C727BEF9C100889AE6 /* WinOrLoseRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41C627BEF9C100889AE6 /* WinOrLoseRecordController.m */; };
 		84FE41CE27BEFF0C00889AE6 /* ZPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41C927BEFF0C00889AE6 /* ZPTableViewCell.m */; };
 		84FE41CF27BEFF0C00889AE6 /* ZPTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FE41CA27BEFF0C00889AE6 /* ZPTableViewCell.xib */; };
-		84FE41D027BEFF0C00889AE6 /* ZPDeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41CB27BEFF0C00889AE6 /* ZPDeal.m */; };
+		84FE41D027BEFF0C00889AE6 /* WinLoseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE41CB27BEFF0C00889AE6 /* WinLoseModel.m */; };
 		A004E78E2226E4C10090DC44 /* BlackJackController.m in Sources */ = {isa = PBXBuildFile; fileRef = A004E78D2226E4C10090DC44 /* BlackJackController.m */; };
 		A010CB552261BD8900618A52 /* HackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A010CB542261BD8900618A52 /* HackerViewController.m */; };
 		A011491C229A5DA800BDD14F /* FYStatusBarHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0114919229A5DA700BDD14F /* FYStatusBarHUD.bundle */; };
@@ -797,9 +797,9 @@
 		84FE41C627BEF9C100889AE6 /* WinOrLoseRecordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WinOrLoseRecordController.m; sourceTree = "<group>"; };
 		84FE41C927BEFF0C00889AE6 /* ZPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPTableViewCell.m; sourceTree = "<group>"; };
 		84FE41CA27BEFF0C00889AE6 /* ZPTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZPTableViewCell.xib; sourceTree = "<group>"; };
-		84FE41CB27BEFF0C00889AE6 /* ZPDeal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPDeal.m; sourceTree = "<group>"; };
+		84FE41CB27BEFF0C00889AE6 /* WinLoseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinLoseModel.m; sourceTree = "<group>"; };
 		84FE41CC27BEFF0C00889AE6 /* ZPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPTableViewCell.h; sourceTree = "<group>"; };
-		84FE41CD27BEFF0C00889AE6 /* ZPDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPDeal.h; sourceTree = "<group>"; };
+		84FE41CD27BEFF0C00889AE6 /* WinLoseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinLoseModel.h; sourceTree = "<group>"; };
 		9FD14A291D70E02659C505AA /* Pods-VVCollectProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.release.xcconfig"; sourceTree = "<group>"; };
 		A004E78C2226E4C10090DC44 /* BlackJackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackJackController.h; sourceTree = "<group>"; };
 		A004E78D2226E4C10090DC44 /* BlackJackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackJackController.m; sourceTree = "<group>"; };
@@ -1854,8 +1854,8 @@
 			children = (
 				84FE41C527BEF9C100889AE6 /* WinOrLoseRecordController.h */,
 				84FE41C627BEF9C100889AE6 /* WinOrLoseRecordController.m */,
-				84FE41CD27BEFF0C00889AE6 /* ZPDeal.h */,
-				84FE41CB27BEFF0C00889AE6 /* ZPDeal.m */,
+				84FE41CD27BEFF0C00889AE6 /* WinLoseModel.h */,
+				84FE41CB27BEFF0C00889AE6 /* WinLoseModel.m */,
 				84FE41CC27BEFF0C00889AE6 /* ZPTableViewCell.h */,
 				84FE41C927BEFF0C00889AE6 /* ZPTableViewCell.m */,
 				84FE41CA27BEFF0C00889AE6 /* ZPTableViewCell.xib */,
@@ -2693,7 +2693,7 @@
 				84A8D9C6277225C200695055 /* MXWNotchScreen.m in Sources */,
 				A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */,
 				84B85E7D2766F5F2009AC598 /* MXVUpperButton.m in Sources */,
-				84FE41D027BEFF0C00889AE6 /* ZPDeal.m in Sources */,
+				84FE41D027BEFF0C00889AE6 /* WinLoseModel.m in Sources */,
 				84A8DD772777BC8C00695055 /* BBBetMaxMinView.m in Sources */,
 				847D2B2F278195000028C264 /* JMDropMenu.m in Sources */,
 				A0C5148721EE2E4F00E2F89D /* unzip.c in Sources */,

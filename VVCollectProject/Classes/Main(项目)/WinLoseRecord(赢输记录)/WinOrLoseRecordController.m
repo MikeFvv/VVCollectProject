@@ -7,7 +7,7 @@
 //
 
 #import "WinOrLoseRecordController.h"
-#import "ZPDeal.h"
+#import "WinLoseModel.h"
 #import "ZPTableViewCell.h"
 #import "BGameRecordCell.h"
 
@@ -83,11 +83,10 @@
 - (void)normalAdd
 {
     //创建新对象
-    ZPDeal *deal = [[ZPDeal alloc] init];
-    deal.buyCount = @"20";
-    deal.price = @"30";
+    WinLoseModel *deal = [[WinLoseModel alloc] init];
+    deal.money = @"30";
     deal.title = @"鱼香肉丝";
-    deal.icon = @"2c97690e72365e38e3e2a95b934b8dd2";
+    deal.des = @"2c97690e72365e38e3e2a95b934b8dd2";
     
     /**
      数组的addObject方法会直接把新创建的对象放在数组的末尾，而insertObject方法则可以把对象添加到数组的指定位置。
@@ -116,11 +115,10 @@
     //在UIAlertController上添加“确定”按钮
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //创建新对象
-        ZPDeal *deal = [[ZPDeal alloc] init];
-        deal.buyCount = @"55";
-        deal.price = [[alertController.textFields objectAtIndex:1] text];
+        WinLoseModel *deal = [[WinLoseModel alloc] init];
+        deal.money = [[alertController.textFields objectAtIndex:1] text];
         deal.title = [[alertController.textFields firstObject] text];
-        deal.icon = @"5ee372ff039073317a49af5442748071";
+        deal.des = @"5ee372ff039073317a49af5442748071";
         
         //把新对象插入到对象数组中
         [self.dataArray insertObject:deal atIndex:0];
@@ -163,12 +161,13 @@
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil] withRowAnimation:UITableViewRowAnimationTop];
 }
 
+
 #pragma mark ————— 点击“更新”按钮 —————
 - (void)update
 {
     //修改对象
-    ZPDeal *deal = [self.dataArray objectAtIndex:3];
-    deal.price = [NSString stringWithFormat:@"%d", 50 + arc4random_uniform(100)];
+    WinLoseModel *deal = [self.dataArray objectAtIndex:3];
+    deal.money = [NSString stringWithFormat:@"%d", 50 + arc4random_uniform(100)];
     
     //单行刷新被修改的对象所对应的cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:3 inSection:0], nil] withRowAnimation:UITableViewRowAnimationBottom];
@@ -195,21 +194,21 @@
 {
     NSLog(@"cellForRowAtIndexPath--%zd", indexPath.row);
     
-        ZPTableViewCell *cell = [ZPTableViewCell cellWithTableView:tableView];
-        cell.deal = [self.dataArray objectAtIndex:indexPath.row];
+    ZPTableViewCell *cell = [ZPTableViewCell cellWithTableView:tableView];
+    cell.deal = [self.dataArray objectAtIndex:indexPath.row];
     
     cell.backgroundColor = [UIColor orangeColor];
     
-        return cell;
+    return cell;
     
     
-//    BGameRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BaccaratCell"];
-//    if(cell == nil) {
-//        cell = [BGameRecordCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
-//    }
-//    // 倒序
-//    cell.model = self.zhuPanLuResultDataArray[self.zhuPanLuResultDataArray.count - indexPath.row -1];
-//    return cell;
+    //    BGameRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BaccaratCell"];
+    //    if(cell == nil) {
+    //        cell = [BGameRecordCell cellWithTableView:tableView reusableId:@"BaccaratCell"];
+    //    }
+    //    // 倒序
+    //    cell.model = self.zhuPanLuResultDataArray[self.zhuPanLuResultDataArray.count - indexPath.row -1];
+    //    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -375,13 +374,13 @@
 
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
-        ZPDeal *model1 = [[ZPDeal alloc] init];
+        WinLoseModel *model1 = [[WinLoseModel alloc] init];
         model1.title = @"HHHJKHK";
         
-        ZPDeal *model2 = [[ZPDeal alloc] init];
+        WinLoseModel *model2 = [[WinLoseModel alloc] init];
         model2.title = @"黑科技和客户";
         
-        ZPDeal *model3 = [[ZPDeal alloc] init];
+        WinLoseModel *model3 = [[WinLoseModel alloc] init];
         model3.title = @"一天就看见看见颗粒剂";
         
         _dataArray = [NSMutableArray arrayWithArray:@[model1, model2, model3]];
