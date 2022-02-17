@@ -7,7 +7,7 @@
 //
 
 #import "ZPTableViewCell.h"
-#import "ZPDeal.h"
+#import "WinLoseModel.h"
 
 @interface ZPTableViewCell()
 
@@ -34,14 +34,12 @@
     return cell;
 }
 
--(void)setDeal:(ZPDeal *)deal
+-(void)setDeal:(WinLoseModel *)deal
 {
     _deal = deal;
-    
-    self.iconView.image = [UIImage imageNamed:deal.icon];
     self.titleLabel.text = deal.title;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥ %@", deal.price];
-    self.buyCountLabel.text = [NSString stringWithFormat:@"%@人已购买", deal.buyCount];
+//    self.money.text = [NSString stringWithFormat:@"￥ %@", deal.money;
+//    self.des.text = [NSString stringWithFormat:@"%@人已购买", deal.des];
 }
 
 @end

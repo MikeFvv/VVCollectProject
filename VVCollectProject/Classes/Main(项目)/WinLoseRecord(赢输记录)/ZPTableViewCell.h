@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZPDeal;
+@class WinLoseModel;
 
 @interface ZPTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) ZPDeal *deal;
+@property (nonatomic, strong) WinLoseModel *deal;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
