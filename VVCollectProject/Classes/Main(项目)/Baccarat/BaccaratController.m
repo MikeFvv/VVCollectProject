@@ -241,8 +241,8 @@
 
 - (NSMutableArray*)dataArray
 {
-    if (!_dataArray) { // 8
-        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 16;
+    if (!_dataArray) {
+        NSInteger num = self.pokerNumTextField.text.integerValue ? self.pokerNumTextField.text.integerValue : 8;
         _dataArray = [NSMutableArray arrayWithArray:[VVFunctionManager shuffleArray:self.baccaratDataModel.sortedDeckArray pokerPairsNum:num]];
     }
     return _dataArray;
@@ -807,16 +807,17 @@
     // 总金额 当前用户金额+本次总输赢金额
     self.bUserData.userTotalMoney = self.bUserData.userTotalMoney + model.money;
     self.bUserData.today_InitMoney = self.bUserData.today_InitMoney + model.money;
-    self.bUserData.beforeBetTotalMoney = self.bUserData.userTotalMoney;
+    self.bUserData.beforeBetTotalMoney = self.bUserData.beforeBetTotalMoney + model.money;
     
     if (self.bUserData.userTotalMoney > self.bUserData.today_maxTotalMoney) {
         self.bUserData.today_maxTotalMoney = self.bUserData.userTotalMoney;
     }
     self.bUserData.today_MinTotalMoney = self.bUserData.today_MinTotalMoney + model.money;
     
-    
+    // 更新用户筹码量
     self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
-    
+    // 刷新筹码视图
+    self.chipsView.currentBalance = self.bUserData.userTotalMoney;
     
     [self updateUserData];
 }
@@ -1111,7 +1112,7 @@
     [self.view addSubview:moreBtn];
     
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).offset(10);
+        make.top.equalTo(self.view.mas_top).offset(12);
         make.left.equalTo(self.view.mas_left).offset(25);
         make.size.mas_equalTo(CGSizeMake(25, 20));
     }];
@@ -1130,7 +1131,7 @@
     [self.view addSubview:autoBtn];
     
     [autoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(moreBtn.mas_bottom).offset(10);
+        make.top.equalTo(moreBtn.mas_bottom).offset(13);
         make.left.equalTo(moreBtn.mas_left).offset(0);
         make.size.mas_equalTo(CGSizeMake(35, 28));
     }];
@@ -1204,7 +1205,7 @@
     
     _userChipssView = userChipssView;
     
-    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.userTotalMoney];
+    self.userChipssView.userMoneyLabel.text = [NSString stringWithFormat:@"%ld",self.bUserData.beforeBetTotalMoney];
     
     
     //筹码视图
