@@ -2,8 +2,8 @@
 //  InjectionIIIHelper.h
 //  SYLibDemo 1
 //
-//  Created by zhangshuangyi on 2019/4/13.11
-//  Copyright © 2019 ZHSY. All rights reserved.111222333333333
+//  Created by zhangshuangyi on 2019/4/13.
+//  Copyright © 2019 ZHSY. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
