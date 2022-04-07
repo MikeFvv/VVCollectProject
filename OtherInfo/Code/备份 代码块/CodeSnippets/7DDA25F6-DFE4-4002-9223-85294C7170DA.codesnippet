@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xxUIScrollView</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#pragma mark - xxUIScrollView
+// 注意事项
+// 当我们在view中添加了一个scrollView并设置其约束后，再向scrollView中添加一个以scrollView为基准的约束的控件时，约束会报错，这是因为scrollView需要根据添加在其内部的子控件的宽高及与四周的距离计算出它的contentSize，也就是说内部子控件约束的添加需要遵循两个原则:
+//1、scrollView内部子控件的尺寸不能以scrollView的尺寸为参照
+//2、scrollView内部的子控件的约束必须完整
+//解决方法：
+//1、提供一个具体值的约束
+//2、子控件的尺寸可以参照scrollView以外其它的控件的尺寸(如控制器的view的尺寸)
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];;
+        _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)+1000); // 设置UIScrollView的滚动范围
+        _scrollView.pagingEnabled = YES;
+        //        _scrollView.scrollEnabled = YES;
+        _scrollView.delegate = self;
+        // 隐藏水平滚动条
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        //        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.bounces = NO; // 去掉弹簧效果  YES 为有效果
+        _scrollView.backgroundColor = [UIColor whiteColor];
+    }
+    return _scrollView;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>7DDA25F6-DFE4-4002-9223-85294C7170DA</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xxUIScrollView</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

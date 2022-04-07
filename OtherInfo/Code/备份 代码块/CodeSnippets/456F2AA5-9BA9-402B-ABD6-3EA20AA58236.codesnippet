@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xxUIButton</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>UIButton *confirmBtn = [[UIButton alloc] init];
+[confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
+[confirmBtn addTarget:self action:@selector(confirmBtn:) forControlEvents:UIControlEventTouchUpInside];
+confirmBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+[confirmBtn setImage:[UIImage imageNamed:@"dial_mute"] forState:UIControlStateNormal];
+confirmBtn.backgroundColor = [UIColor redColor];
+confirmBtn.layer.borderWidth = 1.0;
+confirmBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+confirmBtn.layer.cornerRadius = 5;
+confirmBtn.tag = 103;
+[self.view addSubview:confirmBtn];
+
+[confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(self.view.mas_top).offset(100);
+    make.left.equalTo(self.view.mas_left).offset(100);
+    make.size.mas_equalTo(CGSizeMake(100, 50));
+}];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>456F2AA5-9BA9-402B-ABD6-3EA20AA58236</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xxUIButton</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

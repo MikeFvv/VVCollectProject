@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xxUILabel</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>UILabel *nameLabel = [[UILabel alloc] init];
+nameLabel.text = @"--";
+nameLabel.font = [UIFont systemFontOfSize:14];
+nameLabel.textColor = [UIColor darkGrayColor];
+nameLabel.textAlignment = NSTextAlignmentCenter;
+[self.view addSubview:nameLabel];
+_nameLabel = nameLabel;
+
+[nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(self.view.mas_top).offset(10);
+    make.left.equalTo(self.view.mas_left).offset(10);
+}];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>9ED0DCE1-4162-495A-930F-505CFBC88687</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xxUILabel</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

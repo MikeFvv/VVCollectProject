@@ -1,0 +1,86 @@
+//
+//  MMInjectionIIIHelper.m
+//  LotteryBoxT
+//
+//  Created by Mike on 2020/3/10.
+//  Copyright © 2020 fhcq. All rights reserved.
+//
+
+#import "MMInjectionIIIHelper.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
+#import "BaseView.h"
+
+
+@implementation MMInjectionIIIHelper
+
+
+/**
+ InjectionIII 热部署会调用的一个方法，
+ runtime给VC绑定上之后，每次部署完就重新viewDidLoad
+ */
+void injected (id self, SEL _cmd) {
+    //vc 刷新
+    if ([self isKindOfClass:[UIViewController class]]) {
+        [self loadView];
+        [self viewDidLoad];
+        [self viewWillLayoutSubviews];
+        [self viewWillAppear:NO];
+        [self viewDidLoad];
+    }
+    //view 刷新
+    else if ([self isKindOfClass:[UIView class]]){
+        
+        if ([self isKindOfClass:[BaseView class]]){
+            [self initSetupSubviews];
+            [self makeSubViewConstraints];
+        }
+        
+        UIViewController *vc = [MMInjectionIIIHelper viewControllerSupportView:self];
+        if (vc && [vc isKindOfClass:[UIViewController class]]) {
+            [vc loadView];
+            [vc viewDidLoad];
+            [vc viewWillLayoutSubviews];
+            [vc viewWillAppear:NO];
+        }
+        
+    }
+}
+
+/**
+ 获取view 所属的vc，失败为nil
+ */
++ (UIViewController *)viewControllerSupportView:(UIView *)view {
+    for (UIView* next = [view superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
++ (void)load
+{
+#if DEBUG
+    //注册项目启动监听
+    __block id observer =
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+
+        //更改bundlePath
+        [[NSBundle bundleWithPath:@"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"] load];
+
+        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+    }];
+    
+//    //给UIViewController 注册injected 方法
+//    class_addMethod([UIViewController class], NSSelectorFromString(@"injected"), (IMP)injected, "v@:");
+//    //给uiview 注册injected 方法
+//    class_addMethod([UIView class], NSSelectorFromString(@"injected"), (IMP)injected, "v@:");
+//    //统一添加 injected 方法
+    class_addMethod([NSObject class], NSSelectorFromString(@"injected"), (IMP)injected, "v@:");
+    
+#endif
+}
+
+@end
