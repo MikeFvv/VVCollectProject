@@ -27,6 +27,8 @@
 		40CF061D2319786D00932821 /* PointListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF061C2319786D00932821 /* PointListController.m */; };
 		40E822FF2332BB240035B246 /* BBigRoadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E822FE2332BB240035B246 /* BBigRoadMapView.m */; };
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
+		5E6DD133280FD9D100941703 /* UIButton+Delay.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DD12F280FD9D100941703 /* UIButton+Delay.m */; };
+		5E6DD134280FD9D100941703 /* UIButton+touch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DD131280FD9D100941703 /* UIButton+touch.m */; };
 		6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52222ED9B6100D304D3 /* CountDownController.m */; };
 		6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */; };
 		65813236231D396900A3BBFE /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813235231D396900A3BBFE /* UIView+Extension.m */; };
@@ -410,6 +412,10 @@
 		40CF061C2319786D00932821 /* PointListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointListController.m; sourceTree = "<group>"; };
 		40E822FD2332BB240035B246 /* BBigRoadMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBigRoadMapView.h; sourceTree = "<group>"; };
 		40E822FE2332BB240035B246 /* BBigRoadMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBigRoadMapView.m; sourceTree = "<group>"; };
+		5E6DD12F280FD9D100941703 /* UIButton+Delay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Delay.m"; sourceTree = "<group>"; };
+		5E6DD130280FD9D100941703 /* UIButton+touch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+touch.h"; sourceTree = "<group>"; };
+		5E6DD131280FD9D100941703 /* UIButton+touch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+touch.m"; sourceTree = "<group>"; };
+		5E6DD132280FD9D100941703 /* UIButton+Delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Delay.h"; sourceTree = "<group>"; };
 		6523E52122ED9B6100D304D3 /* CountDownController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownController.h; sourceTree = "<group>"; };
 		6523E52222ED9B6100D304D3 /* CountDownController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownController.m; sourceTree = "<group>"; };
 		6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+CQBlockSupport.m"; sourceTree = "<group>"; };
@@ -1041,6 +1047,17 @@
 				40CBE2922517C77800572FEF /* UIKitBaseController.m */,
 			);
 			path = "UIKit-基础";
+			sourceTree = "<group>";
+		};
+		5E6DD12E280FD9D100941703 /* UIButton-touch */ = {
+			isa = PBXGroup;
+			children = (
+				5E6DD12F280FD9D100941703 /* UIButton+Delay.m */,
+				5E6DD130280FD9D100941703 /* UIButton+touch.h */,
+				5E6DD131280FD9D100941703 /* UIButton+touch.m */,
+				5E6DD132280FD9D100941703 /* UIButton+Delay.h */,
+			);
+			path = "UIButton-touch";
 			sourceTree = "<group>";
 		};
 		6523E52022ED9B2800D304D3 /* 倒计时 */ = {
@@ -1923,6 +1940,7 @@
 		A0130DC121ECB78D007E845B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				5E6DD12E280FD9D100941703 /* UIButton-touch */,
 				847D2B2C278195000028C264 /* JMDropMenu */,
 				84A8D9E527725C8B00695055 /* UIAlertView+Blocks */,
 				84A8D9CB2772579A00695055 /* CustomIOSAlertView */,
@@ -2610,6 +2628,7 @@
 				2754458123FD4A130012DC60 /* InjectionManager.m in Sources */,
 				84B85E602764AD52009AC598 /* BJSendPokerView.m in Sources */,
 				A0F91FD3222ECCB500C4EE9C /* BJClub.m in Sources */,
+				5E6DD134280FD9D100941703 /* UIButton+touch.m in Sources */,
 				84B85E122763C0EC009AC598 /* ProbabilityComputer.m in Sources */,
 				84B85DE827626B7E009AC598 /* BetRecord.m in Sources */,
 				84B85E5127640736009AC598 /* ProbAI.m in Sources */,
@@ -2677,6 +2696,7 @@
 				A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */,
 				A0F607B72237CAFC002CD70B /* BlackJackCell.m in Sources */,
 				84B85E0227629315009AC598 /* CardGroupComparator.m in Sources */,
+				5E6DD133280FD9D100941703 /* UIButton+Delay.m in Sources */,
 				A0BCC31321E8BA6F00CEA8ED /* main.m in Sources */,
 				84B85E5327640736009AC598 /* MoreAI.m in Sources */,
 				65DCBA0823277D3F00D89C4F /* BaccaratResultModel.m in Sources */,
