@@ -271,7 +271,7 @@
 
 -(void)copyButtonAction {
 //    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-//    DLog(@"%@",[EPVUserInfoModel getUserInfoModel].link_text);
+//    BMLog(@"%@",[EPVUserInfoModel getUserInfoModel].link_text);
 //    pasteboard.string = [EPVUserInfoModel getUserInfoModel].link_text;
 //    [MBProgressHUD showSuccessMessage:@"复制推广链接成功"];
 //    [[SensorsAnalyticsSDK sharedInstance] track:@"InviteFriend" withProperties:@{@"invite_entrance":self.entryStr,@"invitebutton_type":@"分享推广链接"}];
@@ -310,7 +310,7 @@
 //            if (@(pointReward).boolValue) {
 //                [[SensorsAnalyticsSDK sharedInstance] track:@"GenerateGoldCoin" withProperties:@{@"generate_method":@"保存二维码",@"generate_quantity":@(pointReward)}];
 //            }
-//            DLog(@"%@",responseObject);
+//            BMLog(@"%@",responseObject);
 //        } failure:^(NSError *error) {
 //            
 //        }];

@@ -62,7 +62,13 @@
     [self setRootViewController:NO];
     
     
+    CGFloat heiggg = [UIDevice statusBarHeight];
+    CGFloat heigggaa = [UIDevice bm_safeDistanceTop];
+    CGFloat heigggbb = [UIDevice bm_statusBarHeight];
     
+    CGFloat heigggcc = [UIDevice bm_safeDistanceBottom];
+    
+    BMLog(@"%f, %f", heigggaa, heigggcc);
     
     // 刷新率
 //    [self.window addSubview:[[YYFPSLabel alloc] initWithFrame:CGRectMake(20, 70, 0, 0)]];

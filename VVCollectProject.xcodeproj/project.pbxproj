@@ -29,6 +29,7 @@
 		4681DEFCF14F6DF0046213BB /* libPods-VVCollectProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D3CC83E09FCF08077C010 /* libPods-VVCollectProject.a */; };
 		5E6DD133280FD9D100941703 /* UIButton+Delay.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DD12F280FD9D100941703 /* UIButton+Delay.m */; };
 		5E6DD134280FD9D100941703 /* UIButton+touch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DD131280FD9D100941703 /* UIButton+touch.m */; };
+		5EFA4DAB28E2F27600ABEFC9 /* UIDevice+BMAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFA4DAA28E2F27600ABEFC9 /* UIDevice+BMAddition.m */; };
 		6523E52322ED9B6100D304D3 /* CountDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52222ED9B6100D304D3 /* CountDownController.m */; };
 		6523E52622ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */; };
 		65813236231D396900A3BBFE /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65813235231D396900A3BBFE /* UIView+Extension.m */; };
@@ -417,6 +418,8 @@
 		5E6DD131280FD9D100941703 /* UIButton+touch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+touch.m"; sourceTree = "<group>"; };
 		5E6DD132280FD9D100941703 /* UIButton+Delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Delay.h"; sourceTree = "<group>"; };
 		5EF9A73728703EFA00BDEAB2 /* ColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMacro.h; sourceTree = "<group>"; };
+		5EFA4DA928E2F27600ABEFC9 /* UIDevice+BMAddition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+BMAddition.h"; sourceTree = "<group>"; };
+		5EFA4DAA28E2F27600ABEFC9 /* UIDevice+BMAddition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+BMAddition.m"; sourceTree = "<group>"; };
 		6523E52122ED9B6100D304D3 /* CountDownController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownController.h; sourceTree = "<group>"; };
 		6523E52222ED9B6100D304D3 /* CountDownController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownController.m; sourceTree = "<group>"; };
 		6523E52422ED9C0D00D304D3 /* NSTimer+CQBlockSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+CQBlockSupport.m"; sourceTree = "<group>"; };
@@ -2002,6 +2005,8 @@
 				A0BF4F55223BD2400038422F /* VVAdaptUI.h */,
 				84A59209273D9B240071D524 /* MXWAdapter.h */,
 				84A5920A273D9B240071D524 /* MXWAdapter.m */,
+				5EFA4DA928E2F27600ABEFC9 /* UIDevice+BMAddition.h */,
+				5EFA4DAA28E2F27600ABEFC9 /* UIDevice+BMAddition.m */,
 				84A8D9C4277225C200695055 /* MXWNotchScreen.h */,
 				84A8D9C5277225C200695055 /* MXWNotchScreen.m */,
 				84A8D9C7277226BE00695055 /* MXWCommonDefines.h */,
@@ -2674,6 +2679,7 @@
 				84568C83275E8255006C2906 /* MXWBaiJiaShareAlert.m in Sources */,
 				847D2B1E2780B98A0028C264 /* BStatisticssReusableView.m in Sources */,
 				84B85E5027640736009AC598 /* SelectAI.m in Sources */,
+				5EFA4DAB28E2F27600ABEFC9 /* UIDevice+BMAddition.m in Sources */,
 				84B85E192763DE6A009AC598 /* AdvancedAI.m in Sources */,
 				84B85DE527626A93009AC598 /* BetState.m in Sources */,
 				84B85E162763D117009AC598 /* TwoAI.m in Sources */,

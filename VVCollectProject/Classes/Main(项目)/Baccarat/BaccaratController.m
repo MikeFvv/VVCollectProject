@@ -1438,15 +1438,15 @@
 //    };
 //
 //    self.backDragView.beginDragBlock = ^(WMDragView *dragView) {
-//        DLog(@"开始拖曳");
+//        BMLog(@"开始拖曳");
 //    };
 //
 //    self.backDragView.endDragBlock = ^(WMDragView *dragView) {
-//        DLog(@"结束拖曳");
+//        BMLog(@"结束拖曳");
 //    };
 //
 //    self.backDragView.duringDragBlock = ^(WMDragView *dragView) {
-//        DLog(@"拖曳中...");
+//        BMLog(@"拖曳中...");
 //    };
 //}
 
