@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-    DLog(@"1");
+    BMLog(@"1");
 }
 
 

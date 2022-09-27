@@ -10,12 +10,13 @@
 #define Macros_h
 
 
-#pragma mark - DebugLog 输出打印
+#pragma mark - DebugLog 输出打印日志
 #ifdef DEBUG
-# define DLog(format, ...) printf("\n%s HHLog %s(line%d) %s\n%s\n\n", __TIME__, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String]);
+# define BMLog(format, ...) printf("\n\n----------------------------「LOG-BMLog」----------------------------\n%s 🔸文件: %s 🔸行: %d 🔸方法: %s 🔸线程: %s \n⭕️内容: %s\n-------------------------------「END」------------------------------- \n\n", __TIME__, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat: @"%@", [NSThread currentThread]] UTF8String], [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String]);
 #else
-# define DLog(...);
+# define NSLog(...);
 #endif
+
 
 
 #pragma mark - weakify 弱引用

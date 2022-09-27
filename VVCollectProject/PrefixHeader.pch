@@ -17,6 +17,8 @@
 #import "UIResponder+Router.h"
 #import "UIColor+Hex.h"
 #import "MXWAdapter.h"
+#import "UIDevice+BMAddition.h"
+
 
 // *** 第三方 ***
 #import "Masonry.h"
