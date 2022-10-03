@@ -1,4 +1,10 @@
-
+//
+//  UIColor+Hex.h
+//  VVCollectProject
+//
+//  Created by lvan Lewis on 2022/2/22.
+//  Copyright © 2022 Mike. All rights reserved.
+//
 
 #import "UIColor+Hex.h"
 

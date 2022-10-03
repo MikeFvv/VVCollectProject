@@ -22,6 +22,7 @@
 		276DBB072563D04800FD6E8A /* MMVersionControlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DBB052563D04800FD6E8A /* MMVersionControlManager.m */; };
 		277EDF482577966B0068ECD6 /* NSCarriedCTim.m in Sources */ = {isa = PBXBuildFile; fileRef = 277EDF472577966B0068ECD6 /* NSCarriedCTim.m */; };
 		400DD6AF231C159B00CA0E5D /* BaccaratConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */; };
+		40B4589D28D8BC3B00F6431D /* SingleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B4589B28D8BC3B00F6431D /* SingleObject.m */; };
 		40CBE28F2517C77300572FEF /* FoundationBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CBE28D2517C77200572FEF /* FoundationBaseController.m */; };
 		40CBE2932517C77800572FEF /* UIKitBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CBE2922517C77800572FEF /* UIKitBaseController.m */; };
 		40CF061D2319786D00932821 /* PointListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF061C2319786D00932821 /* PointListController.m */; };
@@ -405,6 +406,8 @@
 		38FEB380A03656623BD1A67D /* Pods-VVCollectProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VVCollectProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject.debug.xcconfig"; sourceTree = "<group>"; };
 		400DD6AD231C159B00CA0E5D /* BaccaratConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaccaratConfigController.h; sourceTree = "<group>"; };
 		400DD6AE231C159B00CA0E5D /* BaccaratConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaccaratConfigController.m; sourceTree = "<group>"; };
+		40B4589B28D8BC3B00F6431D /* SingleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleObject.m; sourceTree = "<group>"; };
+		40B4589C28D8BC3B00F6431D /* SingleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleObject.h; sourceTree = "<group>"; };
 		40CBE28D2517C77200572FEF /* FoundationBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoundationBaseController.m; sourceTree = "<group>"; };
 		40CBE28E2517C77200572FEF /* FoundationBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoundationBaseController.h; sourceTree = "<group>"; };
 		40CBE2912517C77800572FEF /* UIKitBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitBaseController.h; sourceTree = "<group>"; };
@@ -1213,6 +1216,8 @@
 				84BDC77C276159470045354D /* 无网络 */,
 				84568C89275E8D13006C2906 /* FunctionManager.h */,
 				84568C8A275E8D13006C2906 /* FunctionManager.m */,
+				40B4589C28D8BC3B00F6431D /* SingleObject.h */,
+				40B4589B28D8BC3B00F6431D /* SingleObject.m */,
 				276C91D22691610300377224 /* MFHTimeManager.h */,
 				276C91D32691610400377224 /* MFHTimeManager.m */,
 				84B0652727859BDB00FC09D0 /* WHGradientHelper.h */,
@@ -2642,6 +2647,7 @@
 				847D2B18277E40D80028C264 /* BStatisticsAlertView.m in Sources */,
 				84A8D9CE2772579A00695055 /* CustomIOSAlertView.m in Sources */,
 				84A8E20B27790BC900695055 /* BPockerView.m in Sources */,
+				40B4589D28D8BC3B00F6431D /* SingleObject.m in Sources */,
 				84B85DDC276264CF009AC598 /* ComCardManager.m in Sources */,
 				84A8DEFB2777FC8C00695055 /* CFVIntergalView.m in Sources */,
 				84BDC7822761840A0045354D /* PokerCardModel.m in Sources */,
