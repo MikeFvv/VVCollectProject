@@ -1,0 +1,23 @@
+PODS:
+  - RZColorfulSwift (0.3.0)
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - RZColorfulSwift (from `../`)
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  RZColorfulSwift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  RZColorfulSwift: 1f2195a34a7a3b000979b3b664ebe550091663d3
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: d89769aa04576d06074e46ae4ca31c151cdb9f02
+
+COCOAPODS: 1.11.3

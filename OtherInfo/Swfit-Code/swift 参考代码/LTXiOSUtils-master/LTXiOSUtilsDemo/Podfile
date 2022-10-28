@@ -1,0 +1,30 @@
+source "https://github.com/CocoaPods/Specs.git"
+
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
+platform :ios, '12.0'
+
+target 'LTXiOSUtilsDemo' do
+
+  inhibit_all_warnings!
+
+  pod 'LTXiOSUtils', :path => '../'
+
+  pod 'BetterCodable', '0.4.0'
+
+  # 代码规范限制与自动纠正，嵌入到Build流程中
+  pod 'SwiftFormat/CLI', '0.47.13', :configurations => ['Debug']
+
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+          if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 12.0
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+          end
+
+          config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+
+        end
+    end
+end

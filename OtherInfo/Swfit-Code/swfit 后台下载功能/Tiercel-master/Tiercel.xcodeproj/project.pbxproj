@@ -1,0 +1,585 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E1EBF45024E9957E00697485 /* Tiercel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EBF44624E9957E00697485 /* Tiercel.framework */; };
+		E1EBF45524E9957E00697485 /* TiercelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF45424E9957E00697485 /* TiercelTests.swift */; };
+		E1EBF45724E9957E00697485 /* Tiercel.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EBF44924E9957E00697485 /* Tiercel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1EBF49F24E9968900697485 /* Data+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48524E9968900697485 /* Data+Hash.swift */; };
+		E1EBF4A024E9968900697485 /* CodingUserInfoKey+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48624E9968900697485 /* CodingUserInfoKey+Cache.swift */; };
+		E1EBF4A124E9968900697485 /* Int64+TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48724E9968900697485 /* Int64+TaskInfo.swift */; };
+		E1EBF4A224E9968900697485 /* URLSession+ResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48824E9968900697485 /* URLSession+ResumeData.swift */; };
+		E1EBF4A324E9968900697485 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48924E9968900697485 /* Array+Safe.swift */; };
+		E1EBF4A424E9968900697485 /* FileManager+AvailableCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48A24E9968900697485 /* FileManager+AvailableCapacity.swift */; };
+		E1EBF4A524E9968900697485 /* DispatchQueue+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48B24E9968900697485 /* DispatchQueue+Safe.swift */; };
+		E1EBF4A624E9968900697485 /* String+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48C24E9968900697485 /* String+Hash.swift */; };
+		E1EBF4A724E9968900697485 /* Double+TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48D24E9968900697485 /* Double+TaskInfo.swift */; };
+		E1EBF4A824E9968900697485 /* OperationQueue+DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF48E24E9968900697485 /* OperationQueue+DispatchQueue.swift */; };
+		E1EBF4A924E9968900697485 /* URLConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49024E9968900697485 /* URLConvertible.swift */; };
+		E1EBF4AA24E9968900697485 /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49124E9968900697485 /* DownloadTask.swift */; };
+		E1EBF4AB24E9968900697485 /* SessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49224E9968900697485 /* SessionConfiguration.swift */; };
+		E1EBF4AC24E9968900697485 /* Executer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49324E9968900697485 /* Executer.swift */; };
+		E1EBF4AD24E9968900697485 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49424E9968900697485 /* Common.swift */; };
+		E1EBF4AE24E9968900697485 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49524E9968900697485 /* Notifications.swift */; };
+		E1EBF4B024E9968900697485 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49724E9968900697485 /* Cache.swift */; };
+		E1EBF4B124E9968900697485 /* TiercelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49824E9968900697485 /* TiercelError.swift */; };
+		E1EBF4B224E9968900697485 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49924E9968900697485 /* SessionManager.swift */; };
+		E1EBF4B324E9968900697485 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49A24E9968900697485 /* Task.swift */; };
+		E1EBF4B424E9968900697485 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49B24E9968900697485 /* SessionDelegate.swift */; };
+		E1EBF4B524E9968900697485 /* ResumeDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49D24E9968900697485 /* ResumeDataHelper.swift */; };
+		E1EBF4B624E9968900697485 /* FileChecksumHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF49E24E9968900697485 /* FileChecksumHelper.swift */; };
+		E1FE924826E905E200FA3B2E /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE924726E905E200FA3B2E /* Protected.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1EBF45124E9957E00697485 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1EBF43D24E9957E00697485 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1EBF44524E9957E00697485;
+			remoteInfo = Tiercel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E1EBF44624E9957E00697485 /* Tiercel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tiercel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EBF44924E9957E00697485 /* Tiercel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tiercel.h; sourceTree = "<group>"; };
+		E1EBF44A24E9957E00697485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1EBF44F24E9957E00697485 /* TiercelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiercelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EBF45424E9957E00697485 /* TiercelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiercelTests.swift; sourceTree = "<group>"; };
+		E1EBF45624E9957E00697485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1EBF48524E9968900697485 /* Data+Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Hash.swift"; sourceTree = "<group>"; };
+		E1EBF48624E9968900697485 /* CodingUserInfoKey+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Cache.swift"; sourceTree = "<group>"; };
+		E1EBF48724E9968900697485 /* Int64+TaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int64+TaskInfo.swift"; sourceTree = "<group>"; };
+		E1EBF48824E9968900697485 /* URLSession+ResumeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+ResumeData.swift"; sourceTree = "<group>"; };
+		E1EBF48924E9968900697485 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
+		E1EBF48A24E9968900697485 /* FileManager+AvailableCapacity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+AvailableCapacity.swift"; sourceTree = "<group>"; };
+		E1EBF48B24E9968900697485 /* DispatchQueue+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Safe.swift"; sourceTree = "<group>"; };
+		E1EBF48C24E9968900697485 /* String+Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Hash.swift"; sourceTree = "<group>"; };
+		E1EBF48D24E9968900697485 /* Double+TaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+TaskInfo.swift"; sourceTree = "<group>"; };
+		E1EBF48E24E9968900697485 /* OperationQueue+DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OperationQueue+DispatchQueue.swift"; sourceTree = "<group>"; };
+		E1EBF49024E9968900697485 /* URLConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertible.swift; sourceTree = "<group>"; };
+		E1EBF49124E9968900697485 /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
+		E1EBF49224E9968900697485 /* SessionConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionConfiguration.swift; sourceTree = "<group>"; };
+		E1EBF49324E9968900697485 /* Executer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Executer.swift; sourceTree = "<group>"; };
+		E1EBF49424E9968900697485 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		E1EBF49524E9968900697485 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		E1EBF49724E9968900697485 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		E1EBF49824E9968900697485 /* TiercelError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiercelError.swift; sourceTree = "<group>"; };
+		E1EBF49924E9968900697485 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		E1EBF49A24E9968900697485 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		E1EBF49B24E9968900697485 /* SessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
+		E1EBF49D24E9968900697485 /* ResumeDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResumeDataHelper.swift; sourceTree = "<group>"; };
+		E1EBF49E24E9968900697485 /* FileChecksumHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileChecksumHelper.swift; sourceTree = "<group>"; };
+		E1FE924726E905E200FA3B2E /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protected.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E1EBF44324E9957E00697485 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1EBF44C24E9957E00697485 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1EBF45024E9957E00697485 /* Tiercel.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E1EBF43C24E9957E00697485 = {
+			isa = PBXGroup;
+			children = (
+				E1EBF44824E9957E00697485 /* Sources */,
+				E1EBF45324E9957E00697485 /* TiercelTests */,
+				E1EBF44724E9957E00697485 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1EBF44724E9957E00697485 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1EBF44624E9957E00697485 /* Tiercel.framework */,
+				E1EBF44F24E9957E00697485 /* TiercelTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1EBF44824E9957E00697485 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E1EBF44924E9957E00697485 /* Tiercel.h */,
+				E1EBF44A24E9957E00697485 /* Info.plist */,
+				E1EBF48F24E9968900697485 /* General */,
+				E1EBF49C24E9968900697485 /* Utility */,
+				E1EBF48424E9968900697485 /* Extensions */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E1EBF45324E9957E00697485 /* TiercelTests */ = {
+			isa = PBXGroup;
+			children = (
+				E1EBF45424E9957E00697485 /* TiercelTests.swift */,
+				E1EBF45624E9957E00697485 /* Info.plist */,
+			);
+			path = TiercelTests;
+			sourceTree = "<group>";
+		};
+		E1EBF48424E9968900697485 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E1EBF48C24E9968900697485 /* String+Hash.swift */,
+				E1EBF48524E9968900697485 /* Data+Hash.swift */,
+				E1EBF48824E9968900697485 /* URLSession+ResumeData.swift */,
+				E1EBF48724E9968900697485 /* Int64+TaskInfo.swift */,
+				E1EBF48D24E9968900697485 /* Double+TaskInfo.swift */,
+				E1EBF48B24E9968900697485 /* DispatchQueue+Safe.swift */,
+				E1EBF48924E9968900697485 /* Array+Safe.swift */,
+				E1EBF48A24E9968900697485 /* FileManager+AvailableCapacity.swift */,
+				E1EBF48E24E9968900697485 /* OperationQueue+DispatchQueue.swift */,
+				E1EBF48624E9968900697485 /* CodingUserInfoKey+Cache.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E1EBF48F24E9968900697485 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				E1EBF49424E9968900697485 /* Common.swift */,
+				E1EBF49324E9968900697485 /* Executer.swift */,
+				E1EBF49724E9968900697485 /* Cache.swift */,
+				E1EBF49A24E9968900697485 /* Task.swift */,
+				E1EBF49124E9968900697485 /* DownloadTask.swift */,
+				E1EBF49224E9968900697485 /* SessionConfiguration.swift */,
+				E1EBF49924E9968900697485 /* SessionManager.swift */,
+				E1EBF49B24E9968900697485 /* SessionDelegate.swift */,
+				E1EBF49024E9968900697485 /* URLConvertible.swift */,
+				E1EBF49824E9968900697485 /* TiercelError.swift */,
+				E1EBF49524E9968900697485 /* Notifications.swift */,
+				E1FE924726E905E200FA3B2E /* Protected.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		E1EBF49C24E9968900697485 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E1EBF49D24E9968900697485 /* ResumeDataHelper.swift */,
+				E1EBF49E24E9968900697485 /* FileChecksumHelper.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E1EBF44124E9957E00697485 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1EBF45724E9957E00697485 /* Tiercel.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E1EBF44524E9957E00697485 /* Tiercel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1EBF45A24E9957E00697485 /* Build configuration list for PBXNativeTarget "Tiercel" */;
+			buildPhases = (
+				E1EBF44124E9957E00697485 /* Headers */,
+				E1EBF44224E9957E00697485 /* Sources */,
+				E1EBF44324E9957E00697485 /* Frameworks */,
+				E1EBF44424E9957E00697485 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tiercel;
+			productName = Tiercel;
+			productReference = E1EBF44624E9957E00697485 /* Tiercel.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E1EBF44E24E9957E00697485 /* TiercelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1EBF45D24E9957E00697485 /* Build configuration list for PBXNativeTarget "TiercelTests" */;
+			buildPhases = (
+				E1EBF44B24E9957E00697485 /* Sources */,
+				E1EBF44C24E9957E00697485 /* Frameworks */,
+				E1EBF44D24E9957E00697485 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1EBF45224E9957E00697485 /* PBXTargetDependency */,
+			);
+			name = TiercelTests;
+			productName = TiercelTests;
+			productReference = E1EBF44F24E9957E00697485 /* TiercelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1EBF43D24E9957E00697485 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1160;
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = Daniels;
+				TargetAttributes = {
+					E1EBF44524E9957E00697485 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					E1EBF44E24E9957E00697485 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+				};
+			};
+			buildConfigurationList = E1EBF44024E9957E00697485 /* Build configuration list for PBXProject "Tiercel" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E1EBF43C24E9957E00697485;
+			productRefGroup = E1EBF44724E9957E00697485 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1EBF44524E9957E00697485 /* Tiercel */,
+				E1EBF44E24E9957E00697485 /* TiercelTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1EBF44424E9957E00697485 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1EBF44D24E9957E00697485 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E1EBF44224E9957E00697485 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1EBF49F24E9968900697485 /* Data+Hash.swift in Sources */,
+				E1EBF4A424E9968900697485 /* FileManager+AvailableCapacity.swift in Sources */,
+				E1EBF4A924E9968900697485 /* URLConvertible.swift in Sources */,
+				E1EBF4A624E9968900697485 /* String+Hash.swift in Sources */,
+				E1EBF4B124E9968900697485 /* TiercelError.swift in Sources */,
+				E1EBF4AA24E9968900697485 /* DownloadTask.swift in Sources */,
+				E1EBF4A524E9968900697485 /* DispatchQueue+Safe.swift in Sources */,
+				E1EBF4A324E9968900697485 /* Array+Safe.swift in Sources */,
+				E1EBF4A824E9968900697485 /* OperationQueue+DispatchQueue.swift in Sources */,
+				E1EBF4AE24E9968900697485 /* Notifications.swift in Sources */,
+				E1EBF4A024E9968900697485 /* CodingUserInfoKey+Cache.swift in Sources */,
+				E1EBF4B024E9968900697485 /* Cache.swift in Sources */,
+				E1FE924826E905E200FA3B2E /* Protected.swift in Sources */,
+				E1EBF4A124E9968900697485 /* Int64+TaskInfo.swift in Sources */,
+				E1EBF4AC24E9968900697485 /* Executer.swift in Sources */,
+				E1EBF4B624E9968900697485 /* FileChecksumHelper.swift in Sources */,
+				E1EBF4A724E9968900697485 /* Double+TaskInfo.swift in Sources */,
+				E1EBF4B524E9968900697485 /* ResumeDataHelper.swift in Sources */,
+				E1EBF4AB24E9968900697485 /* SessionConfiguration.swift in Sources */,
+				E1EBF4AD24E9968900697485 /* Common.swift in Sources */,
+				E1EBF4B224E9968900697485 /* SessionManager.swift in Sources */,
+				E1EBF4B324E9968900697485 /* Task.swift in Sources */,
+				E1EBF4A224E9968900697485 /* URLSession+ResumeData.swift in Sources */,
+				E1EBF4B424E9968900697485 /* SessionDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1EBF44B24E9957E00697485 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1EBF45524E9957E00697485 /* TiercelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1EBF45224E9957E00697485 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1EBF44524E9957E00697485 /* Tiercel */;
+			targetProxy = E1EBF45124E9957E00697485 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E1EBF45824E9957E00697485 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E1EBF45924E9957E00697485 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E1EBF45B24E9957E00697485 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y3437T5EGX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Daniels.Tiercel;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1EBF45C24E9957E00697485 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y3437T5EGX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Daniels.Tiercel;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E1EBF45E24E9957E00697485 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y3437T5EGX;
+				INFOPLIST_FILE = TiercelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Daniels.TiercelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1EBF45F24E9957E00697485 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y3437T5EGX;
+				INFOPLIST_FILE = TiercelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Daniels.TiercelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1EBF44024E9957E00697485 /* Build configuration list for PBXProject "Tiercel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1EBF45824E9957E00697485 /* Debug */,
+				E1EBF45924E9957E00697485 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1EBF45A24E9957E00697485 /* Build configuration list for PBXNativeTarget "Tiercel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1EBF45B24E9957E00697485 /* Debug */,
+				E1EBF45C24E9957E00697485 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1EBF45D24E9957E00697485 /* Build configuration list for PBXNativeTarget "TiercelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1EBF45E24E9957E00697485 /* Debug */,
+				E1EBF45F24E9957E00697485 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E1EBF43D24E9957E00697485 /* Project object */;
+}

@@ -1,0 +1,6 @@
+framework module Pods_CellCountDown_SwiftTests {
+  umbrella header "Pods-CellCountDown-SwiftTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
