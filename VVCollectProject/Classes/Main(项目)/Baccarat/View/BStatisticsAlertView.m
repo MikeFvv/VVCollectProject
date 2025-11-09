@@ -287,7 +287,7 @@
 
 //头部视图的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(self.width, 30);
+    return CGSizeMake(self.frame.size.width, 30);
 }
 //这个也是最重要的方法 获取Header的 方法。
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath

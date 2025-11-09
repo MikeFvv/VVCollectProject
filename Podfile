@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '18.6'
 
 inhibit_all_warnings!   #解决忽略引入库的所有警告
 
@@ -49,7 +49,7 @@ pod 'MBProgressHUD', '~> 1.1.0'
 
 
 # YYKit
-pod 'YYKit'
+#pod 'YYKit'
 
 #pod 'YYModel'
 #pod 'YYCache'

@@ -70,7 +70,7 @@
         viewController.hidesBottomBarWhenPushed = YES;
         [self setBackBtnItemNavVC:viewController];
     }
-    [super pushViewController:viewController animated:YES];
+    [super pushViewController:viewController animated:animated];
 }
 //设置：默认返回按钮
 - (void)setBackBtnItemNavVC:(UIViewController *)viewController {
@@ -92,7 +92,7 @@
     
     [btn addTarget:self action:@selector(leftBarBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 //    btn.size = imageNormal.size;
-    btn.size = CGSizeMake(45, 35);
+    btn.frame = CGRectMake(0, 0, 45, 35);
     
     UIBarButtonItem * BarBtnItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     viewController.navigationItem.leftBarButtonItem = BarBtnItem;
@@ -136,24 +136,24 @@
 //    [bar setBackgroundImage:[UIImage zm_resizeImage:@"NavigationBar_Background.png"] forBarMetrics:UIBarMetricsDefault];
 //    // 状态栏
 //    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-//    
+//
 //    // 2.设置导航栏文字属性
 //    NSMutableDictionary *barAttrs = [NSMutableDictionary dictionary];
 //    [barAttrs setObject:[UIColor darkGrayColor] forKey:NSForegroundColorAttributeName];
 //    [barAttrs setObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:NSShadowAttributeName];
 //    [bar setTitleTextAttributes:barAttrs];
-//    
+//
 //    // 3.按钮
 //    UIBarButtonItem *item = [UIBarButtonItem appearance];
 //    [item setBackgroundImage:[UIImage zm_stretchableImage:@"BarButtonItem_Normal.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 //    [item setBackgroundImage:[UIImage zm_stretchableImage:@"BarButtonItem_Pressed.png"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-//    
+//
 //    NSMutableDictionary *itemAttrs = [NSMutableDictionary dictionaryWithDictionary:barAttrs];
 //    [itemAttrs setObject:[UIFont boldSystemFontOfSize:13] forKey:NSFontAttributeName];
 //    [item setTitleTextAttributes:itemAttrs forState:UIControlStateNormal];
 //    [item setTitleTextAttributes:itemAttrs forState:UIControlStateHighlighted];
 //    [item setTitleTextAttributes:itemAttrs forState:UIControlStateDisabled];
-//    
+//
 //    // 4.返回按钮
 //    [item setBackButtonBackgroundImage:[UIImage zm_stretchableImage:@"BarButtonItem_Back_Normal.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 //    [item setBackButtonBackgroundImage:[UIImage zm_stretchableImage:@"BarButtonItem_Back_Pressed.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

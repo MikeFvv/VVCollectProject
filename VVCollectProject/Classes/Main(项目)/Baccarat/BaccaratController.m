@@ -155,7 +155,11 @@
     [super viewDidLoad];
     
     [self initData];
-    [self createUI];
+    
+    // 延迟 1 秒再允许旋转、切换横屏并跳转控制器（在主线程执行）
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self createUI];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -177,7 +181,7 @@
 - (void)initData {
     
     self.isAutoRunAll = NO;
-    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌"];
+    self.titleArr = @[@"返回",@"充值",@"游戏记录",@"余额记录",@"设置",@"更换赌桌",@"全部统计"];
     self.testIndex = 0;
     self.isTableEnd = NO;
     self.dataArray = nil;
@@ -1005,7 +1009,7 @@
 }
 
 - (void)onMoreBtnMethod {
-    [JMDropMenu showDropMenuFrame:CGRectMake(kBUNotchSpacing + 5, 36, 120, kBMoreColHeight*6+10) ArrowOffset:16.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:kBMoreColHeight Delegate:self];
+    [JMDropMenu showDropMenuFrame:CGRectMake(kBUNotchSpacing + 5, 36, 120, kBMoreColHeight*6+10) ArrowOffset:16.f TitleArr:self.titleArr ImageArr:@[@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore",@"icon_appstore"] Type:JMDropMenuTypeWeChat LayoutType:JMDropMenuLayoutTypeNormal RowHeight:kBMoreColHeight Delegate:self];
 }
 
 - (void)onAtuoShowView {
@@ -1049,6 +1053,7 @@
         [UIDevice deviceMandatoryLandscapeWithNewOrientation:UIInterfaceOrientationPortrait];
         
         [self.navigationController popViewControllerAnimated:true];
+        
     } else if ([title isEqualToString:@"充值"]) {
         //        self.statisticsView.bUserData = self.bUserData;
         [self.topupAlertView showAlertAnimation];
@@ -1075,6 +1080,8 @@
     } else if ([title isEqualToString:@"更换赌桌"]) {
         [self initData];
         [self createUI];
+    } else if ([title isEqualToString:@"全部统计"]) {
+        [self onBUserChipssViewShowAction];
     }
     
 }

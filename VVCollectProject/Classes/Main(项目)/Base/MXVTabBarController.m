@@ -199,11 +199,11 @@
     if (@available(iOS 13, *)) {
         UITabBarAppearance *appearance = [self.tabBar.standardAppearance copy];
         
-//        appearance.backgroundImage = [self imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+//        appearance.backgroundImage = [UIImage imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
 //        appearance.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
         
-        appearance.backgroundImage = [UIImage imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
-        appearance.shadowImage = [UIImage imageWithColor:[UIColor clearColor]];
+        appearance.backgroundImage = [self imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+        appearance.shadowImage = [self imageWithColor:[UIColor clearColor]];
         
         
        

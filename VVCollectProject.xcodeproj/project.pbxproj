@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -302,7 +302,6 @@
 		A0130DE521ECB78D007E845B /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DD621ECB78D007E845B /* NSString+Size.m */; };
 		A0130DEA21ECC92A007E845B /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DE921ECC92A007E845B /* BaseNavigationController.m */; };
 		A0130DED21ECC9DC007E845B /* UIImage+GradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */; };
-		A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */; };
 		A0373A05221A9F5800E112A6 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0373A04221A9F5800E112A6 /* TestViewController.m */; };
 		A0821DD521EF3B4700429C20 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0821DD421EF3B4700429C20 /* HomeViewController.m */; };
 		A0A093CA2223FB4B00262344 /* BaccaratCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A093C92223FB4B00262344 /* BaccaratCollectionViewCell.m */; };
@@ -836,8 +835,6 @@
 		A0130DE921ECC92A007E845B /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		A0130DEB21ECC9DC007E845B /* UIImage+GradientColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GradientColor.h"; sourceTree = "<group>"; };
 		A0130DEC21ECC9DC007E845B /* UIImage+GradientColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GradientColor.m"; sourceTree = "<group>"; };
-		A034FDA92216DEA800081EE2 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
-		A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		A0373A03221A9F5800E112A6 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		A0373A04221A9F5800E112A6 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		A0821DD321EF3B4700429C20 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1958,8 +1955,6 @@
 				6523E52022ED9B2800D304D3 /* 倒计时 */,
 				276C92182691631100377224 /* Encryption */,
 				A0D55E2A221D9B0300D7E3B0 /* RepeatPush */,
-				A034FDA92216DEA800081EE2 /* YYFPSLabel.h */,
-				A034FDAA2216DEA800081EE2 /* YYFPSLabel.m */,
 				A0C5148D21EE2EB800E2F89D /* JSPatchCode.h */,
 				A0C5148E21EE2EB800E2F89D /* JSPatchCode.m */,
 				A0C5147121EE2E4F00E2F89D /* Loader */,
@@ -2596,9 +2591,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VVCollectProject/Pods-VVCollectProject-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2791,7 +2790,6 @@
 				848EE77F276BBE2F0016CD8A /* MBProgressHUD+JDragon.m in Sources */,
 				276C91D1269160C500377224 /* FileHelper.m in Sources */,
 				84568C7D275E824D006C2906 /* MXWAdModel.m in Sources */,
-				A034FDAB2216DEA800081EE2 /* YYFPSLabel.m in Sources */,
 				84A8DF072777FC8D00695055 /* CFVGameCenterViewController.m in Sources */,
 				84A8DEF62777FC8C00695055 /* CFVHeGuanPockerModel.m in Sources */,
 				84B85E6B27658821009AC598 /* BlackJackManager.m in Sources */,
@@ -2984,10 +2982,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20220304;
-				DEVELOPMENT_TEAM = 83D3NN4732;
+				DEVELOPMENT_TEAM = 4S88U6MY8Y;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2997,7 +2995,7 @@
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
 				MARKETING_VERSION = 2.0.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvxc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvxca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3013,10 +3011,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20220304;
-				DEVELOPMENT_TEAM = 83D3NN4732;
+				DEVELOPMENT_TEAM = 4S88U6MY8Y;
 				GCC_PREFIX_HEADER = ./VVCollectProject/PrefixHeader.pch;
 				INFOPLIST_FILE = VVCollectProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3026,7 +3024,7 @@
 					"$(PROJECT_DIR)/VVCollectProject/Classes/Expand/Tools/Extensions/JPLibffi/libffi",
 				);
 				MARKETING_VERSION = 2.0.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvxc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softgarden.qqvvxca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3038,7 +3036,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4S88U6MY8Y;
 				INFOPLIST_FILE = VVCollectProjectTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3056,7 +3056,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4S88U6MY8Y;
 				INFOPLIST_FILE = VVCollectProjectTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3073,7 +3075,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4S88U6MY8Y;
 				INFOPLIST_FILE = VVCollectProjectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3090,7 +3094,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4S88U6MY8Y;
 				INFOPLIST_FILE = VVCollectProjectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

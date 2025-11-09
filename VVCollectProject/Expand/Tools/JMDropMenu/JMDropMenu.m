@@ -99,7 +99,7 @@
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.scrollEnabled = NO;
+        _tableView.scrollEnabled = YES;
         _tableView.layer.masksToBounds = YES;
         _tableView.layer.cornerRadius = 6.f;
         if (_type == JMDropMenuTypeWeChat) {

@@ -30,4 +30,7 @@
 /// 扑克图片名称  公用
 @property (nonatomic, copy) NSString *pokerImg;
 
+
+- (instancetype)modelCopy;
+
 @end

@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger total_winLose_money;
 /// 本次输赢金额  减去了本金
 @property (nonatomic, assign) NSInteger winLose_money;
+
+- (instancetype)modelCopy;
+
 @end
 
 NS_ASSUME_NONNULL_END
